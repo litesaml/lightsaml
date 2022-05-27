@@ -136,9 +136,9 @@ class HttpPostBindingFunctionalTest extends BaseTestCase
         $authnRequest->setID('_8dcc6985f6d9f385f0bbd4562ef848ef3ae78d87d7');
 
         $certificate = new X509Certificate();
-        $certificate->loadFromFile(__DIR__.'/../../../../../resources/sample/Certificate/saml.crt');
+        $certificate->loadFromFile(__DIR__.'/../../../../resources/saml.crt');
 
-        $key = KeyHelper::createPrivateKey(__DIR__.'/../../../../../resources/sample/Certificate/saml.pem', '', true);
+        $key = KeyHelper::createPrivateKey(__DIR__.'/../../../../resources/saml.pem', '', true);
 
         $authnRequest->setSignature(new SignatureWriter($certificate, $key));
 

@@ -16,7 +16,7 @@ class ResponseFunctionalTest extends BaseTestCase
     public function test_deserialize_response01()
     {
         $context = new DeserializationContext();
-        $context->getDocument()->load(__DIR__.'/../../../../../../resources/sample/Response/response01.xml');
+        $context->getDocument()->load(__DIR__.'/../../../../../resources/response01.xml');
 
         $response = new Response();
         $response->deserialize($context->getDocument(), $context);
@@ -92,7 +92,7 @@ class ResponseFunctionalTest extends BaseTestCase
     public function test_deserialize_invalid02()
     {
         $context = new DeserializationContext();
-        $context->getDocument()->load(__DIR__.'/../../../../../../resources/sample/Response/invalid02.xml');
+        $context->getDocument()->load(__DIR__.'/../../../../../resources/invalid02.xml');
 
         $response = new Response();
         $response->deserialize($context->getDocument(), $context);

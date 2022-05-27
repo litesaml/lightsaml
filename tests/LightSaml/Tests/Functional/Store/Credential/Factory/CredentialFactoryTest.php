@@ -18,20 +18,20 @@ class CredentialFactoryTest extends BaseTestCase
         $factory = new CredentialFactory();
 
         $idpStore = new FixedEntityDescriptorStore();
-        $idpStore->add(EntityDescriptor::load(__DIR__.'/../../../../../../../resources/sample/EntityDescriptor/idp-ed.xml'));
+        $idpStore->add(EntityDescriptor::load(__DIR__.'/../../../../../../resources/idp-ed.xml'));
 
         $spStore = new FixedEntityDescriptorStore();
-        $spStore->add(EntityDescriptor::load(__DIR__.'/../../../../../../../resources/sample/EntityDescriptor/sp-ed2.xml'));
+        $spStore->add(EntityDescriptor::load(__DIR__.'/../../../../../../resources/sp-ed2.xml'));
 
         $ownCredential = new X509Credential(
-            X509Certificate::fromFile(__DIR__.'/../../../../../../../resources/sample/Certificate/saml.crt'),
-            KeyHelper::createPrivateKey(__DIR__.'/../../../../../../../resources/sample/Certificate/saml.pem', '', true)
+            X509Certificate::fromFile(__DIR__.'/../../../../../../resources/saml.crt'),
+            KeyHelper::createPrivateKey(__DIR__.'/../../../../../../resources/saml.pem', '', true)
         );
         $ownCredential->setEntityId('own');
 
         $extraCredential = new X509Credential(
-            X509Certificate::fromFile(__DIR__.'/../../../../../../../resources/sample/Certificate/lightsaml-idp.crt'),
-            KeyHelper::createPrivateKey(__DIR__.'/../../../../../../../resources/sample/Certificate/lightsaml-idp.key', '', true)
+            X509Certificate::fromFile(__DIR__.'/../../../../../../resources/lightsaml-idp.crt'),
+            KeyHelper::createPrivateKey(__DIR__.'/../../../../../../resources/lightsaml-idp.key', '', true)
         );
         $extraCredential->setEntityId('extra');
 

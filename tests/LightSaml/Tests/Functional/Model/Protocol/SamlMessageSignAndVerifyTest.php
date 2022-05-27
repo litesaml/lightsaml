@@ -129,7 +129,7 @@ class SamlMessageSignAndVerifyTest extends BaseTestCase
      */
     private function getCertificate()
     {
-        return X509Certificate::fromFile(__DIR__.'/../../../../../../web/sp/saml.crt');
+        return X509Certificate::fromFile(__DIR__.'/../../../../../resources/web_saml.crt');
     }
 
     /**
@@ -137,6 +137,6 @@ class SamlMessageSignAndVerifyTest extends BaseTestCase
      */
     private function getPrivateKey()
     {
-        return KeyHelper::createPrivateKey(__DIR__.'/../../../../../../web/sp/saml.key', null, true);
+        return KeyHelper::createPrivateKey(__DIR__.'/../../../../../resources/web_saml.key', null, true);
     }
 }
