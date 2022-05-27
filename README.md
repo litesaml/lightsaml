@@ -1,26 +1,28 @@
-SAML 2.0 PHP Library
+<p align="center">
+  <img src="/art/banner.png" alt="LightSAML banner">
+</p>
+
+# About Light SAML
 ====================
 
-[![GitHub release](https://img.shields.io/github/release/lightsaml/lightsaml.svg)](https://github.com/lightSAML/lightSAML)
-[![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE)
-[![Run tests](https://github.com/lightSAML/lightSAML/actions/workflows/run_tests.yml/badge.svg)](https://github.com/lightSAML/lightSAML/actions/workflows/run_tests.yml)
-[![Coverage Status](https://coveralls.io/repos/github/lightSAML/lightSAML/badge.svg?branch=master)](https://coveralls.io/github/lightSAML/lightSAML?branch=master)
-[![Scrutinizer](https://scrutinizer-ci.com/g/lightSAML/lightSAML/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/lightSAML/lightSAML/?branch=master)
-[![Packagist Version](https://img.shields.io/packagist/v/lightsaml/lightsaml.svg?style=flat-square)](https://packagist.org/packages/lightsaml/lightsaml)
+[![Run tests](https://github.com/litesaml/lightsaml/actions/workflows/run_tests.yml/badge.svg)](https://github.com/litesaml/lightsaml/actions/workflows/run_tests.yml)
+[![Latest Stable Version](https://poser.pugx.org/litesaml/lightsaml/v/stable)](https://packagist.org/packages/litesaml/lightsaml)
 
-LightSaml Implements basic SAML 2.0 data model classes, serialization/deserialization to/from xml with XML security and
+Light SAML Implements basic SAML 2.0 data model classes, serialization/deserialization to/from xml with XML security and
 certificates support, and message encapsulations to bindings. Covered with unit tests.
 
+## Installation
 
-DOCUMENTATION
-=============
+You can install it via composer:
 
-* [Homepage](http://www.lightsaml.com/LightSAML-Core/)
-* [Installation](http://www.lightsaml.com/LightSAML-Core/Installation/)
-* [Cookbook](http://www.lightsaml.com/LightSAML-Core/Cookbook/)
+```bash
+composer require litesaml/lightsaml
+```
 
+## Documentation
 
-CONTRIBUTING
-============
+You can find our Cookbook in [this dedicated repository](https://github.com/litesaml/cookbook).
 
-LightSaml is an open source project and is open for contributions.
+## Contributing
+
+Light SAML is an open source project and is [open for contributions](https://github.com/litesaml/lightsaml/CONTRIBUTING.md).
