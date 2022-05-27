@@ -3,7 +3,6 @@
 </p>
 
 # About Light SAML
-====================
 
 [![Run tests](https://github.com/litesaml/lightsaml/actions/workflows/run_tests.yml/badge.svg)](https://github.com/litesaml/lightsaml/actions/workflows/run_tests.yml)
 [![Latest Stable Version](https://poser.pugx.org/litesaml/lightsaml/v/stable)](https://packagist.org/packages/litesaml/lightsaml)

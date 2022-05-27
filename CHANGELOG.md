@@ -2,17 +2,25 @@
 
 All notable changes will be documented in this file.
 
+## [3.0.0] - 2022-05-27
++ Move doc in dedicated repository.
++ Move resources files for tests in tests directory.
++ Drop deprecated files.
++ Move schemas in dedecated package.
++ Update composer metadata.
++ Update Readme.
+
 ## [2.3.4] - 2022-05-27
-+ Fix LightSaml\Model\XmlDSig\SignatureXmlReader::validate() exception catching (#158)
++ Fix LightSaml\Model\XmlDSig\SignatureXmlReader::validate() exception catching
 
 ## [2.3.3] - 2022-03-24
-+ Fix return types in LightSaml\Context\AbstractContext & LightSaml\Meta\ParameterBag (#156)
++ Fix return types in LightSaml\Context\AbstractContext & LightSaml\Meta\ParameterBag
 
 ## [2.3.2] - 2022-03-02
-+ Fix param types in LightSaml\Model\Assertion\Conditions class (#155)
++ Fix param types in LightSaml\Model\Assertion\Conditions class
 
 ## [2.3.1] - 2022-03-01
-+ Fix input id in SamlPostResponse (#153)
++ Fix input id in SamlPostResponse
 
 ## [2.3.0] - 2022-02-09
 + Update to symfony packages 6.0
