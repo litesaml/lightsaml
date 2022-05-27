@@ -19,7 +19,7 @@
     "support": {
         "issues": "https://github.com/litesaml/lightsaml/issues",
         "source": "https://github.com/litesaml/lightsaml",
-        "docs": "https://github.com/litesaml/cookbook"
+        "docs": "https://litesaml.github.io"
     },
     "autoload": {
         "psr-0": {

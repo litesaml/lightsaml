@@ -2,8 +2,11 @@
 
 All notable changes will be documented in this file.
 
+## [3.0.2] - 2022-05-27
++ Fix composer documentation settings.
+
 ## [3.0.1] - 2022-05-27
-+ Fix Documentation
++ Fix Documentation.
 
 ## [3.0.0] - 2022-05-27
 + Move doc in dedicated repository.
