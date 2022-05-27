@@ -2,11 +2,14 @@
 
 All notable changes will be documented in this file.
 
+## [3.0.1] - 2022-05-27
++ Fix Documentation
+
 ## [3.0.0] - 2022-05-27
 + Move doc in dedicated repository.
 + Move resources files for tests in tests directory.
 + Drop deprecated files.
-+ Move schemas in dedecated package.
++ Move schemas in dedicated package.
 + Update composer metadata.
 + Update Readme.
 
