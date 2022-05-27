@@ -1,13 +1,3 @@
-# Symfony directories
-vendor/*
-/.idea
 /composer.lock
-/composer.phar
-/bin
-/php-cs-fixer.phar
-/web/sp/*.log
-/web/idp/*.log
-/build/logs
-/phpda.json
-/phpda.svg
-/*.cache
+/vendor/
+/.phpunit.result.cache
