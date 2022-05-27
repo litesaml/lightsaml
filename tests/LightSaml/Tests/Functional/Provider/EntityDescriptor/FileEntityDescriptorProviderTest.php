@@ -11,7 +11,7 @@ class FileEntityDescriptorProviderTest extends BaseTestCase
     public function test_loads_from_file()
     {
         $provider = new FileEntityDescriptorProvider(
-            __DIR__.'/../../../../../../resources/sample/EntityDescriptor/idp-ed.xml'
+            __DIR__.'/../../../../../resources//idp-ed.xml'
         );
 
         $entityDescriptor = $provider->get();

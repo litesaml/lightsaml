@@ -18,7 +18,7 @@ class AuthnRequestFunctionalTest extends BaseTestCase
     public function test__deserialize_request01()
     {
         $context = new DeserializationContext();
-        $context->getDocument()->load(__DIR__.'/../../../../../../resources/sample/Request/request01.xml');
+        $context->getDocument()->load(__DIR__.'/../../../../../resources/request01.xml');
 
         $request = new AuthnRequest();
         $request->deserialize($context->getDocument(), $context);
@@ -41,8 +41,8 @@ class AuthnRequestFunctionalTest extends BaseTestCase
     public function test__signed_serialize_deserialize()
     {
         $certificate = new X509Certificate();
-        $certificate->loadFromFile(__DIR__.'/../../../../../../web/sp/saml.crt');
-        $privateKey = KeyHelper::createPrivateKey(__DIR__.'/../../../../../../web/sp/saml.key', null, true);
+        $certificate->loadFromFile(__DIR__.'/../../../../../resources/web_saml.crt');
+        $privateKey = KeyHelper::createPrivateKey(__DIR__.'/../../../../../resources/web_saml.key', null, true);
 
         $authnRequest = new AuthnRequest();
         $authnRequest->setID('_894da3368874d2dd637983b6812f66c444f100f205');
@@ -72,7 +72,7 @@ class AuthnRequestFunctionalTest extends BaseTestCase
         $signatureReader = $authnRequest->getSignature();
         if ($signatureReader instanceof SignatureXmlReader) {
             $certificate = new X509Certificate();
-            $certificate->loadFromFile(__DIR__.'/../../../../../../web/sp/saml.crt');
+            $certificate->loadFromFile(__DIR__.'/../../../../../resources/web_saml.crt');
             $key = KeyHelper::createPublicKey($certificate);
             $ok = $signatureReader->validate($key);
             $this->assertTrue($ok);

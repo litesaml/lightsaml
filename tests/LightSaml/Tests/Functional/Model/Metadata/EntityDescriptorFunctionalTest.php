@@ -19,7 +19,7 @@ class EntityDescriptorFunctionalTest extends BaseTestCase
     public function test__deserialization_idp2_ed()
     {
         $context = new DeserializationContext();
-        $context->getDocument()->load(__DIR__.'/../../../../../../resources/sample/EntityDescriptor/idp2-ed.xml');
+        $context->getDocument()->load(__DIR__.'/../../../../../resources/idp2-ed.xml');
 
         $ed = new EntityDescriptor();
         $ed->deserialize($context->getDocument(), $context);
@@ -99,7 +99,7 @@ class EntityDescriptorFunctionalTest extends BaseTestCase
     public function test__deserialize_formatted_certificate()
     {
         $context = new DeserializationContext();
-        $context->getDocument()->load(__DIR__.'/../../../../../../resources/sample/EntityDescriptor/ed01-formatted-certificate.xml');
+        $context->getDocument()->load(__DIR__.'/../../../../../resources/ed01-formatted-certificate.xml');
 
         $ed = new EntityDescriptor();
         $ed->deserialize($context->getDocument(), $context);
@@ -116,7 +116,7 @@ class EntityDescriptorFunctionalTest extends BaseTestCase
 
     public function test_deserialize_engine_surfconext_nl_authentication_idp_metadata()
     {
-        $ed = EntityDescriptor::load(__DIR__.'/../../../../../../resources/sample/EntityDescriptor/engine.surfconext.nl_authentication_idp_metadata.xml');
+        $ed = EntityDescriptor::load(__DIR__.'/../../../../../resources/engine.surfconext.nl_authentication_idp_metadata.xml');
         $this->assertEquals('https://engine.surfconext.nl/authentication/idp/metadata', $ed->getEntityID());
     }
 
@@ -124,7 +124,7 @@ class EntityDescriptorFunctionalTest extends BaseTestCase
     {
         $this->expectExceptionMessage("Expected 'EntityDescriptor' xml node and 'urn:oasis:names:tc:SAML:2.0:metadata' namespace but got node 'EntitiesDescriptor' and namespace 'urn:oasis:names:tc:SAML:2.0:metadata'");
         $this->expectException(\LightSaml\Error\LightSamlXmlException::class);
-        EntityDescriptor::load(__DIR__.'/../../../../../../resources/sample/EntitiesDescriptor/testshib-providers.xml');
+        EntityDescriptor::load(__DIR__.'/../../../../../resources/testshib-providers.xml');
     }
 
     private function checkKD(SSODescriptor $descriptor, $use, $certificate)

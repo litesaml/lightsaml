@@ -40,8 +40,8 @@ EOT;
         $response->deserialize($deserializationContext->getDocument(), $deserializationContext);
 
         $credential = new X509Credential(
-            X509Certificate::fromFile(__DIR__.'/../../../../../../resources/sample/Certificate/lightsaml-idp.crt'),
-            KeyHelper::createPrivateKey(__DIR__.'/../../../../../../resources/sample/Certificate/lightsaml-idp.key', '', true)
+            X509Certificate::fromFile(__DIR__.'/../../../../../resources/lightsaml-idp.crt'),
+            KeyHelper::createPrivateKey(__DIR__.'/../../../../../resources/lightsaml-idp.key', '', true)
         );
 
         $decryptDeserializeContext = new DeserializationContext();

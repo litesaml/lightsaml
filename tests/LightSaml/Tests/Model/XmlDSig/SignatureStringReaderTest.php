@@ -32,7 +32,7 @@ class SignatureStringReaderTest extends BaseTestCase
 
     public function test_validate_returns_false_when_no_signature_set()
     {
-        $publicKey = KeyHelper::createPublicKey(X509Certificate::fromFile(__DIR__ . '/../../../../../resources/sample/Certificate/saml.crt'));
+        $publicKey = KeyHelper::createPublicKey(X509Certificate::fromFile(__DIR__ . '/../../../../resources/saml.crt'));
         $reader = new SignatureStringReader();
         $result = $reader->validate($publicKey);
         $this->assertFalse($result);
@@ -40,8 +40,8 @@ class SignatureStringReaderTest extends BaseTestCase
 
     public function test_validate_correct_signature()
     {
-        $publicKey = KeyHelper::createPublicKey(X509Certificate::fromFile(__DIR__ . '/../../../../../resources/sample/Certificate/saml.crt'));
-        $privateKey = KeyHelper::createPrivateKey(__DIR__ . '/../../../../../resources/sample/Certificate/saml.pem', '', true);
+        $publicKey = KeyHelper::createPublicKey(X509Certificate::fromFile(__DIR__ . '/../../../../resources/saml.crt'));
+        $privateKey = KeyHelper::createPrivateKey(__DIR__ . '/../../../../resources/saml.pem', '', true);
         $data = 'Some message data';
         $signature = base64_encode($privateKey->signData($data));
 

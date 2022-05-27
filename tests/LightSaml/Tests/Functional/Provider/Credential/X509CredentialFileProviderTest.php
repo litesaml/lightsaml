@@ -19,8 +19,8 @@ class X509CredentialFileProviderTest extends BaseTestCase
     {
         $provider = new X509CredentialFileProvider(
             $expectedEntityId = 'http://localhost',
-            __DIR__.'/../../../../../../resources/sample/Certificate/saml.crt',
-            __DIR__.'/../../../../../../resources/sample/Certificate/saml.pem',
+            __DIR__.'/../../../../../resources/saml.crt',
+            __DIR__.'/../../../../../resources/saml.pem',
             null
         );
 

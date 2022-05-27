@@ -86,7 +86,7 @@ abstract class AbstractResolveEndpointActionTest extends BaseTestCase
         }
 
         if (null == $partyEntityDescriptor) {
-            $partyEntityDescriptor = EntityDescriptor::load(__DIR__.'/../../../../../../../resources/sample/EntityDescriptor/idp2-ed-formatted.xml');
+            $partyEntityDescriptor = EntityDescriptor::load(__DIR__.'/../../../../../../resources/idp2-ed-formatted.xml');
         }
         $context->getPartyEntityContext()->setEntityDescriptor($partyEntityDescriptor);
 
