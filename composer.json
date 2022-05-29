@@ -2,7 +2,7 @@
     "name": "litesaml/lightsaml",
     "license": "MIT",
     "type": "library",
-    "description": "Light SAML 2.0 PHP library",
+    "description": "SAML 2.0 PHP library",
     "keywords": ["SAML 2.0", "PHP", "library", "lightSAML", "Single SignOn", "Single Logout"],
     "authors": [
         {

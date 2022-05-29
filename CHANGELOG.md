@@ -2,6 +2,9 @@
 
 All notable changes will be documented in this file.
 
+## [3.0.3] - 2022-05-29
++ Change package description.
+
 ## [3.0.2] - 2022-05-27
 + Fix composer documentation settings.
 
