@@ -5,7 +5,7 @@ namespace LightSaml\Tests\Binding;
 use LightSaml\Binding\BindingFactory;
 use LightSaml\SamlConstants;
 use LightSaml\Tests\BaseTestCase;
-use Symfony\Component\HttpFoundation\Request;
+use Psr\Http\Message\ServerRequestInterface;
 
 class BindingFactoryTest extends BaseTestCase
 {
@@ -49,7 +49,7 @@ class BindingFactoryTest extends BaseTestCase
 
     public function test__detect_http_redirect()
     {
-        $request = $this->createHttpRedirectRequest();
+        $request = $this->getRequestMock('GET', ['SAMLRequest' => 'request']);
 
         $factory = new BindingFactory();
 
@@ -58,7 +58,7 @@ class BindingFactoryTest extends BaseTestCase
 
     public function test__detect_http_post()
     {
-        $request = $this->createHttpPostRequest();
+        $request = $this->getRequestMock('POST', ['SAMLRequest' => 'request']);
 
         $factory = new BindingFactory();
 
@@ -67,7 +67,7 @@ class BindingFactoryTest extends BaseTestCase
 
     public function test__detect_artifact_post()
     {
-        $request = $this->createArtifactPostRequest();
+        $request = $this->getRequestMock('POST', ['SAMLart' => 'request']);
 
         $factory = new BindingFactory();
 
@@ -76,7 +76,7 @@ class BindingFactoryTest extends BaseTestCase
 
     public function test__detect_artifact_get()
     {
-        $request = $this->createArtifactGetRequest();
+        $request = $this->getRequestMock('GET', ['SAMLart' => 'request']);
 
         $factory = new BindingFactory();
 
@@ -85,7 +85,7 @@ class BindingFactoryTest extends BaseTestCase
 
     public function test__detect_soap()
     {
-        $request = $this->createSoapRequest();
+        $request = $this->getRequestMock('POST', [], ['CONTENT_TYPE' => 'text/xml; charset=utf-8']);
 
         $factory = new BindingFactory();
 
@@ -94,8 +94,7 @@ class BindingFactoryTest extends BaseTestCase
 
     public function test__detect_none_get()
     {
-        $request = new Request();
-        $request->setMethod('GET');
+        $request = $this->getRequestMock('GET');
 
         $factory = new BindingFactory();
 
@@ -104,8 +103,7 @@ class BindingFactoryTest extends BaseTestCase
 
     public function test__detect_none_post()
     {
-        $request = new Request();
-        $request->setMethod('POST');
+        $request = $this->getRequestMock('POST');
 
         $factory = new BindingFactory();
 
@@ -114,75 +112,15 @@ class BindingFactoryTest extends BaseTestCase
 
     public function test__get_binding_by_request_http_redirect()
     {
-        $request = $this->createHttpRedirectRequest();
+        $request = $this->getRequestMock('GET', ['SAMLRequest' => 'request']);
         $factory = new BindingFactory();
         $this->assertInstanceOf('LightSaml\Binding\HttpRedirectBinding', $factory->getBindingByRequest($request));
     }
 
     public function test__get_binding_by_request_http_post()
     {
-        $request = $this->createHttpPostRequest();
+        $request = $this->getRequestMock('POST', ['SAMLRequest' => 'request']);
         $factory = new BindingFactory();
         $this->assertInstanceOf('LightSaml\Binding\HttpPostBinding', $factory->getBindingByRequest($request));
-    }
-
-    /**
-     * @return Request
-     */
-    private function createHttpPostRequest()
-    {
-        $request = new Request();
-        $request->request->add(array('SAMLRequest' => 'request'));
-        $request->setMethod('POST');
-
-        return $request;
-    }
-
-    /**
-     * @return Request
-     */
-    private function createHttpRedirectRequest()
-    {
-        $request = new Request();
-        $request->query->add(array('SAMLRequest' => 'request'));
-        $request->setMethod('GET');
-
-        return $request;
-    }
-
-    /**
-     * @return Request
-     */
-    private function createArtifactPostRequest()
-    {
-        $request = new Request();
-        $request->request->add(array('SAMLart' => 'request'));
-        $request->setMethod('POST');
-
-        return $request;
-    }
-
-    /**
-     * @return Request
-     */
-    private function createArtifactGetRequest()
-    {
-        $request = new Request();
-        $request->query->add(array('SAMLart' => 'request'));
-        $request->setMethod('GET');
-
-        return $request;
-    }
-
-    /**
-     * @return Request
-     */
-    private function createSoapRequest()
-    {
-        $request = new Request();
-        $request->setMethod('POST');
-        $request->headers->add(array('CONTENT_TYPE' => 'text/xml; charset=utf-8'));
-
-        return $request;
     }
 }

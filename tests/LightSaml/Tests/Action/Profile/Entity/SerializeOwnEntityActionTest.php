@@ -7,6 +7,7 @@ use LightSaml\Context\Profile\ProfileContext;
 use LightSaml\Model\Metadata\EntityDescriptor;
 use LightSaml\Profile\Profiles;
 use LightSaml\Tests\BaseTestCase;
+use Psr\Http\Message\ServerRequestInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -26,7 +27,10 @@ class SerializeOwnEntityActionTest extends BaseTestCase
 
         $context = new ProfileContext(Profiles::METADATA, ProfileContext::ROLE_IDP);
         $context->getOwnEntityContext()->setEntityDescriptor($ownEntityDescriptor = new EntityDescriptor($myEntityId = 'http://localhost/myself'));
-        $context->getHttpRequestContext()->setRequest($httpRequest = new Request());
+
+        $httpRequest = $this->createMock(ServerRequestInterface::class);
+
+        $context->getHttpRequestContext()->setRequest($httpRequest);
 
         $httpRequest->headers->add(['Accept' => $contextType = 'application/samlmetadata+xml']);
 

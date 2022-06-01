@@ -18,28 +18,29 @@ use LightSaml\Model\Protocol\AbstractRequest;
 use LightSaml\Model\Protocol\SamlMessage;
 use LightSaml\Model\XmlDSig\SignatureStringReader;
 use LightSaml\Model\XmlDSig\SignatureWriter;
+use LightSaml\Response\RedirectResponse;
 use LightSaml\SamlConstants;
+use Psr\Http\Message\ServerRequestInterface;
 use RobRichards\XMLSecLibs\XMLSecurityKey;
-use Symfony\Component\HttpFoundation\RedirectResponse;
-use Symfony\Component\HttpFoundation\Request;
 
 class HttpRedirectBinding extends AbstractBinding
 {
     /**
+     * @param MessageContext $context
      * @param string|null $destination
      *
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return RedirectResponse
      */
     public function send(MessageContext $context, $destination = null)
     {
-        $destination = $context->getMessage()->getDestination() ? $context->getMessage()->getDestination() : $destination;
+        $destination = $context->getMessage()->getDestination() ?: $destination;
 
         $url = $this->getRedirectURL($context, $destination);
 
         return new RedirectResponse($url);
     }
 
-    public function receive(Request $request, MessageContext $context)
+    public function receive(ServerRequestInterface $request, MessageContext $context)
     {
         $data = $this->parseQuery($request);
 
@@ -236,7 +237,7 @@ class HttpRedirectBinding extends AbstractBinding
     /**
      * @return array
      */
-    protected function parseQuery(Request $request)
+    protected function parseQuery(ServerRequestInterface $request)
     {
         /*
          * Parse the query string. We need to do this ourself, so that we get access
@@ -244,7 +245,7 @@ class HttpRedirectBinding extends AbstractBinding
          * can urlencode to different values.
          */
         $sigQuery = $relayState = $sigAlg = '';
-        $data = $this->parseQueryString($request->server->get('QUERY_STRING'), false);
+        $data = $request->getQueryParams();
         $result = [];
         foreach ($data as $name => $value) {
             $result[$name] = urldecode($value);
@@ -262,26 +263,6 @@ class HttpRedirectBinding extends AbstractBinding
             }
         }
         $result['SignedQuery'] = $sigQuery . $relayState . $sigAlg;
-
-        return $result;
-    }
-
-    /**
-     * @param string $queryString
-     * @param bool   $urlDecodeValues
-     *
-     * @return array
-     */
-    protected function parseQueryString($queryString, $urlDecodeValues = false)
-    {
-        $result = [];
-        foreach (explode('&', $queryString) as $e) {
-            $tmp = explode('=', $e, 2);
-            $name = $tmp[0];
-            $value = 2 === count($tmp) ? $value = $tmp[1] : '';
-            $name = urldecode($name);
-            $result[$name] = $urlDecodeValues ? urldecode($value) : $value;
-        }
 
         return $result;
     }

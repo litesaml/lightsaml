@@ -13,9 +13,10 @@ namespace LightSaml\Binding;
 
 use LightSaml\Context\Profile\MessageContext;
 use LightSaml\Event\Events;
+use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\ServerRequestInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\EventDispatcher\GenericEvent;
-use Symfony\Component\HttpFoundation\Request;
 
 abstract class AbstractBinding
 {
@@ -63,9 +64,9 @@ abstract class AbstractBinding
     /**
      * @param string|null $destination
      *
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return ResponseInterface
      */
     abstract public function send(MessageContext $context, $destination = null);
 
-    abstract public function receive(Request $request, MessageContext $context);
+    abstract public function receive(ServerRequestInterface $request, MessageContext $context);
 }

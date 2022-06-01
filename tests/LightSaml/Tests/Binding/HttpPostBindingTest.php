@@ -9,15 +9,14 @@ use LightSaml\Model\Protocol\Response;
 use LightSaml\SamlConstants;
 use LightSaml\Tests\BaseTestCase;
 use Symfony\Component\DomCrawler\Crawler;
-use Symfony\Component\HttpFoundation\Request;
 
 class HttpPostBindingTest extends BaseTestCase
 {
-    public function test_receive_throws_when_no_message()
+    public function test__receive_throws_when_no_message()
     {
         $this->expectExceptionMessage("Missing SAMLRequest or SAMLResponse parameter");
         $this->expectException(\LightSaml\Error\LightSamlBindingException::class);
-        $request = new Request();
+        $request = $this->getRequestMock('POST');
 
         $binding = new HttpPostBinding();
 
@@ -26,7 +25,7 @@ class HttpPostBindingTest extends BaseTestCase
         $binding->receive($request, $messageContext);
     }
 
-    public function test_relay_state_is_included_in_http_post()
+    public function test__relay_state_is_included_in_http_post()
     {
         $expectedRelayState = 'some_relay_state';
 

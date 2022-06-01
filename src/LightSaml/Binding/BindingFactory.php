@@ -13,8 +13,8 @@ namespace LightSaml\Binding;
 
 use LightSaml\Error\LightSamlBindingException;
 use LightSaml\SamlConstants;
+use Psr\Http\Message\ServerRequestInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
-use Symfony\Component\HttpFoundation\Request;
 
 class BindingFactory implements BindingFactoryInterface
 {
@@ -42,7 +42,7 @@ class BindingFactory implements BindingFactoryInterface
     /**
      * @return AbstractBinding
      */
-    public function getBindingByRequest(Request $request)
+    public function getBindingByRequest(ServerRequestInterface $request)
     {
         $bindingType = $this->detectBindingType($request);
 
@@ -87,7 +87,7 @@ class BindingFactory implements BindingFactoryInterface
     /**
      * @return string|null
      */
-    public function detectBindingType(Request $request)
+    public function detectBindingType(ServerRequestInterface $request)
     {
         $requestMethod = trim(strtoupper($request->getMethod()));
         if ('GET' == $requestMethod) {
@@ -102,9 +102,10 @@ class BindingFactory implements BindingFactoryInterface
     /**
      * @return string|null
      */
-    protected function processGET(Request $request)
+    protected function processGET(ServerRequestInterface $request)
     {
-        $get = $request->query->all();
+        $get = $request->getQueryParams();
+
         if (array_key_exists('SAMLRequest', $get) || array_key_exists('SAMLResponse', $get)) {
             return SamlConstants::BINDING_SAML2_HTTP_REDIRECT;
         } elseif (array_key_exists('SAMLart', $get)) {
@@ -117,15 +118,15 @@ class BindingFactory implements BindingFactoryInterface
     /**
      * @return string|null
      */
-    protected function processPOST(Request $request)
+    protected function processPOST(ServerRequestInterface $request)
     {
-        $post = $request->request->all();
+        $post = $request->getParsedBody();
         if (array_key_exists('SAMLRequest', $post) || array_key_exists('SAMLResponse', $post)) {
             return SamlConstants::BINDING_SAML2_HTTP_POST;
         } elseif (array_key_exists('SAMLart', $post)) {
             return SamlConstants::BINDING_SAML2_HTTP_ARTIFACT;
         } else {
-            if ($contentType = $request->headers->get('CONTENT_TYPE')) {
+            if ($contentType = $request->getHeaderLine('CONTENT_TYPE')) {
                 // Remove charset
                 if (false !== $pos = strpos($contentType, ';')) {
                     $contentType = substr($contentType, 0, $pos);

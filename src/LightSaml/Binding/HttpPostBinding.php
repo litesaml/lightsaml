@@ -16,19 +16,20 @@ use LightSaml\Context\Profile\MessageContext;
 use LightSaml\Error\LightSamlBindingException;
 use LightSaml\Model\Protocol\AbstractRequest;
 use LightSaml\Model\Protocol\SamlMessage;
-use Symfony\Component\HttpFoundation\Request;
+use LightSaml\Response\PostResponse;
+use Psr\Http\Message\ServerRequestInterface;
 
 class HttpPostBinding extends AbstractBinding
 {
     /**
      * @param string|null $destination
      *
-     * @return SamlPostResponse
+     * @return PostResponse
      */
     public function send(MessageContext $context, $destination = null)
     {
         $message = MessageContextHelper::asSamlMessage($context);
-        $destination = $message->getDestination() ? $message->getDestination() : $destination;
+        $destination = $message->getDestination() ?: $destination;
 
         $serializationContext = $context->getSerializationContext();
         $message->serialize($serializationContext->getDocument(), $serializationContext);
@@ -45,15 +46,12 @@ class HttpPostBinding extends AbstractBinding
             $data['RelayState'] = $message->getRelayState();
         }
 
-        $result = new SamlPostResponse($destination, $data);
-        $result->renderContent();
-
-        return $result;
+        return new PostResponse($destination, $data);
     }
 
-    public function receive(Request $request, MessageContext $context)
+    public function receive(ServerRequestInterface $request, MessageContext $context)
     {
-        $post = $request->request->all();
+        $post = $request->getParsedBody();
         if (array_key_exists('SAMLRequest', $post)) {
             $msg = $post['SAMLRequest'];
         } elseif (array_key_exists('SAMLResponse', $post)) {

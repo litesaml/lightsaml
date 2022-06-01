@@ -11,14 +11,14 @@
 
 namespace LightSaml\Binding;
 
-use Symfony\Component\HttpFoundation\Request;
+use Psr\Http\Message\ServerRequestInterface;
 
 interface BindingFactoryInterface
 {
     /**
      * @return AbstractBinding
      */
-    public function getBindingByRequest(Request $request);
+    public function getBindingByRequest(ServerRequestInterface $request);
 
     /**
      * @param string $bindingType
@@ -32,5 +32,5 @@ interface BindingFactoryInterface
     /**
      * @return string|null
      */
-    public function detectBindingType(Request $request);
+    public function detectBindingType(ServerRequestInterface $request);
 }

@@ -9,6 +9,7 @@ use LightSaml\Model\Assertion\Assertion;
 use LightSaml\Model\Metadata\Endpoint;
 use LightSaml\Profile\Profiles;
 use PHPUnit\Framework\TestCase;
+use Psr\Http\Message\ServerRequestInterface;
 
 abstract class BaseTestCase extends TestCase
 {
@@ -207,5 +208,25 @@ abstract class BaseTestCase extends TestCase
             ->disableOriginalConstructor()
             ->getMock()
             ;
+    }
+
+    protected function getRequestMock(string $method, array $params = [], array $headers = [])
+    {
+        $request = $this->createMock(ServerRequestInterface::class);
+        $request->method('getMethod')
+            ->willReturn($method);
+
+        $calledParamsMethod = $method === 'GET' ? 'getQueryParams' : 'getParsedBody';
+
+        $request->method($calledParamsMethod)
+            ->willReturn($params);
+
+        foreach ($headers as $header => $value) {
+            $request->method('getHeaderLine')
+                ->with($header)
+                ->willReturn($value);
+        }
+
+        return $request;
     }
 }
