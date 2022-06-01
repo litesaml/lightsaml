@@ -15,8 +15,8 @@ use LightSaml\Bridge\Pimple\Container\SystemContainer;
 use LightSaml\Provider\TimeProvider\SystemTimeProvider;
 use Pimple\Container;
 use Pimple\ServiceProviderInterface;
+use Psr\EventDispatcher\EventDispatcherInterface;
 use Psr\Log\NullLogger;
-use Symfony\Component\EventDispatcher\EventDispatcher;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\HttpFoundation\Session\Storage\MockArraySessionStorage;
@@ -26,9 +26,13 @@ class SystemContainerProvider implements ServiceProviderInterface
     /** @var bool */
     private $mockSession;
 
-    public function __construct($mockSession = false)
+    /** @var EventDispatcherInterface|null */
+    private $eventDispatcher;
+
+    public function __construct($mockSession = false, EventDispatcherInterface $eventDispatcher = null)
     {
         $this->mockSession = true;
+        $this->eventDispatcher = $eventDispatcher;
     }
 
     /**
@@ -57,7 +61,7 @@ class SystemContainerProvider implements ServiceProviderInterface
         };
 
         $pimple[SystemContainer::EVENT_DISPATCHER] = function () {
-            return new EventDispatcher();
+            return $this->eventDispatcher;
         };
 
         $pimple[SystemContainer::LOGGER] = function () {

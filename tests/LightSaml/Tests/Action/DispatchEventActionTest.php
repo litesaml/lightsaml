@@ -4,17 +4,16 @@ namespace LightSaml\Tests\Action;
 
 use LightSaml\Action\DispatchEventAction;
 use LightSaml\Context\ContextInterface;
+use LightSaml\Event\ActionOccurred;
 use LightSaml\Tests\BaseTestCase;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
-use Symfony\Component\EventDispatcher\GenericEvent;
+use Psr\EventDispatcher\EventDispatcherInterface;
 
 class DispatchEventActionTest extends BaseTestCase
 {
     public function test_constructs_with_logger_event_dispatcher_and_event_name()
     {
         new DispatchEventAction(
-            $this->getEventDispatcherMock(),
-            'name'
+            $this->getEventDispatcherMock()
         );
         $this->assertTrue(true);
     }
@@ -24,8 +23,7 @@ class DispatchEventActionTest extends BaseTestCase
         $eventDispatcherMock = $this->getEventDispatcherMock();
 
         $action = new DispatchEventAction(
-            $eventDispatcherMock,
-            $expectedEventName = 'name'
+            $eventDispatcherMock
         );
 
         $context = $this->getContextMock();
@@ -33,8 +31,7 @@ class DispatchEventActionTest extends BaseTestCase
         $eventDispatcherMock->expects($this->once())
             ->method('dispatch')
             ->with(
-                $this->isInstanceOf(GenericEvent::class),
-                $this->equalTo($expectedEventName)
+                $this->isInstanceOf(ActionOccurred::class)
             );
 
         $action->execute($context);
@@ -49,7 +46,7 @@ class DispatchEventActionTest extends BaseTestCase
     }
 
     /**
-     * @return \PHPUnit_Framework_MockObject_MockObject|\Symfony\Component\EventDispatcher\EventDispatcherInterface
+     * @return \PHPUnit_Framework_MockObject_MockObject|\Psr\EventDispatcher\EventDispatcherInterface
      */
     private function getEventDispatcherMock()
     {

@@ -5,6 +5,7 @@ namespace LightSaml\Tests\Binding;
 use LightSaml\Binding\BindingFactory;
 use LightSaml\SamlConstants;
 use LightSaml\Tests\BaseTestCase;
+use Psr\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\Request;
 
 class BindingFactoryTest extends BaseTestCase
@@ -124,6 +125,16 @@ class BindingFactoryTest extends BaseTestCase
         $request = $this->createHttpPostRequest();
         $factory = new BindingFactory();
         $this->assertInstanceOf('LightSaml\Binding\HttpPostBinding', $factory->getBindingByRequest($request));
+    }
+
+    public function test__create_with_event_dispatcher()
+    {
+        $eventDispatcher = $this->createMock(EventDispatcherInterface::class);
+
+        $factory = new BindingFactory($eventDispatcher);
+        $binding = $factory->create(SamlConstants::BINDING_SAML2_HTTP_REDIRECT);
+        $this->assertInstanceOf('LightSaml\Binding\HttpRedirectBinding', $binding);
+        $this->assertEquals($eventDispatcher, $binding->getEventDispatcher());
     }
 
     /**

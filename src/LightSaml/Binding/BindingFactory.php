@@ -13,7 +13,7 @@ namespace LightSaml\Binding;
 
 use LightSaml\Error\LightSamlBindingException;
 use LightSaml\SamlConstants;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Psr\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\Request;
 
 class BindingFactory implements BindingFactoryInterface

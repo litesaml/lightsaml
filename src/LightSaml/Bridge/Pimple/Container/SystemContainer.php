@@ -13,8 +13,8 @@ namespace LightSaml\Bridge\Pimple\Container;
 
 use LightSaml\Build\Container\SystemContainerInterface;
 use LightSaml\Provider\TimeProvider\TimeProviderInterface;
+use Psr\EventDispatcher\EventDispatcherInterface;
 use Psr\Log\LoggerInterface;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
