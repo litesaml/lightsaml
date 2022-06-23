@@ -2,6 +2,9 @@
 
 All notable changes will be documented in this file.
 
+## [4.0.0] - 2022-06-23
++ Replace symfony/event-dispatcher dependency by psr/event-dispatcher.
+
 ## [3.0.3] - 2022-05-29
 + Change package description.
 
