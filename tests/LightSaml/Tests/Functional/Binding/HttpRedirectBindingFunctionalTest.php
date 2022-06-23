@@ -3,16 +3,16 @@
 namespace LightSaml\Tests\Functional\Binding;
 
 use LightSaml\Binding\HttpRedirectBinding;
+use LightSaml\Event\MessageReceived;
+use LightSaml\Event\MessageSent;
 use LightSaml\Model\Context\DeserializationContext;
 use LightSaml\Context\Profile\MessageContext;
-use LightSaml\Event\Events;
 use LightSaml\Model\Protocol\AuthnRequest;
 use LightSaml\Model\XmlDSig\SignatureStringReader;
 use LightSaml\Model\XmlDSig\SignatureWriter;
 use LightSaml\Credential\KeyHelper;
 use LightSaml\Credential\X509Certificate;
 use LightSaml\Tests\BaseTestCase;
-use Symfony\Component\EventDispatcher\GenericEvent;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -32,11 +32,10 @@ class HttpRedirectBindingFunctionalTest extends BaseTestCase
         $eventDispatcherMock = $this->getEventDispatcherMock();
         $eventDispatcherMock->expects($this->once())
             ->method('dispatch')
-            ->willReturnCallback(function (GenericEvent $event, $name) {
-                $this->assertEquals(Events::BINDING_MESSAGE_SENT, $name);
-                $this->assertNotEmpty($event->getSubject());
+            ->willReturnCallback(function (MessageSent $event) {
+                $this->assertNotEmpty($event->message);
                 $doc = new \DOMDocument();
-                $doc->loadXML($event->getSubject());
+                $doc->loadXML($event->message);
                 $this->assertEquals('AuthnRequest', $doc->firstChild->localName);
                 return $event;
             });
@@ -123,11 +122,10 @@ class HttpRedirectBindingFunctionalTest extends BaseTestCase
         $eventDispatcherMock = $this->getEventDispatcherMock();
         $eventDispatcherMock->expects($this->once())
             ->method('dispatch')
-            ->willReturnCallback(function (GenericEvent $event, $name) {
-                $this->assertEquals(Events::BINDING_MESSAGE_RECEIVED, $name);
-                $this->assertNotEmpty($event->getSubject());
+            ->willReturnCallback(function (MessageReceived $event) {
+                $this->assertNotEmpty($event->message);
                 $doc = new \DOMDocument();
-                $doc->loadXML($event->getSubject());
+                $doc->loadXML($event->message);
                 $this->assertEquals('AuthnRequest', $doc->firstChild->localName);
                 return $event;
             });
@@ -185,10 +183,10 @@ class HttpRedirectBindingFunctionalTest extends BaseTestCase
     }
 
     /**
-     * @return \PHPUnit_Framework_MockObject_MockObject|\Symfony\Component\EventDispatcher\EventDispatcherInterface
+     * @return \PHPUnit_Framework_MockObject_MockObject|\Psr\EventDispatcher\EventDispatcherInterface
      */
     private function getEventDispatcherMock()
     {
-        return $this->getMockBuilder(\Symfony\Component\EventDispatcher\EventDispatcherInterface::class)->getMock();
+        return $this->getMockBuilder(\Psr\EventDispatcher\EventDispatcherInterface::class)->getMock();
     }
 }

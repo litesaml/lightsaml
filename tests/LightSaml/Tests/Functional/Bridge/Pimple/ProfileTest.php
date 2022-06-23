@@ -16,6 +16,7 @@ use LightSaml\Store\Request\RequestStateArrayStore;
 use LightSaml\Tests\BaseTestCase;
 use LightSaml\Tests\Fixtures\Meta\TimeProviderMock;
 use Pimple\Container;
+use Psr\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\DomCrawler\Crawler;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -160,7 +161,11 @@ class ProfileTest extends BaseTestCase
 
     private function getBuildContainer($inResponseTo = null, TimeProviderInterface $timeProvider = null)
     {
-        $buildContainer = new BuildContainer($pimple = new Container());
+        $pimple = new Container();
+
+        $pimple['event-dispatcher'] = $this->createMock(EventDispatcherInterface::class);
+
+        $buildContainer = new BuildContainer($pimple);
 
         // OWN
         $ownCredential = new \LightSaml\Credential\X509Credential(
@@ -181,8 +186,13 @@ class ProfileTest extends BaseTestCase
             [$ownCredential]
         ));
 
+        $systemContainerProvider = new \LightSaml\Bridge\Pimple\Container\Factory\SystemContainerProvider(
+            true,
+            $pimple['event-dispatcher']
+        );
+
         // SYSTEM
-        $buildContainer->getPimple()->register(new \LightSaml\Bridge\Pimple\Container\Factory\SystemContainerProvider(true));
+        $buildContainer->getPimple()->register($systemContainerProvider);
         if ($timeProvider) {
             $pimple[SystemContainer::TIME_PROVIDER] = function () use ($timeProvider) {
                 return $timeProvider;
