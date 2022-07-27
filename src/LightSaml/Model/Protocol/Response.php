@@ -11,6 +11,7 @@
 
 namespace LightSaml\Model\Protocol;
 
+use LightSaml\Helper;
 use LightSaml\Model\Assertion\Assertion;
 use LightSaml\Model\Assertion\EncryptedElement;
 use LightSaml\Model\Context\DeserializationContext;
@@ -129,6 +130,10 @@ class Response extends StatusResponse
 
     public function serialize(\DOMNode $parent, SerializationContext $context)
     {
+        if ($this->getID() === null) {
+            $this->setID(Helper::generateID());
+        }
+
         $result = $this->createElement('samlp:Response', SamlConstants::NS_PROTOCOL, $parent, $context);
 
         parent::serialize($result, $context);
