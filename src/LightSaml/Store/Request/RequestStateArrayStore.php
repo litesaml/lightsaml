@@ -23,9 +23,6 @@ class RequestStateArrayStore extends AbstractRequestStateArrayStore
         return $this->arrayStore;
     }
 
-    /**
-     * @return AbstractRequestStateArrayStore
-     */
     protected function setArray(array $arr)
     {
         $this->arrayStore = $arr;
