@@ -2,6 +2,12 @@
 
 All notable changes will be documented in this file.
 
+## [4.0.1] - 2022-08-05
++ Change package name in banner.
++ Add PHPStan to CI.
++ Clean code with PHPStan.
++ Clean code by removing unnecessary backslash.
+
 ## [4.0.0] - 2022-06-23
 + Replace symfony/event-dispatcher dependency by psr/event-dispatcher.
 
