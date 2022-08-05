@@ -51,9 +51,6 @@ class RequestStateSessionStore extends AbstractRequestStateArrayStore
         return $this->session->get($this->getKey(), []);
     }
 
-    /**
-     * @return AbstractRequestStateArrayStore
-     */
     protected function setArray(array $arr)
     {
         $this->session->set($this->getKey(), $arr);

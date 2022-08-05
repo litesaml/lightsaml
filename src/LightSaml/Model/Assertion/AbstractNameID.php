@@ -161,9 +161,6 @@ abstract class AbstractNameID extends AbstractSamlModel
         }
     }
 
-    /**
-     * @return \DOMElement
-     */
     public function serialize(\DOMNode $parent, SerializationContext $context)
     {
         $this->prepareForXml();

@@ -127,7 +127,7 @@ class RecipientValidatorActionTest extends BaseTestCase
 
         $endpointResolver->expects($this->once())
             ->method('resolve')
-            ->willReturnCallback(function () use ($recipient) {
+            ->willReturnCallback(function () {
                 return [$this->getEndpointReferenceMock(new AssertionConsumerService())];
             });
 

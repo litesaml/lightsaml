@@ -23,7 +23,6 @@ use LightSaml\Resolver\Endpoint\DescriptorTypeEndpointResolver;
 use LightSaml\Resolver\Endpoint\IndexEndpointResolver;
 use LightSaml\Resolver\Endpoint\LocationEndpointResolver;
 use LightSaml\Resolver\Endpoint\ServiceTypeEndpointResolver;
-use LightSaml\Resolver\Logout\LogoutSessionResolver;
 use LightSaml\Resolver\Session\SessionProcessor;
 use LightSaml\Resolver\Signature\OwnSignatureResolver;
 use LightSaml\Validator\Model\Assertion\AssertionTimeValidator;
@@ -109,10 +108,6 @@ class ServiceContainerProvider implements ServiceProviderInterface
             $credentialResolver = $c[ServiceContainer::CREDENTIAL_RESOLVER];
 
             return new SignatureValidator($credentialResolver);
-        };
-
-        $pimple[ServiceContainer::LOGOUT_SESSION_RESOLVER] = function () {
-            return new LogoutSessionResolver($this->storeContainer->getSsoStateStore());
         };
 
         $pimple[ServiceContainer::SESSION_PROCESSOR] = function () {

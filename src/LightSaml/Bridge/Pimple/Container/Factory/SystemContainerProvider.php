@@ -31,7 +31,7 @@ class SystemContainerProvider implements ServiceProviderInterface
 
     public function __construct($mockSession = false, EventDispatcherInterface $eventDispatcher = null)
     {
-        $this->mockSession = true;
+        $this->mockSession = $mockSession;
         $this->eventDispatcher = $eventDispatcher;
     }
 

@@ -78,8 +78,5 @@ abstract class AbstractRequestStateArrayStore implements RequestStateStoreInterf
      */
     abstract protected function getArray();
 
-    /**
-     * @return AbstractRequestStateArrayStore
-     */
     abstract protected function setArray(array $arr);
 }
