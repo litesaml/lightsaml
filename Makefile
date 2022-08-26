@@ -4,4 +4,4 @@ vendor: composer.json
 .PHONY: test
 test: vendor
 	vendor/bin/phpunit
-	composer run test:cs
+	composer cs
