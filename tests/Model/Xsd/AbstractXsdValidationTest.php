@@ -26,7 +26,7 @@ abstract class AbstractXsdValidationTest extends BaseTestCase
      */
     protected function getX509Certificate()
     {
-        return X509Certificate::fromFile(__DIR__.'/../../../../resources/saml.crt');
+        return X509Certificate::fromFile(__DIR__.'/../../resources/saml.crt');
     }
 
     /**
@@ -36,7 +36,7 @@ abstract class AbstractXsdValidationTest extends BaseTestCase
     {
         $object->setSignature(new SignatureWriter(
             $this->getX509Certificate(),
-            KeyHelper::createPrivateKey(__DIR__.'/../../../../resources/saml.pem', '', true)
+            KeyHelper::createPrivateKey(__DIR__.'/../../resources/saml.pem', '', true)
         ));
     }
 

@@ -250,9 +250,9 @@ EOT;
                     ->setAuthnContext((new AuthnContext())
                         ->setAuthnContextClassRef('authn-context-class-ref')))
                 ->setSignature(new SignatureWriter(
-                    X509Certificate::fromFile(__DIR__.'/../../../../resources/saml.crt'),
+                    X509Certificate::fromFile(__DIR__.'/../../resources/saml.crt'),
                     KeyHelper::createPrivateKey(
-                        __DIR__.'/../../../../resources/saml.pem',
+                        __DIR__.'/../../resources/saml.pem',
                         '',
                         true
                     )

@@ -18,8 +18,8 @@ class X509FileCredentialStoreTest extends BaseTestCase
     {
         $store = new X509FileCredentialStore(
             $entityId = 'foo',
-            __DIR__.'/../../../../../resources/saml.crt',
-            __DIR__.'/../../../../../resources/saml.pem',
+            __DIR__.'/../../../resources/saml.crt',
+            __DIR__.'/../../../resources/saml.pem',
             ''
         );
         $arr = $store->getByEntityId($entityId);

@@ -169,8 +169,8 @@ class ProfileTest extends BaseTestCase
 
         // OWN
         $ownCredential = new \LightSaml\Credential\X509Credential(
-            \LightSaml\Credential\X509Certificate::fromFile(__DIR__.'/../../../../../resources/web_saml.crt'),
-            \LightSaml\Credential\KeyHelper::createPrivateKey(__DIR__.'/../../../../../resources/web_saml.key', null, true)
+            \LightSaml\Credential\X509Certificate::fromFile(__DIR__.'/../../../resources/web_saml.crt'),
+            \LightSaml\Credential\KeyHelper::createPrivateKey(__DIR__.'/../../../resources/web_saml.key', null, true)
         );
         $ownCredential->setEntityId(self::OWN_ENTITY_ID);
 
@@ -204,13 +204,13 @@ class ProfileTest extends BaseTestCase
         $pimple[PartyContainer::IDP_ENTITY_DESCRIPTOR] = function () {
             $idpProvider = new \LightSaml\Store\EntityDescriptor\FixedEntityDescriptorStore();
             $idpProvider->add(
-                \LightSaml\Model\Metadata\EntitiesDescriptor::load(__DIR__.'/../../../../../resources/testshib-providers.xml')
+                \LightSaml\Model\Metadata\EntitiesDescriptor::load(__DIR__.'/../../../resources/testshib-providers.xml')
             );
             $idpProvider->add(
-                \LightSaml\Model\Metadata\EntityDescriptor::load(__DIR__.'/../../../../../resources/localhost-lightsaml-lightsaml-idp.xml')
+                \LightSaml\Model\Metadata\EntityDescriptor::load(__DIR__.'/../../../resources/localhost-lightsaml-lightsaml-idp.xml')
             );
             $idpProvider->add(
-                \LightSaml\Model\Metadata\EntityDescriptor::load(__DIR__.'/../../../../../resources/openidp.feide.no.xml')
+                \LightSaml\Model\Metadata\EntityDescriptor::load(__DIR__.'/../../../resources/openidp.feide.no.xml')
             );
 
             return $idpProvider;

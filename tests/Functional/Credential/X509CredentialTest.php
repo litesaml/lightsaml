@@ -12,7 +12,7 @@ class X509CredentialTest extends BaseTestCase
     public function test_public_key()
     {
         $certificate = new X509Certificate();
-        $certificate->loadFromFile(__DIR__.'/../../../../resources/saml.crt');
+        $certificate->loadFromFile(__DIR__.'/../../resources/saml.crt');
 
         $credential = new X509Credential($certificate);
 
@@ -28,9 +28,9 @@ class X509CredentialTest extends BaseTestCase
     public function test_private_key()
     {
         $certificate = new X509Certificate();
-        $certificate->loadFromFile(__DIR__.'/../../../../resources/saml.crt');
+        $certificate->loadFromFile(__DIR__.'/../../resources/saml.crt');
 
-        $privateKey = KeyHelper::createPrivateKey(__DIR__.'/../../../../resources/saml.pem', null, true);
+        $privateKey = KeyHelper::createPrivateKey(__DIR__.'/../../resources/saml.pem', null, true);
 
         $credential = new X509Credential($certificate, $privateKey);
 

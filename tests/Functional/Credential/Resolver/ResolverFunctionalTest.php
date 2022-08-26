@@ -146,19 +146,19 @@ class ResolverFunctionalTest extends BaseTestCase
     private function getResolver()
     {
         $provider = new FixedEntityDescriptorStore();
-        $provider->add(EntityDescriptor::load(__DIR__.'/../../../../../resources/idp2-ed.xml'));
-        $provider->add(EntityDescriptor::load(__DIR__.'/../../../../../resources/idp-ed.xml'));
-        $provider->add(EntityDescriptor::load(__DIR__.'/../../../../../resources/ed01-formatted-certificate.xml'));
-        $provider->add(EntityDescriptor::load(__DIR__.'/../../../../../resources/sp-ed2.xml'));
+        $provider->add(EntityDescriptor::load(__DIR__.'/../../../resources/idp2-ed.xml'));
+        $provider->add(EntityDescriptor::load(__DIR__.'/../../../resources/idp-ed.xml'));
+        $provider->add(EntityDescriptor::load(__DIR__.'/../../../resources/ed01-formatted-certificate.xml'));
+        $provider->add(EntityDescriptor::load(__DIR__.'/../../../resources/sp-ed2.xml'));
 
         $metadataStore = new MetadataCredentialStore($provider);
 
         $certificate = new X509Certificate();
-        $certificate->loadFromFile(__DIR__.'/../../../../../resources/saml.crt');
+        $certificate->loadFromFile(__DIR__.'/../../../resources/saml.crt');
 
         $credential = new X509Credential(
             $certificate,
-            KeyHelper::createPrivateKey(__DIR__.'/../../../../../resources/saml.pem', '', true)
+            KeyHelper::createPrivateKey(__DIR__.'/../../../resources/saml.pem', '', true)
         );
         $credential
             ->setUsageType(UsageType::ENCRYPTION)
