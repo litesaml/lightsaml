@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="/art/banner.png" alt="LightSAML banner">
+  <img src=".github/assets/banner.png" alt="LightSAML banner">
 </p>
 
 # About Light SAML
