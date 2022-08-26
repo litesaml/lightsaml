@@ -52,7 +52,7 @@ class XsdValidator
             $result[] = $error;
         });
 
-        $schemaFile = __DIR__ . '/../../../../../vendor/litesaml/schemas/resources/' . $schema;
+        $schemaFile = __DIR__ . '/../../../../vendor/litesaml/schemas/resources/' . $schema;
         if (!is_file($schemaFile)) {
             throw new LightSamlXmlException('Invalid schema specified');
         }
