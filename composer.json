@@ -50,7 +50,7 @@
     "prefer-stable": true,
     "minimum-stability": "stable",
     "scripts": {
-        "cs": "phpcs --standard=PSR12 --exclude=Generic.Files.LineLength ./src"
+        "cs": "phpcs --standard=PSR12 --exclude=Generic.Files.LineLength ./src",
         "phpstan": "phpstan analyse --memory-limit 512M"
     }
 }
