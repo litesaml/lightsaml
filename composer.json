@@ -48,5 +48,8 @@
         "phpstan/phpstan": "^1.8"
     },
     "prefer-stable": true,
-    "minimum-stability": "stable"
+    "minimum-stability": "stable",
+    "scripts": {
+        "test:cs": "phpcs --standard=PSR12 --exclude=Generic.Files.LineLength ./src"
+    }
 }
