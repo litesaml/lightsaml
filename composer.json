@@ -23,12 +23,12 @@
     },
     "autoload": {
         "psr-4": {
-            "LightSaml\\": "src/LightSaml/"
+            "LightSaml\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "LightSaml\\Tests\\": "tests/LightSaml/Tests/"
+            "LightSaml\\Tests\\": "tests/"
         }
     },
     "require": {
