@@ -1,0 +1,15 @@
+<?php
+
+return  [
+    'types' => ['feat', 'fix', 'docs', 'ci', 'refactor', 'style', 'test'],
+    'ignoreTypes' => [],
+    'sortBy' => 'date',
+    'hiddenVersionSeparator' => true,
+    'packageBump' => false,
+    'disableLinks' => true,
+    'tagPrefix' => 'v',
+    'hiddenHash' => true,
+    'preset' => [
+        'breaking_changes' => ['label' => 'Features'],
+    ],
+];

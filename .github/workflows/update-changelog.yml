@@ -1,0 +1,34 @@
+name: Update changelog
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v1
+
+      - name: Config git
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+      - name: Set PHP version
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: 8.1
+
+      - name: Install composer dependencies
+        run: composer install --quiet --no-ansi --no-interaction --no-scripts --no-suggest --no-progress --prefer-dist
+
+      - name: Update CHANGELOG.md & tag
+        run: composer tag
+
+      - name: Push
+        uses: ad-m/github-push-action@master
+        with:
+          branch: ${{ github.ref }}
+          tags: true

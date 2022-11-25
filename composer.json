@@ -45,8 +45,12 @@
         "monolog/monolog": "^2.0.0",
         "squizlabs/php_codesniffer": "^3.6",
         "litesaml/schemas": "~1.0.0",
-        "phpstan/phpstan": "^1.8"
+        "phpstan/phpstan": "^1.8",
+        "marcocesarato/php-conventional-changelog": "^1.15"
     },
     "prefer-stable": true,
-    "minimum-stability": "stable"
+    "minimum-stability": "stable",
+    "scripts": {
+        "tag": "vendor/bin/conventional-changelog --commit"
+    }
 }
