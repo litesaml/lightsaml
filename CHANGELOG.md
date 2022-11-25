@@ -4,6 +4,16 @@
 All notable changes to this project will be documented in this file.
 <!--- END HEADER -->
 
+## 4.0.2 (2022-11-25)
+
+### Continuous Integrations
+
+* Automatic update of CHANGELOG on commit on master.
+
+### Documentation
+
+* Preparing CHANGELOG for automation.
+
 ## 4.0.1 (2022-08-05)
 
 + Change package name in banner.
