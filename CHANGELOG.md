@@ -4,6 +4,12 @@
 All notable changes to this project will be documented in this file.
 <!--- END HEADER -->
 
+## 4.0.4 (2022-11-26)
+
+### Code Refactoring
+
+* Introduce PSR-4 autoloading.
+
 ## 4.0.3 (2022-11-26)
 
 ### Documentation
