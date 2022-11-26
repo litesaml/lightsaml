@@ -11,8 +11,7 @@ First, please describe your needs in a new [issue](https://github.com/litesaml/l
 
 ## How to run test
 
-We made a Makefile, so you juste have to run:
-
 ```shell
-make test
+docker run --rm -it -w /app -v $PWD:/app webdevops/php:8.1 composer install
+docker run --rm -it -w /app -v $PWD:/app webdevops/php:8.1 composer test
 ```
