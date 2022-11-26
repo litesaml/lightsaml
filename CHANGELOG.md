@@ -4,6 +4,12 @@
 All notable changes to this project will be documented in this file.
 <!--- END HEADER -->
 
+## 4.0.3 (2022-11-26)
+
+### Documentation
+
+* Add LICENSE document.
+
 ## 4.0.2 (2022-11-25)
 
 ### Continuous Integrations
