@@ -4,6 +4,12 @@
 All notable changes to this project will be documented in this file.
 <!--- END HEADER -->
 
+## 4.0.8 (2022-11-26)
+
+### Continuous Integrations
+
+* Add script in composer for test, phpcs & phpstan use in CI.
+
 ## 4.0.7 (2022-11-26)
 
 ### Code Refactoring
