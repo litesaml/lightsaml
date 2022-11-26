@@ -22,10 +22,10 @@ jobs:
         run: composer install --quiet --no-ansi --no-interaction --no-scripts --no-suggest --no-progress --prefer-dist
 
       - name: Run tests
-        run: vendor/bin/phpunit
+        run: composer test
 
       - name: Run phpcs
-        run: vendor/bin/phpcs --standard=PSR12 --exclude=Generic.Files.LineLength ./src
+        run: composer phpcs
 
       - name: Run phpstan
-        run: vendor/bin/phpstan analyse --memory-limit 512M --ansi
+        run: composer phpstan
