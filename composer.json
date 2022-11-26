@@ -22,12 +22,12 @@
         "docs": "https://litesaml.github.io"
     },
     "autoload": {
-        "psr-0": {
+        "psr-4": {
             "LightSaml\\": "src/"
         }
     },
     "autoload-dev": {
-        "psr-0": {
+        "psr-4": {
             "LightSaml\\Tests\\": "tests/"
         }
     },
