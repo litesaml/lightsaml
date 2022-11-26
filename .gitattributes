@@ -3,6 +3,7 @@
 /.gitignore export-ignore
 /tests/ export-ignore
 /CHANGELOG.md export-ignore
+/LICENSE.md export-ignore
 /CONTRIBUTING.md export-ignore
 /Makefile export-ignore
 /phpstan.neon.dist export-ignore
