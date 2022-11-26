@@ -4,6 +4,12 @@
 All notable changes to this project will be documented in this file.
 <!--- END HEADER -->
 
+## 4.0.5 (2022-11-26)
+
+### Documentation
+
+* Move assets to .github directory.
+
 ## 4.0.4 (2022-11-26)
 
 ### Code Refactoring
