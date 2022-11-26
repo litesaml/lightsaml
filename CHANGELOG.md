@@ -4,6 +4,12 @@
 All notable changes to this project will be documented in this file.
 <!--- END HEADER -->
 
+## 4.0.6 (2022-11-26)
+
+### Code Refactoring
+
+* Development files won’t be added to git archive.
+
 ## 4.0.5 (2022-11-26)
 
 ### Documentation
