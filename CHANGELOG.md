@@ -4,6 +4,13 @@
 All notable changes to this project will be documented in this file.
 <!--- END HEADER -->
 
+## 4.0.7 (2022-11-26)
+
+### Code Refactoring
+
+* Remove .changelog and README.md from export.
+* Remove Makefile.
+
 ## 4.0.6 (2022-11-26)
 
 ### Code Refactoring
