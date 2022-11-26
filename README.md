@@ -24,4 +24,4 @@ You can find our Cookbook in [this dedicated website](https://litesaml.github.io
 
 ## Contributing
 
-Light SAML is an open source project and is [open for contributions](https://github.com/litesaml/lightsaml/blob/master/CONTRIBUTING.md).
+Light SAML is an open source project under [MIT License](https://github.com/litesaml/lightsaml/blob/master/LICENSE.md) and is [open for contributions](https://github.com/litesaml/lightsaml/blob/master/CONTRIBUTING.md).
