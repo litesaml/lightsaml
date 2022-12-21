@@ -2,12 +2,13 @@
 
 namespace LightSaml\Store\Sso;
 
+use LightSaml\Error\LightSamlSessionNotFoundException;
 use LightSaml\State\Sso\SsoState;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 class SsoStateSessionStore implements SsoStateStoreInterface
 {
-    /** @var SessionInterface */
+    /** @var null|SessionInterface */
     protected $session;
 
     /** @var string */
@@ -16,7 +17,7 @@ class SsoStateSessionStore implements SsoStateStoreInterface
     /**
      * @param string $key
      */
-    public function __construct(SessionInterface $session, $key)
+    public function __construct(?SessionInterface $session, $key)
     {
         $this->session = $session;
         $this->key = $key;
@@ -27,7 +28,7 @@ class SsoStateSessionStore implements SsoStateStoreInterface
      */
     public function get()
     {
-        $result = $this->session->get($this->key);
+        $result = $this->getSession()->get($this->key);
         if (null == $result) {
             $result = new SsoState();
             $this->set($result);
@@ -41,7 +42,16 @@ class SsoStateSessionStore implements SsoStateStoreInterface
      */
     public function set(SsoState $ssoState)
     {
-        $ssoState->setLocalSessionId($this->session->getId());
-        $this->session->set($this->key, $ssoState);
+        $ssoState->setLocalSessionId($this->getSession()->getId());
+        $this->getSession()->set($this->key, $ssoState);
+    }
+
+    protected function getSession(): SessionInterface
+    {
+        if (null !== $this->session) {
+            return $this->session;
+        }
+
+        throw new LightSamlSessionNotFoundException('Session Not Found');
     }
 }
