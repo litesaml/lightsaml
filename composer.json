@@ -38,11 +38,11 @@
         "psr/event-dispatcher": "^1.0"
     },
     "require-dev": {
-        "symfony/dom-crawler": "~5.0",
-        "symfony/css-selector": "~5.0",
+        "symfony/dom-crawler": "~5.0|~6.0",
+        "symfony/css-selector": "~5.0|~6.0",
         "pimple/pimple": "~3.0",
         "phpunit/phpunit": "~8.4|~9.5",
-        "monolog/monolog": "^2.0.0",
+        "monolog/monolog": "^2.0|^3.0",
         "squizlabs/php_codesniffer": "^3.6",
         "litesaml/schemas": "~1.0.0",
         "phpstan/phpstan": "^1.8",
