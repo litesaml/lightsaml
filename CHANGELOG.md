@@ -4,6 +4,12 @@
 All notable changes to this project will be documented in this file.
 <!--- END HEADER -->
 
+## 4.1.1 (2022-12-21)
+
+### Code Refactoring
+
+* Compliant with Symfony 6 session recommendations.
+
 ## 4.1.0 (2022-12-21)
 
 ### Features
