@@ -4,6 +4,8 @@
 All notable changes to this project will be documented in this file.
 <!--- END HEADER -->
 
+## 0.0.2 (2022-12-23)
+
 ## 0.0.1 (2022-12-23)
 
 ## 4.1.1 (2022-12-21)
