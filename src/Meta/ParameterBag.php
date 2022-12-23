@@ -113,13 +113,29 @@ class ParameterBag implements \IteratorAggregate, \Countable, \Serializable
         return count($this->parameters);
     }
 
-    public function serialize()
+    /**
+     * @deprecated Since php 8.1. Use __serialize() instead
+     */
+    public function serialize(): string
     {
-        return serialize($this->parameters);
+        return serialize($this->__serialize());
     }
 
+    public function __serialize(): array
+    {
+        return $this->parameters;
+    }
+
+    /**
+     * @deprecated Since php 8.1. Use __unserialize() instead
+     */
     public function unserialize($serialized)
     {
-        $this->parameters = unserialize($serialized);
+        $this->__unserialize(unserialize($serialized));
+    }
+
+    public function __unserialize(array $serialized)
+    {
+        $this->parameters = $serialized;
     }
 }
