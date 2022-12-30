@@ -4,6 +4,17 @@
 All notable changes to this project will be documented in this file.
 <!--- END HEADER -->
 
+## 4.1.2 (2022-12-30)
+
+### Bug Fixes
+
+* Authenticate Github action user on workflow
+* Add deprecation to usage of Serializable interface
+
+### Continuous Integrations
+
+* Add authentication on push action
+
 ## 0.0.3 (2022-12-30)
 
 ## 4.1.1 (2022-12-21)
