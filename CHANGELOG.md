@@ -15,8 +15,6 @@ All notable changes to this project will be documented in this file.
 
 * Add authentication on push action
 
-## 0.0.3 (2022-12-30)
-
 ## 4.1.1 (2022-12-21)
 
 ### Code Refactoring
