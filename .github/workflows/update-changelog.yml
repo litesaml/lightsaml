@@ -8,17 +8,18 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    if: github.actor != 'gh-actions-litesaml'
 
     steps:
       - uses: actions/checkout@v3
         with:
-          fetch-depth: 0
           token: ${{ secrets.BOT_ACCESS_TOKEN }}
 
       - name: Config git
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
+
       - name: Set PHP version
         uses: shivammathur/setup-php@v2
         with:
@@ -31,8 +32,4 @@ jobs:
         run: composer tag
 
       - name: Push
-        uses: ad-m/github-push-action@master
-        with:
-          github_token: ${{ secrets.BOT_ACCESS_TOKEN }}
-          branch: ${{ github.ref }}
-          tags: true
+        run: git push --tags
