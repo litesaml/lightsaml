@@ -4,6 +4,13 @@
 All notable changes to this project will be documented in this file.
 <!--- END HEADER -->
 
+## 4.1.3 (2023-01-12)
+
+### Documentation
+
+* Update document URL.
+* Clean changelog
+
 ## 4.1.2 (2022-12-30)
 
 ### Bug Fixes
