@@ -8,7 +8,7 @@ All notable changes to this project will be documented in this file.
 
 ### Documentation
 
-* Update document URL.
+* Update document URL
 * Clean changelog
 
 ## 4.1.2 (2022-12-30)
@@ -26,50 +26,50 @@ All notable changes to this project will be documented in this file.
 
 ### Code Refactoring
 
-* Compliant with Symfony 6 session recommendations.
+* Compliant with Symfony 6 session recommendations
 
 ## 4.1.0 (2022-12-21)
 
 ### Features
 
-* Allow Symfony 6 and Monolog 3.
+* Allow Symfony 6 and Monolog 3
 
 ## 4.0.9 (2022-12-06)
 
 ### Documentation
 
-* Change documentation URL.
+* Change documentation URL
 
 ## 4.0.8 (2022-11-26)
 
 ### Continuous Integrations
 
-* Add script in composer for test, phpcs & phpstan use in CI.
+* Add script in composer for test, phpcs & phpstan use in CI
 
 ## 4.0.7 (2022-11-26)
 
 ### Code Refactoring
 
-* Remove .changelog and README.md from export.
+* Remove .changelog and README.md from export
 * Remove Makefile.
 
 ## 4.0.6 (2022-11-26)
 
 ### Code Refactoring
 
-* Development files won’t be added to git archive.
+* Development files won’t be added to git archive
 
 ## 4.0.5 (2022-11-26)
 
 ### Documentation
 
-* Move assets to .github directory.
+* Move assets to .github directory
 
 ## 4.0.4 (2022-11-26)
 
 ### Code Refactoring
 
-* Introduce PSR-4 autoloading.
+* Introduce PSR-4 autoloading
 
 ## 4.0.3 (2022-11-26)
 
@@ -81,43 +81,43 @@ All notable changes to this project will be documented in this file.
 
 ### Continuous Integrations
 
-* Automatic update of CHANGELOG on commit on master.
+* Automatic update of CHANGELOG on commit on master
 
 ### Documentation
 
-* Preparing CHANGELOG for automation.
+* Preparing CHANGELOG for automation
 
 ## 4.0.1 (2022-08-05)
 
-+ Change package name in banner.
-+ Add PHPStan to CI.
-+ Clean code with PHPStan.
-+ Clean code by removing unnecessary backslash.
++ Change package name in banner
++ Add PHPStan to CI
++ Clean code with PHPStan
++ Clean code by removing unnecessary backslash
 
 ## 4.0.0 (2022-06-23)
 
-+ Replace symfony/event-dispatcher dependency by psr/event-dispatcher.
++ Replace symfony/event-dispatcher dependency by psr/event-dispatcher
 
 ## 3.0.3 (2022-05-29)
 
-+ Change package description.
++ Change package description
 
 ## 3.0.2 (2022-05-27)
 
-+ Fix composer documentation settings.
++ Fix composer documentation settings
 
 ## 3.0.1 (2022-05-27)
 
-+ Fix Documentation.
++ Fix Documentation
 
 ## 3.0.0 (2022-05-27)
 
-+ Move doc in dedicated repository.
-+ Move resources files for tests in tests directory.
-+ Drop deprecated files.
-+ Move schemas in dedicated package.
-+ Update composer metadata.
-+ Update Readme.
++ Move doc in dedicated repository
++ Move resources files for tests in tests directory
++ Drop deprecated files
++ Move schemas in dedicated package
++ Update composer metadata
++ Update Readme
 
 ## 2.3.4 (2022-05-27)
 
@@ -141,7 +141,7 @@ All notable changes to this project will be documented in this file.
 
 ## 2.2.0 (2022-02-09)
 
-+ Run tests by GitHub's actions.
++ Run tests by GitHub's actions
 
 ## 2.1.0 (2021-04-07)
 
