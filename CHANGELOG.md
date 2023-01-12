@@ -4,6 +4,17 @@
 All notable changes to this project will be documented in this file.
 <!--- END HEADER -->
 
+## 4.1.4 (2023-01-12)
+
+### Continuous Integrations
+
+* Prevent running test on changelog update
+* Prevent looping
+
+### Documentation
+
+* Clean changelog
+
 ## 4.1.3 (2023-01-12)
 
 ### Documentation
