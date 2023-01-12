@@ -19,7 +19,7 @@
     "support": {
         "issues": "https://github.com/litesaml/lightsaml/issues",
         "source": "https://github.com/litesaml/lightsaml",
-        "docs": "https://litesaml.github.io"
+        "docs": "https://docs.litesaml.com"
     },
     "autoload": {
         "psr-4": {
