@@ -4,7 +4,7 @@ namespace LightSaml\State\Request;
 
 use LightSaml\Meta\ParameterBag;
 
-class RequestState implements \Serializable
+class RequestState
 {
     /** @var string */
     private $id;
@@ -87,9 +87,9 @@ class RequestState implements \Serializable
      */
     public function serialize()
     {
-        $nonce = $this->getNonce();
+        $nonce = $this->getParameters();
 
-        return serialize([$this->id, $nonce, $this->parameters->serialize()]);
+        return serialize([$this->id, $nonce, $this->parameters->__serialize()]);
     }
 
     /**
@@ -102,6 +102,6 @@ class RequestState implements \Serializable
         $nonce = null;
         $this->parameters = new ParameterBag();
         list($this->id, $nonce, $parameters) = unserialize($serialized);
-        $this->parameters->unserialize($parameters);
+        $this->parameters->__unserialize($parameters);
     }
 }

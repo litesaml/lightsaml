@@ -4,7 +4,7 @@ namespace LightSaml\State\Sso;
 
 use LightSaml\Meta\ParameterBag;
 
-class SsoState implements \Serializable
+class SsoState
 {
     /** @var string */
     private $localSessionId;

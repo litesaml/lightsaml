@@ -5,7 +5,7 @@ namespace LightSaml\State\Sso;
 use LightSaml\Error\LightSamlException;
 use LightSaml\Meta\ParameterBag;
 
-class SsoSessionState implements \Serializable
+class SsoSessionState
 {
     /** @var string */
     protected $idpEntityId;
