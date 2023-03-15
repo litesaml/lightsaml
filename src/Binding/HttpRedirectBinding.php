@@ -266,7 +266,7 @@ class HttpRedirectBinding extends AbstractBinding
     protected function parseQueryString($queryString, $urlDecodeValues = false)
     {
         $result = [];
-        foreach (explode('&', $queryString) as $e) {
+        foreach (explode('&', $queryString ?? '') as $e) {
             $tmp = explode('=', $e, 2);
             $name = $tmp[0];
             $value = 2 === count($tmp) ? $value = $tmp[1] : '';

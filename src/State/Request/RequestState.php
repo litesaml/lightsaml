@@ -87,10 +87,21 @@ class RequestState implements \Serializable
      */
     public function serialize()
     {
-        $nonce = $this->getNonce();
-
-        return serialize([$this->id, $nonce, $this->parameters->serialize()]);
+        return serialize($this->__serialize());
     }
+
+    /**
+     * (PHP >= 8.1)
+     *
+     * @return array
+     */
+    public function __serialize()
+    {
+        $nonce = $this->parameters->get('nonce');
+
+        return [$this->id, $nonce, $this->parameters->__serialize()];
+    }
+
 
     /**
      * @param string $serialized The string representation of the object
@@ -99,9 +110,20 @@ class RequestState implements \Serializable
      */
     public function unserialize($serialized)
     {
+        $this->__unserialize(unserialize($serialized));
+    }
+
+    /**
+     * @param array $serialized
+     *
+     * @return void
+     */
+    public function __unserialize(array $serialized)
+    {
         $nonce = null;
         $this->parameters = new ParameterBag();
-        list($this->id, $nonce, $parameters) = unserialize($serialized);
-        $this->parameters->unserialize($parameters);
+        list($this->id, $nonce, $parameters) = $serialized;
+        $this->parameters->__unserialize($parameters);
     }
+
 }

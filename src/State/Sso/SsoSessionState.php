@@ -281,7 +281,17 @@ class SsoSessionState implements \Serializable
      */
     public function serialize()
     {
-        return serialize([
+        return serialize($this->__serialize());
+    }
+
+    /**
+     * (PHP >= 8.1)
+     * String representation of object.
+     * @return array
+     */
+    public function __serialize()
+    {
+        return[
             $this->idpEntityId,
             $this->spEntityId,
             $this->nameId,
@@ -292,7 +302,7 @@ class SsoSessionState implements \Serializable
             $this->lastAuthOn,
             [],
             $this->parameters,
-        ]);
+        ];
     }
 
     /**
@@ -302,8 +312,17 @@ class SsoSessionState implements \Serializable
      */
     public function unserialize($serialized)
     {
-        $data = unserialize($serialized);
+       $this->__unserialize(unserialize($serialized));
+    }
 
+    /**
+     * (PHP >= 8.1)
+     * @param array $data
+     *
+     * @return void
+     */
+    public function __unserialize(array $data)
+    {
         // add a few extra elements in the array to ensure that we have enough keys when unserializing
         // older data which does not include all properties.
         $data = array_merge($data, array_fill(0, 5, null));
