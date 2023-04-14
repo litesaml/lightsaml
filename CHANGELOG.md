@@ -4,6 +4,12 @@
 All notable changes to this project will be documented in this file.
 <!--- END HEADER -->
 
+## 4.1.5 (2023-04-14)
+
+### Bug Fixes
+
+* Php 8.1 deprecation notices
+
 ## 4.1.4 (2023-01-12)
 
 ### Continuous Integrations
