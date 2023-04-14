@@ -235,7 +235,7 @@ class HttpRedirectBinding extends AbstractBinding
          * can urlencode to different values.
          */
         $sigQuery = $relayState = $sigAlg = '';
-        $data = $this->parseQueryString($request->server->get('QUERY_STRING'), false);
+        $data = $this->parseQueryString($request->server->get('QUERY_STRING'));
         $result = [];
         foreach ($data as $name => $value) {
             $result[$name] = urldecode($value);
@@ -259,19 +259,17 @@ class HttpRedirectBinding extends AbstractBinding
 
     /**
      * @param string $queryString
-     * @param bool   $urlDecodeValues
-     *
      * @return array
      */
-    protected function parseQueryString($queryString, $urlDecodeValues = false)
+    protected function parseQueryString($queryString)
     {
         $result = [];
-        foreach (explode('&', $queryString ?? '') as $e) {
+        foreach (explode('&', $queryString ?: '') as $e) {
             $tmp = explode('=', $e, 2);
             $name = $tmp[0];
-            $value = 2 === count($tmp) ? $value = $tmp[1] : '';
+            $value = 2 === count($tmp) ? $tmp[1] : '';
             $name = urldecode($name);
-            $result[$name] = $urlDecodeValues ? urldecode($value) : $value;
+            $result[$name] = $value;
         }
 
         return $result;

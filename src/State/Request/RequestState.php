@@ -125,5 +125,4 @@ class RequestState implements \Serializable
         list($this->id, $nonce, $parameters) = $serialized;
         $this->parameters->__unserialize($parameters);
     }
-
 }
