@@ -177,12 +177,21 @@ class SsoState implements \Serializable
      */
     public function serialize()
     {
-        return serialize([
+        return serialize($this->__serialize());
+    }
+
+    /**
+     * (PHP >= 8.1)
+     * @return array
+     */
+    public function __serialize()
+    {
+        return [
             $this->localSessionId,
             $this->ssoSessions,
             [],
             $this->parameters,
-        ]);
+        ];
     }
 
     /**
@@ -192,8 +201,16 @@ class SsoState implements \Serializable
      */
     public function unserialize($serialized)
     {
-        $data = unserialize($serialized);
+        $this->__unserialize(unserialize($serialized));
+    }
 
+    /**
+     * @param array $data
+     *
+     * @return void
+     */
+    public function __unserialize(array $data)
+    {
         // add a few extra elements in the array to ensure that we have enough keys when unserializing
         // older data which does not include all properties.
         $data = array_merge($data, array_fill(0, 5, null));

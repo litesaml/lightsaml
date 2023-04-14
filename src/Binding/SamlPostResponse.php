@@ -79,7 +79,7 @@ EOT;
             );
         }
 
-        $content = sprintf($content, htmlspecialchars($this->destination), $fields);
+        $content = sprintf($content, htmlspecialchars($this->destination ?? ''), $fields);
 
         $this->setContent($content);
     }
