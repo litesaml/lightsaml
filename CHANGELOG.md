@@ -4,6 +4,21 @@
 All notable changes to this project will be documented in this file.
 <!--- END HEADER -->
 
+## 4.1.6 (2023-04-14)
+
+### Bug Fixes
+
+* Static analysis requirements
+* Always use `random_bytes()` in `Helper::generateRandomBytes()`
+
+### Code Refactoring
+
+* Use `bin2hex()` in `Helper::stringToHex()`
+
+### Continuous Integrations
+
+* Recover tests (#55)
+
 ## 4.1.5 (2023-04-14)
 
 ### Bug Fixes
