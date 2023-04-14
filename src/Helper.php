@@ -87,16 +87,7 @@ final class Helper
             throw new \InvalidArgumentException();
         }
 
-        if (function_exists('openssl_random_pseudo_bytes')) {
-            return openssl_random_pseudo_bytes($length);
-        }
-
-        $data = '';
-        for ($i = 0; $i < $length; ++$i) {
-            $data .= chr(mt_rand(0, 255));
-        }
-
-        return $data;
+        return random_bytes($length);
     }
 
     /**
