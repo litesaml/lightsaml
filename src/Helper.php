@@ -106,13 +106,7 @@ final class Helper
      */
     public static function stringToHex($bytes)
     {
-        $result = '';
-        $len = strlen($bytes);
-        for ($i = 0; $i < $len; ++$i) {
-            $result .= sprintf('%02x', ord($bytes[$i]));
-        }
-
-        return $result;
+        return bin2hex($bytes);
     }
 
     /**
