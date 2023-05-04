@@ -247,8 +247,10 @@ class HelperTest extends BaseTestCase
     public function notBeforeProvider()
     {
         return array(
+            array(1000, 989, 10, false),
             array(1000, 900, 10, false),
             array(1000, 1100, 10, true),
+            array(1000, 990, 10, true),
         );
     }
 
