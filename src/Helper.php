@@ -170,7 +170,7 @@ final class Helper
 
     /**
      * Returns `true` when `$now` is on or after `$notBefore`.
-     * 
+     *
      * @param int $notBefore
      * @param int $now
      * @param int $allowedSecondsSkew
