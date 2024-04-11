@@ -55,10 +55,15 @@ class HttpPostBinding extends AbstractBinding
 
         $msg = base64_decode($msg);
 
-        $this->dispatchReceive($msg);
+        $msg_decoded = @gzinflate($msg);
+        if ($msg_decoded === false) {
+            $msg_decoded = $msg;
+        }
+
+        $this->dispatchReceive($msg_decoded);
 
         $deserializationContext = $context->getDeserializationContext();
-        $result = SamlMessage::fromXML($msg, $deserializationContext);
+        $result = SamlMessage::fromXML($msg_decoded, $deserializationContext);
 
         if (array_key_exists('RelayState', $post)) {
             $result->setRelayState($post['RelayState']);
