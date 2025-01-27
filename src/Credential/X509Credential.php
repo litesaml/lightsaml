@@ -12,7 +12,7 @@ class X509Credential extends AbstractCredential implements X509CredentialInterfa
     /**
      * @param XMLSecurityKey $privateKey
      */
-    public function __construct(X509Certificate $certificate, XMLSecurityKey $privateKey = null)
+    public function __construct(X509Certificate $certificate, ?XMLSecurityKey $privateKey = null)
     {
         parent::__construct();
         $this->certificate = $certificate;

@@ -10,7 +10,7 @@ class ExceptionContext extends AbstractProfileContext
     /** @var ExceptionContext|null */
     protected $nextExceptionContext;
 
-    public function __construct(\Exception $exception = null)
+    public function __construct(?\Exception $exception = null)
     {
         $this->exception = $exception;
     }

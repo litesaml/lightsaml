@@ -49,7 +49,7 @@ class MessageContext extends AbstractProfileContext
     /**
      * @return MessageContext
      */
-    public function setMessage(SamlMessage $message = null)
+    public function setMessage(?SamlMessage $message = null)
     {
         $this->message = $message;
 

@@ -12,7 +12,7 @@ class TimeProviderMock implements TimeProviderInterface
     /**
      * @param \DateTime $value
      */
-    public function __construct(\DateTime $value = null)
+    public function __construct(?\DateTime $value = null)
     {
         $this->value = $value;
     }
