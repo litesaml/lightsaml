@@ -4,6 +4,12 @@
 All notable changes to this project will be documented in this file.
 <!--- END HEADER -->
 
+## 4.2.1 (2025-02-11)
+
+### Bug Fixes
+
+* Remove implicitly nullable parameter declarations (#75)
+
 ## 4.2.0 (2024-02-08)
 
 ### Features
