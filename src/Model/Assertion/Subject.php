@@ -20,7 +20,7 @@ class Subject extends AbstractSamlModel
      *
      * @return Subject
      */
-    public function setNameID(NameID $nameId = null)
+    public function setNameID(?NameID $nameId = null)
     {
         $this->nameId = $nameId;
 

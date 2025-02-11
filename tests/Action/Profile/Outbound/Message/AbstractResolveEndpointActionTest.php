@@ -74,9 +74,9 @@ abstract class AbstractResolveEndpointActionTest extends BaseTestCase
      */
     protected function createContext(
         $ownRole = ProfileContext::ROLE_IDP,
-        SamlMessage $inboundMessage = null,
-        Endpoint $endpoint = null,
-        EntityDescriptor $partyEntityDescriptor = null,
+        ?SamlMessage $inboundMessage = null,
+        ?Endpoint $endpoint = null,
+        ?EntityDescriptor $partyEntityDescriptor = null,
         $profileId = Profiles::SSO_IDP_RECEIVE_AUTHN_REQUEST
     ) {
         $context = $this->getProfileContext($profileId, $ownRole);

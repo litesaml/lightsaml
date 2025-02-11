@@ -18,7 +18,7 @@ class Status extends AbstractSamlModel
     /**
      * @param string $message
      */
-    public function __construct(StatusCode $statusCode = null, $message = null)
+    public function __construct(?StatusCode $statusCode = null, $message = null)
     {
         $this->statusCode = $statusCode;
         $this->statusMessage = $message;

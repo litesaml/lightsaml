@@ -16,7 +16,7 @@ class DeserializationContext
     /**
      * @param \DOMDocument $document
      */
-    public function __construct(\DOMDocument $document = null)
+    public function __construct(?\DOMDocument $document = null)
     {
         $this->document = $document ? $document : new \DOMDocument();
     }
@@ -32,7 +32,7 @@ class DeserializationContext
     /**
      * @return DeserializationContext
      */
-    public function setDocument(\DOMDocument $document)
+    public function setDocument(?\DOMDocument $document)
     {
         $this->document = $document;
 

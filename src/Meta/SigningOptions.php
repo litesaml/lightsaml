@@ -26,7 +26,7 @@ class SigningOptions
      * @param XMLSecurityKey  $privateKey
      * @param X509Certificate $certificate
      */
-    public function __construct(XMLSecurityKey $privateKey = null, X509Certificate $certificate = null)
+    public function __construct(?XMLSecurityKey $privateKey = null, ?X509Certificate $certificate = null)
     {
         $this->enabled = true;
         $this->privateKey = $privateKey;
@@ -47,7 +47,7 @@ class SigningOptions
      *
      * @return SigningOptions
      */
-    public function setCertificate(X509Certificate $certificate = null)
+    public function setCertificate(?X509Certificate $certificate = null)
     {
         $this->certificate = $certificate;
 
@@ -67,7 +67,7 @@ class SigningOptions
      *
      * @return SigningOptions
      */
-    public function setPrivateKey(XMLSecurityKey $privateKey = null)
+    public function setPrivateKey(?XMLSecurityKey $privateKey = null)
     {
         $this->privateKey = $privateKey;
 

@@ -50,7 +50,7 @@ class SignatureWriter extends Signature
     /**
      * @param string $digestAlgorithm
      */
-    public function __construct(X509Certificate $certificate = null, XMLSecurityKey $xmlSecurityKey = null, $digestAlgorithm = XMLSecurityDSig::SHA1)
+    public function __construct(?X509Certificate $certificate = null, ?XMLSecurityKey $xmlSecurityKey = null, $digestAlgorithm = XMLSecurityDSig::SHA1)
     {
         $this->certificate = $certificate;
         $this->xmlSecurityKey = $xmlSecurityKey;

@@ -58,7 +58,7 @@ class MessageContextHelperTest extends BaseTestCase
     /**
      * @dataProvider helperProvider
      */
-    public function test__helper($method, SamlMessage $message = null, $expectedException = null, $expectedMessage = null)
+    public function test__helper($method, ?SamlMessage $message = null, $expectedException = null, $expectedMessage = null)
     {
         $context = new MessageContext();
         if ($message) {

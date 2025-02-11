@@ -16,7 +16,7 @@ abstract class AbstractBinding
     /**
      * @return AbstractBinding
      */
-    public function setEventDispatcher(EventDispatcherInterface $eventDispatcher = null)
+    public function setEventDispatcher(?EventDispatcherInterface $eventDispatcher = null)
     {
         $this->eventDispatcher = $eventDispatcher;
 

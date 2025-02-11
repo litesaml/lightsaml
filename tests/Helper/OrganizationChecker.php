@@ -7,7 +7,7 @@ use LightSaml\Tests\BaseTestCase;
 
 class OrganizationChecker
 {
-    public static function check(BaseTestCase $test, $name, $display, $url, Organization $organization = null)
+    public static function check(BaseTestCase $test, $name, $display, $url, ?Organization $organization = null)
     {
         $test->assertNotNull($organization);
         $test->assertEquals($name, $organization->getOrganizationName());

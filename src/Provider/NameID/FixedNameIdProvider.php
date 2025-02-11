@@ -10,7 +10,7 @@ class FixedNameIdProvider implements NameIdProviderInterface
     /** @var NameID|null */
     protected $nameId;
 
-    public function __construct(NameID $nameId = null)
+    public function __construct(?NameID $nameId = null)
     {
         $this->nameId = $nameId;
     }
@@ -18,7 +18,7 @@ class FixedNameIdProvider implements NameIdProviderInterface
     /**
      * @return FixedNameIdProvider
      */
-    public function setNameId(NameID $nameId = null)
+    public function setNameId(?NameID $nameId = null)
     {
         $this->nameId = $nameId;
 

@@ -159,7 +159,7 @@ class ProfileTest extends BaseTestCase
         $this->assertInstanceOf(\LightSaml\Store\EntityDescriptor\EntityDescriptorStoreInterface::class, $buildContainer->getPartyContainer()->getSpEntityDescriptorStore());
     }
 
-    private function getBuildContainer($inResponseTo = null, TimeProviderInterface $timeProvider = null)
+    private function getBuildContainer($inResponseTo = null, ?TimeProviderInterface $timeProvider = null)
     {
         $pimple = new Container();
 

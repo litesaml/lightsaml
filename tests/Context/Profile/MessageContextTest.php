@@ -32,7 +32,7 @@ class MessageContextTest extends BaseTestCase
     /**
      * @dataProvider message_as_concrete_type_provider
      */
-    public function test_message_as_concrete_type($method, $hasValue, SamlMessage $message = null)
+    public function test_message_as_concrete_type($method, $hasValue, ?SamlMessage $message = null)
     {
         $context = new MessageContext();
         if ($message) {

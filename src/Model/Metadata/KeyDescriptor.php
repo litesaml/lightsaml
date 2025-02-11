@@ -23,7 +23,7 @@ class KeyDescriptor extends AbstractSamlModel
     /**
      * @param string|null $use
      */
-    public function __construct($use = null, X509Certificate $certificate = null)
+    public function __construct($use = null, ?X509Certificate $certificate = null)
     {
         $this->use = $use;
         $this->certificate = $certificate;
