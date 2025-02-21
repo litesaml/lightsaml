@@ -8,16 +8,8 @@ use LightSaml\Context\Profile\ProfileContexts;
 
 class CatchableErrorAction implements ActionInterface
 {
-    /** @var ActionInterface */
-    protected $mainAction;
-
-    /** @var ActionInterface */
-    protected $errorAction;
-
-    public function __construct(ActionInterface $mainAction, ActionInterface $errorAction)
+    public function __construct(protected \LightSaml\Action\ActionInterface $mainAction, protected \LightSaml\Action\ActionInterface $errorAction)
     {
-        $this->mainAction = $mainAction;
-        $this->errorAction = $errorAction;
     }
 
     /**

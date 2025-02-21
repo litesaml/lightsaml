@@ -9,20 +9,12 @@ class MetadataCriteria implements TrustCriteriaInterface
     public const TYPE_IDP = 'idp';
     public const TYPE_SP = 'sp';
 
-    /** @var string */
-    protected $metadataType;
-
-    /** @var string */
-    protected $protocol;
-
     /**
      * @param string $metadataType
      * @param string $protocol
      */
-    public function __construct($metadataType, $protocol = SamlConstants::PROTOCOL_SAML2)
+    public function __construct(protected $metadataType, protected $protocol = SamlConstants::PROTOCOL_SAML2)
     {
-        $this->metadataType = $metadataType;
-        $this->protocol = $protocol;
     }
 
     /**

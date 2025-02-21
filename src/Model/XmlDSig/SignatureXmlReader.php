@@ -98,15 +98,14 @@ class SignatureXmlReader extends AbstractSignatureReader
         if (!$sigMethod->hasAttribute('Algorithm')) {
             throw new LightSamlXmlException('Missing Algorithm-attribute on SignatureMethod element.');
         }
-        $algorithm = $sigMethod->getAttribute('Algorithm');
 
-        return $algorithm;
+        return $sigMethod->getAttribute('Algorithm');
     }
 
     /**
      * @throws \LogicException
      */
-    public function serialize(\DOMNode $parent, SerializationContext $context)
+    public function serialize(\DOMNode $parent, SerializationContext $context): never
     {
         throw new \LogicException('SignatureXmlReader can not be serialized');
     }

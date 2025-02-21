@@ -32,7 +32,7 @@ class CriteriaSet
      */
     public function addIfNone(CriteriaInterface $criteria)
     {
-        if (false == $this->has(get_class($criteria))) {
+        if (false == $this->has($criteria::class)) {
             $this->add($criteria);
         }
 
@@ -52,12 +52,10 @@ class CriteriaSet
     }
 
     /**
-     * @param mixed    $condition
      * @param callable $callback
-     *
      * @return CriteriaSet
      */
-    public function addIf($condition, $callback)
+    public function addIf(mixed $condition, $callback)
     {
         if ($condition) {
             $criteria = call_user_func($callback);

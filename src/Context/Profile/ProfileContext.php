@@ -11,22 +11,14 @@ class ProfileContext extends AbstractProfileContext
     public const ROLE_NONE = 'none';
 
     /** @var string */
-    private $profileId;
-
-    /** @var string */
-    private $ownRole;
-
-    /** @var string */
     private $relayState;
 
     /**
      * @param string $profileId
      * @param string $ownRole
      */
-    public function __construct($profileId, $ownRole)
+    public function __construct(private $profileId, private $ownRole)
     {
-        $this->profileId = $profileId;
-        $this->ownRole = $ownRole;
     }
 
     /**

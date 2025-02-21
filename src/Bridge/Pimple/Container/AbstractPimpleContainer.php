@@ -6,12 +6,8 @@ use Pimple\Container;
 
 abstract class AbstractPimpleContainer
 {
-    /** @var Container */
-    protected $pimple;
-
-    public function __construct(Container $pimple)
+    public function __construct(protected \Pimple\Container $pimple)
     {
-        $this->pimple = $pimple;
     }
 
     /**

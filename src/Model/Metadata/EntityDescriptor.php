@@ -10,9 +10,6 @@ use LightSaml\SamlConstants;
 
 class EntityDescriptor extends Metadata
 {
-    /** @var string */
-    protected $entityID;
-
     /** @var int|null */
     protected $validUntil;
 
@@ -60,11 +57,10 @@ class EntityDescriptor extends Metadata
     }
 
     /**
-     * @param string|null $entityId
+     * @param string|null $entityID
      */
-    public function __construct($entityId = null, array $items = [])
+    public function __construct(protected $entityID = null, array $items = [])
     {
-        $this->entityID = $entityId;
         $this->items = $items;
     }
 
@@ -102,8 +98,6 @@ class EntityDescriptor extends Metadata
     }
 
     /**
-     * @param \LightSaml\Model\Metadata\Organization $organization
-     *
      * @return EntityDescriptor
      */
     public function addOrganization(Organization $organization)
@@ -444,7 +438,7 @@ class EntityDescriptor extends Metadata
             $context,
             'IDPSSODescriptor',
             'md',
-            'LightSaml\Model\Metadata\IdpSsoDescriptor',
+            \LightSaml\Model\Metadata\IdpSsoDescriptor::class,
             'addItem'
         );
 
@@ -453,7 +447,7 @@ class EntityDescriptor extends Metadata
             $context,
             'SPSSODescriptor',
             'md',
-            'LightSaml\Model\Metadata\SpSsoDescriptor',
+            \LightSaml\Model\Metadata\SpSsoDescriptor::class,
             'addItem'
         );
 
@@ -462,7 +456,7 @@ class EntityDescriptor extends Metadata
             $context,
             'Organization',
             'md',
-            'LightSaml\Model\Metadata\Organization',
+            \LightSaml\Model\Metadata\Organization::class,
             'addOrganization'
         );
 
@@ -471,12 +465,12 @@ class EntityDescriptor extends Metadata
             $context,
             'ContactPerson',
             'md',
-            'LightSaml\Model\Metadata\ContactPerson',
+            \LightSaml\Model\Metadata\ContactPerson::class,
             'addContactPerson'
         );
 
         $this->singleElementsFromXml($node, $context, [
-            'Signature' => ['ds', 'LightSaml\Model\XmlDSig\SignatureXmlReader'],
+            'Signature' => ['ds', \LightSaml\Model\XmlDSig\SignatureXmlReader::class],
         ]);
     }
 }

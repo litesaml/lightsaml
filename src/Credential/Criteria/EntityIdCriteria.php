@@ -4,15 +4,11 @@ namespace LightSaml\Credential\Criteria;
 
 class EntityIdCriteria implements TrustCriteriaInterface
 {
-    /** @var string */
-    protected $entityId;
-
     /**
      * @param string $entityId
      */
-    public function __construct($entityId)
+    public function __construct(protected $entityId)
     {
-        $this->entityId = $entityId;
     }
 
     /**

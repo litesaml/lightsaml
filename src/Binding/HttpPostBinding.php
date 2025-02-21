@@ -19,7 +19,7 @@ class HttpPostBinding extends AbstractBinding
     public function send(MessageContext $context, $destination = null)
     {
         $message = MessageContextHelper::asSamlMessage($context);
-        $destination = $message->getDestination() ? $message->getDestination() : $destination;
+        $destination = $message->getDestination() ?: $destination;
 
         $serializationContext = $context->getSerializationContext();
         $message->serialize($serializationContext->getDocument(), $serializationContext);

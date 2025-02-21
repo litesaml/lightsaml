@@ -9,25 +9,13 @@ use RobRichards\XMLSecLibs\XMLSecurityKey;
 
 class SignatureStringReader extends AbstractSignatureReader
 {
-    /** @var string */
-    protected $signature;
-
-    /** @var string */
-    protected $algorithm;
-
-    /** @var string */
-    protected $data;
-
     /**
      * @param string|null $signature
      * @param string|null $algorithm
      * @param string|null $data
      */
-    public function __construct($signature = null, $algorithm = null, $data = null)
+    public function __construct(protected $signature = null, protected $algorithm = null, protected $data = null)
     {
-        $this->signature = $signature;
-        $this->algorithm = $algorithm;
-        $this->data = $data;
     }
 
     /**
@@ -103,12 +91,12 @@ class SignatureStringReader extends AbstractSignatureReader
     /**
      * @throws \LogicException
      */
-    public function serialize(\DOMNode $parent, SerializationContext $context)
+    public function serialize(\DOMNode $parent, SerializationContext $context): never
     {
         throw new \LogicException('SignatureStringReader can not be serialized');
     }
 
-    public function deserialize(\DOMNode $node, DeserializationContext $context)
+    public function deserialize(\DOMNode $node, DeserializationContext $context): never
     {
         throw new \LogicException('SignatureStringReader can not be deserialized');
     }

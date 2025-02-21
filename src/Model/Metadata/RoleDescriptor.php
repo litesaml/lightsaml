@@ -176,7 +176,7 @@ abstract class RoleDescriptor extends AbstractSamlModel
             }
         }
 
-        return;
+        return null;
     }
 
     /**
@@ -262,7 +262,7 @@ abstract class RoleDescriptor extends AbstractSamlModel
             return Helper::time2string($this->validUntil);
         }
 
-        return;
+        return null;
     }
 
     /**
@@ -313,7 +313,7 @@ abstract class RoleDescriptor extends AbstractSamlModel
             $context,
             'Signature',
             'ds',
-            'LightSaml\Model\XmlDSig\Signature',
+            \LightSaml\Model\XmlDSig\Signature::class,
             'addSignature'
         );
         $this->manyElementsFromXml(
@@ -321,7 +321,7 @@ abstract class RoleDescriptor extends AbstractSamlModel
             $context,
             'KeyDescriptor',
             'md',
-            'LightSaml\Model\Metadata\KeyDescriptor',
+            \LightSaml\Model\Metadata\KeyDescriptor::class,
             'addKeyDescriptor'
         );
         $this->manyElementsFromXml(
@@ -329,7 +329,7 @@ abstract class RoleDescriptor extends AbstractSamlModel
             $context,
             'Organization',
             'md',
-            'LightSaml\Model\Metadata\Organization',
+            \LightSaml\Model\Metadata\Organization::class,
             'addOrganization'
         );
         $this->manyElementsFromXml(
@@ -337,7 +337,7 @@ abstract class RoleDescriptor extends AbstractSamlModel
             $context,
             'ContactPerson',
             'md',
-            'LightSaml\Model\Metadata\ContactPerson',
+            \LightSaml\Model\Metadata\ContactPerson::class,
             'addContactPerson'
         );
     }

@@ -18,23 +18,8 @@ use LightSaml\Validator\Model\Subject\SubjectValidatorInterface;
 
 class AssertionValidator implements AssertionValidatorInterface
 {
-    /** @var NameIdValidatorInterface */
-    protected $nameIdValidator;
-
-    /** @var SubjectValidatorInterface */
-    protected $subjectValidator;
-
-    /** @var StatementValidatorInterface */
-    protected $statementValidator;
-
-    public function __construct(
-        NameIdValidatorInterface $nameIdValidator,
-        SubjectValidatorInterface $subjectValidator,
-        StatementValidatorInterface $statementValidator
-    ) {
-        $this->nameIdValidator = $nameIdValidator;
-        $this->subjectValidator = $subjectValidator;
-        $this->statementValidator = $statementValidator;
+    public function __construct(protected \LightSaml\Validator\Model\NameId\NameIdValidatorInterface $nameIdValidator, protected \LightSaml\Validator\Model\Subject\SubjectValidatorInterface $subjectValidator, protected \LightSaml\Validator\Model\Statement\StatementValidatorInterface $statementValidator)
+    {
     }
 
     /**

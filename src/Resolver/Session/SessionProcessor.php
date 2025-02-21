@@ -10,16 +10,8 @@ use LightSaml\Store\Sso\SsoStateStoreInterface;
 
 class SessionProcessor implements SessionProcessorInterface
 {
-    /** @var SsoStateStoreInterface */
-    protected $ssoStateStore;
-
-    /** @var TimeProviderInterface */
-    protected $timeProvider;
-
-    public function __construct(SsoStateStoreInterface $ssoStateStore, TimeProviderInterface $timeProvider)
+    public function __construct(protected \LightSaml\Store\Sso\SsoStateStoreInterface $ssoStateStore, protected \LightSaml\Provider\TimeProvider\TimeProviderInterface $timeProvider)
     {
-        $this->ssoStateStore = $ssoStateStore;
-        $this->timeProvider = $timeProvider;
     }
 
     /**

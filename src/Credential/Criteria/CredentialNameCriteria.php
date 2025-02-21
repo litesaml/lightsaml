@@ -4,15 +4,11 @@ namespace LightSaml\Credential\Criteria;
 
 class CredentialNameCriteria implements TrustCriteriaInterface
 {
-    /** @var string */
-    protected $name;
-
     /**
      * @param string $name
      */
-    public function __construct($name)
+    public function __construct(protected $name)
     {
-        $this->name = $name;
     }
 
     /**

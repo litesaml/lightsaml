@@ -164,7 +164,7 @@ class IdpSsoDescriptor extends SSODescriptor
             $context,
             'SingleSignOnService',
             'md',
-            'LightSaml\Model\Metadata\SingleSignOnService',
+            \LightSaml\Model\Metadata\SingleSignOnService::class,
             'addSingleSignOnService'
         );
 
@@ -174,7 +174,7 @@ class IdpSsoDescriptor extends SSODescriptor
             $context,
             'Attribute',
             'saml',
-            'LightSaml\Model\Assertion\Attribute',
+            \LightSaml\Model\Assertion\Attribute::class,
             'addAttribute'
         );
     }

@@ -11,12 +11,8 @@ use LightSaml\Validator\Model\NameId\NameIdValidatorInterface;
 
 class SubjectValidator implements SubjectValidatorInterface
 {
-    /** @var NameIdValidatorInterface */
-    protected $nameIdValidator;
-
-    public function __construct(NameIdValidatorInterface $nameIdValidator)
+    public function __construct(protected \LightSaml\Validator\Model\NameId\NameIdValidatorInterface $nameIdValidator)
     {
-        $this->nameIdValidator = $nameIdValidator;
     }
 
     /**
@@ -63,10 +59,8 @@ class SubjectValidator implements SubjectValidatorInterface
 
     protected function validateSubjectConfirmationData(SubjectConfirmationData $subjectConfirmationData)
     {
-        if ($subjectConfirmationData->getRecipient()) {
-            if (false == Helper::validateWellFormedUriString($subjectConfirmationData->getRecipient())) {
-                throw new LightSamlValidationException('Recipient of SubjectConfirmationData must be a wellformed absolute URI.');
-            }
+        if ($subjectConfirmationData->getRecipient() && false == Helper::validateWellFormedUriString($subjectConfirmationData->getRecipient())) {
+            throw new LightSamlValidationException('Recipient of SubjectConfirmationData must be a wellformed absolute URI.');
         }
         if (
             $subjectConfirmationData->getNotBeforeTimestamp() &&

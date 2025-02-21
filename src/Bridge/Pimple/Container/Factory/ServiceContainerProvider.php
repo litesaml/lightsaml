@@ -27,23 +27,8 @@ use Pimple\ServiceProviderInterface;
 
 class ServiceContainerProvider implements ServiceProviderInterface
 {
-    /** @var CredentialContainerInterface */
-    private $credentialContainer;
-
-    /** @var SystemContainerInterface */
-    private $systemContainer;
-
-    /** @var StoreContainerInterface */
-    private $storeContainer;
-
-    public function __construct(
-        CredentialContainerInterface $credentialContainer,
-        StoreContainerInterface $storeContainer,
-        SystemContainerInterface $systemContainer
-    ) {
-        $this->credentialContainer = $credentialContainer;
-        $this->storeContainer = $storeContainer;
-        $this->systemContainer = $systemContainer;
+    public function __construct(private readonly CredentialContainerInterface $credentialContainer, private readonly StoreContainerInterface $storeContainer, private readonly SystemContainerInterface $systemContainer)
+    {
     }
 
     /**

@@ -6,15 +6,11 @@ use LightSaml\Criteria\CriteriaInterface;
 
 class ServiceTypeCriteria implements CriteriaInterface
 {
-    /** @var string */
-    protected $serviceType;
-
     /**
      * @param string $serviceType
      */
-    public function __construct($serviceType)
+    public function __construct(protected $serviceType)
     {
-        $this->serviceType = $serviceType;
     }
 
     /**

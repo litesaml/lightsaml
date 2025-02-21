@@ -6,15 +6,11 @@ use LightSaml\Criteria\CriteriaInterface;
 
 class LocationCriteria implements CriteriaInterface
 {
-    /** @var string */
-    protected $location;
-
     /**
      * @param string $location
      */
-    public function __construct($location)
+    public function __construct(protected $location)
     {
-        $this->location = $location;
     }
 
     /**

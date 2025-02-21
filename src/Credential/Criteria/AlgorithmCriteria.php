@@ -4,15 +4,11 @@ namespace LightSaml\Credential\Criteria;
 
 class AlgorithmCriteria implements TrustCriteriaInterface
 {
-    /** @var string */
-    protected $algorithm;
-
     /**
      * @param string $algorithm
      */
-    public function __construct($algorithm)
+    public function __construct(protected $algorithm)
     {
-        $this->algorithm = $algorithm;
     }
 
     /**

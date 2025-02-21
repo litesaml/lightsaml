@@ -12,14 +12,9 @@ use Psr\Log\LoggerInterface;
 
 class AssertionAction extends AbstractProfileAction implements DebugPrintTreeActionInterface
 {
-    /** @var ActionInterface */
-    private $assertionAction;
-
-    public function __construct(LoggerInterface $logger, ActionInterface $assertionAction)
+    public function __construct(LoggerInterface $logger, private readonly ActionInterface $assertionAction)
     {
         parent::__construct($logger);
-
-        $this->assertionAction = $assertionAction;
     }
 
     protected function doExecute(ProfileContext $context)
@@ -50,13 +45,11 @@ class AssertionAction extends AbstractProfileAction implements DebugPrintTreeAct
         if ($this->assertionAction instanceof DebugPrintTreeActionInterface) {
             $arr = array_merge($arr, $this->assertionAction->debugPrintTree());
         } else {
-            $arr[get_class($this->assertionAction)] = [];
+            $arr[$this->assertionAction::class] = [];
         }
 
-        $result = [
+        return [
             static::class => $arr,
         ];
-
-        return $result;
     }
 }

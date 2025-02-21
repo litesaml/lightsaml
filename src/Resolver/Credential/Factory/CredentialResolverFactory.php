@@ -16,12 +16,8 @@ use LightSaml\Store\Credential\CredentialStoreInterface;
 
 class CredentialResolverFactory
 {
-    /** @var CredentialStoreInterface */
-    protected $credentialStore;
-
-    public function __construct(CredentialStoreInterface $credentialStore)
+    public function __construct(protected \LightSaml\Store\Credential\CredentialStoreInterface $credentialStore)
     {
-        $this->credentialStore = $credentialStore;
     }
 
     /**
@@ -29,7 +25,7 @@ class CredentialResolverFactory
      */
     public function build()
     {
-        $result = (new CompositeFilterResolver())
+        return (new CompositeFilterResolver())
             ->add(new EntityIdResolver($this->credentialStore))
             ->add(new AlgorithmFilterResolver())
             ->add(new CredentialNameFilterResolver())
@@ -37,9 +33,6 @@ class CredentialResolverFactory
             ->add(new UsageFilterResolver())
             ->add(new PrivateKeyResolver())
             ->add(new X509CredentialResolver())
-            ->add(new PublicKeyThumbprintResolver())
-        ;
-
-        return $result;
+            ->add(new PublicKeyThumbprintResolver());
     }
 }

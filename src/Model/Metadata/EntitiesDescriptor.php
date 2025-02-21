@@ -200,10 +200,8 @@ class EntitiesDescriptor extends Metadata
         if ($item === $this) {
             throw new \InvalidArgumentException('Circular reference detected');
         }
-        if ($item instanceof self) {
-            if ($item->containsItem($this)) {
-                throw new \InvalidArgumentException('Circular reference detected');
-            }
+        if ($item instanceof self && $item->containsItem($this)) {
+            throw new \InvalidArgumentException('Circular reference detected');
         }
         $this->items[] = $item;
 
@@ -226,10 +224,8 @@ class EntitiesDescriptor extends Metadata
             if ($i === $item) {
                 return true;
             }
-            if ($i instanceof self) {
-                if ($i->containsItem($item)) {
-                    return true;
-                }
+            if ($i instanceof self && $i->containsItem($item)) {
+                return true;
             }
         }
 
@@ -298,7 +294,7 @@ class EntitiesDescriptor extends Metadata
         $this->attributesFromXml($node, ['validUntil', 'cacheDuration', 'ID', 'Name']);
 
         $this->singleElementsFromXml($node, $context, [
-            'Signature' => ['ds', 'LightSaml\Model\XmlDSig\SignatureXmlReader'],
+            'Signature' => ['ds', \LightSaml\Model\XmlDSig\SignatureXmlReader::class],
         ]);
 
         $this->manyElementsFromXml(
@@ -306,7 +302,7 @@ class EntitiesDescriptor extends Metadata
             $context,
             'EntityDescriptor',
             'md',
-            'LightSaml\Model\Metadata\EntityDescriptor',
+            \LightSaml\Model\Metadata\EntityDescriptor::class,
             'addItem'
         );
         $this->manyElementsFromXml(
@@ -314,7 +310,7 @@ class EntitiesDescriptor extends Metadata
             $context,
             'EntitiesDescriptor',
             'md',
-            'LightSaml\Model\Metadata\EntitiesDescriptor',
+            \LightSaml\Model\Metadata\EntitiesDescriptor::class,
             'addItem'
         );
     }

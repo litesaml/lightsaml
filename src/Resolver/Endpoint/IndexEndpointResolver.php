@@ -25,10 +25,8 @@ class IndexEndpointResolver implements EndpointResolverInterface
         foreach ($criteriaSet->get(IndexCriteria::class) as $indexCriteria) {
             foreach ($candidates as $endpointReference) {
                 $endpoint = $endpointReference->getEndpoint();
-                if ($endpoint instanceof IndexedEndpoint) {
-                    if ($endpoint->getIndex() == $indexCriteria->getIndex()) {
-                        $result[] = $endpointReference;
-                    }
+                if ($endpoint instanceof IndexedEndpoint && $endpoint->getIndex() == $indexCriteria->getIndex()) {
+                    $result[] = $endpointReference;
                 }
             }
         }

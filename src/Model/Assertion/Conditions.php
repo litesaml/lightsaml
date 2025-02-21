@@ -246,7 +246,7 @@ class Conditions extends AbstractSamlModel
             $context,
             'AudienceRestriction',
             'saml',
-            'LightSaml\Model\Assertion\AudienceRestriction',
+            \LightSaml\Model\Assertion\AudienceRestriction::class,
             'addItem'
         );
         $this->manyElementsFromXml(
@@ -254,7 +254,7 @@ class Conditions extends AbstractSamlModel
             $context,
             'OneTimeUse',
             'saml',
-            'LightSaml\Model\Assertion\OneTimeUse',
+            \LightSaml\Model\Assertion\OneTimeUse::class,
             'addItem'
         );
         $this->manyElementsFromXml(
@@ -262,7 +262,7 @@ class Conditions extends AbstractSamlModel
             $context,
             'ProxyRestriction',
             'saml',
-            'LightSaml\Model\Assertion\ProxyRestriction',
+            \LightSaml\Model\Assertion\ProxyRestriction::class,
             'addItem'
         );
     }

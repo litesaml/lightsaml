@@ -12,12 +12,8 @@ use LightSaml\Store\EntityDescriptor\EntityDescriptorStoreInterface;
 
 class MetadataCredentialStore implements CredentialStoreInterface
 {
-    /** @var EntityDescriptorStoreInterface */
-    protected $entityDescriptorProvider;
-
-    public function __construct(EntityDescriptorStoreInterface $entityDescriptorProvider)
+    public function __construct(protected \LightSaml\Store\EntityDescriptor\EntityDescriptorStoreInterface $entityDescriptorProvider)
     {
-        $this->entityDescriptorProvider = $entityDescriptorProvider;
     }
 
     /**

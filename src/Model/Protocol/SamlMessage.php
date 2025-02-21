@@ -57,7 +57,7 @@ abstract class SamlMessage extends AbstractSamlModel
         while ($node && $node instanceof \DOMComment) {
             $node = $node->nextSibling;
         }
-        if (null === $node) {
+        if (!$node instanceof \DOMNode) {
             throw new LightSamlXmlException('Empty XML');
         }
 
@@ -67,10 +67,10 @@ abstract class SamlMessage extends AbstractSamlModel
 
         $map = [
             'AttributeQuery' => null,
-            'AuthnRequest' => '\LightSaml\Model\Protocol\AuthnRequest',
-            'LogoutResponse' => '\LightSaml\Model\Protocol\LogoutResponse',
-            'LogoutRequest' => '\LightSaml\Model\Protocol\LogoutRequest',
-            'Response' => '\LightSaml\Model\Protocol\Response',
+            'AuthnRequest' => \LightSaml\Model\Protocol\AuthnRequest::class,
+            'LogoutResponse' => \LightSaml\Model\Protocol\LogoutResponse::class,
+            'LogoutRequest' => \LightSaml\Model\Protocol\LogoutRequest::class,
+            'Response' => \LightSaml\Model\Protocol\Response::class,
             'ArtifactResponse' => null,
             'ArtifactResolve' => null,
         ];
@@ -288,8 +288,8 @@ abstract class SamlMessage extends AbstractSamlModel
         $this->attributesFromXml($node, ['ID', 'Version', 'IssueInstant', 'Destination', 'Consent']);
 
         $this->singleElementsFromXml($node, $context, [
-            'Issuer' => ['saml', 'LightSaml\Model\Assertion\Issuer'],
-            'Signature' => ['ds', 'LightSaml\Model\XmlDSig\SignatureXmlReader'],
+            'Issuer' => ['saml', \LightSaml\Model\Assertion\Issuer::class],
+            'Signature' => ['ds', \LightSaml\Model\XmlDSig\SignatureXmlReader::class],
         ]);
     }
 }

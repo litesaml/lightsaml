@@ -8,20 +8,8 @@ use LightSaml\Model\Metadata\RoleDescriptor;
 
 class MetadataCredentialContext implements CredentialContextInterface
 {
-    /** @var KeyDescriptor */
-    protected $keyDescriptor;
-
-    /** @var RoleDescriptor */
-    protected $roleDescriptor;
-
-    /** @var EntityDescriptor */
-    protected $entityDescriptor;
-
-    public function __construct(KeyDescriptor $keyDescriptor, RoleDescriptor $roleDescriptor, EntityDescriptor $entityDescriptor)
+    public function __construct(protected \LightSaml\Model\Metadata\KeyDescriptor $keyDescriptor, protected \LightSaml\Model\Metadata\RoleDescriptor $roleDescriptor, protected \LightSaml\Model\Metadata\EntityDescriptor $entityDescriptor)
     {
-        $this->entityDescriptor = $entityDescriptor;
-        $this->keyDescriptor = $keyDescriptor;
-        $this->roleDescriptor = $roleDescriptor;
     }
 
     /**

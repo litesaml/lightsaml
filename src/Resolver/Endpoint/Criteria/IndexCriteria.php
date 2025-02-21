@@ -6,15 +6,11 @@ use LightSaml\Criteria\CriteriaInterface;
 
 class IndexCriteria implements CriteriaInterface
 {
-    /** @var string */
-    protected $index;
-
     /**
      * @param string $index
      */
-    public function __construct($index)
+    public function __construct(protected $index)
     {
-        $this->index = $index;
     }
 
     /**

@@ -10,9 +10,6 @@ use LightSaml\SamlConstants;
 class Attribute extends AbstractSamlModel
 {
     /** @var string */
-    protected $name;
-
-    /** @var string */
     protected $nameFormat;
 
     /** @var string */
@@ -25,9 +22,8 @@ class Attribute extends AbstractSamlModel
      * @param string|null     $name
      * @param string|string[] $value
      */
-    public function __construct($name = null, $value = null)
+    public function __construct(protected $name = null, $value = null)
     {
-        $this->name = $name;
         if ($value) {
             $this->attributeValue = is_array($value) ? $value : [$value];
         }
@@ -71,10 +67,7 @@ class Attribute extends AbstractSamlModel
         return $this->attributeValue;
     }
 
-    /**
-     * @return string|null
-     */
-    public function getFirstAttributeValue()
+    public function getFirstAttributeValue(): ?string
     {
         $arr = $this->attributeValue;
 

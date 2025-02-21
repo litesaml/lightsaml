@@ -22,10 +22,8 @@ final class Helper
 
     /**
      * @param int $time
-     *
-     * @return string
      */
-    public static function time2string($time)
+    public static function time2string($time): string
     {
         return gmdate('Y-m-d\TH:i:s\Z', $time);
     }
@@ -57,7 +55,7 @@ final class Helper
      *
      * @throws \InvalidArgumentException
      */
-    public static function parseSAMLTime($time)
+    public static function parseSAMLTime($time): int|false
     {
         $matches = [];
         if (
@@ -76,11 +74,10 @@ final class Helper
     /**
      * @param int $length
      *
-     * @return string
      *
      * @throws \InvalidArgumentException
      */
-    public static function generateRandomBytes($length)
+    public static function generateRandomBytes($length): string
     {
         $length = intval($length);
         if ($length <= 0) {
@@ -92,10 +89,8 @@ final class Helper
 
     /**
      * @param string $bytes
-     *
-     * @return string
      */
-    public static function stringToHex($bytes)
+    public static function stringToHex($bytes): string
     {
         return bin2hex($bytes);
     }
@@ -148,7 +143,7 @@ final class Helper
     public static function validateWellFormedUriString($value)
     {
         $value = trim((string)$value);
-        if ('' == $value || strlen($value) > 65520) {
+        if ('' === $value || strlen($value) > 65520) {
             return false;
         }
 
@@ -158,7 +153,7 @@ final class Helper
 
         $parts = parse_url($value);
         if (isset($parts['scheme'])) {
-            if ($parts['scheme'] != rawurlencode($parts['scheme'])) {
+            if ($parts['scheme'] !== rawurlencode($parts['scheme'])) {
                 return false;
             }
         } else {

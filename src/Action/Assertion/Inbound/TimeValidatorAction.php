@@ -10,29 +10,16 @@ use Psr\Log\LoggerInterface;
 
 class TimeValidatorAction extends AbstractAssertionAction
 {
-    /** @var AssertionTimeValidatorInterface */
-    protected $assertionTimeValidator;
-
-    /** @var TimeProviderInterface */
-    protected $timeProvider;
-
-    /** @var int */
-    protected $allowedSecondsSkew;
-
     /**
      * @param int $allowedSecondsSkew
      */
     public function __construct(
         LoggerInterface $logger,
-        AssertionTimeValidatorInterface $assertionTimeValidator,
-        TimeProviderInterface $timeProvider,
-        $allowedSecondsSkew = 120
+        protected \LightSaml\Validator\Model\Assertion\AssertionTimeValidatorInterface $assertionTimeValidator,
+        protected \LightSaml\Provider\TimeProvider\TimeProviderInterface $timeProvider,
+        protected $allowedSecondsSkew = 120
     ) {
         parent::__construct($logger);
-
-        $this->assertionTimeValidator = $assertionTimeValidator;
-        $this->timeProvider = $timeProvider;
-        $this->allowedSecondsSkew = $allowedSecondsSkew;
     }
 
     /**

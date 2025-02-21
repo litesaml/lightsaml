@@ -118,9 +118,9 @@ class SubjectConfirmation extends AbstractSamlModel
         $this->attributesFromXml($node, ['Method']);
 
         $this->singleElementsFromXml($node, $context, [
-            'NameID' => ['saml', 'LightSaml\Model\Assertion\NameID'],
+            'NameID' => ['saml', \LightSaml\Model\Assertion\NameID::class],
             'EncryptedID' => ['saml', 'LightSaml\Model\Assertion\EncryptedID'],
-            'SubjectConfirmationData' => ['saml', 'LightSaml\Model\Assertion\SubjectConfirmationData'],
+            'SubjectConfirmationData' => ['saml', \LightSaml\Model\Assertion\SubjectConfirmationData::class],
         ]);
     }
 }

@@ -4,10 +4,7 @@ namespace LightSaml\Provider\TimeProvider;
 
 class SystemTimeProvider implements TimeProviderInterface
 {
-    /**
-     * @return int
-     */
-    public function getTimestamp()
+    public function getTimestamp(): int
     {
         return time();
     }

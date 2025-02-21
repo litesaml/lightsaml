@@ -6,15 +6,11 @@ use LightSaml\Criteria\CriteriaInterface;
 
 class DescriptorTypeCriteria implements CriteriaInterface
 {
-    /** @var string */
-    protected $descriptorType;
-
     /**
      * @param string $descriptorType
      */
-    public function __construct($descriptorType)
+    public function __construct(protected $descriptorType)
     {
-        $this->descriptorType = $descriptorType;
     }
 
     /**

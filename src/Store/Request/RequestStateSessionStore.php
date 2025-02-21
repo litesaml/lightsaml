@@ -7,30 +7,15 @@ use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 class RequestStateSessionStore extends AbstractRequestStateArrayStore
 {
-    /** @var null|SessionInterface */
-    protected $session;
-
-    /** @var string */
-    protected $providerId;
-
-    /** @var string */
-    protected $prefix;
-
     /**
      * @param string $providerId
      * @param string $prefix
      */
-    public function __construct(?SessionInterface $session, $providerId, $prefix = 'saml_request_state_')
+    public function __construct(protected ?\Symfony\Component\HttpFoundation\Session\SessionInterface $session, protected $providerId, protected $prefix = 'saml_request_state_')
     {
-        $this->session = $session;
-        $this->providerId = $providerId;
-        $this->prefix = $prefix;
     }
 
-    /**
-     * @return string
-     */
-    protected function getKey()
+    protected function getKey(): string
     {
         return sprintf('%s_%s', $this->providerId, $this->prefix);
     }
