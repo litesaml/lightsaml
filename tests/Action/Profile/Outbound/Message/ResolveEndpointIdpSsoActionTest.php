@@ -31,10 +31,10 @@ class ResolveEndpointIdpSsoActionTest extends AbstractResolveEndpointAction
      * @param LoggerInterface           $logger
      * @param EndpointResolverInterface $endpointResolver
      *
-     * @return ResolveEndpointBaseActionTest
+     * @return ResolveEndpointBaseAction
      */
     protected function createAction(LoggerInterface $logger, EndpointResolverInterface $endpointResolver)
     {
-        return new ResolveEndpointIdpSsoActionTest($logger, $endpointResolver);
+        return new ResolveEndpointIdpSsoAction($logger, $endpointResolver);
     }
 }

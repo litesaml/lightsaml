@@ -31,10 +31,10 @@ class ResolveEndpointSpAcsActionTest extends AbstractResolveEndpointAction
      * @param LoggerInterface           $logger
      * @param EndpointResolverInterface $endpointResolver
      *
-     * @return ResolveEndpointBaseActionTest
+     * @return ResolveEndpointBaseAction
      */
     protected function createAction(LoggerInterface $logger, EndpointResolverInterface $endpointResolver)
     {
-        return new ResolveEndpointSpAcsActionTest($logger, $endpointResolver);
+        return new ResolveEndpointSpAcsAction($logger, $endpointResolver);
     }
 }

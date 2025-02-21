@@ -21,11 +21,11 @@ class ResolveEndpointSloActionTest extends AbstractResolveEndpointAction
      * @param LoggerInterface           $logger
      * @param EndpointResolverInterface $endpointResolver
      *
-     * @return ResolveEndpointBaseActionTest
+     * @return ResolveEndpointBaseAction
      */
     protected function createAction(LoggerInterface $logger, EndpointResolverInterface $endpointResolver)
     {
-        return new ResolveEndpointSloActionTest($logger, $endpointResolver);
+        return new ResolveEndpointSloAction($logger, $endpointResolver);
     }
 
     public function test_adds_service_type_slo()
