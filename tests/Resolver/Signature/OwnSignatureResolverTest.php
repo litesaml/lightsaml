@@ -69,7 +69,7 @@ class OwnSignatureResolverTest extends BaseTestCase
         $this->assertSame($privateKey, $signatureWriter->getXmlSecurityKey());
     }
 
-    public function _provider()
+    public static function _provider()
     {
         return [
             [ProfileContext::ROLE_IDP, MetadataCriteria::TYPE_IDP],
@@ -77,9 +77,7 @@ class OwnSignatureResolverTest extends BaseTestCase
         ];
     }
 
-    /**
-     * @dataProvider _provider
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('_provider')]
     public function test_credential_criterias($profileRole, $expectedMetadataType)
     {
         $signatureResolver = new OwnSignatureResolver($credentialResolverMock = $this->getCredentialResolverMock());

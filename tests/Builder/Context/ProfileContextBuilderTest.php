@@ -18,7 +18,7 @@ class ProfileContextBuilderTest extends BaseTestCase
         $this->assertTrue(true);
     }
 
-    public function getters_setters_provider()
+    public static function getters_setters_provider()
     {
         return [
             [new Request(), 'setRequest', 'getRequest'],
@@ -28,9 +28,7 @@ class ProfileContextBuilderTest extends BaseTestCase
         ];
     }
 
-    /**
-     * @dataProvider getters_setters_provider
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('getters_setters_provider')]
     public function test_getters_setters($value, $setter, $getter)
     {
         $builder = new ProfileContextBuilder();

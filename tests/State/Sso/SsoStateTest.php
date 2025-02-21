@@ -15,7 +15,7 @@ class SsoStateTest extends BaseTestCase
         $this->assertTrue(true);
     }
 
-    public function property_getter_setter_provider()
+    public static function property_getter_setter_provider()
     {
         return [
             ['LocalSessionId']
@@ -23,11 +23,11 @@ class SsoStateTest extends BaseTestCase
     }
 
     /**
-     * @dataProvider  property_getter_setter_provider
      *
      * @param string $property
      * @param string $value
      */
+    #[\PHPUnit\Framework\Attributes\DataProvider('property_getter_setter_provider')]
     public function test_property_getter_setter($property, $value = 'some.value')
     {
         $state = new SsoState();
@@ -244,8 +244,6 @@ class SsoStateTest extends BaseTestCase
     }
 
     /**
-     * @param array $arrIdp
-     * @param array $arrSp
      *
      * @return SsoState
      */

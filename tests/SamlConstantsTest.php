@@ -7,38 +7,25 @@ use LightSaml\Tests\BaseTestCase;
 
 class SamlConstantsTest extends BaseTestCase
 {
-    /**
-     * @dataProvider methodsProvider
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('methodsProvider')]
     public function test__is_not_valid($method)
     {
         $this->assertFalse(SamlConstants::$method('Nonsense'));
     }
 
-    /**
-     * @dataProvider constantsProvider
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('constantsProvider')]
     public function test__is_valid_method($method, $constant)
     {
         $value = constant('\LightSaml\SamlConstants::'.$constant);
         $this->assertTrue(SamlConstants::$method($value));
     }
 
-    public function methodsProvider()
+    public static function methodsProvider()
     {
-        return array(
-            array('isProtocolValid'),
-            array('isNsValid'),
-            array('isNameIdFormatValid'),
-            array('isBindingValid'),
-            array('isStatusValid'),
-            array('isConfirmationMethodValid'),
-            array('isAuthnContextValid'),
-            array('isLogoutReasonValid'),
-        );
+        return [['isProtocolValid'], ['isNsValid'], ['isNameIdFormatValid'], ['isBindingValid'], ['isStatusValid'], ['isConfirmationMethodValid'], ['isAuthnContextValid'], ['isLogoutReasonValid']];
     }
 
-    public function constantsProvider()
+    public function constantsProvider(): array
     {
         return array_merge(
             $this->getConstants('Protocol'),
@@ -54,16 +41,16 @@ class SamlConstantsTest extends BaseTestCase
 
     public function getConstants($method)
     {
-        $ret = array();
-        $ref = new \ReflectionClass('\LightSaml\SamlConstants');
+        $ret = [];
+        $ref = new \ReflectionClass(\LightSaml\SamlConstants::class);
         $prefix = strtoupper(
             preg_replace('/([a-z])([A-Z])/', '$1_$2', $method)
         );
         $method = 'is'.$method.'Valid';
 
-        foreach ($ref->getConstants() as $constant => $value) {
-            if (strpos($constant, $prefix) === 0) {
-                $ret[] = array($method, $constant);
+        foreach (array_keys($ref->getConstants()) as $constant) {
+            if (str_starts_with($constant, $prefix)) {
+                $ret[] = [$method, $constant];
             }
         }
 

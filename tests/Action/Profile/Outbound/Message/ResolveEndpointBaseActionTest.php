@@ -63,8 +63,6 @@ class ResolveEndpointBaseActionTest extends AbstractResolveEndpointAction
         $this->expectException(\LightSaml\Error\LightSamlContextException::class);
         $message = new Response();
         $context = $this->createContext(ProfileContext::ROLE_IDP, $message);
-
-        $endpoint = null;
         $this->setEndpointResolver(true, function () {
             return [];
         });
@@ -103,8 +101,6 @@ class ResolveEndpointBaseActionTest extends AbstractResolveEndpointAction
     }
 
     /**
-     * @param LoggerInterface           $logger
-     * @param EndpointResolverInterface $endpointResolver
      *
      * @return ResolveEndpointBaseAction
      */

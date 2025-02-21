@@ -27,9 +27,6 @@ class EntitiesDescriptorXsdTest extends AbstractXsdValidation
         $this->validateMetadata($entitiesDescriptor);
     }
 
-    /**
-     * @param EntityDescriptor $ed
-     */
     private function fillEntityDescriptor(EntityDescriptor $ed)
     {
         $ed->addItem($sp = new SpSsoDescriptor());

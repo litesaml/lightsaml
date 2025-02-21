@@ -28,8 +28,6 @@ class ResolveEndpointIdpSsoActionTest extends AbstractResolveEndpointAction
     }
 
     /**
-     * @param LoggerInterface           $logger
-     * @param EndpointResolverInterface $endpointResolver
      *
      * @return ResolveEndpointBaseAction
      */

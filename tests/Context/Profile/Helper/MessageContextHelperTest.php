@@ -55,19 +55,17 @@ class MessageContextHelperTest extends BaseTestCase
         ];
     }
 
-    /**
-     * @dataProvider helperProvider
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('helperProvider')]
     public function test__helper($method, ?SamlMessage $message = null, $expectedException = null, $expectedMessage = null)
     {
         $context = new MessageContext();
-        if ($message) {
+        if ($message instanceof \LightSaml\Model\Protocol\SamlMessage) {
             $context->setMessage($message);
         }
 
         if ($expectedException) {
             try {
-                call_user_func(['LightSaml\Context\Profile\Helper\MessageContextHelper', $method], $context);
+                call_user_func([\LightSaml\Context\Profile\Helper\MessageContextHelper::class, $method], $context);
             } catch (\Exception $ex) {
                 $this->assertInstanceOf($expectedException, $ex);
                 if ($expectedMessage) {
@@ -75,7 +73,7 @@ class MessageContextHelperTest extends BaseTestCase
                 }
             }
         } else {
-            $actualMessage = call_user_func(['LightSaml\Context\Profile\Helper\MessageContextHelper', $method], $context);
+            $actualMessage = call_user_func([\LightSaml\Context\Profile\Helper\MessageContextHelper::class, $method], $context);
             $this->assertSame($message, $actualMessage);
         }
     }

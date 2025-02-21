@@ -49,7 +49,7 @@ class HttpRedirectBindingFunctionalTest extends BaseTestCase
         /** @var RedirectResponse $response */
         $response = $biding->send($messageContext);
 
-        $this->assertInstanceOf('Symfony\Component\HttpFoundation\RedirectResponse', $response);
+        $this->assertInstanceOf(\Symfony\Component\HttpFoundation\RedirectResponse::class, $response);
 
         $url = $response->getTargetUrl();
         $this->assertNotEmpty($url);
@@ -58,7 +58,7 @@ class HttpRedirectBindingFunctionalTest extends BaseTestCase
 
         $this->assertEquals($expectedDestination, $urlInfo['scheme'].'://'.$urlInfo['host'].$urlInfo['path']);
 
-        $query = array();
+        $query = [];
         parse_str($urlInfo['query'], $query);
 
         $this->assertArrayHasKey('SAMLRequest', $query);
@@ -103,7 +103,7 @@ class HttpRedirectBindingFunctionalTest extends BaseTestCase
         /** @var RedirectResponse $response */
         $response = $biding->send($messageContext, $expectedDestination);
 
-        $this->assertInstanceOf('Symfony\Component\HttpFoundation\RedirectResponse', $response);
+        $this->assertInstanceOf(\Symfony\Component\HttpFoundation\RedirectResponse::class, $response);
 
         $url = $response->getTargetUrl();
         $this->assertNotEmpty($url);
@@ -134,25 +134,23 @@ class HttpRedirectBindingFunctionalTest extends BaseTestCase
         $this->assertSame($eventDispatcherMock, $binding->getEventDispatcher());
 
         $request = new Request();
-        $request->server->add(array(
-            'QUERY_STRING' => 'SAMLRequest='.urlencode('RY/NCsIwEITvPkXI3TaptY3BKkIvBb2oePAiMUmxYBPtbsXHdxFEGBgY5tuf5frd39nLD9DFUHGZCL5eTZabEW9h75+jB2TUCFDxcQg6GuhAB9N70Gj1YbPb6iwR+jFEjDbeOWvqil+Us7ZYqHlbuEU7IxfXq8vnReZblSvfzowvlVOlKzk7/XbTHMIBRt8EQBOQIiHzqZCko8y0EKQzZzUd1QWDX+qG+ACdpu4fJjb2qaEPeLqafAA=').
-                                '&RelayState='.urlencode($expectedRelayState).
-                                '&SigAlg='.urlencode('http://www.w3.org/2000/09/xmldsig#rsa-sha1').
-                                '&Signature='.urlencode('SI4nZH+9tjLO24k2La/v5DJ/OfGWw/nKKc/Nh8ih/AN71HuIzFl30F3Va+pDOidRYgJ8dIB2Juf5DIQYggDz+AiR/NI9gkAIGKRYZ3bhBPzC0XVtTQ075Qxwa3HWimh2Lywj7WV0QANOptodnjp1aUf4SuSHfEYrcWTf5C0gOZhiXT7XIQH0wpL1BdLwaePlduVCfaaMq2iNadNFBHi2+d9+FrCHyxYdmR8r5CbNg1vNEHj1xYwWUMBEtvJIYAt116++ei78dQYKlv5Mz98pTB1bkjRtONh+w7Mdy1gGT+D/gDz1kl+kAfxIT6D2x54GFBKM01gAGRUrb0Z6j2Nn6Q=='),
-        ));
+        $request->server->add(['QUERY_STRING' => 'SAMLRequest='.urlencode('RY/NCsIwEITvPkXI3TaptY3BKkIvBb2oePAiMUmxYBPtbsXHdxFEGBgY5tuf5frd39nLD9DFUHGZCL5eTZabEW9h75+jB2TUCFDxcQg6GuhAB9N70Gj1YbPb6iwR+jFEjDbeOWvqil+Us7ZYqHlbuEU7IxfXq8vnReZblSvfzowvlVOlKzk7/XbTHMIBRt8EQBOQIiHzqZCko8y0EKQzZzUd1QWDX+qG+ACdpu4fJjb2qaEPeLqafAA=').
+                            '&RelayState='.urlencode($expectedRelayState).
+                            '&SigAlg='.urlencode('http://www.w3.org/2000/09/xmldsig#rsa-sha1').
+                            '&Signature='.urlencode('SI4nZH+9tjLO24k2La/v5DJ/OfGWw/nKKc/Nh8ih/AN71HuIzFl30F3Va+pDOidRYgJ8dIB2Juf5DIQYggDz+AiR/NI9gkAIGKRYZ3bhBPzC0XVtTQ075Qxwa3HWimh2Lywj7WV0QANOptodnjp1aUf4SuSHfEYrcWTf5C0gOZhiXT7XIQH0wpL1BdLwaePlduVCfaaMq2iNadNFBHi2+d9+FrCHyxYdmR8r5CbNg1vNEHj1xYwWUMBEtvJIYAt116++ei78dQYKlv5Mz98pTB1bkjRtONh+w7Mdy1gGT+D/gDz1kl+kAfxIT6D2x54GFBKM01gAGRUrb0Z6j2Nn6Q==')]);
 
         $messageContext = new MessageContext();
         $binding->receive($request, $messageContext);
         /** @var \LightSaml\Model\Protocol\AuthnRequest $message */
         $message = $messageContext->getMessage();
 
-        $this->assertInstanceOf('LightSaml\Model\Protocol\AuthnRequest', $message);
+        $this->assertInstanceOf(\LightSaml\Model\Protocol\AuthnRequest::class, $message);
         $this->assertEquals($expectedRelayState, $message->getRelayState());
         $this->assertEquals('_8dcc6985f6d9f385f0bbd4562ef848ef3ae78d87d7', $message->getID());
         $this->assertEquals('2014-01-01T12:00:00Z', $message->getIssueInstantString());
         $this->assertNotNull($message->getSignature());
-        $this->assertInstanceOf('LightSaml\Model\XmlDSig\AbstractSignatureReader', $message->getSignature());
-        $this->assertInstanceOf('LightSaml\Model\XmlDSig\SignatureStringReader', $message->getSignature());
+        $this->assertInstanceOf(\LightSaml\Model\XmlDSig\AbstractSignatureReader::class, $message->getSignature());
+        $this->assertInstanceOf(\LightSaml\Model\XmlDSig\SignatureStringReader::class, $message->getSignature());
 
         /** @var SignatureStringReader $signature */
         $signature = $message->getSignature();

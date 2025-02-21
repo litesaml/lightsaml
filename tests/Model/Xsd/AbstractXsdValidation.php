@@ -40,9 +40,6 @@ abstract class AbstractXsdValidation extends BaseTestCase
         ));
     }
 
-    /**
-     * @param SamlElementInterface $samlElement
-     */
     protected function validateProtocol(SamlElementInterface $samlElement)
     {
         $validator = new XsdValidator();
@@ -54,9 +51,6 @@ abstract class AbstractXsdValidation extends BaseTestCase
         $this->assertTrue(true);
     }
 
-    /**
-     * @param SamlElementInterface $samlElement
-     */
     protected function validateMetadata(SamlElementInterface $samlElement)
     {
         $validator = new XsdValidator();
@@ -69,11 +63,9 @@ abstract class AbstractXsdValidation extends BaseTestCase
     }
 
     /**
-     * @param SamlElementInterface $samlElement
-     *
      * @return string
      */
-    private function serialize(SamlElementInterface $samlElement)
+    private function serialize(SamlElementInterface $samlElement): string|false
     {
         $serializationContext = new SerializationContext();
         $samlElement->serialize($serializationContext->getDocument(), $serializationContext);

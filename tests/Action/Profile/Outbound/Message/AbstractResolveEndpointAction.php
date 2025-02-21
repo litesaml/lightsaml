@@ -40,8 +40,6 @@ abstract class AbstractResolveEndpointAction extends BaseTestCase
     }
 
     /**
-     * @param LoggerInterface           $logger
-     * @param EndpointResolverInterface $endpointResolver
      *
      * @return ResolveEndpointBaseActionTest
      */
@@ -81,7 +79,7 @@ abstract class AbstractResolveEndpointAction extends BaseTestCase
     ) {
         $context = $this->getProfileContext($profileId, $ownRole);
 
-        if ($endpoint) {
+        if ($endpoint instanceof \LightSaml\Model\Metadata\Endpoint) {
             $context->getEndpointContext()->setEndpoint($endpoint);
         }
 
@@ -90,20 +88,16 @@ abstract class AbstractResolveEndpointAction extends BaseTestCase
         }
         $context->getPartyEntityContext()->setEntityDescriptor($partyEntityDescriptor);
 
-        if ($inboundMessage) {
+        if ($inboundMessage instanceof \LightSaml\Model\Protocol\SamlMessage) {
             $context->getInboundContext()->setMessage($inboundMessage);
         }
 
         return $context;
     }
 
-    /**
-     * @param CriteriaSet $criteriaSet
-     * @param array       $bindings
-     */
     protected function criteriaSetShouldHaveBindingCriteria(CriteriaSet $criteriaSet, array $bindings)
     {
-        if (empty($bindings)) {
+        if ($bindings === []) {
             $this->assertFalse($criteriaSet->has(BindingCriteria::class));
         } else {
             $this->assertTrue($criteriaSet->has(BindingCriteria::class));
@@ -114,7 +108,6 @@ abstract class AbstractResolveEndpointAction extends BaseTestCase
     }
 
     /**
-     * @param CriteriaSet $criteriaSet
      * @param string      $value
      */
     protected function criteriaSetShouldHaveDescriptorTypeCriteria(CriteriaSet $criteriaSet, $value)
@@ -130,7 +123,6 @@ abstract class AbstractResolveEndpointAction extends BaseTestCase
     }
 
     /**
-     * @param CriteriaSet $criteriaSet
      * @param string      $value
      */
     protected function criteriaSetShouldHaveServiceTypeCriteria(CriteriaSet $criteriaSet, $value)
@@ -146,7 +138,6 @@ abstract class AbstractResolveEndpointAction extends BaseTestCase
     }
 
     /**
-     * @param CriteriaSet $criteriaSet
      * @param string      $value
      */
     protected function criteriaSetShouldHaveIndexCriteria(CriteriaSet $criteriaSet, $value)
@@ -162,7 +153,6 @@ abstract class AbstractResolveEndpointAction extends BaseTestCase
     }
 
     /**
-     * @param CriteriaSet $criteriaSet
      * @param string      $value
      */
     protected function criteriaSetShouldHaveLocationCriteria(CriteriaSet $criteriaSet, $value)

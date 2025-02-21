@@ -18,8 +18,6 @@ use Psr\Log\LoggerInterface;
 class ResolveEndpointSloActionTest extends AbstractResolveEndpointAction
 {
     /**
-     * @param LoggerInterface           $logger
-     * @param EndpointResolverInterface $endpointResolver
      *
      * @return ResolveEndpointBaseAction
      */

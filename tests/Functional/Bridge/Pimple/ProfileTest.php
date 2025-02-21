@@ -193,7 +193,7 @@ class ProfileTest extends BaseTestCase
 
         // SYSTEM
         $buildContainer->getPimple()->register($systemContainerProvider);
-        if ($timeProvider) {
+        if ($timeProvider instanceof \LightSaml\Provider\TimeProvider\TimeProviderInterface) {
             $pimple[SystemContainer::TIME_PROVIDER] = function () use ($timeProvider) {
                 return $timeProvider;
             };

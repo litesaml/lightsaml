@@ -12,7 +12,7 @@ use LightSaml\Tests\BaseTestCase;
 
 class SamlMessageDeserializationTest extends BaseTestCase
 {
-    public function deserialize_provider()
+    public static function deserialize_provider()
     {
         return [
             ['<samlp:AuthnRequest xmlns:samlp="urn:oasis:names:tc:SAML:2.0:protocol"></samlp:AuthnRequest>', AuthnRequest::class],
@@ -26,9 +26,7 @@ class SamlMessageDeserializationTest extends BaseTestCase
         ];
     }
 
-    /**
-     * @dataProvider deserialize_provider
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('deserialize_provider')]
     public function test_deserialize($xml, $expectedType)
     {
         $deserializationContext = new DeserializationContext();
