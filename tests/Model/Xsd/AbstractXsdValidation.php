@@ -14,7 +14,7 @@ use LightSaml\Model\XmlDSig\SignatureWriter;
 use LightSaml\Tests\BaseTestCase;
 use LightSaml\Validator\Model\Xsd\XsdValidator;
 
-abstract class AbstractXsdValidationTest extends BaseTestCase
+abstract class AbstractXsdValidation extends BaseTestCase
 {
     protected function setUp() : void
     {

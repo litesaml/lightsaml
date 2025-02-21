@@ -14,4 +14,6 @@ First, please describe your needs in a new [issue](https://github.com/litesaml/l
 ```shell
 docker run --rm -it -w /app -v $PWD:/app webdevops/php:8.1 composer install
 docker run --rm -it -w /app -v $PWD:/app webdevops/php:8.1 composer test
+docker run --rm -it -w /app -v $PWD:/app webdevops/php:8.1 composer phpcs
+docker run --rm -it -w /app -v $PWD:/app webdevops/php:8.1 composer phpstan
 ```

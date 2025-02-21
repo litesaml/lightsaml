@@ -18,9 +18,9 @@ use LightSaml\Resolver\Endpoint\EndpointResolverInterface;
 use LightSaml\Tests\BaseTestCase;
 use Psr\Log\LoggerInterface;
 
-abstract class AbstractResolveEndpointActionTest extends BaseTestCase
+abstract class AbstractResolveEndpointAction extends BaseTestCase
 {
-    /** @var ResolveEndpointBaseAction|\PHPUnit_Framework_MockObject_MockObject */
+    /** @var ResolveEndpointBaseActionTest|\PHPUnit_Framework_MockObject_MockObject */
     protected $action;
 
     /** @var \Psr\Log\LoggerInterface|\PHPUnit_Framework_MockObject_MockObject */
@@ -43,7 +43,7 @@ abstract class AbstractResolveEndpointActionTest extends BaseTestCase
      * @param LoggerInterface           $logger
      * @param EndpointResolverInterface $endpointResolver
      *
-     * @return ResolveEndpointBaseAction
+     * @return ResolveEndpointBaseActionTest
      */
     abstract protected function createAction(LoggerInterface $logger, EndpointResolverInterface $endpointResolver);
 

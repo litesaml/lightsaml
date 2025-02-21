@@ -15,17 +15,17 @@ use LightSaml\Resolver\Endpoint\EndpointResolverInterface;
 use LightSaml\State\Sso\SsoSessionState;
 use Psr\Log\LoggerInterface;
 
-class ResolveEndpointSloActionTest extends AbstractResolveEndpointActionTest
+class ResolveEndpointSloActionTest extends AbstractResolveEndpointAction
 {
     /**
      * @param LoggerInterface           $logger
      * @param EndpointResolverInterface $endpointResolver
      *
-     * @return ResolveEndpointBaseAction
+     * @return ResolveEndpointBaseActionTest
      */
     protected function createAction(LoggerInterface $logger, EndpointResolverInterface $endpointResolver)
     {
-        return new ResolveEndpointSloAction($logger, $endpointResolver);
+        return new ResolveEndpointSloActionTest($logger, $endpointResolver);
     }
 
     public function test_adds_service_type_slo()

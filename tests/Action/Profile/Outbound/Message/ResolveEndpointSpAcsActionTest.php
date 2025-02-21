@@ -11,7 +11,7 @@ use LightSaml\Model\Protocol\AuthnRequest;
 use LightSaml\Resolver\Endpoint\EndpointResolverInterface;
 use Psr\Log\LoggerInterface;
 
-class ResolveEndpointSpAcsActionTest extends AbstractResolveEndpointActionTest
+class ResolveEndpointSpAcsActionTest extends AbstractResolveEndpointAction
 {
     public function test_adds_service_type_acs()
     {
@@ -31,10 +31,10 @@ class ResolveEndpointSpAcsActionTest extends AbstractResolveEndpointActionTest
      * @param LoggerInterface           $logger
      * @param EndpointResolverInterface $endpointResolver
      *
-     * @return ResolveEndpointBaseAction
+     * @return ResolveEndpointBaseActionTest
      */
     protected function createAction(LoggerInterface $logger, EndpointResolverInterface $endpointResolver)
     {
-        return new ResolveEndpointSpAcsAction($logger, $endpointResolver);
+        return new ResolveEndpointSpAcsActionTest($logger, $endpointResolver);
     }
 }

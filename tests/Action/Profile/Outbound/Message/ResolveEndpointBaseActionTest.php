@@ -13,7 +13,7 @@ use LightSaml\Resolver\Endpoint\EndpointResolverInterface;
 use LightSaml\SamlConstants;
 use Psr\Log\LoggerInterface;
 
-class ResolveEndpointBaseActionTest extends AbstractResolveEndpointActionTest
+class ResolveEndpointBaseActionTest extends AbstractResolveEndpointAction
 {
     public function test_does_nothing_if_endpoint_already_set()
     {
@@ -106,12 +106,12 @@ class ResolveEndpointBaseActionTest extends AbstractResolveEndpointActionTest
      * @param LoggerInterface           $logger
      * @param EndpointResolverInterface $endpointResolver
      *
-     * @return ResolveEndpointBaseAction
+     * @return ResolveEndpointBaseActionTest
      */
     protected function createAction(LoggerInterface $logger, EndpointResolverInterface $endpointResolver)
     {
         return $this->getMockForAbstractClass(
-            ResolveEndpointBaseAction::class,
+            ResolveEndpointBaseActionTest::class,
             [$logger, $endpointResolver]
         );
     }

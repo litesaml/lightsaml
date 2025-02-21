@@ -8,7 +8,7 @@ use LightSaml\Model\Metadata\EntityDescriptor;
 use LightSaml\Model\Metadata\SpSsoDescriptor;
 use LightSaml\SamlConstants;
 
-class EntitiesDescriptorXsdTest extends AbstractXsdValidationTest
+class EntitiesDescriptorXsdTest extends AbstractXsdValidation
 {
     public function test_entities_descriptor_with_xsd()
     {
