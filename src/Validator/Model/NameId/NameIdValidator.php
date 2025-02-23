@@ -32,7 +32,7 @@ class NameIdValidator implements NameIdValidatorInterface
 
         $this->validateFormat($nameId);
 
-        $validatorMethod = isset(self::$formatValidators[$nameId->getFormat()]) ? self::$formatValidators[$nameId->getFormat()] : null;
+        $validatorMethod = self::$formatValidators[$nameId->getFormat()] ?? null;
 
         if ($validatorMethod) {
             $this->{$validatorMethod}($nameId);
@@ -84,7 +84,7 @@ class NameIdValidator implements NameIdValidatorInterface
         if (strlen($nameId->getValue()) < 3) {
             throw new LightSamlValidationException('NameID with Kerberos Format attribute MUST contain a Value with at least 3 characters');
         }
-        if (false === strpos($nameId->getValue(), '@')) {
+        if (!str_contains($nameId->getValue(), '@')) {
             throw new LightSamlValidationException("NameID with Kerberos Format attribute MUST contain a Value that contains a '@'");
         }
         // TODO: Consider implementing the rules for 'name', 'instance' and 'REALM' found in IETF RFC 1510 (http://www.ietf.org/rfc/rfc1510.txt) here

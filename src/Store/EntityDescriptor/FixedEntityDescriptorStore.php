@@ -42,11 +42,7 @@ class FixedEntityDescriptorStore implements EntityDescriptorStoreInterface
      */
     public function get($entityId)
     {
-        if (isset($this->descriptors[$entityId])) {
-            return $this->descriptors[$entityId];
-        }
-
-        return null;
+        return $this->descriptors[$entityId] ?? null;
     }
 
     /**
@@ -62,7 +58,7 @@ class FixedEntityDescriptorStore implements EntityDescriptorStoreInterface
     /**
      * @return array|EntityDescriptor[]
      */
-    public function all()
+    public function all(): array
     {
         return array_values($this->descriptors);
     }

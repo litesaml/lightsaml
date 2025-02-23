@@ -18,7 +18,7 @@ class DeserializationContext
      */
     public function __construct(?\DOMDocument $document = null)
     {
-        $this->document = $document ? $document : new \DOMDocument();
+        $this->document = $document ?: new \DOMDocument();
     }
 
     /**

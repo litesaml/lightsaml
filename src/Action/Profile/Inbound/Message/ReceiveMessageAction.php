@@ -15,14 +15,9 @@ use Psr\Log\LoggerInterface;
  */
 class ReceiveMessageAction extends AbstractProfileAction
 {
-    /** @var BindingFactoryInterface */
-    protected $bindingFactory;
-
-    public function __construct(LoggerInterface $logger, BindingFactoryInterface $bindingFactory)
+    public function __construct(LoggerInterface $logger, protected \LightSaml\Binding\BindingFactoryInterface $bindingFactory)
     {
         parent::__construct($logger);
-
-        $this->bindingFactory = $bindingFactory;
     }
 
     /**

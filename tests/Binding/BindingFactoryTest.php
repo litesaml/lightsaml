@@ -14,14 +14,14 @@ class BindingFactoryTest extends BaseTestCase
     {
         $factory = new BindingFactory();
         $binding = $factory->create(SamlConstants::BINDING_SAML2_HTTP_REDIRECT);
-        $this->assertInstanceOf('LightSaml\Binding\HttpRedirectBinding', $binding);
+        $this->assertInstanceOf(\LightSaml\Binding\HttpRedirectBinding::class, $binding);
     }
 
     public function test__create_http_post()
     {
         $factory = new BindingFactory();
         $binding = $factory->create(SamlConstants::BINDING_SAML2_HTTP_POST);
-        $this->assertInstanceOf('LightSaml\Binding\HttpPostBinding', $binding);
+        $this->assertInstanceOf(\LightSaml\Binding\HttpPostBinding::class, $binding);
     }
 
     public function test__create_throws_not_implemented_error_for_soap()
@@ -117,14 +117,14 @@ class BindingFactoryTest extends BaseTestCase
     {
         $request = $this->createHttpRedirectRequest();
         $factory = new BindingFactory();
-        $this->assertInstanceOf('LightSaml\Binding\HttpRedirectBinding', $factory->getBindingByRequest($request));
+        $this->assertInstanceOf(\LightSaml\Binding\HttpRedirectBinding::class, $factory->getBindingByRequest($request));
     }
 
     public function test__get_binding_by_request_http_post()
     {
         $request = $this->createHttpPostRequest();
         $factory = new BindingFactory();
-        $this->assertInstanceOf('LightSaml\Binding\HttpPostBinding', $factory->getBindingByRequest($request));
+        $this->assertInstanceOf(\LightSaml\Binding\HttpPostBinding::class, $factory->getBindingByRequest($request));
     }
 
     public function test__create_with_event_dispatcher()
@@ -133,7 +133,7 @@ class BindingFactoryTest extends BaseTestCase
 
         $factory = new BindingFactory($eventDispatcher);
         $binding = $factory->create(SamlConstants::BINDING_SAML2_HTTP_REDIRECT);
-        $this->assertInstanceOf('LightSaml\Binding\HttpRedirectBinding', $binding);
+        $this->assertInstanceOf(\LightSaml\Binding\HttpRedirectBinding::class, $binding);
         $this->assertEquals($eventDispatcher, $binding->getEventDispatcher());
     }
 
@@ -143,7 +143,7 @@ class BindingFactoryTest extends BaseTestCase
     private function createHttpPostRequest()
     {
         $request = new Request();
-        $request->request->add(array('SAMLRequest' => 'request'));
+        $request->request->add(['SAMLRequest' => 'request']);
         $request->setMethod('POST');
 
         return $request;
@@ -155,7 +155,7 @@ class BindingFactoryTest extends BaseTestCase
     private function createHttpRedirectRequest()
     {
         $request = new Request();
-        $request->query->add(array('SAMLRequest' => 'request'));
+        $request->query->add(['SAMLRequest' => 'request']);
         $request->setMethod('GET');
 
         return $request;
@@ -167,7 +167,7 @@ class BindingFactoryTest extends BaseTestCase
     private function createArtifactPostRequest()
     {
         $request = new Request();
-        $request->request->add(array('SAMLart' => 'request'));
+        $request->request->add(['SAMLart' => 'request']);
         $request->setMethod('POST');
 
         return $request;
@@ -179,7 +179,7 @@ class BindingFactoryTest extends BaseTestCase
     private function createArtifactGetRequest()
     {
         $request = new Request();
-        $request->query->add(array('SAMLart' => 'request'));
+        $request->query->add(['SAMLart' => 'request']);
         $request->setMethod('GET');
 
         return $request;
@@ -192,7 +192,7 @@ class BindingFactoryTest extends BaseTestCase
     {
         $request = new Request();
         $request->setMethod('POST');
-        $request->headers->add(array('CONTENT_TYPE' => 'text/xml; charset=utf-8'));
+        $request->headers->add(['CONTENT_TYPE' => 'text/xml; charset=utf-8']);
 
         return $request;
     }

@@ -14,20 +14,12 @@ abstract class EncryptedElementWriter extends EncryptedElement
     /** @var \DOMElement */
     protected $encryptedElement;
 
-    /** @var string */
-    protected $blockEncryptionAlgorithm = XMLSecurityKey::AES128_CBC;
-
-    /** @var string */
-    protected $keyTransportEncryption = XMLSecurityKey::RSA_1_5;
-
     /**
      * @param string $blockEncryptionAlgorithm
      * @param string $keyTransportEncryption
      */
-    public function __construct($blockEncryptionAlgorithm = XMLSecurityKey::AES128_CBC, $keyTransportEncryption = XMLSecurityKey::RSA_1_5)
+    public function __construct(protected $blockEncryptionAlgorithm = XMLSecurityKey::AES128_CBC, protected $keyTransportEncryption = XMLSecurityKey::RSA_1_5)
     {
-        $this->blockEncryptionAlgorithm = $blockEncryptionAlgorithm;
-        $this->keyTransportEncryption = $keyTransportEncryption;
     }
 
     /**

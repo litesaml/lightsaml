@@ -11,7 +11,7 @@ use LightSaml\Model\Protocol\AuthnRequest;
 use LightSaml\Resolver\Endpoint\EndpointResolverInterface;
 use Psr\Log\LoggerInterface;
 
-class ResolveEndpointIdpSsoActionTest extends AbstractResolveEndpointActionTest
+class ResolveEndpointIdpSsoActionTest extends AbstractResolveEndpointAction
 {
     public function test_adds_service_type_sso()
     {
@@ -28,8 +28,6 @@ class ResolveEndpointIdpSsoActionTest extends AbstractResolveEndpointActionTest
     }
 
     /**
-     * @param LoggerInterface           $logger
-     * @param EndpointResolverInterface $endpointResolver
      *
      * @return ResolveEndpointBaseAction
      */

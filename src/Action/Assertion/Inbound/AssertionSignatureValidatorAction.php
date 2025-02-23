@@ -15,21 +15,12 @@ use Psr\Log\LoggerInterface;
 
 class AssertionSignatureValidatorAction extends AbstractAssertionAction
 {
-    /** @var SignatureValidatorInterface */
-    protected $signatureValidator;
-
-    /** @var bool */
-    protected $requireSignature;
-
     /**
      * @param bool $requireSignature
      */
-    public function __construct(LoggerInterface $logger, SignatureValidatorInterface $signatureValidator, $requireSignature = true)
+    public function __construct(LoggerInterface $logger, protected \LightSaml\Validator\Model\Signature\SignatureValidatorInterface $signatureValidator, protected $requireSignature = true)
     {
         parent::__construct($logger);
-
-        $this->signatureValidator = $signatureValidator;
-        $this->requireSignature = $requireSignature;
     }
 
     /**

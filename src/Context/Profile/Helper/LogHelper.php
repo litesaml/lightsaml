@@ -43,8 +43,8 @@ abstract class LogHelper
             $result['profile_id'] = $topContext->getProfileId();
             $result['own_role'] = $topContext->getOwnRole();
         }
-        if ($action) {
-            $result['action'] = get_class($action);
+        if ($action instanceof \LightSaml\Action\ActionInterface) {
+            $result['action'] = $action::class;
         }
         $result['top_context_id'] = spl_object_hash($topContext);
 

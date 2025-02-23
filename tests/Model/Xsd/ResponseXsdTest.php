@@ -21,7 +21,7 @@ use LightSaml\Model\Protocol\Status;
 use LightSaml\Model\Protocol\StatusCode;
 use LightSaml\SamlConstants;
 
-class ResponseXsdTest extends AbstractXsdValidationTest
+class ResponseXsdTest extends AbstractXsdValidation
 {
     public function test_fail_response_with_xsd()
     {

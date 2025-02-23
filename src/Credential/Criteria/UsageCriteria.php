@@ -4,15 +4,11 @@ namespace LightSaml\Credential\Criteria;
 
 class UsageCriteria implements TrustCriteriaInterface
 {
-    /** @var string */
-    protected $usage;
-
     /**
      * @param string $usage
      */
-    public function __construct($usage)
+    public function __construct(protected $usage)
     {
-        $this->usage = $usage;
     }
 
     /**

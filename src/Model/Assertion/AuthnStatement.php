@@ -206,8 +206,8 @@ class AuthnStatement extends AbstractStatement
         $this->attributesFromXml($node, ['AuthnInstant', 'SessionNotOnOrAfter', 'SessionIndex']);
 
         $this->singleElementsFromXml($node, $context, [
-            'SubjectLocality' => ['saml', 'LightSaml\Model\Assertion\SubjectLocality'],
-            'AuthnContext' => ['saml', 'LightSaml\Model\Assertion\AuthnContext'],
+            'SubjectLocality' => ['saml', \LightSaml\Model\Assertion\SubjectLocality::class],
+            'AuthnContext' => ['saml', \LightSaml\Model\Assertion\AuthnContext::class],
         ]);
     }
 }

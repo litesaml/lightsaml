@@ -12,7 +12,7 @@ use LightSaml\Tests\BaseTestCase;
 
 class MessageContextTest extends BaseTestCase
 {
-    public function message_as_concrete_type_provider()
+    public static function message_as_concrete_type_provider()
     {
         return [
             ['asAuthnRequest', true, new AuthnRequest()],
@@ -29,13 +29,11 @@ class MessageContextTest extends BaseTestCase
         ];
     }
 
-    /**
-     * @dataProvider message_as_concrete_type_provider
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('message_as_concrete_type_provider')]
     public function test_message_as_concrete_type($method, $hasValue, ?SamlMessage $message = null)
     {
         $context = new MessageContext();
-        if ($message) {
+        if ($message instanceof \LightSaml\Model\Protocol\SamlMessage) {
             $context->setMessage($message);
         }
 

@@ -50,8 +50,8 @@ class EntityDescriptorFunctionalTest extends BaseTestCase
         $this->assertCount(2, $sp->getAllSingleLogoutServices());
         $this->assertCount(3, $sp->getAllAssertionConsumerServices());
         $this->assertCount(3, $sp->getAllNameIDFormats());
-        $this->assertContainsOnly('LightSaml\Model\Metadata\SingleLogoutService', $sp->getAllSingleLogoutServices());
-        $this->assertContainsOnly('LightSaml\Model\Metadata\AssertionConsumerService', $sp->getAllAssertionConsumerServices());
+        $this->assertContainsOnly(\LightSaml\Model\Metadata\SingleLogoutService::class, $sp->getAllSingleLogoutServices());
+        $this->assertContainsOnly(\LightSaml\Model\Metadata\AssertionConsumerService::class, $sp->getAllAssertionConsumerServices());
         $this->assertContainsOnly('string', $sp->getAllNameIDFormats());
 
         $this->checkSLO($sp, SamlConstants::BINDING_SAML2_HTTP_REDIRECT, 'https://b1.bead.loc/adfs/ls/');
@@ -80,8 +80,8 @@ class EntityDescriptorFunctionalTest extends BaseTestCase
         $this->assertCount(3, $idp->getAllNameIDFormats());
         $this->assertCount(2, $idp->getAllSingleSignOnServices());
 
-        $this->assertContainsOnly('LightSaml\Model\Metadata\SingleLogoutService', $idp->getAllSingleLogoutServices());
-        $this->assertContainsOnly('LightSaml\Model\Metadata\SingleSignOnService', $idp->getAllSingleSignOnServices());
+        $this->assertContainsOnly(\LightSaml\Model\Metadata\SingleLogoutService::class, $idp->getAllSingleLogoutServices());
+        $this->assertContainsOnly(\LightSaml\Model\Metadata\SingleSignOnService::class, $idp->getAllSingleSignOnServices());
         $this->assertContainsOnly('string', $idp->getAllNameIDFormats());
 
         $this->checkSLO($idp, SamlConstants::BINDING_SAML2_HTTP_REDIRECT, 'https://b1.bead.loc/adfs/ls/');

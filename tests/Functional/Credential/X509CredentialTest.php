@@ -22,7 +22,7 @@ class X509CredentialTest extends BaseTestCase
 
         $this->assertNull($credential->getPrivateKey());
 
-        $this->assertEquals(array('/C=RS/ST=Serbia/O=BOS/CN=mt.evo.team'), $credential->getKeyNames());
+        $this->assertEquals(['/C=RS/ST=Serbia/O=BOS/CN=mt.evo.team'], $credential->getKeyNames());
     }
 
     public function test_private_key()

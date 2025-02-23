@@ -13,17 +13,12 @@ use Psr\Log\LoggerInterface;
  */
 class MessageVersionAction extends AbstractProfileAction
 {
-    /** @var string */
-    private $version;
-
     /**
      * @param string $version
      */
-    public function __construct(LoggerInterface $logger, $version)
+    public function __construct(LoggerInterface $logger, private $version)
     {
         parent::__construct($logger);
-
-        $this->version = $version;
     }
 
     /**

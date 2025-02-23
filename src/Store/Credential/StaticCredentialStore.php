@@ -27,10 +27,8 @@ class StaticCredentialStore implements CredentialStoreInterface
 
     /**
      * @param string $entityId
-     *
-     * @return bool
      */
-    public function has($entityId)
+    public function has($entityId): bool
     {
         return array_key_exists($entityId, $this->credentials);
     }

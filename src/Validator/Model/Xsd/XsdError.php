@@ -2,7 +2,7 @@
 
 namespace LightSaml\Validator\Model\Xsd;
 
-class XsdError
+class XsdError implements \Stringable
 {
     public const WARNING = 'Warning';
     public const ERROR = 'Error';
@@ -14,28 +14,13 @@ class XsdError
         LIBXML_ERR_FATAL => self::FATAL,
     ];
 
-    /** @var string */
-    private $level;
-
-    /** @var string */
-    private $code;
-
-    /** @var string */
-    private $message;
-
-    /** @var string */
-    private $line;
-
-    /** @var string */
-    private $column;
-
     /**
      * @return XsdError
      */
     public static function fromLibXMLError(\LibXMLError $error)
     {
         return new self(
-            isset(self::$levelMap[$error->level]) ? self::$levelMap[$error->level] : 'Unknown',
+            self::$levelMap[$error->level] ?? 'Unknown',
             $error->code,
             $error->message,
             $error->line,
@@ -50,13 +35,8 @@ class XsdError
      * @param string $line
      * @param string $column
      */
-    public function __construct($level, $code, $message, $line, $column)
+    public function __construct(private $level, private $code, private $message, private $line, private $column)
     {
-        $this->level = $level;
-        $this->code = $code;
-        $this->message = $message;
-        $this->line = $line;
-        $this->column = $column;
     }
 
     /**
@@ -99,7 +79,7 @@ class XsdError
         return $this->column;
     }
 
-    public function __toString()
+    public function __toString(): string
     {
         return sprintf(
             '%s %s: %s on line %s column %s',

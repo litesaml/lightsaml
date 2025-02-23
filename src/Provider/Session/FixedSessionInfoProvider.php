@@ -4,25 +4,13 @@ namespace LightSaml\Provider\Session;
 
 class FixedSessionInfoProvider implements SessionInfoProviderInterface
 {
-    /** @var int */
-    protected $authnInstant;
-
-    /** @var string */
-    protected $sessionIndex;
-
-    /** @var string */
-    protected $authnContextClassRef;
-
     /**
      * @param int    $authnInstant
      * @param string $sessionIndex
      * @param string $authnContextClassRef
      */
-    public function __construct($authnInstant = 0, $sessionIndex = null, $authnContextClassRef = null)
+    public function __construct(protected $authnInstant = 0, protected $sessionIndex = null, protected $authnContextClassRef = null)
     {
-        $this->authnInstant = $authnInstant;
-        $this->sessionIndex = $sessionIndex;
-        $this->authnContextClassRef = $authnContextClassRef;
     }
 
     /**

@@ -8,11 +8,7 @@ use LightSaml\Tests\BaseTestCase;
 
 class HelperTest extends BaseTestCase
 {
-    protected $timestamps = array(
-        array(1412399250, '2014-10-04T05:07:30Z'),
-        array(1412368132, '2014-10-03T20:28:52Z'),
-        array(1412331547, '2014-10-03T10:19:07Z'),
-    );
+    protected $timestamps = [[1412399250, '2014-10-04T05:07:30Z'], [1412368132, '2014-10-03T20:28:52Z'], [1412331547, '2014-10-03T10:19:07Z']];
 
     /**
      * @return array
@@ -30,23 +26,23 @@ class HelperTest extends BaseTestCase
         $timestamps = array_merge(
             $this->timestamps,
             [
-                array(1412399250, '2014-10-04T05:07:30+00:00'),
-                array(1412368132, '2014-10-03T20:28:52+00:00'),
-                array(1412331547, '2014-10-03T10:19:07+00:00'),
-                array(1412399250, '2014-10-04T05:07:30.000+00:00'),
-                array(1412368132, '2014-10-03T20:28:52.000+00:00'),
-                array(1412331547, '2014-10-03T10:19:07.000+00:00'),
-                array(1412399250, '2014-10-04T06:07:30+01:00'),
-                array(1412368132, '2014-10-03T21:28:52+01:00'),
-                array(1412331547, '2014-10-03T11:19:07+01:00'),
-                array(1412399250, '2014-10-04T06:07:30.000+01:00'),
-                array(1412368132, '2014-10-03T21:28:52.000+01:00'),
-                array(1412331547, '2014-10-03T11:19:07.000+01:00'),
+                [1412399250, '2014-10-04T05:07:30+00:00'],
+                [1412368132, '2014-10-03T20:28:52+00:00'],
+                [1412331547, '2014-10-03T10:19:07+00:00'],
+                [1412399250, '2014-10-04T05:07:30.000+00:00'],
+                [1412368132, '2014-10-03T20:28:52.000+00:00'],
+                [1412331547, '2014-10-03T10:19:07.000+00:00'],
+                [1412399250, '2014-10-04T06:07:30+01:00'],
+                [1412368132, '2014-10-03T21:28:52+01:00'],
+                [1412331547, '2014-10-03T11:19:07+01:00'],
+                [1412399250, '2014-10-04T06:07:30.000+01:00'],
+                [1412368132, '2014-10-03T21:28:52.000+01:00'],
+                [1412331547, '2014-10-03T11:19:07.000+01:00'],
             ]
         );
-        $result = array();
+        $result = [];
         foreach ($timestamps as $arr) {
-            $result[] = array($arr[1], $arr[0]);
+            $result[] = [$arr[1], $arr[0]];
         }
 
         return $result;
@@ -55,8 +51,8 @@ class HelperTest extends BaseTestCase
     /**
      * @param string $timestamp
      * @param string $string
-     * @dataProvider timestamp2StringProvider
      */
+    #[\PHPUnit\Framework\Attributes\DataProvider('timestamp2StringProvider')]
     public function test__time_to_string($timestamp, $string)
     {
         $this->assertEquals($string, Helper::time2string($timestamp));
@@ -65,9 +61,8 @@ class HelperTest extends BaseTestCase
     /**
      * @param string $value
      * @param int    $timestamp
-     *
-     * @dataProvider string2TimestampProvider
      */
+    #[\PHPUnit\Framework\Attributes\DataProvider('string2TimestampProvider')]
     public function test__get_timestamp_from_value_with_string($value, $timestamp)
     {
         $this->assertEquals($timestamp, Helper::getTimestampFromValue($value));
@@ -76,9 +71,8 @@ class HelperTest extends BaseTestCase
     /**
      * @param string $value
      * @param int    $timestamp
-     *
-     * @dataProvider string2TimestampProvider
      */
+    #[\PHPUnit\Framework\Attributes\DataProvider('string2TimestampProvider')]
     public function test__get_timestamp_from_value_with_date_time($value, $timestamp)
     {
         $dt = new \DateTime('@'.$timestamp);
@@ -88,9 +82,8 @@ class HelperTest extends BaseTestCase
     /**
      * @param string $value
      * @param int    $timestamp
-     *
-     * @dataProvider string2TimestampProvider
      */
+    #[\PHPUnit\Framework\Attributes\DataProvider('string2TimestampProvider')]
     public function test__get_timestamp_from_value_with_int($value, $timestamp)
     {
         $this->assertEquals($timestamp, Helper::getTimestampFromValue($timestamp));
@@ -99,7 +92,7 @@ class HelperTest extends BaseTestCase
     public function test__get_timestamp_from_value_with_invalid_value()
     {
         $this->expectException(\InvalidArgumentException::class);
-        Helper::getTimestampFromValue(array());
+        Helper::getTimestampFromValue([]);
     }
 
     public function test__generate_random_bytes_length()
@@ -126,7 +119,7 @@ class HelperTest extends BaseTestCase
         $this->assertStringStartsWith('_', $id);
         $this->assertEquals(43, strlen($id));
 
-        $arr = array();
+        $arr = [];
         for ($i = 0; $i<strlen($id); $i++) {
             $ch = $id[$i];
             $arr[$ch] = true;
@@ -143,7 +136,7 @@ class HelperTest extends BaseTestCase
     public function test__validate_id_string_returns_false_for_non_string()
     {
         $this->assertFalse(Helper::validateIdString(1234567890123456));
-        $this->assertFalse(Helper::validateIdString(array()));
+        $this->assertFalse(Helper::validateIdString([]));
     }
 
     public function test__validate_id_string_returns_false_for_short_string()
@@ -173,7 +166,7 @@ class HelperTest extends BaseTestCase
     public function test__validate_required_string_returns_false_for_non_string()
     {
         $this->assertFalse(Helper::validateRequiredString(123));
-        $this->assertFalse(Helper::validateRequiredString(array()));
+        $this->assertFalse(Helper::validateRequiredString([]));
     }
 
     public function test__validate_optional_string_returns_true_for_null()
@@ -195,7 +188,7 @@ class HelperTest extends BaseTestCase
     public function test__validate_optional_string_returns_false_for_non_string()
     {
         $this->assertFalse(Helper::validateOptionalString(123));
-        $this->assertFalse(Helper::validateOptionalString(array()));
+        $this->assertFalse(Helper::validateOptionalString([]));
     }
 
     public function test__validate_well_formed_uri_string_returns_false_for_empty_string()
@@ -244,33 +237,23 @@ class HelperTest extends BaseTestCase
         $this->assertTrue(Helper::validateWellFormedUriString(SamlConstants::AUTHN_CONTEXT_PASSWORD));
     }
 
-    public function notBeforeProvider()
+    public static function notBeforeProvider()
     {
-        return array(
-            array(1000, 900, 10, false),
-            array(1000, 1100, 10, true),
-        );
+        return [[1000, 900, 10, false], [1000, 1100, 10, true]];
     }
 
-    /**
-     * @dataProvider notBeforeProvider
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('notBeforeProvider')]
     public function test__validate_not_before($notBefore, $now, $allowedSecondsSkew, $expected)
     {
         $this->assertEquals($expected, Helper::validateNotBefore($notBefore, $now, $allowedSecondsSkew));
     }
 
-    public function notOnOrAfterProvider()
+    public static function notOnOrAfterProvider()
     {
-        return array(
-            array(1000, 900, 10, true),
-            array(1000, 1100, 10, false),
-        );
+        return [[1000, 900, 10, true], [1000, 1100, 10, false]];
     }
 
-    /**
-     * @dataProvider notOnOrAfterProvider
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('notOnOrAfterProvider')]
     public function test__validate_not_on_or_after($notOnOrAfter, $now, $allowedSecondsSkew, $expected)
     {
         $this->assertEquals($expected, Helper::validateNotOnOrAfter($notOnOrAfter, $now, $allowedSecondsSkew));

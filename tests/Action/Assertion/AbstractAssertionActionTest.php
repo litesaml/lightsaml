@@ -37,8 +37,6 @@ class AbstractAssertionActionTest extends BaseTestCase
     }
 
     /**
-     * @param array $arguments
-     *
      * @return \PHPUnit_Framework_MockObject_MockObject|AbstractAssertionAction
      */
     private function getAbstractAssertionActionMock(array $arguments)

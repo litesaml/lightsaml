@@ -62,7 +62,7 @@ class MessageSignatureValidatorActionTest extends BaseTestCase
         $action->execute($context);
     }
 
-    public function success_on_validator_returns_credential_provider()
+    public static function success_on_validator_returns_credential_provider()
     {
         return [
             [ProfileContext::ROLE_IDP, MetadataCriteria::TYPE_SP],
@@ -70,9 +70,7 @@ class MessageSignatureValidatorActionTest extends BaseTestCase
         ];
     }
 
-    /**
-     * @dataProvider success_on_validator_returns_credential_provider
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('success_on_validator_returns_credential_provider')]
     public function test_success_on_validator_returns_credential($ownRole, $metadataType)
     {
         $action = new MessageSignatureValidatorAction(

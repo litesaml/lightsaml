@@ -11,7 +11,7 @@ use LightSaml\Tests\BaseTestCase;
 
 class AssertionTest extends BaseTestCase
 {
-    public function equals_provider()
+    public static function equals_provider()
     {
         return [
             ['nameId', 'format', false, new Assertion()],
@@ -23,15 +23,13 @@ class AssertionTest extends BaseTestCase
         ];
     }
 
-    /**
-     * @dataProvider equals_provider
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('equals_provider')]
     public function test_equals($nameId, $format, $expectedValue, Assertion $assertion)
     {
         $this->assertEquals($expectedValue, $assertion->equals($nameId, $format));
     }
 
-    public function has_session_index_provider()
+    public static function has_session_index_provider()
     {
         return [
             ['1111', false, new Assertion()],
@@ -44,15 +42,13 @@ class AssertionTest extends BaseTestCase
         ];
     }
 
-    /**
-     * @dataProvider has_session_index_provider
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('has_session_index_provider')]
     public function test_has_session_index($sessionIndex, $expectedValue, Assertion $assertion)
     {
         $this->assertEquals($expectedValue, $assertion->hasSessionIndex($sessionIndex));
     }
 
-    public function has_any_session_index_provider()
+    public static function has_any_session_index_provider()
     {
         return [
             [false, new Assertion()],
@@ -65,9 +61,7 @@ class AssertionTest extends BaseTestCase
         ];
     }
 
-    /**
-     * @dataProvider has_any_session_index_provider
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('has_any_session_index_provider')]
     public function test_has_any_session_index($expectedValue, Assertion $assertion)
     {
         $this->assertEquals($expectedValue, $assertion->hasAnySessionIndex());

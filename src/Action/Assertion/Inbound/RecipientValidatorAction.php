@@ -18,14 +18,9 @@ use Psr\Log\LoggerInterface;
 
 class RecipientValidatorAction extends AbstractAssertionAction
 {
-    /** @var EndpointResolverInterface */
-    private $endpointResolver;
-
-    public function __construct(LoggerInterface $logger, EndpointResolverInterface $endpointResolver)
+    public function __construct(LoggerInterface $logger, private readonly EndpointResolverInterface $endpointResolver)
     {
         parent::__construct($logger);
-
-        $this->endpointResolver = $endpointResolver;
     }
 
     /**

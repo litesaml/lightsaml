@@ -42,13 +42,13 @@ class AbstractCredentialTest extends BaseTestCase
     {
         $credential = $this->getAbstractCredentialMock();
 
-        $this->assertEquals(array(), $credential->getKeyNames());
+        $this->assertEquals([], $credential->getKeyNames());
 
         $credential->addKeyName($keyName1 = 'foo');
-        $this->assertEquals(array($keyName1), $credential->getKeyNames());
+        $this->assertEquals([$keyName1], $credential->getKeyNames());
 
         $credential->addKeyName($keyName2 = 'bar');
-        $this->assertEquals(array($keyName1, $keyName2), $credential->getKeyNames());
+        $this->assertEquals([$keyName1, $keyName2], $credential->getKeyNames());
     }
 
     /**
@@ -56,6 +56,6 @@ class AbstractCredentialTest extends BaseTestCase
      */
     private function getAbstractCredentialMock()
     {
-        return $this->getMockForAbstractClass('LightSaml\Credential\AbstractCredential');
+        return $this->getMockForAbstractClass(\LightSaml\Credential\AbstractCredential::class);
     }
 }

@@ -63,7 +63,7 @@ class AbstractDestinationValidatorActionTest extends BaseTestCase
         $action->execute($context);
     }
 
-    public function makes_descriptor_type_criteria_for_own_role_provider()
+    public static function makes_descriptor_type_criteria_for_own_role_provider()
     {
         return [
            [ProfileContext::ROLE_IDP, IdpSsoDescriptor::class],
@@ -71,9 +71,7 @@ class AbstractDestinationValidatorActionTest extends BaseTestCase
         ];
     }
 
-    /**
-     * @dataProvider makes_descriptor_type_criteria_for_own_role_provider
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('makes_descriptor_type_criteria_for_own_role_provider')]
     public function test_makes_descriptor_type_criteria_for_own_role($ownRole, $descriptorType)
     {
         $loggerMock = $this->getLoggerMock();

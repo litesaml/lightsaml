@@ -12,12 +12,8 @@ use Pimple\ServiceProviderInterface;
 
 class StoreContainerProvider implements ServiceProviderInterface
 {
-    /** @var SystemContainerInterface */
-    private $systemContainer;
-
-    public function __construct(SystemContainerInterface $systemContainer)
+    public function __construct(private readonly SystemContainerInterface $systemContainer)
     {
-        $this->systemContainer = $systemContainer;
     }
 
     /**

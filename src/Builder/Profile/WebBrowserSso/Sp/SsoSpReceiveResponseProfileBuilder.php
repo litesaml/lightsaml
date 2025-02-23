@@ -31,11 +31,9 @@ class SsoSpReceiveResponseProfileBuilder extends AbstractProfileBuilder
      */
     protected function getActionBuilder()
     {
-        $result = new SsoSpReceiveResponseActionBuilder(
+        return new SsoSpReceiveResponseActionBuilder(
             $this->container,
             new SsoSpValidateAssertionActionBuilder($this->container)
         );
-
-        return $result;
     }
 }

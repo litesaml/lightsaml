@@ -9,23 +9,11 @@ use LightSaml\SamlConstants;
 class ProxyRestriction extends AbstractCondition
 {
     /**
-     * @var int|null
-     */
-    protected $count;
-
-    /**
-     * @var string[]|null
-     */
-    protected $audience;
-
-    /**
      * @param int      $count
      * @param string[] $audience
      */
-    public function __construct($count = null, ?array $audience = null)
+    public function __construct(protected $count = null, protected ?array $audience = null)
     {
-        $this->count = $count;
-        $this->audience = $audience;
     }
 
     /**

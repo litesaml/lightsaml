@@ -11,7 +11,7 @@ use LightSaml\Model\Protocol\NameIDPolicy;
 use LightSaml\Model\XmlDSig\SignatureWriter;
 use LightSaml\SamlConstants;
 
-class AuthnRequestXsdTest extends AbstractXsdValidationTest
+class AuthnRequestXsdTest extends AbstractXsdValidation
 {
     public function test_authn_request_with_xsd()
     {

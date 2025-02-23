@@ -11,6 +11,9 @@ use LightSaml\Profile\Profiles;
 use LightSaml\State\Request\RequestState;
 use LightSaml\Store\Request\RequestStateStoreInterface;
 use LightSaml\Tests\BaseTestCase;
+use Mockery;
+use Mockery\Mock;
+use PHPUnit\Framework\Attributes\DoesNotPerformAssertions;
 use Psr\Log\LoggerInterface;
 
 class FlushRequestStatesActionTest extends BaseTestCase
@@ -25,14 +28,42 @@ class FlushRequestStatesActionTest extends BaseTestCase
         $this->assertTrue(true);
     }
 
+    #[DoesNotPerformAssertions]
     public function test_flushes_store_with_inbound_request_state()
     {
-        $loggerMock = $this->getLoggerMock();
-        $requestStoreMock = $this->getRequestStateStoreMock();
+        $expectedIds = ['1111', '2222', '3333'];
+
+        $requestStoreMock = Mockery::mock(RequestStateStoreInterface::class, function ($mock) use ($expectedIds) {
+            $mock->shouldReceive('remove')
+                ->once()
+                ->with($this->equalTo($expectedIds[0]))
+                ->andReturn(true);
+            $mock->shouldReceive('remove')
+                ->once()
+                ->with($this->equalTo($expectedIds[1]))
+                ->andReturn(true);
+            $mock->shouldReceive('remove')
+                ->once()
+                ->with($this->equalTo($expectedIds[2]))
+                ->andReturn(false);
+        });
+
+        $loggerMock = \Mockery::mock(LoggerInterface::class, function ($mock) use ($expectedIds) {
+            $mock->shouldReceive('debug')
+                ->once()
+                ->with($this->equalTo(sprintf('Removed request state "%s"', $expectedIds[0])), $this->isType('array'));
+
+            $mock->shouldReceive('debug')
+                ->once()
+                ->with($this->equalTo(sprintf('Removed request state "%s"', $expectedIds[1])), $this->isType('array'));
+
+            $mock->shouldReceive('warning')
+                ->once()
+                ->with($this->equalTo(sprintf('Request state "%s" does not exist', $expectedIds[2])), $this->isType('array'));
+        });
 
         $action = new FlushRequestStatesAction($loggerMock, $requestStoreMock);
 
-        $expectedIds = ['1111', '2222', '3333'];
         $context = new ProfileContext(Profiles::METADATA, ProfileContext::ROLE_IDP);
         $context->getInboundContext()
             ->addSubContext(
@@ -55,28 +86,6 @@ class FlushRequestStatesActionTest extends BaseTestCase
                     (new RequestStateContext())->setRequestState(new RequestState($expectedIds[2]))
                 )
         );
-
-        $requestStoreMock->expects($this->exactly(3))
-            ->method('remove')
-            ->withConsecutive(
-                [$this->equalTo($expectedIds[0])],
-                [$this->equalTo($expectedIds[1])],
-                [$this->equalTo($expectedIds[2])]
-            )
-            ->willReturnOnConsecutiveCalls(true, true, false)
-        ;
-        $loggerMock->expects($this->exactly(2))
-            ->method('debug')
-            ->withConsecutive(
-                [$this->equalTo(sprintf('Removed request state "%s"', $expectedIds[0]))],
-                [$this->equalTo(sprintf('Removed request state "%s"', $expectedIds[1]))],
-                [$this->equalTo(sprintf('Request state "%s" does not exist', $expectedIds[2]))]
-            );
-        $loggerMock->expects($this->exactly(1))
-            ->method('warning')
-            ->withConsecutive(
-                [$this->equalTo(sprintf('Request state "%s" does not exist', $expectedIds[2]))]
-            );
 
         $action->execute($context);
     }

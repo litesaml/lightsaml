@@ -13,7 +13,7 @@ use LightSaml\Resolver\Endpoint\EndpointResolverInterface;
 use LightSaml\SamlConstants;
 use Psr\Log\LoggerInterface;
 
-class ResolveEndpointBaseActionTest extends AbstractResolveEndpointActionTest
+class ResolveEndpointBaseActionTest extends AbstractResolveEndpointAction
 {
     public function test_does_nothing_if_endpoint_already_set()
     {
@@ -63,8 +63,6 @@ class ResolveEndpointBaseActionTest extends AbstractResolveEndpointActionTest
         $this->expectException(\LightSaml\Error\LightSamlContextException::class);
         $message = new Response();
         $context = $this->createContext(ProfileContext::ROLE_IDP, $message);
-
-        $endpoint = null;
         $this->setEndpointResolver(true, function () {
             return [];
         });
@@ -103,8 +101,6 @@ class ResolveEndpointBaseActionTest extends AbstractResolveEndpointActionTest
     }
 
     /**
-     * @param LoggerInterface           $logger
-     * @param EndpointResolverInterface $endpointResolver
      *
      * @return ResolveEndpointBaseAction
      */

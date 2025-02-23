@@ -6,14 +6,8 @@ use LightSaml\Context\ContextInterface;
 
 abstract class WrappedAction implements ActionInterface
 {
-    /**
-     * @var ActionInterface
-     */
-    protected $action;
-
-    public function __construct(ActionInterface $action)
+    public function __construct(protected \LightSaml\Action\ActionInterface $action)
     {
-        $this->action = $action;
     }
 
     /**

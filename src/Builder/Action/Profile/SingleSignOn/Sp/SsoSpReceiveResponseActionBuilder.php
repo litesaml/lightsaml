@@ -25,14 +25,9 @@ use LightSaml\SamlConstants;
 
 class SsoSpReceiveResponseActionBuilder extends AbstractProfileActionBuilder
 {
-    /** @var ActionBuilderInterface */
-    private $assertionActionBuilder;
-
-    public function __construct(BuildContainerInterface $buildContainer, ActionBuilderInterface $assertionActionBuilder)
+    public function __construct(BuildContainerInterface $buildContainer, private readonly ActionBuilderInterface $assertionActionBuilder)
     {
         parent::__construct($buildContainer);
-
-        $this->assertionActionBuilder = $assertionActionBuilder;
     }
 
     /**

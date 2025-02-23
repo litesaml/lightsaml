@@ -42,7 +42,7 @@ abstract class Metadata extends AbstractSamlModel
         while ($node && $node instanceof \DOMComment) {
             $node = $node->nextSibling;
         }
-        if (null === $node) {
+        if (!$node instanceof \DOMNode) {
             throw new LightSamlXmlException('Empty XML');
         }
 
@@ -51,14 +51,15 @@ abstract class Metadata extends AbstractSamlModel
         }
 
         $map = [
-            'EntityDescriptor' => '\LightSaml\Model\Metadata\EntityDescriptor',
-            'EntitiesDescriptor' => '\LightSaml\Model\Metadata\EntitiesDescriptor',
+            'EntityDescriptor' => \LightSaml\Model\Metadata\EntityDescriptor::class,
+            'EntitiesDescriptor' => \LightSaml\Model\Metadata\EntitiesDescriptor::class,
         ];
 
         $rootElementName = $node->localName;
 
         if (array_key_exists($rootElementName, $map)) {
-            if ($class = $map[$rootElementName]) {
+            $class = $map[$rootElementName];
+            if ($class !== '0') {
                 /** @var SamlElementInterface $result */
                 $result = new $class();
             } else {

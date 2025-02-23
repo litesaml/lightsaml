@@ -10,14 +10,9 @@ use Psr\Log\LoggerInterface;
 
 class SpSsoStateAction extends AbstractProfileAction
 {
-    /** @var SessionProcessorInterface */
-    private $sessionProcessor;
-
-    public function __construct(LoggerInterface $logger, SessionProcessorInterface $sessionProcessor)
+    public function __construct(LoggerInterface $logger, private readonly SessionProcessorInterface $sessionProcessor)
     {
         parent::__construct($logger);
-
-        $this->sessionProcessor = $sessionProcessor;
     }
 
     protected function doExecute(ProfileContext $context)

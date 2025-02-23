@@ -308,9 +308,9 @@ class AuthnRequest extends AbstractRequest
         ]);
 
         $this->singleElementsFromXml($node, $context, [
-            'Subject' => ['saml', 'LightSaml\Model\Assertion\Subject'],
-            'NameIDPolicy' => ['samlp', 'LightSaml\Model\Protocol\NameIDPolicy'],
-            'Conditions' => ['saml', 'LightSaml\Model\Assertion\Conditions'],
+            'Subject' => ['saml', \LightSaml\Model\Assertion\Subject::class],
+            'NameIDPolicy' => ['samlp', \LightSaml\Model\Protocol\NameIDPolicy::class],
+            'Conditions' => ['saml', \LightSaml\Model\Assertion\Conditions::class],
         ]);
     }
 }

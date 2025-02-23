@@ -25,8 +25,7 @@ abstract class AbstractCredential implements CredentialInterface
     /** @var string|null */
     private $secretKey;
 
-    /** @var CredentialContextSet */
-    private $credentialContext;
+    private \LightSaml\Credential\Context\CredentialContextSet $credentialContext;
 
     public function __construct()
     {
@@ -133,7 +132,7 @@ abstract class AbstractCredential implements CredentialInterface
     public function addKeyName($keyName)
     {
         $keyName = trim($keyName);
-        if ($keyName) {
+        if ($keyName !== '' && $keyName !== '0') {
             $this->keyNames[] = $keyName;
         }
 

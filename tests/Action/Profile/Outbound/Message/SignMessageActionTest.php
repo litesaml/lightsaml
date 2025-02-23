@@ -18,7 +18,7 @@ class SignMessageActionTest extends BaseTestCase
         $this->assertTrue(true);
     }
 
-    public function supports_message_provider()
+    public static function supports_message_provider()
     {
         return [
             ['setSignAuthnRequest', new AuthnRequest()],
@@ -26,9 +26,7 @@ class SignMessageActionTest extends BaseTestCase
         ];
     }
 
-    /**
-     * @dataProvider supports_message_provider
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('supports_message_provider')]
     public function test_supports_message($trustOptionsMethod, SamlMessage $message)
     {
         $action = new SignMessageAction($this->getLoggerMock(), $this->getSignatureResolverMock());
@@ -50,11 +48,8 @@ class SignMessageActionTest extends BaseTestCase
         ];
     }
 
-    /**
-     * @dataProvider does_not_support_message_provider
-     *
-     *
-     */
+    
+    #[\PHPUnit\Framework\Attributes\DataProvider('does_not_support_message_provider')]
     public function test_does_not_support_message(SamlMessage $message)
     {
         $this->expectExceptionMessage("Unexpected message type");

@@ -15,27 +15,6 @@ use LightSaml\SamlConstants;
 
 class SimpleEntityDescriptorBuilder implements EntityDescriptorProviderInterface
 {
-    /** @var string */
-    protected $entityId;
-
-    /** @var string */
-    protected $acsUrl;
-
-    /** @var string[] */
-    protected $acsBindings;
-
-    /** @var string */
-    protected $ssoUrl;
-
-    /** @var string[] */
-    protected $ssoBindings;
-
-    /** @var string[]|null */
-    protected $use;
-
-    /** @var X509Certificate */
-    protected $ownCertificate;
-
     /** @var EntityDescriptor */
     private $entityDescriptor;
 
@@ -47,22 +26,8 @@ class SimpleEntityDescriptorBuilder implements EntityDescriptorProviderInterface
      * @param string[]      $ssoBindings
      * @param string[]|null $use
      */
-    public function __construct(
-        $entityId,
-        $acsUrl,
-        $ssoUrl,
-        X509Certificate $ownCertificate,
-        array $acsBindings = [SamlConstants::BINDING_SAML2_HTTP_POST],
-        array $ssoBindings = [SamlConstants::BINDING_SAML2_HTTP_POST, SamlConstants::BINDING_SAML2_HTTP_REDIRECT],
-        $use = [KeyDescriptor::USE_ENCRYPTION, KeyDescriptor::USE_SIGNING]
-    ) {
-        $this->entityId = $entityId;
-        $this->acsUrl = $acsUrl;
-        $this->ssoUrl = $ssoUrl;
-        $this->ownCertificate = $ownCertificate;
-        $this->acsBindings = $acsBindings;
-        $this->ssoBindings = $ssoBindings;
-        $this->use = $use;
+    public function __construct(protected $entityId, protected $acsUrl, protected $ssoUrl, protected \LightSaml\Credential\X509Certificate $ownCertificate, protected array $acsBindings = [SamlConstants::BINDING_SAML2_HTTP_POST], protected array $ssoBindings = [SamlConstants::BINDING_SAML2_HTTP_POST, SamlConstants::BINDING_SAML2_HTTP_REDIRECT], protected $use = [KeyDescriptor::USE_ENCRYPTION, KeyDescriptor::USE_SIGNING])
+    {
     }
 
     /**
@@ -134,7 +99,7 @@ class SimpleEntityDescriptorBuilder implements EntityDescriptorProviderInterface
 
         $idpSso = new IdpSsoDescriptor();
 
-        foreach ($this->ssoBindings as $index => $binding) {
+        foreach ($this->ssoBindings as $binding) {
             $sso = new SingleSignOnService();
             $sso
                 ->setLocation($this->ssoUrl)

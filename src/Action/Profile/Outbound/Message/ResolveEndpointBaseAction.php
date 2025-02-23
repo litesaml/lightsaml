@@ -25,14 +25,9 @@ use Psr\Log\LoggerInterface;
  */
 abstract class ResolveEndpointBaseAction extends AbstractProfileAction
 {
-    /** @var EndpointResolverInterface */
-    protected $endpointResolver;
-
-    public function __construct(LoggerInterface $logger, EndpointResolverInterface $endpointResolver)
+    public function __construct(LoggerInterface $logger, protected \LightSaml\Resolver\Endpoint\EndpointResolverInterface $endpointResolver)
     {
         parent::__construct($logger);
-
-        $this->endpointResolver = $endpointResolver;
     }
 
     protected function doExecute(ProfileContext $context)
@@ -144,6 +139,5 @@ abstract class ResolveEndpointBaseAction extends AbstractProfileAction
      */
     protected function getServiceType(ProfileContext $context)
     {
-        return;
     }
 }

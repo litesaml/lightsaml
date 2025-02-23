@@ -101,9 +101,7 @@ class X509Certificate
      */
     public function toPem()
     {
-        $result = "-----BEGIN CERTIFICATE-----\n" . chunk_split($this->getData(), 64, "\n") . "-----END CERTIFICATE-----\n";
-
-        return $result;
+        return "-----BEGIN CERTIFICATE-----\n" . chunk_split($this->getData(), 64, "\n") . "-----END CERTIFICATE-----\n";
     }
 
     public function parse()
@@ -115,7 +113,7 @@ class X509Certificate
         $res = openssl_x509_read($this->toPem());
         $this->info = openssl_x509_parse($res);
         $this->signatureAlgorithm = null;
-        $signatureType = isset($this->info['signatureTypeSN']) ? $this->info['signatureTypeSN'] : '';
+        $signatureType = $this->info['signatureTypeSN'] ?? '';
         if ($signatureType && isset(self::$typeMap[$signatureType])) {
             $this->signatureAlgorithm = self::$typeMap[$signatureType];
         } else {

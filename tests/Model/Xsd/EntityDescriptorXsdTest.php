@@ -17,7 +17,7 @@ use LightSaml\Model\Metadata\SingleSignOnService;
 use LightSaml\Model\Metadata\SpSsoDescriptor;
 use LightSaml\SamlConstants;
 
-class EntityDescriptorXsdTest extends AbstractXsdValidationTest
+class EntityDescriptorXsdTest extends AbstractXsdValidation
 {
     public function test_entity_descriptor_with_xsd()
     {

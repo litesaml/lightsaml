@@ -31,8 +31,7 @@ class SsoSessionState implements \Serializable
     /** @var \DateTime */
     protected $lastAuthOn;
 
-    /** @var ParameterBag */
-    protected $parameters;
+    protected \LightSaml\Meta\ParameterBag $parameters;
 
     public function __construct()
     {
@@ -221,11 +220,10 @@ class SsoSessionState implements \Serializable
      * @deprecated Since 1.2, will be removed in 2.0. Use getParameters() instead
      *
      * @param string $name
-     * @param mixed  $value
      *
      * @return SsoSessionState
      */
-    public function addOption($name, $value)
+    public function addOption($name, mixed $value)
     {
         $this->parameters->set($name, $value);
 
@@ -317,7 +315,6 @@ class SsoSessionState implements \Serializable
 
     /**
      * (PHP >= 8.1)
-     * @param array $data
      *
      * @return void
      */
@@ -327,18 +324,7 @@ class SsoSessionState implements \Serializable
         // older data which does not include all properties.
         $data = array_merge($data, array_fill(0, 5, null));
 
-        list(
-            $this->idpEntityId,
-            $this->spEntityId,
-            $this->nameId,
-            $this->nameIdFormat,
-            $this->sessionIndex,
-            $this->sessionInstant,
-            $this->firstAuthOn,
-            $this->lastAuthOn,
-            $options,
-            $this->parameters
-        ) = $data;
+        [$this->idpEntityId, $this->spEntityId, $this->nameId, $this->nameIdFormat, $this->sessionIndex, $this->sessionInstant, $this->firstAuthOn, $this->lastAuthOn, $options, $this->parameters] = $data;
 
         // if deserialized from old format, set old options to new parameters
         if ($options && 0 == $this->parameters->count()) {

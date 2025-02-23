@@ -6,23 +6,14 @@ use Symfony\Component\HttpFoundation\Response;
 
 class SamlPostResponse extends Response
 {
-    /** @var string */
-    protected $destination;
-
-    /** @var array */
-    protected $data;
-
     /**
      * @param string $destination
      * @param int    $status
      * @param array  $headers
      */
-    public function __construct($destination, array $data, $status = 200, $headers = [])
+    public function __construct(protected $destination, protected array $data, $status = 200, $headers = [])
     {
         parent::__construct('', $status, $headers);
-
-        $this->destination = $destination;
-        $this->data = $data;
     }
 
     /**

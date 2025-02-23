@@ -38,7 +38,7 @@ class XsdValidator
         libxml_clear_errors();
         $doc = new \DOMDocument();
 
-        set_error_handler(function ($errno, $errstr, $errfile, $errline, array $errcontext) use (&$result) {
+        set_error_handler(function ($errno, $errstr, $errfile, $errline) use (&$result) {
             $error = new XsdError(XsdError::FATAL, $errno, $errstr, 0, 0);
             $result[] = $error;
         });

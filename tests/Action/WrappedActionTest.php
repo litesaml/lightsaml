@@ -15,7 +15,7 @@ class WrappedActionTest extends BaseTestCase
         /** @var ActionInterface|\PHPUnit_Framework_MockObject_MockObject $action */
         $action = $this->getMockBuilder(ActionInterface::class)->getMock();
         /** @var WrappedAction|\PHPUnit_Framework_MockObject_MockObject $wrapper */
-        $wrapper = $this->getMockForAbstractClass(WrappedAction::class, array($action));
+        $wrapper = $this->getMockForAbstractClass(WrappedAction::class, [$action]);
 
         $beforeCalled = false;
         $executeCalled = false;
