@@ -4,7 +4,7 @@ namespace LightSaml\Action;
 
 use LightSaml\Context\ContextInterface;
 
-class CompositeAction implements ActionInterface, DebugPrintTreeActionInterface, CompositeActionInterface
+class CompositeAction implements ActionInterface, DebugPrintTreeActionInterface, CompositeActionInterface, \Stringable
 {
     /** @var ActionInterface[] */
     protected $children = [];
@@ -72,22 +72,17 @@ class CompositeAction implements ActionInterface, DebugPrintTreeActionInterface,
             if ($childAction instanceof DebugPrintTreeActionInterface) {
                 $arr = array_merge($arr, $childAction->debugPrintTree());
             } else {
-                $arr = array_merge($arr, [get_class($childAction) => []]);
+                $arr = array_merge($arr, [$childAction::class => []]);
             }
         }
 
-        $result = [
+        return [
             static::class => $arr,
         ];
-
-        return $result;
     }
 
-    /**
-     * @return string
-     */
-    public function __toString()
+    public function __toString(): string
     {
-        return json_encode($this->debugPrintTree(), JSON_PRETTY_PRINT);
+        return (string) json_encode($this->debugPrintTree(), JSON_PRETTY_PRINT);
     }
 }

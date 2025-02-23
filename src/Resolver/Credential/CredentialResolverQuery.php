@@ -7,15 +7,11 @@ use LightSaml\Criteria\CriteriaSet;
 
 class CredentialResolverQuery extends CriteriaSet
 {
-    /** @var CredentialResolverInterface */
-    private $resolver;
-
     /** @var CredentialInterface[] */
     private $arrCredentials;
 
-    public function __construct(CredentialResolverInterface $resolver)
+    public function __construct(private readonly CredentialResolverInterface $resolver)
     {
-        $this->resolver = $resolver;
     }
 
     /**

@@ -17,14 +17,9 @@ use Psr\Log\LoggerInterface;
  */
 class RepeatedIdValidatorAction extends AbstractAssertionAction
 {
-    /** @var IdStoreInterface */
-    protected $idStore;
-
-    public function __construct(LoggerInterface $logger, IdStoreInterface $idStore)
+    public function __construct(LoggerInterface $logger, protected \LightSaml\Store\Id\IdStoreInterface $idStore)
     {
         parent::__construct($logger);
-
-        $this->idStore = $idStore;
     }
 
     /**

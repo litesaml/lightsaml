@@ -122,7 +122,7 @@ abstract class SSODescriptor extends RoleDescriptor
             $context,
             'SingleLogoutService',
             'md',
-            'LightSaml\Model\Metadata\SingleLogoutService',
+            \LightSaml\Model\Metadata\SingleLogoutService::class,
             'addSingleLogoutService'
         );
     }

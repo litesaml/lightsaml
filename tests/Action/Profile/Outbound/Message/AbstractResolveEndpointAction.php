@@ -18,9 +18,9 @@ use LightSaml\Resolver\Endpoint\EndpointResolverInterface;
 use LightSaml\Tests\BaseTestCase;
 use Psr\Log\LoggerInterface;
 
-abstract class AbstractResolveEndpointActionTest extends BaseTestCase
+abstract class AbstractResolveEndpointAction extends BaseTestCase
 {
-    /** @var ResolveEndpointBaseAction|\PHPUnit_Framework_MockObject_MockObject */
+    /** @var ResolveEndpointBaseActionTest|\PHPUnit_Framework_MockObject_MockObject */
     protected $action;
 
     /** @var \Psr\Log\LoggerInterface|\PHPUnit_Framework_MockObject_MockObject */
@@ -40,10 +40,8 @@ abstract class AbstractResolveEndpointActionTest extends BaseTestCase
     }
 
     /**
-     * @param LoggerInterface           $logger
-     * @param EndpointResolverInterface $endpointResolver
      *
-     * @return ResolveEndpointBaseAction
+     * @return ResolveEndpointBaseActionTest
      */
     abstract protected function createAction(LoggerInterface $logger, EndpointResolverInterface $endpointResolver);
 
@@ -74,14 +72,14 @@ abstract class AbstractResolveEndpointActionTest extends BaseTestCase
      */
     protected function createContext(
         $ownRole = ProfileContext::ROLE_IDP,
-        SamlMessage $inboundMessage = null,
-        Endpoint $endpoint = null,
-        EntityDescriptor $partyEntityDescriptor = null,
+        ?SamlMessage $inboundMessage = null,
+        ?Endpoint $endpoint = null,
+        ?EntityDescriptor $partyEntityDescriptor = null,
         $profileId = Profiles::SSO_IDP_RECEIVE_AUTHN_REQUEST
     ) {
         $context = $this->getProfileContext($profileId, $ownRole);
 
-        if ($endpoint) {
+        if ($endpoint instanceof \LightSaml\Model\Metadata\Endpoint) {
             $context->getEndpointContext()->setEndpoint($endpoint);
         }
 
@@ -90,20 +88,16 @@ abstract class AbstractResolveEndpointActionTest extends BaseTestCase
         }
         $context->getPartyEntityContext()->setEntityDescriptor($partyEntityDescriptor);
 
-        if ($inboundMessage) {
+        if ($inboundMessage instanceof \LightSaml\Model\Protocol\SamlMessage) {
             $context->getInboundContext()->setMessage($inboundMessage);
         }
 
         return $context;
     }
 
-    /**
-     * @param CriteriaSet $criteriaSet
-     * @param array       $bindings
-     */
     protected function criteriaSetShouldHaveBindingCriteria(CriteriaSet $criteriaSet, array $bindings)
     {
-        if (empty($bindings)) {
+        if ($bindings === []) {
             $this->assertFalse($criteriaSet->has(BindingCriteria::class));
         } else {
             $this->assertTrue($criteriaSet->has(BindingCriteria::class));
@@ -114,7 +108,6 @@ abstract class AbstractResolveEndpointActionTest extends BaseTestCase
     }
 
     /**
-     * @param CriteriaSet $criteriaSet
      * @param string      $value
      */
     protected function criteriaSetShouldHaveDescriptorTypeCriteria(CriteriaSet $criteriaSet, $value)
@@ -130,7 +123,6 @@ abstract class AbstractResolveEndpointActionTest extends BaseTestCase
     }
 
     /**
-     * @param CriteriaSet $criteriaSet
      * @param string      $value
      */
     protected function criteriaSetShouldHaveServiceTypeCriteria(CriteriaSet $criteriaSet, $value)
@@ -146,7 +138,6 @@ abstract class AbstractResolveEndpointActionTest extends BaseTestCase
     }
 
     /**
-     * @param CriteriaSet $criteriaSet
      * @param string      $value
      */
     protected function criteriaSetShouldHaveIndexCriteria(CriteriaSet $criteriaSet, $value)
@@ -162,7 +153,6 @@ abstract class AbstractResolveEndpointActionTest extends BaseTestCase
     }
 
     /**
-     * @param CriteriaSet $criteriaSet
      * @param string      $value
      */
     protected function criteriaSetShouldHaveLocationCriteria(CriteriaSet $criteriaSet, $value)

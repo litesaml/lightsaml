@@ -7,12 +7,8 @@ use LightSaml\Builder\Context\ProfileContextBuilder;
 
 abstract class AbstractProfileBuilder implements ProfileBuilderInterface
 {
-    /** @var BuildContainerInterface */
-    protected $container;
-
-    public function __construct(BuildContainerInterface $buildContainer)
+    public function __construct(protected \LightSaml\Build\Container\BuildContainerInterface $container)
     {
-        $this->container = $buildContainer;
     }
 
     /**

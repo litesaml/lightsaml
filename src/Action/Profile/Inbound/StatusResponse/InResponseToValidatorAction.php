@@ -15,14 +15,9 @@ use Psr\Log\LoggerInterface;
 
 class InResponseToValidatorAction extends AbstractProfileAction
 {
-    /** @var RequestStateStoreInterface */
-    protected $requestStore;
-
-    public function __construct(LoggerInterface $logger, RequestStateStoreInterface $requestStore)
+    public function __construct(LoggerInterface $logger, protected \LightSaml\Store\Request\RequestStateStoreInterface $requestStore)
     {
         parent::__construct($logger);
-
-        $this->requestStore = $requestStore;
     }
 
     protected function doExecute(ProfileContext $context)

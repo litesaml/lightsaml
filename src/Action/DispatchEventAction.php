@@ -8,12 +8,8 @@ use Psr\EventDispatcher\EventDispatcherInterface;
 
 class DispatchEventAction implements ActionInterface
 {
-    /** @var EventDispatcherInterface */
-    protected $eventDispatcher;
-
-    public function __construct(EventDispatcherInterface $eventDispatcher)
+    public function __construct(protected \Psr\EventDispatcher\EventDispatcherInterface $eventDispatcher)
     {
-        $this->eventDispatcher = $eventDispatcher;
     }
 
     /**

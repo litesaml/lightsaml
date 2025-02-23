@@ -20,14 +20,9 @@ use Psr\Log\LoggerInterface;
 // TODO ACSUrlAction not used in profile builder, has to be added
 class ACSUrlAction extends AbstractProfileAction
 {
-    /** @var EndpointResolverInterface */
-    private $endpointResolver;
-
-    public function __construct(LoggerInterface $logger, EndpointResolverInterface $endpointResolver)
+    public function __construct(LoggerInterface $logger, private readonly EndpointResolverInterface $endpointResolver)
     {
         parent::__construct($logger);
-
-        $this->endpointResolver = $endpointResolver;
     }
 
     protected function doExecute(ProfileContext $context)

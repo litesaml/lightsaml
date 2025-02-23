@@ -159,7 +159,7 @@ class ProfileTest extends BaseTestCase
         $this->assertInstanceOf(\LightSaml\Store\EntityDescriptor\EntityDescriptorStoreInterface::class, $buildContainer->getPartyContainer()->getSpEntityDescriptorStore());
     }
 
-    private function getBuildContainer($inResponseTo = null, TimeProviderInterface $timeProvider = null)
+    private function getBuildContainer($inResponseTo = null, ?TimeProviderInterface $timeProvider = null)
     {
         $pimple = new Container();
 
@@ -193,7 +193,7 @@ class ProfileTest extends BaseTestCase
 
         // SYSTEM
         $buildContainer->getPimple()->register($systemContainerProvider);
-        if ($timeProvider) {
+        if ($timeProvider instanceof \LightSaml\Provider\TimeProvider\TimeProviderInterface) {
             $pimple[SystemContainer::TIME_PROVIDER] = function () use ($timeProvider) {
                 return $timeProvider;
             };

@@ -58,14 +58,10 @@ abstract class BaseTestCase extends TestCase
      */
     public function getProfileContext($profileId = Profiles::SSO_IDP_RECEIVE_AUTHN_REQUEST, $ownRole = ProfileContext::ROLE_IDP)
     {
-        $context = new ProfileContext($profileId, $ownRole);
-
-        return $context;
+        return new ProfileContext($profileId, $ownRole);
     }
 
     /**
-     * @param Assertion $assertion
-     *
      * @return AssertionContext
      */
     public function getAssertionContext(Assertion $assertion)
@@ -136,7 +132,6 @@ abstract class BaseTestCase extends TestCase
     }
 
     /**
-     * @param CriteriaSet                 $criteriaSet
      * @param string                      $class
      * @param string                      $getter
      * @param string                      $value

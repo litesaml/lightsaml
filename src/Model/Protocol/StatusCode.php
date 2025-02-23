@@ -9,18 +9,14 @@ use LightSaml\SamlConstants;
 
 class StatusCode extends AbstractSamlModel
 {
-    /** @var string */
-    protected $value;
-
     /** @var StatusCode|null */
     protected $statusCode;
 
     /**
      * @param string $value
      */
-    public function __construct($value = null)
+    public function __construct(protected $value = null)
     {
-        $this->value = $value;
     }
 
     /**
@@ -78,7 +74,7 @@ class StatusCode extends AbstractSamlModel
         $this->attributesFromXml($node, ['Value']);
 
         $this->singleElementsFromXml($node, $context, [
-            'StatusCode' => ['samlp', 'LightSaml\Model\Protocol\StatusCode'],
+            'StatusCode' => ['samlp', \LightSaml\Model\Protocol\StatusCode::class],
         ]);
     }
 }

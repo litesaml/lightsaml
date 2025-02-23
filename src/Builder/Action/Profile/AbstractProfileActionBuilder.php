@@ -8,15 +8,11 @@ use LightSaml\Error\LightSamlBuildException;
 
 abstract class AbstractProfileActionBuilder extends CompositeActionBuilder
 {
-    /** @var BuildContainerInterface */
-    protected $buildContainer;
-
     /** @var bool */
     private $initialized = false;
 
-    public function __construct(BuildContainerInterface $buildContainer)
+    public function __construct(protected \LightSaml\Build\Container\BuildContainerInterface $buildContainer)
     {
-        $this->buildContainer = $buildContainer;
     }
 
     /**

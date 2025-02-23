@@ -109,11 +109,7 @@ abstract class AbstractSamlModel implements SamlElementInterface
      */
     protected function manyElementsFromXml(\DOMElement $node, DeserializationContext $context, $nodeName, $namespacePrefix, $class, $methodName)
     {
-        if ($namespacePrefix) {
-            $query = sprintf('%s:%s', $namespacePrefix, $nodeName);
-        } else {
-            $query = sprintf('%s', $nodeName);
-        }
+        $query = $namespacePrefix ? sprintf('%s:%s', $namespacePrefix, $nodeName) : $nodeName;
 
         foreach ($context->getXpath()->query($query, $node) as $xml) {
             /* @var \DOMElement $xml */
@@ -177,7 +173,7 @@ abstract class AbstractSamlModel implements SamlElementInterface
         while ($node && $node instanceof \DOMComment) {
             $node = $node->nextSibling;
         }
-        if (null === $node) {
+        if (!$node instanceof \DOMNode) {
             throw new LightSamlXmlException(sprintf("Unable to find expected '%s' xml node and '%s' namespace", $expectedName, $expectedNamespaceUri));
         } elseif ($node->localName != $expectedName || $node->namespaceURI != $expectedNamespaceUri) {
             throw new LightSamlXmlException(sprintf("Expected '%s' xml node and '%s' namespace but got node '%s' and namespace '%s'", $expectedName, $expectedNamespaceUri, $node->localName, $node->namespaceURI));
@@ -207,18 +203,14 @@ abstract class AbstractSamlModel implements SamlElementInterface
      */
     protected function oneElementFromXml(\DOMElement $node, DeserializationContext $context, $elementName, $class, $namespacePrefix)
     {
-        if ($namespacePrefix) {
-            $query = sprintf('./%s:%s', $namespacePrefix, $elementName);
-        } else {
-            $query = sprintf('./%s', $elementName);
-        }
+        $query = $namespacePrefix ? sprintf('./%s:%s', $namespacePrefix, $elementName) : sprintf('./%s', $elementName);
         $arr = $context->getXpath()->query($query, $node);
         $value = $arr->length > 0 ? $arr->item(0) : null;
 
         if ($value) {
             $setter = 'set' . $elementName;
             if (false == method_exists($this, $setter)) {
-                throw new \LogicException(sprintf("Unable to find setter for element '%s' in class '%s'", $elementName, get_class($this)));
+                throw new \LogicException(sprintf("Unable to find setter for element '%s' in class '%s'", $elementName, static::class));
             }
 
             if ($class) {
@@ -271,10 +263,9 @@ abstract class AbstractSamlModel implements SamlElementInterface
             $getter = 'get' . $name;
         }
         if (false == method_exists($this, $getter)) {
-            throw new \LogicException(sprintf("Unable to find getter method for '%s' on '%s'", $name, get_class($this)));
+            throw new \LogicException(sprintf("Unable to find getter method for '%s' on '%s'", $name, static::class));
         }
-        $value = $this->{$getter}();
 
-        return $value;
+        return $this->{$getter}();
     }
 }

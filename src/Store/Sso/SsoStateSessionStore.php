@@ -8,19 +8,11 @@ use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 class SsoStateSessionStore implements SsoStateStoreInterface
 {
-    /** @var null|SessionInterface */
-    protected $session;
-
-    /** @var string */
-    protected $key;
-
     /**
      * @param string $key
      */
-    public function __construct(?SessionInterface $session, $key)
+    public function __construct(protected ?\Symfony\Component\HttpFoundation\Session\SessionInterface $session, protected $key)
     {
-        $this->session = $session;
-        $this->key = $key;
     }
 
     /**

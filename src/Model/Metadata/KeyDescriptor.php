@@ -14,19 +14,11 @@ class KeyDescriptor extends AbstractSamlModel
     public const USE_SIGNING = 'signing';
     public const USE_ENCRYPTION = 'encryption';
 
-    /** @var string */
-    protected $use;
-
-    /** @var X509Certificate */
-    private $certificate;
-
     /**
      * @param string|null $use
      */
-    public function __construct($use = null, X509Certificate $certificate = null)
+    public function __construct(protected $use = null, private ?X509Certificate $certificate = null)
     {
-        $this->use = $use;
-        $this->certificate = $certificate;
     }
 
     /**
@@ -39,7 +31,7 @@ class KeyDescriptor extends AbstractSamlModel
     public function setUse($use)
     {
         $use = trim($use);
-        if (false != $use && self::USE_ENCRYPTION != $use && self::USE_SIGNING != $use) {
+        if (false != $use && self::USE_ENCRYPTION !== $use && self::USE_SIGNING !== $use) {
             throw new \InvalidArgumentException(sprintf("Invalid use value '%s'", $use));
         }
         $this->use = $use;

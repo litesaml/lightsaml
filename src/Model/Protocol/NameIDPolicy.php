@@ -12,26 +12,14 @@ class NameIDPolicy extends AbstractSamlModel
     /**
      * @var string|null
      */
-    protected $format;
-
-    /**
-     * @var bool|null
-     */
-    protected $allowCreate;
-
-    /**
-     * @var string|null
-     */
     protected $spNameQualifier;
 
     /**
      * @param string $format
      * @param bool   $allowCreate
      */
-    public function __construct($format = null, $allowCreate = null)
+    public function __construct(protected $format = null, protected $allowCreate = null)
     {
-        $this->allowCreate = $allowCreate;
-        $this->format = $format;
     }
 
     /**

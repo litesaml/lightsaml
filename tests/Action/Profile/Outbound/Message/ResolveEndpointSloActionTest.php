@@ -15,11 +15,9 @@ use LightSaml\Resolver\Endpoint\EndpointResolverInterface;
 use LightSaml\State\Sso\SsoSessionState;
 use Psr\Log\LoggerInterface;
 
-class ResolveEndpointSloActionTest extends AbstractResolveEndpointActionTest
+class ResolveEndpointSloActionTest extends AbstractResolveEndpointAction
 {
     /**
-     * @param LoggerInterface           $logger
-     * @param EndpointResolverInterface $endpointResolver
      *
      * @return ResolveEndpointBaseAction
      */

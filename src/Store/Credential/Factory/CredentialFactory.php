@@ -36,7 +36,7 @@ class CredentialFactory
         EntityDescriptorStoreInterface $spEntityDescriptorStore,
         $ownEntityId,
         CredentialStoreInterface $ownCredentialStore,
-        array $extraCredentials = null
+        ?array $extraCredentials = null
     ) {
         return $this->build(
             $idpEntityDescriptorStore,
@@ -56,9 +56,9 @@ class CredentialFactory
         EntityDescriptorStoreInterface $idpEntityDescriptorStore,
         EntityDescriptorStoreInterface $spEntityDescriptorStore,
         array $ownCredentials,
-        array $extraCredentials = null
+        ?array $extraCredentials = null
     ) {
-        if (empty($ownCredentials)) {
+        if ($ownCredentials === []) {
             throw new LightSamlBuildException('There are no own credentials');
         }
 

@@ -6,20 +6,14 @@ use LightSaml\Provider\TimeProvider\TimeProviderInterface;
 
 class TimeProviderMock implements TimeProviderInterface
 {
-    /** @var  \DateTime */
-    protected $value;
-
     /**
      * @param \DateTime $value
      */
-    public function __construct(\DateTime $value = null)
+    public function __construct(protected ?\DateTime $value = null)
     {
-        $this->value = $value;
     }
 
     /**
-     * @param \DateTime $value
-     *
      * @return TimeProviderMock
      */
     public function setNow(\DateTime $value)
@@ -29,10 +23,7 @@ class TimeProviderMock implements TimeProviderInterface
         return $this;
     }
 
-    /**
-     * @return int
-     */
-    public function getTimestamp()
+    public function getTimestamp(): int
     {
         return $this->value->getTimestamp();
     }

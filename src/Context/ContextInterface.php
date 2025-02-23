@@ -17,7 +17,7 @@ interface ContextInterface extends \IteratorAggregate
     /**
      * @return ContextInterface
      */
-    public function setParent(ContextInterface $parent = null);
+    public function setParent(?ContextInterface $parent = null);
 
     /**
      * @param string      $name

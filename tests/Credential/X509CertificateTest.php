@@ -31,7 +31,7 @@ class X509CertificateTest extends BaseTestCase
         $certificate->parse();
     }
 
-    public function throws_exception_when_data_not_set_provider()
+    public static function throws_exception_when_data_not_set_provider()
     {
         return [
             ['getFingerprint'],
@@ -44,11 +44,8 @@ class X509CertificateTest extends BaseTestCase
         ];
     }
 
-    /**
-     * @dataProvider throws_exception_when_data_not_set_provider
-     *
-     *
-     */
+    
+    #[\PHPUnit\Framework\Attributes\DataProvider('throws_exception_when_data_not_set_provider')]
     public function test_throws_exception_when_data_not_set($method)
     {
         $this->expectExceptionMessage("Certificate data not set");

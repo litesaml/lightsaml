@@ -12,16 +12,12 @@ use LightSaml\Profile\Profiles;
 
 class SsoSpSendAuthnRequestProfileBuilder extends AbstractProfileBuilder
 {
-    protected $idpEntityId;
-
     /**
      * @param string $idpEntityId
      */
-    public function __construct(BuildContainerInterface $buildContainer, $idpEntityId)
+    public function __construct(BuildContainerInterface $buildContainer, protected $idpEntityId)
     {
         parent::__construct($buildContainer);
-
-        $this->idpEntityId = $idpEntityId;
     }
 
     public function buildContext()

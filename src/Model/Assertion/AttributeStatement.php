@@ -69,7 +69,7 @@ class AttributeStatement extends AbstractStatement
             $context,
             'Attribute',
             'saml',
-            'LightSaml\Model\Assertion\Attribute',
+            \LightSaml\Model\Assertion\Attribute::class,
             'addAttribute'
         );
     }

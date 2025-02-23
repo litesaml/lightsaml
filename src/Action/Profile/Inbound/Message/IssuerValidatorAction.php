@@ -13,21 +13,12 @@ use Psr\Log\LoggerInterface;
 
 class IssuerValidatorAction extends AbstractProfileAction
 {
-    /** @var NameIdValidatorInterface */
-    protected $nameIdValidator;
-
-    /** @var string */
-    protected $allowedFormat;
-
     /**
      * @param string $allowedFormat
      */
-    public function __construct(LoggerInterface $logger, NameIdValidatorInterface $nameIdValidator, $allowedFormat)
+    public function __construct(LoggerInterface $logger, protected \LightSaml\Validator\Model\NameId\NameIdValidatorInterface $nameIdValidator, protected $allowedFormat)
     {
         parent::__construct($logger);
-
-        $this->nameIdValidator = $nameIdValidator;
-        $this->allowedFormat = $allowedFormat;
     }
 
     /**

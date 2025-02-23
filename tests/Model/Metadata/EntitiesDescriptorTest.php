@@ -84,7 +84,7 @@ class EntitiesDescriptorTest extends BaseTestCase
     {
         $this->expectException(\InvalidArgumentException::class);
         $ed = new EntitiesDescriptor();
-        $ed->addItem(array());
+        $ed->addItem([]);
     }
 
     public function test_throw_on_string_given_to_add_item()
@@ -169,7 +169,7 @@ class EntitiesDescriptorTest extends BaseTestCase
 
         $all = $esd1->getAllEntityDescriptors();
         $this->assertCount(4, $all);
-        $this->assertContainsOnlyInstancesOf('LightSaml\Model\Metadata\EntityDescriptor', $all);
+        $this->assertContainsOnlyInstancesOf(\LightSaml\Model\Metadata\EntityDescriptor::class, $all);
 
         $this->assertEquals('ed1', $all[0]->getEntityID());
         $this->assertEquals('ed2', $all[1]->getEntityID());
@@ -228,8 +228,8 @@ EOT;
         $items = $esd->getAllItems();
         $this->assertCount(3, $items);
 
-        $this->assertInstanceOf('LightSaml\Model\Metadata\EntityDescriptor', $items[0]);
-        $this->assertInstanceOf('LightSaml\Model\Metadata\EntityDescriptor', $items[1]);
-        $this->assertInstanceOf('LightSaml\Model\Metadata\EntitiesDescriptor', $items[2]);
+        $this->assertInstanceOf(\LightSaml\Model\Metadata\EntityDescriptor::class, $items[0]);
+        $this->assertInstanceOf(\LightSaml\Model\Metadata\EntityDescriptor::class, $items[1]);
+        $this->assertInstanceOf(\LightSaml\Model\Metadata\EntitiesDescriptor::class, $items[2]);
     }
 }

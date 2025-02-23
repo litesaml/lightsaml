@@ -9,19 +9,11 @@ use LightSaml\SamlConstants;
 
 class Status extends AbstractSamlModel
 {
-    /** @var StatusCode */
-    protected $statusCode;
-
-    /** @var string|null */
-    protected $statusMessage;
-
     /**
-     * @param string $message
+     * @param string $statusMessage
      */
-    public function __construct(StatusCode $statusCode = null, $message = null)
+    public function __construct(protected ?\LightSaml\Model\Protocol\StatusCode $statusCode = null, protected $statusMessage = null)
     {
-        $this->statusCode = $statusCode;
-        $this->statusMessage = $message;
     }
 
     /**
@@ -63,9 +55,7 @@ class Status extends AbstractSamlModel
      */
     public function isSuccess()
     {
-        $result = $this->getStatusCode() && SamlConstants::STATUS_SUCCESS == $this->getStatusCode()->getValue();
-
-        return $result;
+        return $this->getStatusCode() && SamlConstants::STATUS_SUCCESS == $this->getStatusCode()->getValue();
     }
 
     /**
@@ -94,7 +84,7 @@ class Status extends AbstractSamlModel
         $this->checkXmlNodeName($node, 'Status', SamlConstants::NS_PROTOCOL);
 
         $this->singleElementsFromXml($node, $context, [
-            'StatusCode' => ['samlp', 'LightSaml\Model\Protocol\StatusCode'],
+            'StatusCode' => ['samlp', \LightSaml\Model\Protocol\StatusCode::class],
             'StatusMessage' => ['samlp', null],
         ]);
     }

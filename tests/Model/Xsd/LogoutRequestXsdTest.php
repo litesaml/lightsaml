@@ -8,7 +8,7 @@ use LightSaml\Model\Assertion\NameID;
 use LightSaml\Model\Protocol\LogoutRequest;
 use LightSaml\SamlConstants;
 
-class LogoutRequestXsdTest extends AbstractXsdValidationTest
+class LogoutRequestXsdTest extends AbstractXsdValidation
 {
     public function test_logout_request_with_xsd()
     {

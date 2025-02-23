@@ -7,18 +7,14 @@ use LightSaml\Model\Metadata\EntitiesDescriptor;
 
 class FileEntitiesDescriptorProvider implements EntitiesDescriptorProviderInterface
 {
-    /** @var string */
-    private $filename;
-
     /** @var EntitiesDescriptor */
     private $entitiesDescriptor;
 
     /**
      * @param string $filename
      */
-    public function __construct($filename)
+    public function __construct(private $filename)
     {
-        $this->filename = $filename;
     }
 
     /**

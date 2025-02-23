@@ -11,14 +11,9 @@ use Psr\Log\LoggerInterface;
 
 class KnownAssertionIssuerAction extends AbstractAssertionAction
 {
-    /** @var EntityDescriptorStoreInterface */
-    private $idpEntityDescriptorProvider;
-
-    public function __construct(LoggerInterface $logger, EntityDescriptorStoreInterface $idpEntityDescriptorProvider)
+    public function __construct(LoggerInterface $logger, private readonly EntityDescriptorStoreInterface $idpEntityDescriptorProvider)
     {
         parent::__construct($logger);
-
-        $this->idpEntityDescriptorProvider = $idpEntityDescriptorProvider;
     }
 
     /**

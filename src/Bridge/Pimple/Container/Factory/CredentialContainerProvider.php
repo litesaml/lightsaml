@@ -13,19 +13,11 @@ use Pimple\ServiceProviderInterface;
 
 class CredentialContainerProvider implements ServiceProviderInterface
 {
-    /** @var PartyContainerInterface */
-    private $partyContainer;
-
-    /** @var OwnContainerInterface */
-    private $ownContainer;
-
     /** @var CredentialInterface[] */
     private $extraCredentials = [];
 
-    public function __construct(PartyContainerInterface $partyContainer, OwnContainerInterface $ownContainer)
+    public function __construct(private readonly PartyContainerInterface $partyContainer, private readonly OwnContainerInterface $ownContainer)
     {
-        $this->ownContainer = $ownContainer;
-        $this->partyContainer = $partyContainer;
     }
 
     /**

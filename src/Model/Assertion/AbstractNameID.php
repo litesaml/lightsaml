@@ -11,16 +11,6 @@ use LightSaml\SamlConstants;
 abstract class AbstractNameID extends AbstractSamlModel
 {
     /**
-     * @var string
-     */
-    protected $value;
-
-    /**
-     * @var string|null
-     */
-    protected $format;
-
-    /**
      * @var string|null
      */
     protected $nameQualifier;
@@ -39,10 +29,8 @@ abstract class AbstractNameID extends AbstractSamlModel
      * @param string $value
      * @param string $format
      */
-    public function __construct($value = null, $format = null)
+    public function __construct(protected $value = null, protected $format = null)
     {
-        $this->value = $value;
-        $this->format = $format;
     }
 
     /**

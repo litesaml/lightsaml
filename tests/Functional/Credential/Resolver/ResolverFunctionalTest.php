@@ -49,7 +49,7 @@ class ResolverFunctionalTest extends BaseTestCase
         /** @var MetadataCredentialContext $metadataContext */
         $metadataContext = $credential->getCredentialContext()->get(MetadataCredentialContext::class);
         $this->assertNotNull($metadataContext);
-        $this->assertInstanceOf('LightSaml\Model\Metadata\IdpSsoDescriptor', $metadataContext->getRoleDescriptor());
+        $this->assertInstanceOf(\LightSaml\Model\Metadata\IdpSsoDescriptor::class, $metadataContext->getRoleDescriptor());
 
         $this->assertEquals(UsageType::SIGNING, $credential->getUsageType());
     }
@@ -82,7 +82,7 @@ class ResolverFunctionalTest extends BaseTestCase
         /** @var MetadataCredentialContext $metadataContext */
         $metadataContext = $credential->getCredentialContext()->get(MetadataCredentialContext::class);
         $this->assertNotNull($metadataContext);
-        $this->assertInstanceOf('LightSaml\Model\Metadata\IdpSsoDescriptor', $metadataContext->getRoleDescriptor());
+        $this->assertInstanceOf(\LightSaml\Model\Metadata\IdpSsoDescriptor::class, $metadataContext->getRoleDescriptor());
 
         $this->assertEquals(UsageType::SIGNING, $credential->getUsageType());
     }
@@ -115,7 +115,7 @@ class ResolverFunctionalTest extends BaseTestCase
         /** @var MetadataCredentialContext $metadataContext */
         $metadataContext = $credential->getCredentialContext()->get(MetadataCredentialContext::class);
         $this->assertNotNull($metadataContext);
-        $this->assertInstanceOf('LightSaml\Model\Metadata\SpSsoDescriptor', $metadataContext->getRoleDescriptor());
+        $this->assertInstanceOf(\LightSaml\Model\Metadata\SpSsoDescriptor::class, $metadataContext->getRoleDescriptor());
 
         $this->assertEquals(UsageType::SIGNING, $credential->getUsageType());
     }
@@ -172,8 +172,7 @@ class ResolverFunctionalTest extends BaseTestCase
         $compositeStore->add($metadataStore)->add($staticStore);
 
         $resolverFactory = new CredentialResolverFactory($compositeStore);
-        $resolver = $resolverFactory->build();
 
-        return $resolver;
+        return $resolverFactory->build();
     }
 }

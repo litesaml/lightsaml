@@ -15,12 +15,8 @@ use LightSaml\SamlConstants;
 
 class SignatureValidator implements SignatureValidatorInterface
 {
-    /** @var CredentialResolverInterface */
-    protected $credentialResolver;
-
-    public function __construct(CredentialResolverInterface $credentialResolver)
+    public function __construct(protected \LightSaml\Resolver\Credential\CredentialResolverInterface $credentialResolver)
     {
-        $this->credentialResolver = $credentialResolver;
     }
 
     /**
@@ -46,8 +42,7 @@ class SignatureValidator implements SignatureValidatorInterface
         if (empty($credentialCandidates)) {
             throw new LightSamlSecurityException('No credentials resolved for signature verification');
         }
-        $credential = $signature->validateMulti($credentialCandidates);
 
-        return $credential;
+        return $signature->validateMulti($credentialCandidates);
     }
 }

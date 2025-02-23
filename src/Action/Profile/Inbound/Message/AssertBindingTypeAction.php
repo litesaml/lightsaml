@@ -10,17 +10,12 @@ use Psr\Log\LoggerInterface;
 
 class AssertBindingTypeAction extends AbstractProfileAction
 {
-    /** @var string[] */
-    protected $expectedBindingTypes;
-
     /**
      * @param string[] $expectedBindingTypes
      */
-    public function __construct(LoggerInterface $logger, array $expectedBindingTypes)
+    public function __construct(LoggerInterface $logger, protected array $expectedBindingTypes)
     {
         parent::__construct($logger);
-
-        $this->expectedBindingTypes = $expectedBindingTypes;
     }
 
     protected function doExecute(ProfileContext $context)

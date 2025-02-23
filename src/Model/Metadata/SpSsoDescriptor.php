@@ -171,7 +171,7 @@ class SpSsoDescriptor extends SSODescriptor
             $context,
             'AssertionConsumerService',
             'md',
-            'LightSaml\Model\Metadata\AssertionConsumerService',
+            \LightSaml\Model\Metadata\AssertionConsumerService::class,
             'addAssertionConsumerService'
         );
     }

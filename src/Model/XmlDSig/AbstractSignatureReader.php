@@ -60,7 +60,7 @@ abstract class AbstractSignatureReader extends Signature
             }
         }
 
-        if ($lastException) {
+        if ($lastException instanceof \LightSaml\Error\LightSamlSecurityException) {
             throw $lastException;
         } else {
             throw new LightSamlSecurityException('No public key available for signature verification');

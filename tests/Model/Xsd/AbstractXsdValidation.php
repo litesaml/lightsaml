@@ -14,7 +14,7 @@ use LightSaml\Model\XmlDSig\SignatureWriter;
 use LightSaml\Tests\BaseTestCase;
 use LightSaml\Validator\Model\Xsd\XsdValidator;
 
-abstract class AbstractXsdValidationTest extends BaseTestCase
+abstract class AbstractXsdValidation extends BaseTestCase
 {
     protected function setUp() : void
     {
@@ -40,9 +40,6 @@ abstract class AbstractXsdValidationTest extends BaseTestCase
         ));
     }
 
-    /**
-     * @param SamlElementInterface $samlElement
-     */
     protected function validateProtocol(SamlElementInterface $samlElement)
     {
         $validator = new XsdValidator();
@@ -54,9 +51,6 @@ abstract class AbstractXsdValidationTest extends BaseTestCase
         $this->assertTrue(true);
     }
 
-    /**
-     * @param SamlElementInterface $samlElement
-     */
     protected function validateMetadata(SamlElementInterface $samlElement)
     {
         $validator = new XsdValidator();
@@ -69,11 +63,9 @@ abstract class AbstractXsdValidationTest extends BaseTestCase
     }
 
     /**
-     * @param SamlElementInterface $samlElement
-     *
      * @return string
      */
-    private function serialize(SamlElementInterface $samlElement)
+    private function serialize(SamlElementInterface $samlElement): string|false
     {
         $serializationContext = new SerializationContext();
         $samlElement->serialize($serializationContext->getDocument(), $serializationContext);

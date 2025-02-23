@@ -147,7 +147,7 @@ class LogoutRequest extends AbstractRequest
         $this->attributesFromXml($node, ['Reason', 'NotOnOrAfter']);
 
         $this->singleElementsFromXml($node, $context, [
-            'NameID' => ['saml', 'LightSaml\Model\Assertion\NameID'],
+            'NameID' => ['saml', \LightSaml\Model\Assertion\NameID::class],
             'SessionIndex' => ['samlp', null],
         ]);
     }

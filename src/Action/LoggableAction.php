@@ -7,21 +7,14 @@ use Psr\Log\LoggerInterface;
 
 class LoggableAction extends WrappedAction
 {
-    /**
-     * @var LoggerInterface
-     */
-    private $logger;
-
-    public function __construct(ActionInterface $action, LoggerInterface $logger)
+    public function __construct(ActionInterface $action, private readonly LoggerInterface $logger)
     {
         parent::__construct($action);
-
-        $this->logger = $logger;
     }
 
     protected function beforeAction(ContextInterface $context)
     {
-        $this->logger->debug(sprintf('Executing action "%s"', get_class($this->action)), [
+        $this->logger->debug(sprintf('Executing action "%s"', $this->action::class), [
             'context' => $context,
             'action' => $this->action,
         ]);

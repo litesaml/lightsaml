@@ -17,14 +17,9 @@ use Psr\Log\LoggerInterface;
  */
 class SignMessageAction extends AbstractProfileAction
 {
-    /** @var SignatureResolverInterface */
-    protected $signatureResolver;
-
-    public function __construct(LoggerInterface $logger, SignatureResolverInterface $signatureResolver)
+    public function __construct(LoggerInterface $logger, protected \LightSaml\Resolver\Signature\SignatureResolverInterface $signatureResolver)
     {
         parent::__construct($logger);
-
-        $this->signatureResolver = $signatureResolver;
     }
 
     protected function doExecute(ProfileContext $context)
@@ -73,6 +68,6 @@ class SignMessageAction extends AbstractProfileAction
             return $trustOptions->getSignResponse();
         }
 
-        throw new \LogicException(sprintf('Unexpected message type "%s"', get_class($message)));
+        throw new \LogicException(sprintf('Unexpected message type "%s"', $message::class));
     }
 }

@@ -72,9 +72,6 @@ class SamlMessageSignAndVerifyTest extends BaseTestCase
         $this->verify($logoutResponse);
     }
 
-    /**
-     * @param SamlMessage $message
-     */
     private function verify(SamlMessage $message)
     {
         $message
@@ -83,15 +80,13 @@ class SamlMessageSignAndVerifyTest extends BaseTestCase
             ->setIssuer(new Issuer('https://mydomain.com'))
         ;
         $xml = $this->signAndSerialize($message);
-        $this->deserializeAndVerify($xml, get_class($message));
+        $this->deserializeAndVerify($xml, $message::class);
     }
 
     /**
-     * @param SamlMessage $message
-     *
      * @return string
      */
-    private function signAndSerialize(SamlMessage $message)
+    private function signAndSerialize(SamlMessage $message): string|false
     {
         $signatureWriter = new SignatureWriter($this->getCertificate(), $this->getPrivateKey());
         $message->setSignature($signatureWriter);
@@ -99,9 +94,7 @@ class SamlMessageSignAndVerifyTest extends BaseTestCase
         $serializationContext = new SerializationContext();
         $message->serialize($serializationContext->getDocument(), $serializationContext);
 
-        $xml = $serializationContext->getDocument()->saveXML();
-
-        return $xml;
+        return $serializationContext->getDocument()->saveXML();
     }
 
     /**

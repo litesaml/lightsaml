@@ -122,10 +122,8 @@ class Organization extends AbstractSamlModel
 
         /** @var \DOMNode $node */
         foreach ($result->childNodes as $node) {
-            if ($node instanceof \DOMElement) {
-                if (in_array($node->tagName, $elements)) {
-                    $node->setAttribute('xml:lang', $this->lang);
-                }
+            if ($node instanceof \DOMElement && in_array($node->tagName, $elements)) {
+                $node->setAttribute('xml:lang', $this->lang);
             }
         }
     }

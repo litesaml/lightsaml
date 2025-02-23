@@ -6,21 +6,17 @@ use LightSaml\Meta\TrustOptions\TrustOptions;
 
 class FixedTrustOptionsStore implements TrustOptionsStoreInterface
 {
-    /** @var TrustOptions */
-    protected $option;
-
     /**
      * @param TrustOptions $option
      */
-    public function __construct(TrustOptions $option = null)
+    public function __construct(protected ?\LightSaml\Meta\TrustOptions\TrustOptions $option = null)
     {
-        $this->option = $option;
     }
 
     /**
      * @return FixedTrustOptionsStore
      */
-    public function setTrustOptions(TrustOptions $trustOptions = null)
+    public function setTrustOptions(?TrustOptions $trustOptions = null)
     {
         $this->option = $trustOptions;
 

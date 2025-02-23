@@ -2,7 +2,7 @@
 
 namespace LightSaml\Context;
 
-abstract class AbstractContext implements ContextInterface
+abstract class AbstractContext implements ContextInterface, \Stringable
 {
     /** @var ContextInterface|null */
     private $parent;
@@ -33,7 +33,7 @@ abstract class AbstractContext implements ContextInterface
     /**
      * @return ContextInterface
      */
-    public function setParent(ContextInterface $parent = null)
+    public function setParent(?ContextInterface $parent = null)
     {
         $this->parent = $parent;
 
@@ -85,7 +85,7 @@ abstract class AbstractContext implements ContextInterface
             throw new \InvalidArgumentException('Expected object or ContextInterface');
         }
 
-        $existing = isset($this->subContexts[$name]) ? $this->subContexts[$name] : null;
+        $existing = $this->subContexts[$name] ?? null;
         if ($existing === $subContext) {
             return $this;
         }
@@ -164,7 +164,7 @@ abstract class AbstractContext implements ContextInterface
                 if ($subContext instanceof ContextInterface) {
                     $arr = array_merge($arr, $subContext->debugPrintTree($name));
                 } else {
-                    $arr = array_merge($arr, [$name => get_class($subContext)]);
+                    $arr = array_merge($arr, [$name => $subContext::class]);
                 }
             }
             $result[$ownName . '__children'] = $arr;
@@ -173,12 +173,9 @@ abstract class AbstractContext implements ContextInterface
         return $result;
     }
 
-    /**
-     * @return string
-     */
-    public function __toString()
+    public function __toString(): string
     {
-        return json_encode($this->debugPrintTree(), JSON_PRETTY_PRINT);
+        return (string) json_encode($this->debugPrintTree(), JSON_PRETTY_PRINT);
     }
 
     /**
@@ -200,7 +197,7 @@ abstract class AbstractContext implements ContextInterface
             return null;
         }
 
-        if (empty($path)) {
+        if ($path === []) {
             return $subContext;
         } else {
             return $subContext->getPath($path);
@@ -214,8 +211,6 @@ abstract class AbstractContext implements ContextInterface
      */
     protected function createSubContext($class)
     {
-        $result = new $class();
-
-        return $result;
+        return new $class();
     }
 }

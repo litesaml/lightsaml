@@ -16,26 +16,13 @@ use Psr\Log\LoggerInterface;
  */
 class ResolvePartyEntityIdAction extends AbstractProfileAction
 {
-    /** @var EntityDescriptorStoreInterface */
-    private $spEntityDescriptorProvider;
-
-    /** @var EntityDescriptorStoreInterface */
-    private $idpEntityDescriptorProvider;
-
-    /** @var TrustOptionsStoreInterface */
-    protected $trustOptionsProvider;
-
     public function __construct(
         LoggerInterface $logger,
-        EntityDescriptorStoreInterface $spEntityDescriptorProvider,
-        EntityDescriptorStoreInterface $idpEntityDescriptorProvider,
-        TrustOptionsStoreInterface $trustOptionsProvider
+        private readonly EntityDescriptorStoreInterface $spEntityDescriptorProvider,
+        private readonly EntityDescriptorStoreInterface $idpEntityDescriptorProvider,
+        protected \LightSaml\Store\TrustOptions\TrustOptionsStoreInterface $trustOptionsProvider
     ) {
         parent::__construct($logger);
-
-        $this->spEntityDescriptorProvider = $spEntityDescriptorProvider;
-        $this->idpEntityDescriptorProvider = $idpEntityDescriptorProvider;
-        $this->trustOptionsProvider = $trustOptionsProvider;
     }
 
     protected function doExecute(ProfileContext $context)
@@ -54,7 +41,7 @@ class ResolvePartyEntityIdAction extends AbstractProfileAction
         }
 
         $entityId = $partyContext->getEntityDescriptor() ? $partyContext->getEntityDescriptor()->getEntityID() : null;
-        $entityId = $entityId ? $entityId : $partyContext->getEntityId();
+        $entityId = $entityId ?: $partyContext->getEntityId();
         if (null == $entityId) {
             $message = 'EntityID is not set in the party context';
             $this->logger->critical($message, LogHelper::getActionErrorContext($context, $this));

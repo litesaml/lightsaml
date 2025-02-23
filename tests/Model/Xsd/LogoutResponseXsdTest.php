@@ -9,7 +9,7 @@ use LightSaml\Model\Protocol\Status;
 use LightSaml\Model\Protocol\StatusCode;
 use LightSaml\SamlConstants;
 
-class LogoutResponseXsdTest extends AbstractXsdValidationTest
+class LogoutResponseXsdTest extends AbstractXsdValidation
 {
     public function test_logout_response_with_xsd()
     {

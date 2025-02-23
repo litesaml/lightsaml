@@ -24,7 +24,7 @@ class StatementValidator implements StatementValidatorInterface
         } elseif ($statement instanceof AttributeStatement) {
             $this->validateAttributeStatement($statement);
         } else {
-            throw new LightSamlValidationException(sprintf("Unsupported Statement type '%s'", get_class($statement)));
+            throw new LightSamlValidationException(sprintf("Unsupported Statement type '%s'", $statement::class));
         }
     }
 
@@ -68,15 +68,11 @@ class StatementValidator implements StatementValidatorInterface
             throw new LightSamlValidationException('AuthnContext MUST NOT contain more than two elements.');
         }
 
-        if ($authnContext->getAuthnContextClassRef()) {
-            if (false == Helper::validateWellFormedUriString($authnContext->getAuthnContextClassRef())) {
-                throw new LightSamlValidationException('AuthnContextClassRef has a value which is not a wellformed absolute uri');
-            }
+        if ($authnContext->getAuthnContextClassRef() && false == Helper::validateWellFormedUriString($authnContext->getAuthnContextClassRef())) {
+            throw new LightSamlValidationException('AuthnContextClassRef has a value which is not a wellformed absolute uri');
         }
-        if ($authnContext->getAuthnContextDeclRef()) {
-            if (false === Helper::validateWellFormedUriString($authnContext->getAuthnContextDeclRef())) {
-                throw new LightSamlValidationException('AuthnContextDeclRef has a value which is not a wellformed absolute uri');
-            }
+        if ($authnContext->getAuthnContextDeclRef() && false === Helper::validateWellFormedUriString($authnContext->getAuthnContextDeclRef())) {
+            throw new LightSamlValidationException('AuthnContextDeclRef has a value which is not a wellformed absolute uri');
         }
     }
 

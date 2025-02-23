@@ -6,10 +6,7 @@ use LightSaml\Context\ContextInterface;
 
 class ActionOccurred
 {
-    public ContextInterface $context;
-
-    public function __construct(ContextInterface $context)
+    public function __construct(public ContextInterface $context)
     {
-        $this->context = $context;
     }
 }

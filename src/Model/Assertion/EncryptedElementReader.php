@@ -39,10 +39,8 @@ class EncryptedElementReader extends EncryptedElement
 
     /**
      * @throws \LogicException
-     *
-     * @return void
      */
-    public function serialize(\DOMNode $parent, SerializationContext $context)
+    public function serialize(\DOMNode $parent, SerializationContext $context): never
     {
         throw new \LogicException('EncryptedElementReader can not be used for serialization');
     }
@@ -124,9 +122,7 @@ class EncryptedElementReader extends EncryptedElement
 
         $decrypted = $this->decryptCipher();
 
-        $result = $this->buildXmlElement($decrypted);
-
-        return $result;
+        return $this->buildXmlElement($decrypted);
     }
 
     /**

@@ -143,7 +143,7 @@ class Response extends StatusResponse
             $context,
             'Assertion',
             'saml',
-            'LightSaml\Model\Assertion\Assertion',
+            \LightSaml\Model\Assertion\Assertion::class,
             'addAssertion'
         );
 
@@ -153,7 +153,7 @@ class Response extends StatusResponse
             $context,
             'EncryptedAssertion',
             'saml',
-            'LightSaml\Model\Assertion\EncryptedAssertionReader',
+            \LightSaml\Model\Assertion\EncryptedAssertionReader::class,
             'addEncryptedAssertion'
         );
     }

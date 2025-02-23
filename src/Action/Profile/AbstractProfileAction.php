@@ -10,12 +10,8 @@ use Psr\Log\LoggerInterface;
 
 abstract class AbstractProfileAction implements ActionInterface
 {
-    /** @var LoggerInterface */
-    protected $logger;
-
-    public function __construct(LoggerInterface $logger)
+    public function __construct(protected \Psr\Log\LoggerInterface $logger)
     {
-        $this->logger = $logger;
     }
 
     /**
@@ -26,7 +22,7 @@ abstract class AbstractProfileAction implements ActionInterface
         if ($context instanceof ProfileContext) {
             $this->doExecute($context);
         } else {
-            $message = sprintf('Expected ProfileContext but got %s', get_class($context));
+            $message = sprintf('Expected ProfileContext but got %s', $context::class);
             $this->logger->emergency($message, ['context' => $context]);
             throw new LightSamlContextException($context, $message);
         }

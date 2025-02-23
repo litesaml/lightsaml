@@ -22,7 +22,7 @@ class ActionLogWrapperTest extends BaseTestCase
         $loggerMock->expects($this->once())
             ->method('debug')
             ->willReturnCallback(function ($pMessage, $pContext) use ($action, $context) {
-                $expectedMessage = sprintf('Executing action "%s"', get_class($action));
+                $expectedMessage = sprintf('Executing action "%s"', $action::class);
                 $this->assertEquals($expectedMessage, $pMessage);
                 $this->assertArrayHasKey('context', $pContext);
                 $this->assertArrayHasKey('action', $pContext);

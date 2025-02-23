@@ -13,14 +13,9 @@ use Psr\Log\LoggerInterface;
 
 class SaveRequestStateAction extends AbstractProfileAction
 {
-    /** @var RequestStateStoreInterface */
-    protected $requestStore;
-
-    public function __construct(LoggerInterface $logger, RequestStateStoreInterface $requestStore)
+    public function __construct(LoggerInterface $logger, protected \LightSaml\Store\Request\RequestStateStoreInterface $requestStore)
     {
         parent::__construct($logger);
-
-        $this->requestStore = $requestStore;
     }
 
     protected function doExecute(ProfileContext $context)
@@ -37,7 +32,7 @@ class SaveRequestStateAction extends AbstractProfileAction
 
         $state->getParameters()->add([
             RequestStateParameters::ID => $message->getID(),
-            RequestStateParameters::TYPE => get_class($message),
+            RequestStateParameters::TYPE => $message::class,
             RequestStateParameters::TIMESTAMP => $message->getIssueInstantTimestamp(),
             RequestStateParameters::PARTY => $partyEntityId,
             RequestStateParameters::RELAY_STATE => $message->getRelayState(),

@@ -24,7 +24,7 @@ class DecryptAssertionsActionTest extends BaseTestCase
         $this->assertTrue(true);
     }
 
-    public function resolves_credentials_for_own_entity_id_party_role_and_encryption_usage_provider()
+    public static function resolves_credentials_for_own_entity_id_party_role_and_encryption_usage_provider()
     {
         return [
             [ProfileContext::ROLE_IDP, MetadataCriteria::TYPE_IDP],
@@ -32,9 +32,7 @@ class DecryptAssertionsActionTest extends BaseTestCase
         ];
     }
 
-    /**
-     * @dataProvider resolves_credentials_for_own_entity_id_party_role_and_encryption_usage_provider
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('resolves_credentials_for_own_entity_id_party_role_and_encryption_usage_provider')]
     public function test_resolves_credentials_and_decrypts_assertions($ownRole, $expectedMetadataCriteria)
     {
         $action = new DecryptAssertionsAction(

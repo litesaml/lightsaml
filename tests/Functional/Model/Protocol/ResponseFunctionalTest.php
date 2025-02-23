@@ -78,7 +78,7 @@ class ResponseFunctionalTest extends BaseTestCase
         $this->assertNotNull($as->getSignature());
         /** @var SignatureXmlReader $sig */
         $sig = $as->getSignature();
-        $this->assertInstanceOf('LightSaml\Model\XmlDSig\SignatureXmlReader', $sig);
+        $this->assertInstanceOf(\LightSaml\Model\XmlDSig\SignatureXmlReader::class, $sig);
         $arrCertificates = $sig->getAllCertificates();
         $this->assertCount(1, $arrCertificates);
 

@@ -43,10 +43,7 @@ class EntitiesDescriptorFunctionalTest extends BaseTestCase
         $this->assertCount(1, $idp->getAllKeyDescriptors());
         KeyDescriptorChecker::checkCertificateCN($this, null, 'idp.testshib.org', $idp->getFirstKeyDescriptor());
 
-        NameIdFormatChecker::check($this, $idp, array(
-            SamlConstants::NAME_ID_FORMAT_TRANSIENT,
-            SamlConstants::NAME_ID_FORMAT_SHIB_NAME_ID,
-        ));
+        NameIdFormatChecker::check($this, $idp, [SamlConstants::NAME_ID_FORMAT_TRANSIENT, SamlConstants::NAME_ID_FORMAT_SHIB_NAME_ID]);
 
         $this->assertCount(4, $idp->getAllSingleSignOnServices());
         EndpointChecker::check(
@@ -145,10 +142,7 @@ class EntitiesDescriptorFunctionalTest extends BaseTestCase
             $sp->getFirstSingleLogoutService(SamlConstants::BINDING_SAML2_HTTP_ARTIFACT)
         );
 
-        NameIdFormatChecker::check($this, $sp, array(
-            SamlConstants::NAME_ID_FORMAT_TRANSIENT,
-            SamlConstants::NAME_ID_FORMAT_SHIB_NAME_ID,
-        ));
+        NameIdFormatChecker::check($this, $sp, [SamlConstants::NAME_ID_FORMAT_TRANSIENT, SamlConstants::NAME_ID_FORMAT_SHIB_NAME_ID]);
 
         $this->assertCount(8, $sp->getAllAssertionConsumerServices());
         IndexedEndpointChecker::check(

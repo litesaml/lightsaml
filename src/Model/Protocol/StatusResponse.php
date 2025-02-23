@@ -68,7 +68,7 @@ abstract class StatusResponse extends SamlMessage
         $this->attributesFromXml($node, ['InResponseTo']);
 
         $this->singleElementsFromXml($node, $context, [
-            'Status' => ['samlp', 'LightSaml\Model\Protocol\Status'],
+            'Status' => ['samlp', \LightSaml\Model\Protocol\Status::class],
         ]);
 
         parent::deserialize($node, $context);

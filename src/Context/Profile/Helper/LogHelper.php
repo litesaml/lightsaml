@@ -13,7 +13,7 @@ abstract class LogHelper
      *
      * @return array
      */
-    public static function getActionContext(ContextInterface $context, ActionInterface $action, array $extraData = null)
+    public static function getActionContext(ContextInterface $context, ActionInterface $action, ?array $extraData = null)
     {
         return self::getContext($context, $action, $extraData, false);
     }
@@ -23,7 +23,7 @@ abstract class LogHelper
      *
      * @return array
      */
-    public static function getActionErrorContext(ContextInterface $context, ActionInterface $action, array $extraData = null)
+    public static function getActionErrorContext(ContextInterface $context, ActionInterface $action, ?array $extraData = null)
     {
         return self::getContext($context, $action, $extraData, true);
     }
@@ -35,7 +35,7 @@ abstract class LogHelper
      *
      * @return array
      */
-    private static function getContext(ContextInterface $context, ActionInterface $action = null, array $extraData = null, $logWholeContext = false)
+    private static function getContext(ContextInterface $context, ?ActionInterface $action = null, ?array $extraData = null, $logWholeContext = false)
     {
         $topContext = $context->getTopParent();
         $result = [];
@@ -43,8 +43,8 @@ abstract class LogHelper
             $result['profile_id'] = $topContext->getProfileId();
             $result['own_role'] = $topContext->getOwnRole();
         }
-        if ($action) {
-            $result['action'] = get_class($action);
+        if ($action instanceof \LightSaml\Action\ActionInterface) {
+            $result['action'] = $action::class;
         }
         $result['top_context_id'] = spl_object_hash($topContext);
 

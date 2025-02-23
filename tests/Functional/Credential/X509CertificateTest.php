@@ -51,12 +51,7 @@ class X509CertificateTest extends BaseTestCase
         $certificate = new X509Certificate();
         $certificate->loadFromFile(__DIR__.'/../../resources/saml.crt');
         $this->assertEquals(
-            array(
-                'C' => 'RS',
-                'ST' => 'Serbia',
-                'O' => 'BOS',
-                'CN' => 'mt.evo.team',
-            ),
+            ['C' => 'RS', 'ST' => 'Serbia', 'O' => 'BOS', 'CN' => 'mt.evo.team'],
             $certificate->getSubject()
         );
     }
@@ -66,12 +61,7 @@ class X509CertificateTest extends BaseTestCase
         $certificate = new X509Certificate();
         $certificate->loadFromFile(__DIR__.'/../../resources/saml.crt');
         $this->assertEquals(
-            array(
-                'C' => 'RS',
-                'ST' => 'Serbia',
-                'O' => 'BOS',
-                'CN' => 'mt.evo.team',
-            ),
+            ['C' => 'RS', 'ST' => 'Serbia', 'O' => 'BOS', 'CN' => 'mt.evo.team'],
             $certificate->getIssuer()
         );
     }

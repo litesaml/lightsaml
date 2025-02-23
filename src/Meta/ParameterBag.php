@@ -5,18 +5,10 @@ namespace LightSaml\Meta;
 class ParameterBag implements \IteratorAggregate, \Countable, \Serializable
 {
     /**
-     * Parameter storage.
-     *
-     * @var array
-     */
-    protected $parameters;
-
-    /**
      * @param array $parameters An array of parameters
      */
-    public function __construct(array $parameters = [])
+    public function __construct(protected array $parameters = [])
     {
-        $this->parameters = $parameters;
     }
 
     /**
@@ -34,7 +26,7 @@ class ParameterBag implements \IteratorAggregate, \Countable, \Serializable
      *
      * @return array An array of parameter keys
      */
-    public function keys()
+    public function keys(): array
     {
         return array_keys($this->parameters);
     }
@@ -61,11 +53,10 @@ class ParameterBag implements \IteratorAggregate, \Countable, \Serializable
      * Returns a parameter by name.
      *
      * @param string $key
-     * @param mixed  $default
      *
      * @return mixed
      */
-    public function get($key, $default = null)
+    public function get($key, mixed $default = null)
     {
         return array_key_exists($key, $this->parameters) ? $this->parameters[$key] : $default;
     }
@@ -74,9 +65,8 @@ class ParameterBag implements \IteratorAggregate, \Countable, \Serializable
      * Sets a parameter by name.
      *
      * @param string $key
-     * @param mixed  $value
      */
-    public function set($key, $value)
+    public function set($key, mixed $value)
     {
         $this->parameters[$key] = $value;
     }
@@ -88,7 +78,7 @@ class ParameterBag implements \IteratorAggregate, \Countable, \Serializable
      *
      * @return bool true if the parameter exists, false otherwise
      */
-    public function has($key)
+    public function has($key): bool
     {
         return array_key_exists($key, $this->parameters);
     }

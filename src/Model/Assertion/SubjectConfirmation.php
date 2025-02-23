@@ -44,7 +44,7 @@ class SubjectConfirmation extends AbstractSamlModel
     /**
      * @return SubjectConfirmation
      */
-    public function setEncryptedId(EncryptedElement $encryptedId = null)
+    public function setEncryptedId(?EncryptedElement $encryptedId = null)
     {
         $this->encryptedId = $encryptedId;
 
@@ -62,7 +62,7 @@ class SubjectConfirmation extends AbstractSamlModel
     /**
      * @return SubjectConfirmation
      */
-    public function setNameID(NameID $nameId = null)
+    public function setNameID(?NameID $nameId = null)
     {
         $this->nameId = $nameId;
 
@@ -80,7 +80,7 @@ class SubjectConfirmation extends AbstractSamlModel
     /**
      * @return SubjectConfirmation
      */
-    public function setSubjectConfirmationData(SubjectConfirmationData $subjectConfirmationData = null)
+    public function setSubjectConfirmationData(?SubjectConfirmationData $subjectConfirmationData = null)
     {
         $this->subjectConfirmationData = $subjectConfirmationData;
 
@@ -118,9 +118,9 @@ class SubjectConfirmation extends AbstractSamlModel
         $this->attributesFromXml($node, ['Method']);
 
         $this->singleElementsFromXml($node, $context, [
-            'NameID' => ['saml', 'LightSaml\Model\Assertion\NameID'],
+            'NameID' => ['saml', \LightSaml\Model\Assertion\NameID::class],
             'EncryptedID' => ['saml', 'LightSaml\Model\Assertion\EncryptedID'],
-            'SubjectConfirmationData' => ['saml', 'LightSaml\Model\Assertion\SubjectConfirmationData'],
+            'SubjectConfirmationData' => ['saml', \LightSaml\Model\Assertion\SubjectConfirmationData::class],
         ]);
     }
 }

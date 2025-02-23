@@ -9,8 +9,7 @@ class SsoState implements \Serializable
     /** @var string */
     private $localSessionId;
 
-    /** @var ParameterBag */
-    private $parameters;
+    private \LightSaml\Meta\ParameterBag $parameters;
 
     /** @var SsoSessionState[] */
     private $ssoSessions = [];
@@ -62,11 +61,10 @@ class SsoState implements \Serializable
      * @deprecated Since 1.2, to be removed in 2.0. Use getParameters() instead
      *
      * @param string $name
-     * @param mixed  $value
      *
      * @return SsoState
      */
-    public function addOption($name, $value)
+    public function addOption($name, mixed $value)
     {
         $this->parameters->set($name, $value);
 
@@ -205,8 +203,6 @@ class SsoState implements \Serializable
     }
 
     /**
-     * @param array $data
-     *
      * @return void
      */
     public function __unserialize(array $data)
@@ -216,11 +212,13 @@ class SsoState implements \Serializable
         $data = array_merge($data, array_fill(0, 5, null));
         $oldOptions = null;
 
-        list(
+        [
             $this->localSessionId,
             $this->ssoSessions,
-            $oldOptions, // old deprecated options
-            $this->parameters) = $data;
+            $oldOptions,
+            // old deprecated options
+            $this->parameters,
+        ] = $data;
 
         // in case it was serialized in old way, copy old options to parameters
         if ($oldOptions && 0 == $this->parameters->count()) {

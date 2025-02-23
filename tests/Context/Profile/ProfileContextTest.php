@@ -35,7 +35,7 @@ class ProfileContextTest extends BaseTestCase
         $this->assertEquals($expected, $profileContext->getRelayState());
     }
 
-    public function subContextCreationProvider()
+    public static function subContextCreationProvider()
     {
         return [
             ['getInboundContext', MessageContext::class],
@@ -48,9 +48,7 @@ class ProfileContextTest extends BaseTestCase
             ['getLogoutContext', LogoutContext::class],
         ];
     }
-    /**
-     * @dataProvider subContextCreationProvider
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('subContextCreationProvider')]
     public function test__sub_context_creation($method, $expectedClass)
     {
         $profileContext = new ProfileContext(Profiles::METADATA, ProfileContext::ROLE_IDP);

@@ -20,7 +20,7 @@ class Subject extends AbstractSamlModel
      *
      * @return Subject
      */
-    public function setNameID(NameID $nameId = null)
+    public function setNameID(?NameID $nameId = null)
     {
         $this->nameId = $nameId;
 
@@ -62,7 +62,7 @@ class Subject extends AbstractSamlModel
             return $this->subjectConfirmation[0];
         }
 
-        return;
+        return null;
     }
 
     /**
@@ -101,7 +101,7 @@ class Subject extends AbstractSamlModel
         $this->checkXmlNodeName($node, 'Subject', SamlConstants::NS_ASSERTION);
 
         $this->singleElementsFromXml($node, $context, [
-            'NameID' => ['saml', 'LightSaml\Model\Assertion\NameID'],
+            'NameID' => ['saml', \LightSaml\Model\Assertion\NameID::class],
         ]);
 
         $this->manyElementsFromXml(
@@ -109,7 +109,7 @@ class Subject extends AbstractSamlModel
             $context,
             'SubjectConfirmation',
             'saml',
-            'LightSaml\Model\Assertion\SubjectConfirmation',
+            \LightSaml\Model\Assertion\SubjectConfirmation::class,
             'addSubjectConfirmation'
         );
     }

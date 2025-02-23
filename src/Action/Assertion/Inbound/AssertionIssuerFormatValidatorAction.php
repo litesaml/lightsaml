@@ -11,17 +11,12 @@ use Psr\Log\LoggerInterface;
 
 class AssertionIssuerFormatValidatorAction extends AbstractAssertionAction
 {
-    /** @var string */
-    private $expectedIssuerFormat = SamlConstants::NAME_ID_FORMAT_ENTITY;
-
     /**
      * @param string $expectedIssuerFormat
      */
-    public function __construct(LoggerInterface $logger, $expectedIssuerFormat)
+    public function __construct(LoggerInterface $logger, private $expectedIssuerFormat)
     {
         parent::__construct($logger);
-
-        $this->expectedIssuerFormat = $expectedIssuerFormat;
     }
 
     protected function doExecute(AssertionContext $context)

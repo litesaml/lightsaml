@@ -9,14 +9,9 @@ use Psr\Log\LoggerInterface;
 
 class AssertionValidatorAction extends AbstractAssertionAction
 {
-    /** @var AssertionValidatorInterface */
-    protected $assertionValidator;
-
-    public function __construct(LoggerInterface $logger, AssertionValidatorInterface $assertionValidator)
+    public function __construct(LoggerInterface $logger, protected \LightSaml\Validator\Model\Assertion\AssertionValidatorInterface $assertionValidator)
     {
         parent::__construct($logger);
-
-        $this->assertionValidator = $assertionValidator;
     }
 
     protected function doExecute(AssertionContext $context)

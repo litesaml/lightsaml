@@ -7,22 +7,14 @@ use LightSaml\Provider\EntitiesDescriptor\EntitiesDescriptorProviderInterface;
 
 class EntitiesDescriptorEntityProvider implements EntityDescriptorProviderInterface
 {
-    /** @var EntitiesDescriptorProviderInterface */
-    private $entitiesDescriptorProvider;
-
-    /** @var string */
-    private $entityId;
-
     /** @var EntityDescriptor */
     private $entityDescriptor;
 
     /**
      * @param string $entityId
      */
-    public function __construct(EntitiesDescriptorProviderInterface $entitiesDescriptorProvider, $entityId)
+    public function __construct(private readonly EntitiesDescriptorProviderInterface $entitiesDescriptorProvider, private $entityId)
     {
-        $this->entitiesDescriptorProvider = $entitiesDescriptorProvider;
-        $this->entityId = $entityId;
     }
 
     /**

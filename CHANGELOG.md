@@ -4,6 +4,24 @@
 All notable changes to this project will be documented in this file.
 <!--- END HEADER -->
 
+## 4.2.2 (2025-02-11)
+
+### Documentation
+
+* Change cookbook URL
+
+## 4.2.1 (2025-02-11)
+
+### Bug Fixes
+
+* Remove implicitly nullable parameter declarations (#75)
+
+## 4.2.0 (2024-02-08)
+
+### Features
+
+* Supports Symfony 7.x
+
 ## 4.1.6 (2023-04-14)
 
 ### Bug Fixes
