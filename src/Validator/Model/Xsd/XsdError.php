@@ -15,6 +15,7 @@ class XsdError implements \Stringable
     ];
 
     /**
+     * @deprecated
      * @return XsdError
      */
     public static function fromLibXMLError(\LibXMLError $error)
