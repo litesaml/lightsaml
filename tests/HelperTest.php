@@ -239,7 +239,7 @@ class HelperTest extends BaseTestCase
 
     public static function notBeforeProvider()
     {
-       return [[1000, 989, 10, false], [1000, 900, 10, false], [1000, 1100, 10, true], [1000, 990, 10, true]];
+        return [[1000, 989, 10, false], [1000, 900, 10, false], [1000, 1100, 10, true], [1000, 990, 10, true]];
     }
 
     #[\PHPUnit\Framework\Attributes\DataProvider('notBeforeProvider')]
