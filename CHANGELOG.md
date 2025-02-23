@@ -4,6 +4,17 @@
 All notable changes to this project will be documented in this file.
 <!--- END HEADER -->
 
+## 4.3.0 (2025-02-23)
+
+### Code Refactoring
+
+* Minimum requirement PHP 8.1 (#76)
+* Use Schema::validate in XsdValidator (#77)
+
+### Bug Fixes
+
+* Helper validateNotBefore return true when is on or after notBefore (#56)
+
 ## 4.2.2 (2025-02-11)
 
 ### Documentation
