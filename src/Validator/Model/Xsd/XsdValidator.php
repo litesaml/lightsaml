@@ -3,6 +3,9 @@
 namespace LightSaml\Validator\Model\Xsd;
 
 use LightSaml\Error\LightSamlXmlException;
+use LiteSaml\Error;
+use LiteSaml\Schema;
+use LiteSaml\UnexpectedSchemaException;
 
 class XsdValidator
 {
@@ -34,40 +37,21 @@ class XsdValidator
      */
     private function validate($xml, $schema)
     {
-        $result = [];
-        libxml_clear_errors();
-        $doc = new \DOMDocument();
+        try {
+            $errorBag = Schema::validate($xml, $schema);
 
-        set_error_handler(function ($errno, $errstr, $errfile, $errline) use (&$result) {
-            $error = new XsdError(XsdError::FATAL, $errno, $errstr, 0, 0);
-            $result[] = $error;
-        });
+            return array_map(function (Error $error) {
+                $level = match ($error->level) {
+                    LIBXML_ERR_FATAL => XsdError::FATAL,
+                    LIBXML_ERR_ERROR => XsdError::ERROR,
+                    LIBXML_ERR_WARNING => XsdError::WARNING,
+                    default => 'Unknown',
+                };
 
-        $schemaFile = __DIR__ . '/../../../../vendor/litesaml/schemas/resources/' . $schema;
-        if (!is_file($schemaFile)) {
-            throw new LightSamlXmlException('Invalid schema specified');
+                return new XsdError($level, $error->code, $error->message, $error->line, $error->column);
+            }, $errorBag->getErrors());
+        } catch (UnexpectedSchemaException $e) {
+            throw new LightSamlXmlException($e->getMessage());
         }
-
-        $ok = @$doc->loadXML($xml);
-        if (!$ok) {
-            restore_error_handler();
-
-            return [
-                new XsdError(XsdError::FATAL, 0, 'Invalid XML', 0, 0),
-            ];
-        }
-
-        @$doc->schemaValidate($schemaFile);
-
-        /** @var \LibXMLError[] $errors */
-        $errors = libxml_get_errors();
-        foreach ($errors as $error) {
-            $err = XsdError::fromLibXMLError($error);
-            $result[] = $err;
-        }
-
-        restore_error_handler();
-
-        return $result;
     }
 }

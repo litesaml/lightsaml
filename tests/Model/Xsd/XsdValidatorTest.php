@@ -17,7 +17,7 @@ class XsdValidatorTest extends BaseTestCase
     public function test_fails_on_empty_xml()
     {
         $validator = new XsdValidator();
-        $arr = $validator->validateProtocol('<a><');
+        $arr = $validator->validateProtocol('');
         $this->assertGreaterThan(0, count($arr));
     }
 }
