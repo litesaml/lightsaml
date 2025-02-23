@@ -164,6 +164,8 @@ final class Helper
     }
 
     /**
+     * Returns `true` when `$now` is on or after `$notBefore`.
+     *
      * @param int $notBefore
      * @param int $now
      * @param int $allowedSecondsSkew
@@ -172,7 +174,7 @@ final class Helper
      */
     public static function validateNotBefore($notBefore, $now, $allowedSecondsSkew)
     {
-        return null == $notBefore || (($notBefore - $allowedSecondsSkew) < $now);
+        return null == $notBefore || (($notBefore - $allowedSecondsSkew) <= $now);
     }
 
     /**
