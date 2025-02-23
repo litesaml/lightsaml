@@ -7,19 +7,14 @@
     "authors": [
         {
             "name": "William",
-            "email": "work@suppo.fr"
-        },
-        {
-            "name": "Milos Tomic",
-            "email": "tmilos@gmail.com",
-            "homepage": "https://github.com/tmilos/",
-            "role": "Developer"
+            "email": "work@suppo.fr",
+            "homepage": "https://github.com/william-suppo"
         }
     ],
     "support": {
         "issues": "https://github.com/litesaml/lightsaml/issues",
         "source": "https://github.com/litesaml/lightsaml",
-        "docs": "https://docs.litesaml.com"
+        "docs": "https://litesaml.github.io/cookbook/"
     },
     "autoload": {
         "psr-4": {

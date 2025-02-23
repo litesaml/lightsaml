@@ -3,6 +3,7 @@
 namespace LightSaml\Validator\Model\Xsd;
 
 use LightSaml\Error\LightSamlXmlException;
+use LiteSaml\Error;
 use LiteSaml\Schema;
 use LiteSaml\UnexpectedSchemaException;
 
@@ -40,7 +41,7 @@ class XsdValidator
             $errorBag = Schema::validate($xml, $schema);
 
             return array_map(function (Error $error) {
-                $level = match($error->level) {
+                $level = match ($error->level) {
                     LIBXML_ERR_FATAL => XsdError::FATAL,
                     LIBXML_ERR_ERROR => XsdError::ERROR,
                     LIBXML_ERR_WARNING => XsdError::WARNING,
