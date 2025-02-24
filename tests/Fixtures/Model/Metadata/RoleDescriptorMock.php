@@ -1,6 +1,6 @@
 <?php
 
-namespace LightSaml\Tests\Fixtures\Model\Metadata;
+namespace Tests\Fixtures\Model\Metadata;
 
 use LightSaml\Model\Metadata\RoleDescriptor;
 

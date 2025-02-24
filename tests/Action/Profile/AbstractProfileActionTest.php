@@ -1,12 +1,12 @@
 <?php
 
-namespace LightSaml\Tests\Action\Profile;
+namespace Tests\Action\Profile;
 
 use LightSaml\Action\Profile\AbstractProfileAction;
 use LightSaml\Context\ContextInterface;
 use LightSaml\Context\Profile\ProfileContext;
 use LightSaml\Profile\Profiles;
-use LightSaml\Tests\BaseTestCase;
+use Tests\BaseTestCase;
 use Psr\Log\LoggerInterface;
 
 class AbstractProfileActionTest extends BaseTestCase

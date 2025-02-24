@@ -1,6 +1,6 @@
 <?php
 
-namespace LightSaml\Tests\Resolver\Signature;
+namespace Tests\Resolver\Signature;
 
 use LightSaml\Context\Profile\ProfileContext;
 use LightSaml\Credential\CredentialInterface;
@@ -16,7 +16,7 @@ use LightSaml\Model\Metadata\EntityDescriptor;
 use LightSaml\Profile\Profiles;
 use LightSaml\Resolver\Credential\CredentialResolverQuery;
 use LightSaml\Resolver\Signature\OwnSignatureResolver;
-use LightSaml\Tests\BaseTestCase;
+use Tests\BaseTestCase;
 use RobRichards\XMLSecLibs\XMLSecurityKey;
 
 class OwnSignatureResolverTest extends BaseTestCase

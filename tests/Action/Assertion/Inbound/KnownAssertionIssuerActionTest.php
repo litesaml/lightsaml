@@ -1,11 +1,11 @@
 <?php
 
-namespace LightSaml\Tests\Action\Assertion\Inbound;
+namespace Tests\Action\Assertion\Inbound;
 
 use LightSaml\Action\Assertion\Inbound\KnownAssertionIssuerAction;
 use LightSaml\Model\Assertion\Assertion;
 use LightSaml\Model\Assertion\Issuer;
-use LightSaml\Tests\BaseTestCase;
+use Tests\BaseTestCase;
 
 class KnownAssertionIssuerActionTest extends BaseTestCase
 {

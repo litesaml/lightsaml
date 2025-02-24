@@ -1,6 +1,6 @@
 <?php
 
-namespace LightSaml\Tests\Functional\Model\Metadata;
+namespace Tests\Functional\Model\Metadata;
 
 use LightSaml\Model\Context\DeserializationContext;
 use LightSaml\Model\Metadata\AssertionConsumerService;
@@ -12,7 +12,7 @@ use LightSaml\Model\Metadata\SingleSignOnService;
 use LightSaml\Model\Metadata\SpSsoDescriptor;
 use LightSaml\Model\Metadata\SSODescriptor;
 use LightSaml\SamlConstants;
-use LightSaml\Tests\BaseTestCase;
+use Tests\BaseTestCase;
 
 class EntityDescriptorFunctionalTest extends BaseTestCase
 {

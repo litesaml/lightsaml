@@ -1,11 +1,11 @@
 <?php
 
-namespace LightSaml\Tests\Model\XmlDSig;
+namespace Tests\Model\XmlDSig;
 
 use LightSaml\Meta\SigningOptions;
 use LightSaml\Model\Context\DeserializationContext;
 use LightSaml\Model\XmlDSig\SignatureWriter;
-use LightSaml\Tests\BaseTestCase;
+use Tests\BaseTestCase;
 
 class SignatureWriterTest extends BaseTestCase
 {

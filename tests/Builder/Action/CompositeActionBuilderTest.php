@@ -1,13 +1,13 @@
 <?php
 
-namespace LightSaml\Tests\Builder\Action;
+namespace Tests\Builder\Action;
 
 use LightSaml\Action\ActionInterface;
 use LightSaml\Action\CompositeAction;
 use LightSaml\Builder\Action\CompositeActionBuilder;
 use LightSaml\Context\ContextInterface;
-use LightSaml\Tests\BaseTestCase;
-use LightSaml\Tests\Mock\Action\FooAction;
+use Tests\BaseTestCase;
+use Tests\Mock\Action\FooAction;
 
 class CompositeActionBuilderTest extends BaseTestCase
 {

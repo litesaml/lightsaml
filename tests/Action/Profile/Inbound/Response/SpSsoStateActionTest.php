@@ -1,6 +1,6 @@
 <?php
 
-namespace LightSaml\Tests\Action\Profile\Inbound\Response;
+namespace Tests\Action\Profile\Inbound\Response;
 
 use LightSaml\Action\Profile\Inbound\Response\SpSsoStateAction;
 use LightSaml\Context\Profile\ProfileContext;
@@ -8,7 +8,7 @@ use LightSaml\Model\Assertion\Assertion;
 use LightSaml\Model\Metadata\EntityDescriptor;
 use LightSaml\Model\Protocol\Response;
 use LightSaml\Profile\Profiles;
-use LightSaml\Tests\BaseTestCase;
+use Tests\BaseTestCase;
 
 class SpSsoStateActionTest extends BaseTestCase
 {

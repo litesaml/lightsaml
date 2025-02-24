@@ -1,6 +1,6 @@
 <?php
 
-namespace LightSaml\Tests\Validator\Model\Statement;
+namespace Tests\Validator\Model\Statement;
 
 use LightSaml\Model\Assertion\Attribute;
 use LightSaml\Model\Assertion\AttributeStatement;
@@ -8,7 +8,7 @@ use LightSaml\Model\Assertion\AuthnContext;
 use LightSaml\Model\Assertion\AuthnStatement;
 use LightSaml\Model\Assertion\SubjectLocality;
 use LightSaml\SamlConstants;
-use LightSaml\Tests\BaseTestCase;
+use Tests\BaseTestCase;
 use LightSaml\Validator\Model\Statement\StatementValidator;
 
 class StatementValidatorTest extends BaseTestCase

@@ -1,6 +1,6 @@
 <?php
 
-namespace LightSaml\Tests\Context\Profile\Helper;
+namespace Tests\Context\Profile\Helper;
 
 use LightSaml\Context\Profile\Helper\MessageContextHelper;
 use LightSaml\Context\Profile\MessageContext;
@@ -12,7 +12,7 @@ use LightSaml\Model\Protocol\LogoutResponse;
 use LightSaml\Model\Protocol\Response;
 use LightSaml\Model\Protocol\SamlMessage;
 use LightSaml\Model\Protocol\StatusResponse;
-use LightSaml\Tests\BaseTestCase;
+use Tests\BaseTestCase;
 
 class MessageContextHelperTest extends BaseTestCase
 {

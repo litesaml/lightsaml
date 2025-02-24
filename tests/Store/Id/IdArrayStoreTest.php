@@ -1,9 +1,9 @@
 <?php
 
-namespace LightSaml\Tests\Store\Id;
+namespace Tests\Store\Id;
 
 use LightSaml\Store\Id\IdArrayStore;
-use LightSaml\Tests\BaseTestCase;
+use Tests\BaseTestCase;
 
 class IdArrayStoreTest extends BaseTestCase
 {

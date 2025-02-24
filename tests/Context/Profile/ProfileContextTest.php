@@ -1,6 +1,6 @@
 <?php
 
-namespace LightSaml\Tests\Context\Profile;
+namespace Tests\Context\Profile;
 
 use LightSaml\Context\Profile\EndpointContext;
 use LightSaml\Context\Profile\EntityContext;
@@ -15,7 +15,7 @@ use LightSaml\Model\Metadata\EntityDescriptor;
 use LightSaml\Model\Protocol\SamlMessage;
 use LightSaml\Profile\Profiles;
 use LightSaml\State\Sso\SsoSessionState;
-use LightSaml\Tests\BaseTestCase;
+use Tests\BaseTestCase;
 use Symfony\Component\HttpFoundation\Request;
 
 class ProfileContextTest extends BaseTestCase

@@ -1,6 +1,6 @@
 <?php
 
-namespace LightSaml\Tests\Action\Assertion\Inbound;
+namespace Tests\Action\Assertion\Inbound;
 
 use LightSaml\Action\Assertion\Inbound\RecipientValidatorAction;
 use LightSaml\Criteria\CriteriaSet;
@@ -16,7 +16,7 @@ use LightSaml\Resolver\Endpoint\Criteria\DescriptorTypeCriteria;
 use LightSaml\Resolver\Endpoint\Criteria\LocationCriteria;
 use LightSaml\Resolver\Endpoint\Criteria\ServiceTypeCriteria;
 use LightSaml\SamlConstants;
-use LightSaml\Tests\BaseTestCase;
+use Tests\BaseTestCase;
 
 class RecipientValidatorActionTest extends BaseTestCase
 {

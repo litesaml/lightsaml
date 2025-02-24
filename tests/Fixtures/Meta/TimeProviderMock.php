@@ -1,6 +1,6 @@
 <?php
 
-namespace LightSaml\Tests\Fixtures\Meta;
+namespace Tests\Fixtures\Meta;
 
 use LightSaml\Provider\TimeProvider\TimeProviderInterface;
 

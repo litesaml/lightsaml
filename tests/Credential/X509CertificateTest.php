@@ -1,9 +1,9 @@
 <?php
 
-namespace LightSaml\Tests\Credential;
+namespace Tests\Credential;
 
 use LightSaml\Credential\X509Certificate;
-use LightSaml\Tests\BaseTestCase;
+use Tests\BaseTestCase;
 
 class X509CertificateTest extends BaseTestCase
 {

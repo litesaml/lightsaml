@@ -1,6 +1,6 @@
 <?php
 
-namespace LightSaml\Tests\Action\Profile\Outbound\Message;
+namespace Tests\Action\Profile\Outbound\Message;
 
 use LightSaml\Action\Profile\Outbound\Message\ResolveEndpointBaseAction;
 use LightSaml\Context\Profile\ProfileContext;
@@ -15,7 +15,7 @@ use LightSaml\Resolver\Endpoint\Criteria\IndexCriteria;
 use LightSaml\Resolver\Endpoint\Criteria\LocationCriteria;
 use LightSaml\Resolver\Endpoint\Criteria\ServiceTypeCriteria;
 use LightSaml\Resolver\Endpoint\EndpointResolverInterface;
-use LightSaml\Tests\BaseTestCase;
+use Tests\BaseTestCase;
 use Psr\Log\LoggerInterface;
 
 abstract class AbstractResolveEndpointAction extends BaseTestCase

@@ -1,9 +1,9 @@
 <?php
 
-namespace LightSaml\Tests\Credential\Context;
+namespace Tests\Credential\Context;
 
 use LightSaml\Credential\Context\MetadataCredentialContext;
-use LightSaml\Tests\BaseTestCase;
+use Tests\BaseTestCase;
 
 class MetadataCredentialContextTest extends BaseTestCase
 {

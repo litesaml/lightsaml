@@ -1,10 +1,10 @@
 <?php
 
-namespace LightSaml\Tests\Criteria;
+namespace Tests\Criteria;
 
 use LightSaml\Criteria\CriteriaSet;
 use LightSaml\Resolver\Endpoint\Criteria\IndexCriteria;
-use LightSaml\Tests\BaseTestCase;
+use Tests\BaseTestCase;
 
 class CriteriaSetTest extends BaseTestCase
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace LightSaml\Tests\Validator\Model\Assertion;
+namespace Tests\Validator\Model\Assertion;
 
 use LightSaml\Model\Assertion\Assertion;
 use LightSaml\Model\Assertion\AuthnStatement;
@@ -8,7 +8,7 @@ use LightSaml\Model\Assertion\Conditions;
 use LightSaml\Model\Assertion\Subject;
 use LightSaml\Model\Assertion\SubjectConfirmation;
 use LightSaml\Model\Assertion\SubjectConfirmationData;
-use LightSaml\Tests\BaseTestCase;
+use Tests\BaseTestCase;
 use LightSaml\Validator\Model\Assertion\AssertionTimeValidator;
 
 class AssertionTimeValidatorTest extends BaseTestCase

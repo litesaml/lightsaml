@@ -1,11 +1,11 @@
 <?php
 
-namespace LightSaml\Tests\Action\Profile\Outbound\Message;
+namespace Tests\Action\Profile\Outbound\Message;
 
 use LightSaml\Action\Profile\Outbound\Message\MessageVersionAction;
 use LightSaml\Model\Protocol\AuthnRequest;
 use LightSaml\SamlConstants;
-use LightSaml\Tests\BaseTestCase;
+use Tests\BaseTestCase;
 
 class MessageVersionActionTest extends BaseTestCase
 {

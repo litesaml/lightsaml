@@ -1,13 +1,13 @@
 <?php
 
-namespace LightSaml\Tests\Context;
+namespace Tests\Context;
 
 use LightSaml\Context\AbstractContext;
 use LightSaml\Context\Profile\AssertionContext;
 use LightSaml\Context\Profile\EntityContext;
 use LightSaml\Context\Profile\ProfileContext;
 use LightSaml\Context\Profile\RequestStateContext;
-use LightSaml\Tests\BaseTestCase;
+use Tests\BaseTestCase;
 
 class AbstractContextTest extends BaseTestCase
 {

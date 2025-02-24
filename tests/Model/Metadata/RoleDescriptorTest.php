@@ -1,10 +1,10 @@
 <?php
 
-namespace LightSaml\Tests\Model\Metadata;
+namespace Tests\Model\Metadata;
 
 use LightSaml\Model\XmlDSig\SignatureWriter;
-use LightSaml\Tests\BaseTestCase;
-use LightSaml\Tests\Fixtures\Model\Metadata\RoleDescriptorMock;
+use Tests\BaseTestCase;
+use Tests\Fixtures\Model\Metadata\RoleDescriptorMock;
 
 class RoleDescriptorTest extends BaseTestCase
 {

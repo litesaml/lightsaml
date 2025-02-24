@@ -1,12 +1,12 @@
 <?php
 
-namespace LightSaml\Tests\Model\Assertion;
+namespace Tests\Model\Assertion;
 
 use LightSaml\Model\Assertion\AudienceRestriction;
 use LightSaml\Model\Assertion\Conditions;
 use LightSaml\Model\Assertion\OneTimeUse;
 use LightSaml\Model\Assertion\ProxyRestriction;
-use LightSaml\Tests\BaseTestCase;
+use Tests\BaseTestCase;
 
 class ConditionsTest extends BaseTestCase
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace LightSaml\Tests\Action\Profile\Inbound\StatusResponse;
+namespace Tests\Action\Profile\Inbound\StatusResponse;
 
 use LightSaml\Action\Profile\Inbound\StatusResponse\StatusAction;
 use LightSaml\Context\Profile\ProfileContext;
@@ -9,7 +9,7 @@ use LightSaml\Model\Protocol\Status;
 use LightSaml\Model\Protocol\StatusCode;
 use LightSaml\Profile\Profiles;
 use LightSaml\SamlConstants;
-use LightSaml\Tests\BaseTestCase;
+use Tests\BaseTestCase;
 
 class StatusActionTest extends BaseTestCase
 {

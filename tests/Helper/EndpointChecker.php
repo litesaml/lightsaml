@@ -1,9 +1,9 @@
 <?php
 
-namespace LightSaml\Tests\Helper;
+namespace Tests\Helper;
 
 use LightSaml\Model\Metadata\Endpoint;
-use LightSaml\Tests\BaseTestCase;
+use Tests\BaseTestCase;
 
 class EndpointChecker
 {

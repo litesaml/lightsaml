@@ -1,13 +1,13 @@
 <?php
 
-namespace LightSaml\Tests\Model\Metadata;
+namespace Tests\Model\Metadata;
 
 use LightSaml\Model\Context\DeserializationContext;
 use LightSaml\Model\Context\SerializationContext;
 use LightSaml\Model\Metadata\EntitiesDescriptor;
 use LightSaml\Model\Metadata\EntityDescriptor;
 use LightSaml\SamlConstants;
-use LightSaml\Tests\BaseTestCase;
+use Tests\BaseTestCase;
 
 class EntitiesDescriptorTest extends BaseTestCase
 {

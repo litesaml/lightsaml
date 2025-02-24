@@ -1,11 +1,11 @@
 <?php
 
-namespace LightSaml\Tests\Store\TrustOptions;
+namespace Tests\Store\TrustOptions;
 
 use LightSaml\Meta\TrustOptions\TrustOptions;
 use LightSaml\Store\TrustOptions\CompositeTrustOptionsStore;
 use LightSaml\Store\TrustOptions\TrustOptionsStoreInterface;
-use LightSaml\Tests\BaseTestCase;
+use Tests\BaseTestCase;
 
 class CompositeTrustOptionsStoreTest extends BaseTestCase
 {

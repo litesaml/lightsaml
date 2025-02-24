@@ -1,13 +1,13 @@
 <?php
 
-namespace LightSaml\Tests\Builder\Context;
+namespace Tests\Builder\Context;
 
 use LightSaml\Builder\Context\ProfileContextBuilder;
 use LightSaml\Context\Profile\ProfileContext;
 use LightSaml\Model\Metadata\EntityDescriptor;
 use LightSaml\Profile\Profiles;
 use LightSaml\Provider\EntityDescriptor\FixedEntityDescriptorProvider;
-use LightSaml\Tests\BaseTestCase;
+use Tests\BaseTestCase;
 use Symfony\Component\HttpFoundation\Request;
 
 class ProfileContextBuilderTest extends BaseTestCase

@@ -1,12 +1,12 @@
 <?php
 
-namespace LightSaml\Tests\Action\Profile\Entity;
+namespace Tests\Action\Profile\Entity;
 
 use LightSaml\Action\Profile\Entity\SerializeOwnEntityAction;
 use LightSaml\Context\Profile\ProfileContext;
 use LightSaml\Model\Metadata\EntityDescriptor;
 use LightSaml\Profile\Profiles;
-use LightSaml\Tests\BaseTestCase;
+use Tests\BaseTestCase;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 

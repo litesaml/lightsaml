@@ -1,6 +1,6 @@
 <?php
 
-namespace LightSaml\Tests\Model\Protocol;
+namespace Tests\Model\Protocol;
 
 use LightSaml\ClaimTypes;
 use LightSaml\Meta\SigningOptions;
@@ -24,7 +24,7 @@ use LightSaml\Model\XmlDSig\SignatureWriter;
 use LightSaml\SamlConstants;
 use LightSaml\Credential\KeyHelper;
 use LightSaml\Credential\X509Certificate;
-use LightSaml\Tests\BaseTestCase;
+use Tests\BaseTestCase;
 
 class ResponseTest extends BaseTestCase
 {

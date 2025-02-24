@@ -1,10 +1,10 @@
 <?php
 
-namespace LightSaml\Tests\Binding;
+namespace Tests\Binding;
 
 use LightSaml\Binding\HttpRedirectBinding;
 use LightSaml\Context\Profile\MessageContext;
-use LightSaml\Tests\BaseTestCase;
+use Tests\BaseTestCase;
 use Symfony\Component\HttpFoundation\Request;
 
 class HttpRedirectBindingTest extends BaseTestCase

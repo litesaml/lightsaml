@@ -1,11 +1,11 @@
 <?php
 
-namespace LightSaml\Tests\Action\Assertion;
+namespace Tests\Action\Assertion;
 
 use LightSaml\Action\Assertion\AbstractAssertionAction;
 use LightSaml\Context\ContextInterface;
 use LightSaml\Context\Profile\AssertionContext;
-use LightSaml\Tests\BaseTestCase;
+use Tests\BaseTestCase;
 
 class AbstractAssertionActionTest extends BaseTestCase
 {

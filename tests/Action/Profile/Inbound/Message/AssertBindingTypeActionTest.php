@@ -1,12 +1,12 @@
 <?php
 
-namespace LightSaml\Tests\Action\Profile\Inbound\Message;
+namespace Tests\Action\Profile\Inbound\Message;
 
 use LightSaml\Action\Profile\Inbound\Message\AssertBindingTypeAction;
 use LightSaml\Context\Profile\ProfileContext;
 use LightSaml\Profile\Profiles;
 use LightSaml\SamlConstants;
-use LightSaml\Tests\BaseTestCase;
+use Tests\BaseTestCase;
 
 class AssertBindingTypeActionTest extends BaseTestCase
 {

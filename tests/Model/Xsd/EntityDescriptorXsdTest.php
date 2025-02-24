@@ -1,6 +1,6 @@
 <?php
 
-namespace LightSaml\Tests\Model\Xsd;
+namespace Tests\Model\Xsd;
 
 use LightSaml\ClaimTypes;
 use LightSaml\Credential\UsageType;

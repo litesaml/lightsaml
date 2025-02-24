@@ -1,12 +1,12 @@
 <?php
 
-namespace LightSaml\Tests\Resolver\Credential;
+namespace Tests\Resolver\Credential;
 
 use LightSaml\Credential\CredentialInterface;
 use LightSaml\Credential\Criteria\PrivateKeyCriteria;
 use LightSaml\Criteria\CriteriaSet;
 use LightSaml\Resolver\Credential\PrivateKeyResolver;
-use LightSaml\Tests\BaseTestCase;
+use Tests\BaseTestCase;
 use RobRichards\XMLSecLibs\XMLSecurityKey;
 
 class PrivateKeyResolverTest extends BaseTestCase

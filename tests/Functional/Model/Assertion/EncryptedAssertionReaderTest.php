@@ -1,6 +1,6 @@
 <?php
 
-namespace LightSaml\Tests\Functional\Model\Assertion;
+namespace Tests\Functional\Model\Assertion;
 
 use LightSaml\ClaimTypes;
 use LightSaml\Credential\KeyHelper;
@@ -9,7 +9,7 @@ use LightSaml\Credential\X509Credential;
 use LightSaml\Model\Assertion\EncryptedAssertionReader;
 use LightSaml\Model\Context\DeserializationContext;
 use LightSaml\Model\Protocol\Response;
-use LightSaml\Tests\BaseTestCase;
+use Tests\BaseTestCase;
 
 class EncryptedAssertionReaderTest extends BaseTestCase
 {

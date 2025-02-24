@@ -1,10 +1,10 @@
 <?php
 
-namespace LightSaml\Tests\Store\Sso;
+namespace Tests\Store\Sso;
 
 use LightSaml\State\Sso\SsoState;
 use LightSaml\Store\Sso\SsoStateFixedStore;
-use LightSaml\Tests\BaseTestCase;
+use Tests\BaseTestCase;
 
 class SsoStateFixedStoreTest extends BaseTestCase
 {

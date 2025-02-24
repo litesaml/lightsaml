@@ -1,12 +1,12 @@
 <?php
 
-namespace LightSaml\Tests\Provider\Attribute;
+namespace Tests\Provider\Attribute;
 
 use LightSaml\Context\Profile\AssertionContext;
 use LightSaml\Model\Assertion\Attribute;
 use LightSaml\Provider\Attribute\AttributeValueProviderInterface;
 use LightSaml\Provider\Attribute\FixedAttributeValueProvider;
-use LightSaml\Tests\BaseTestCase;
+use Tests\BaseTestCase;
 
 class FixedAttributeValueProviderTest extends BaseTestCase
 {

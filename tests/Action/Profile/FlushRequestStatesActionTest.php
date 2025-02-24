@@ -1,6 +1,6 @@
 <?php
 
-namespace LightSaml\Tests\Action\Profile;
+namespace Tests\Action\Profile;
 
 use LightSaml\Action\Profile\FlushRequestStatesAction;
 use LightSaml\Context\Profile\AssertionContext;
@@ -10,7 +10,7 @@ use LightSaml\Context\Profile\RequestStateContext;
 use LightSaml\Profile\Profiles;
 use LightSaml\State\Request\RequestState;
 use LightSaml\Store\Request\RequestStateStoreInterface;
-use LightSaml\Tests\BaseTestCase;
+use Tests\BaseTestCase;
 use Mockery;
 use Mockery\Mock;
 use PHPUnit\Framework\Attributes\DoesNotPerformAssertions;

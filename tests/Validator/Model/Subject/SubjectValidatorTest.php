@@ -1,13 +1,13 @@
 <?php
 
-namespace LightSaml\Tests\Validator\Model\Subject;
+namespace Tests\Validator\Model\Subject;
 
 use LightSaml\Model\Assertion\NameID;
 use LightSaml\Model\Assertion\Subject;
 use LightSaml\Model\Assertion\SubjectConfirmation;
 use LightSaml\Model\Assertion\SubjectConfirmationData;
 use LightSaml\SamlConstants;
-use LightSaml\Tests\BaseTestCase;
+use Tests\BaseTestCase;
 use LightSaml\Validator\Model\Subject\SubjectValidator;
 
 class SubjectValidatorTest extends BaseTestCase

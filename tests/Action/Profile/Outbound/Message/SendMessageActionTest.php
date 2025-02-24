@@ -1,12 +1,12 @@
 <?php
 
-namespace LightSaml\Tests\Action\Profile\Outbound\Message;
+namespace Tests\Action\Profile\Outbound\Message;
 
 use LightSaml\Action\Profile\Outbound\Message\SendMessageAction;
 use LightSaml\Context\Profile\MessageContext;
 use LightSaml\Model\Metadata\SingleSignOnService;
 use LightSaml\SamlConstants;
-use LightSaml\Tests\BaseTestCase;
+use Tests\BaseTestCase;
 use Symfony\Component\HttpFoundation\Response;
 
 class SendMessageActionTest extends BaseTestCase

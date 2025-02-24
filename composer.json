@@ -23,7 +23,7 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "LightSaml\\Tests\\": "tests/"
+            "Tests\\": "tests/"
         }
     },
     "require": {

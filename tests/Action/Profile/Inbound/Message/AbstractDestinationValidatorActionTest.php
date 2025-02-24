@@ -1,6 +1,6 @@
 <?php
 
-namespace LightSaml\Tests\Action\Profile\Inbound\Message;
+namespace Tests\Action\Profile\Inbound\Message;
 
 use LightSaml\Action\Profile\Inbound\Message\AbstractDestinationValidatorAction;
 use LightSaml\Context\Profile\ProfileContext;
@@ -13,7 +13,7 @@ use LightSaml\Profile\Profiles;
 use LightSaml\Resolver\Endpoint\Criteria\DescriptorTypeCriteria;
 use LightSaml\Resolver\Endpoint\Criteria\LocationCriteria;
 use LightSaml\Resolver\Endpoint\EndpointResolverInterface;
-use LightSaml\Tests\BaseTestCase;
+use Tests\BaseTestCase;
 
 class AbstractDestinationValidatorActionTest extends BaseTestCase
 {

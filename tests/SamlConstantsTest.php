@@ -1,9 +1,9 @@
 <?php
 
-namespace LightSaml\Tests;
+namespace Tests;
 
 use LightSaml\SamlConstants;
-use LightSaml\Tests\BaseTestCase;
+use Tests\BaseTestCase;
 
 class SamlConstantsTest extends BaseTestCase
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace LightSaml\Tests\Action\Profile\Inbound\Response;
+namespace Tests\Action\Profile\Inbound\Response;
 
 use LightSaml\Action\Profile\Inbound\Response\HasBearerAssertionsValidatorAction;
 use LightSaml\Context\Profile\ProfileContext;
@@ -11,7 +11,7 @@ use LightSaml\Model\Assertion\SubjectConfirmation;
 use LightSaml\Model\Protocol\Response;
 use LightSaml\Profile\Profiles;
 use LightSaml\SamlConstants;
-use LightSaml\Tests\BaseTestCase;
+use Tests\BaseTestCase;
 
 class HasBearerAssertionsValidatorActionTest extends BaseTestCase
 {

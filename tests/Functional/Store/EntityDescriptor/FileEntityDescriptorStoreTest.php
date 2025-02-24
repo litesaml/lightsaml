@@ -1,9 +1,9 @@
 <?php
 
-namespace LightSaml\Tests\Functional\Store\EntityDescriptor;
+namespace Tests\Functional\Store\EntityDescriptor;
 
 use LightSaml\Store\EntityDescriptor\FileEntityDescriptorStore;
-use LightSaml\Tests\BaseTestCase;
+use Tests\BaseTestCase;
 
 class FileEntityDescriptorStoreTest extends BaseTestCase
 {

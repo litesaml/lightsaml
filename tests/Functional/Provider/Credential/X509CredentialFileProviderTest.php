@@ -1,11 +1,11 @@
 <?php
 
-namespace LightSaml\Tests\Functional\Provider\Credential;
+namespace Tests\Functional\Provider\Credential;
 
 use LightSaml\Credential\X509CredentialInterface;
 use LightSaml\Provider\Credential\CredentialProviderInterface;
 use LightSaml\Provider\Credential\X509CredentialFileProvider;
-use LightSaml\Tests\BaseTestCase;
+use Tests\BaseTestCase;
 
 class X509CredentialFileProviderTest extends BaseTestCase
 {

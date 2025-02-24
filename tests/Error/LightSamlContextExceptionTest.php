@@ -1,9 +1,9 @@
 <?php
 
-namespace LightSaml\Tests\Error;
+namespace Tests\Error;
 
 use LightSaml\Error\LightSamlContextException;
-use LightSaml\Tests\BaseTestCase;
+use Tests\BaseTestCase;
 
 class LightSamlContextExceptionTest extends BaseTestCase
 {

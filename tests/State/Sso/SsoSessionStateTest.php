@@ -1,10 +1,10 @@
 <?php
 
-namespace LightSaml\Tests\State\Sso;
+namespace Tests\State\Sso;
 
 use LightSaml\Meta\ParameterBag;
 use LightSaml\State\Sso\SsoSessionState;
-use LightSaml\Tests\BaseTestCase;
+use Tests\BaseTestCase;
 
 class SsoSessionStateTest extends BaseTestCase
 {

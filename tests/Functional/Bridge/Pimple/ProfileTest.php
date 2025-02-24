@@ -1,6 +1,6 @@
 <?php
 
-namespace LightSaml\Tests\Functional\Bridge\Pimple;
+namespace Tests\Functional\Bridge\Pimple;
 
 use DOMDocument;
 use DOMXPath;
@@ -15,8 +15,8 @@ use LightSaml\Provider\TimeProvider\TimeProviderInterface;
 use LightSaml\SamlConstants;
 use LightSaml\State\Request\RequestState;
 use LightSaml\Store\Request\RequestStateArrayStore;
-use LightSaml\Tests\BaseTestCase;
-use LightSaml\Tests\Fixtures\Meta\TimeProviderMock;
+use Tests\BaseTestCase;
+use Tests\Fixtures\Meta\TimeProviderMock;
 use Pimple\Container;
 use Psr\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\Request;

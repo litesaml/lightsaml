@@ -1,6 +1,6 @@
 <?php
 
-namespace LightSaml\Tests\Functional\Credential\Resolver;
+namespace Tests\Functional\Credential\Resolver;
 
 use LightSaml\Credential\Context\MetadataCredentialContext;
 use LightSaml\Credential\Criteria\EntityIdCriteria;
@@ -17,7 +17,7 @@ use LightSaml\Store\Credential\CompositeCredentialStore;
 use LightSaml\Store\Credential\MetadataCredentialStore;
 use LightSaml\Store\Credential\StaticCredentialStore;
 use LightSaml\Store\EntityDescriptor\FixedEntityDescriptorStore;
-use LightSaml\Tests\BaseTestCase;
+use Tests\BaseTestCase;
 
 class ResolverFunctionalTest extends BaseTestCase
 {

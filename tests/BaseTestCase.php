@@ -1,6 +1,6 @@
 <?php
 
-namespace LightSaml\Tests;
+namespace Tests;
 
 use LightSaml\Context\Profile\AssertionContext;
 use LightSaml\Context\Profile\ProfileContext;

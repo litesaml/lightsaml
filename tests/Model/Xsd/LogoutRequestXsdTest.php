@@ -1,6 +1,6 @@
 <?php
 
-namespace LightSaml\Tests\Model\Xsd;
+namespace Tests\Model\Xsd;
 
 use LightSaml\Helper;
 use LightSaml\Model\Assertion\Issuer;

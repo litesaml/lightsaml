@@ -1,6 +1,6 @@
 <?php
 
-namespace LightSaml\Tests\Action;
+namespace Tests\Action;
 
 use LightSaml\Action\ActionInterface;
 use LightSaml\Action\CatchableErrorAction;
@@ -9,7 +9,7 @@ use LightSaml\Context\ContextInterface;
 use LightSaml\Context\Profile\ExceptionContext;
 use LightSaml\Context\Profile\ProfileContext;
 use LightSaml\Context\Profile\ProfileContexts;
-use LightSaml\Tests\BaseTestCase;
+use Tests\BaseTestCase;
 
 class CatchableErrorActionTest extends BaseTestCase
 {

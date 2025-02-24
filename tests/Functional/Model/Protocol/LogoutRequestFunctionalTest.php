@@ -1,11 +1,11 @@
 <?php
 
-namespace LightSaml\Tests\Functional\Model\Protocol;
+namespace Tests\Functional\Model\Protocol;
 
 use LightSaml\Model\Context\DeserializationContext;
 use LightSaml\Model\Protocol\LogoutRequest;
 use LightSaml\SamlConstants;
-use LightSaml\Tests\BaseTestCase;
+use Tests\BaseTestCase;
 
 class LogoutRequestFunctionalTest extends BaseTestCase
 {

@@ -1,10 +1,10 @@
 <?php
 
-namespace LightSaml\Tests\Functional\Credential;
+namespace Tests\Functional\Credential;
 
 use LightSaml\Credential\X509Certificate;
 use LightSaml\SamlConstants;
-use LightSaml\Tests\BaseTestCase;
+use Tests\BaseTestCase;
 use RobRichards\XMLSecLibs\XMLSecurityKey;
 
 class X509CertificateTest extends BaseTestCase

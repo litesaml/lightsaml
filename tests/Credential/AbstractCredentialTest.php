@@ -1,9 +1,9 @@
 <?php
 
-namespace LightSaml\Tests\Credential;
+namespace Tests\Credential;
 
 use LightSaml\Credential\UsageType;
-use LightSaml\Tests\BaseTestCase;
+use Tests\BaseTestCase;
 
 class AbstractCredentialTest extends BaseTestCase
 {

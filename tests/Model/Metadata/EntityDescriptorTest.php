@@ -1,6 +1,6 @@
 <?php
 
-namespace LightSaml\Tests\Model\Metadata;
+namespace Tests\Model\Metadata;
 
 use LightSaml\ClaimTypes;
 use LightSaml\Model\Context\DeserializationContext;
@@ -17,7 +17,7 @@ use LightSaml\Model\Metadata\SingleSignOnService;
 use LightSaml\Model\Metadata\SpSsoDescriptor;
 use LightSaml\SamlConstants;
 use LightSaml\Credential\X509Certificate;
-use LightSaml\Tests\BaseTestCase;
+use Tests\BaseTestCase;
 
 class EntityDescriptorTest extends BaseTestCase
 {

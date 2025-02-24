@@ -1,6 +1,6 @@
 <?php
 
-namespace LightSaml\Tests\Action\Profile\Inbound\Message;
+namespace Tests\Action\Profile\Inbound\Message;
 
 use LightSaml\Action\Profile\Inbound\Message\ResolvePartyEntityIdAction;
 use LightSaml\Context\Profile\ProfileContext;
@@ -8,7 +8,7 @@ use LightSaml\Meta\TrustOptions\TrustOptions;
 use LightSaml\Model\Metadata\EntityDescriptor;
 use LightSaml\Profile\Profiles;
 use LightSaml\Store\TrustOptions\TrustOptionsStoreInterface;
-use LightSaml\Tests\BaseTestCase;
+use Tests\BaseTestCase;
 
 class ResolvePartyEntityIdActionTest extends BaseTestCase
 {

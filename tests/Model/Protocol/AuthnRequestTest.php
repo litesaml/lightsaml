@@ -1,6 +1,6 @@
 <?php
 
-namespace LightSaml\Tests\Model\Protocol;
+namespace Tests\Model\Protocol;
 
 use LightSaml\Model\Context\SerializationContext;
 use LightSaml\Model\Assertion\Conditions;
@@ -9,7 +9,7 @@ use LightSaml\Model\Assertion\Subject;
 use LightSaml\Model\Protocol\AuthnRequest;
 use LightSaml\Model\Protocol\NameIDPolicy;
 use LightSaml\SamlConstants;
-use LightSaml\Tests\BaseTestCase;
+use Tests\BaseTestCase;
 
 class AuthnRequestTest extends BaseTestCase
 {

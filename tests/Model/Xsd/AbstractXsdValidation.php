@@ -1,6 +1,6 @@
 <?php
 
-namespace LightSaml\Tests\Model\Xsd;
+namespace Tests\Model\Xsd;
 
 use LightSaml\Credential\KeyHelper;
 use LightSaml\Credential\X509Certificate;
@@ -11,7 +11,7 @@ use LightSaml\Model\Metadata\EntityDescriptor;
 use LightSaml\Model\Protocol\SamlMessage;
 use LightSaml\Model\SamlElementInterface;
 use LightSaml\Model\XmlDSig\SignatureWriter;
-use LightSaml\Tests\BaseTestCase;
+use Tests\BaseTestCase;
 use LightSaml\Validator\Model\Xsd\XsdValidator;
 
 abstract class AbstractXsdValidation extends BaseTestCase

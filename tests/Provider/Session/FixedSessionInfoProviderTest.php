@@ -1,9 +1,9 @@
 <?php
 
-namespace LightSaml\Tests\Provider\Session;
+namespace Tests\Provider\Session;
 
 use LightSaml\Provider\Session\FixedSessionInfoProvider;
-use LightSaml\Tests\BaseTestCase;
+use Tests\BaseTestCase;
 
 class FixedSessionInfoProviderTest extends BaseTestCase
 {

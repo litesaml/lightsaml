@@ -1,9 +1,9 @@
 <?php
 
-namespace LightSaml\Tests\Functional\Provider\EntityDescriptor;
+namespace Tests\Functional\Provider\EntityDescriptor;
 
 use LightSaml\Provider\EntityDescriptor\FileEntityDescriptorProviderFactory;
-use LightSaml\Tests\BaseTestCase;
+use Tests\BaseTestCase;
 
 class FileEntityDescriptorProviderFactoryTest extends BaseTestCase
 {

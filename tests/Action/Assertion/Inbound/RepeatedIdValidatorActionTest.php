@@ -1,6 +1,6 @@
 <?php
 
-namespace LightSaml\Tests\Action\Assertion\Inbound;
+namespace Tests\Action\Assertion\Inbound;
 
 use LightSaml\Action\Assertion\Inbound\RepeatedIdValidatorAction;
 use LightSaml\Model\Assertion\Assertion;
@@ -10,7 +10,7 @@ use LightSaml\Model\Assertion\Subject;
 use LightSaml\Model\Assertion\SubjectConfirmation;
 use LightSaml\Model\Assertion\SubjectConfirmationData;
 use LightSaml\SamlConstants;
-use LightSaml\Tests\BaseTestCase;
+use Tests\BaseTestCase;
 
 class RepeatedIdValidatorActionTest extends BaseTestCase
 {

@@ -1,11 +1,11 @@
 <?php
 
-namespace LightSaml\Tests\Meta;
+namespace Tests\Meta;
 
 use LightSaml\Credential\X509Certificate;
 use LightSaml\Meta\ParameterBag;
 use LightSaml\Meta\SigningOptions;
-use LightSaml\Tests\BaseTestCase;
+use Tests\BaseTestCase;
 
 class SigningOptionsTest extends BaseTestCase
 {

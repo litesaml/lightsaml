@@ -1,6 +1,6 @@
 <?php
 
-namespace LightSaml\Tests\Action\Profile\Inbound\Message;
+namespace Tests\Action\Profile\Inbound\Message;
 
 use LightSaml\Action\Profile\Inbound\Message\MessageSignatureValidatorAction;
 use LightSaml\Context\Profile\ProfileContext;
@@ -11,7 +11,7 @@ use LightSaml\Model\Protocol\AuthnRequest;
 use LightSaml\Model\XmlDSig\SignatureStringReader;
 use LightSaml\Model\XmlDSig\SignatureWriter;
 use LightSaml\Profile\Profiles;
-use LightSaml\Tests\BaseTestCase;
+use Tests\BaseTestCase;
 use LightSaml\Validator\Model\Signature\SignatureValidatorInterface;
 
 class MessageSignatureValidatorActionTest extends BaseTestCase

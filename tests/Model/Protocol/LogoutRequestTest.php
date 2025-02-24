@@ -1,13 +1,13 @@
 <?php
 
-namespace LightSaml\Tests\Model\Protocol;
+namespace Tests\Model\Protocol;
 
 use LightSaml\Model\Context\SerializationContext;
 use LightSaml\Model\Assertion\Issuer;
 use LightSaml\Model\Assertion\NameID;
 use LightSaml\Model\Protocol\LogoutRequest;
 use LightSaml\SamlConstants;
-use LightSaml\Tests\BaseTestCase;
+use Tests\BaseTestCase;
 
 class LogoutRequestTest extends BaseTestCase
 {

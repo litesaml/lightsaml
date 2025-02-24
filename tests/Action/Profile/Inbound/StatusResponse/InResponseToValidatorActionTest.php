@@ -1,6 +1,6 @@
 <?php
 
-namespace LightSaml\Tests\Action\Profile\Inbound\StatusResponse;
+namespace Tests\Action\Profile\Inbound\StatusResponse;
 
 use LightSaml\Action\Profile\Inbound\StatusResponse\InResponseToValidatorAction;
 use LightSaml\Context\Profile\ProfileContext;
@@ -8,7 +8,7 @@ use LightSaml\Context\Profile\ProfileContexts;
 use LightSaml\Context\Profile\RequestStateContext;
 use LightSaml\Profile\Profiles;
 use LightSaml\State\Request\RequestState;
-use LightSaml\Tests\BaseTestCase;
+use Tests\BaseTestCase;
 
 class InResponseToValidatorActionTest extends BaseTestCase
 {

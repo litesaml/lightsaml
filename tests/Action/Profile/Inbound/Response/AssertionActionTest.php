@@ -1,6 +1,6 @@
 <?php
 
-namespace LightSaml\Tests\Action\Profile\Inbound\Response;
+namespace Tests\Action\Profile\Inbound\Response;
 
 use LightSaml\Action\Profile\Inbound\Response\AssertionAction;
 use LightSaml\Context\Profile\AssertionContext;
@@ -8,8 +8,8 @@ use LightSaml\Context\Profile\ProfileContext;
 use LightSaml\Model\Assertion\Assertion;
 use LightSaml\Model\Protocol\Response;
 use LightSaml\Profile\Profiles;
-use LightSaml\Tests\BaseTestCase;
-use LightSaml\Tests\Mock\Action\FooAction;
+use Tests\BaseTestCase;
+use Tests\Mock\Action\FooAction;
 
 class AssertionActionTest extends BaseTestCase
 {

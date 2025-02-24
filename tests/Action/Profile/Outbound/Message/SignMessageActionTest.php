@@ -1,6 +1,6 @@
 <?php
 
-namespace LightSaml\Tests\Action\Profile\Outbound\Message;
+namespace Tests\Action\Profile\Outbound\Message;
 
 use LightSaml\Action\Profile\Outbound\Message\SignMessageAction;
 use LightSaml\Meta\TrustOptions\TrustOptions;
@@ -8,7 +8,7 @@ use LightSaml\Model\Protocol\AuthnRequest;
 use LightSaml\Model\Protocol\Response;
 use LightSaml\Model\Protocol\SamlMessage;
 use LightSaml\Model\XmlDSig\SignatureWriter;
-use LightSaml\Tests\BaseTestCase;
+use Tests\BaseTestCase;
 
 class SignMessageActionTest extends BaseTestCase
 {

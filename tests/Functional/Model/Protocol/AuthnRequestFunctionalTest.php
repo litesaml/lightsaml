@@ -1,6 +1,6 @@
 <?php
 
-namespace LightSaml\Tests\Functional\Model\Protocol;
+namespace Tests\Functional\Model\Protocol;
 
 use LightSaml\Model\Assertion\Issuer;
 use LightSaml\Model\Context\DeserializationContext;
@@ -11,7 +11,7 @@ use LightSaml\Credential\X509Certificate;
 use LightSaml\Model\XmlDSig\SignatureWriter;
 use LightSaml\Model\XmlDSig\SignatureXmlReader;
 use LightSaml\SamlConstants;
-use LightSaml\Tests\BaseTestCase;
+use Tests\BaseTestCase;
 
 class AuthnRequestFunctionalTest extends BaseTestCase
 {

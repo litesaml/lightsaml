@@ -1,12 +1,12 @@
 <?php
 
-namespace LightSaml\Tests\Action\Profile\Outbound\AuthnRequest;
+namespace Tests\Action\Profile\Outbound\AuthnRequest;
 
 use LightSaml\Action\Profile\Outbound\AuthnRequest\CreateAuthnRequestAction;
 use LightSaml\Context\Profile\ProfileContext;
 use LightSaml\Model\Protocol\AuthnRequest;
 use LightSaml\Profile\Profiles;
-use LightSaml\Tests\BaseTestCase;
+use Tests\BaseTestCase;
 
 class CreateAuthnRequestActionTest extends BaseTestCase
 {

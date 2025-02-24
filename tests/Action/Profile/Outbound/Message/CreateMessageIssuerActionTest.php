@@ -1,6 +1,6 @@
 <?php
 
-namespace LightSaml\Tests\Action\Profile\Outbound\Message;
+namespace Tests\Action\Profile\Outbound\Message;
 
 use LightSaml\Action\Profile\Outbound\Message\CreateMessageIssuerAction;
 use LightSaml\Context\Profile\ProfileContext;
@@ -8,7 +8,7 @@ use LightSaml\Model\Metadata\EntityDescriptor;
 use LightSaml\Model\Protocol\AuthnRequest;
 use LightSaml\Profile\Profiles;
 use LightSaml\SamlConstants;
-use LightSaml\Tests\BaseTestCase;
+use Tests\BaseTestCase;
 
 class CreateMessageIssuerActionTest extends BaseTestCase
 {

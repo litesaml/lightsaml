@@ -1,6 +1,6 @@
 <?php
 
-namespace LightSaml\Tests\Functional\Store\Credential\Factory;
+namespace Tests\Functional\Store\Credential\Factory;
 
 use LightSaml\Credential\KeyHelper;
 use LightSaml\Credential\UsageType;
@@ -9,7 +9,7 @@ use LightSaml\Credential\X509Credential;
 use LightSaml\Model\Metadata\EntityDescriptor;
 use LightSaml\Store\Credential\Factory\CredentialFactory;
 use LightSaml\Store\EntityDescriptor\FixedEntityDescriptorStore;
-use LightSaml\Tests\BaseTestCase;
+use Tests\BaseTestCase;
 
 class CredentialFactoryTest extends BaseTestCase
 {

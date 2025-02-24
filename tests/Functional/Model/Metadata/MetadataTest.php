@@ -1,11 +1,11 @@
 <?php
 
-namespace LightSaml\Tests\Functional\Model\Metadata;
+namespace Tests\Functional\Model\Metadata;
 
 use LightSaml\Model\Metadata\EntitiesDescriptor;
 use LightSaml\Model\Metadata\EntityDescriptor;
 use LightSaml\Model\Metadata\Metadata;
-use LightSaml\Tests\BaseTestCase;
+use Tests\BaseTestCase;
 
 class MetadataTest extends BaseTestCase
 {

@@ -1,9 +1,9 @@
 <?php
 
-namespace LightSaml\Tests\Model\Assertion;
+namespace Tests\Model\Assertion;
 
 use LightSaml\Model\Assertion\AudienceRestriction;
-use LightSaml\Tests\BaseTestCase;
+use Tests\BaseTestCase;
 
 class AudienceRestrictionTest extends BaseTestCase
 {

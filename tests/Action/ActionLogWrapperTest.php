@@ -1,10 +1,10 @@
 <?php
 
-namespace LightSaml\Tests\Action;
+namespace Tests\Action;
 
 use LightSaml\Action\ActionInterface;
 use LightSaml\Action\ActionLogWrapper;
-use LightSaml\Tests\BaseTestCase;
+use Tests\BaseTestCase;
 use Psr\Log\LoggerInterface;
 
 class ActionLogWrapperTest extends BaseTestCase

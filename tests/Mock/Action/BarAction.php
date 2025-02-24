@@ -1,6 +1,6 @@
 <?php
 
-namespace LightSaml\Tests\Mock\Action;
+namespace Tests\Mock\Action;
 
 use LightSaml\Action\ActionInterface;
 use LightSaml\Context\ContextInterface;

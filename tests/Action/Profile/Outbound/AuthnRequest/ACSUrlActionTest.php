@@ -1,6 +1,6 @@
 <?php
 
-namespace LightSaml\Tests\Action\Profile\Outbound\AuthnRequest;
+namespace Tests\Action\Profile\Outbound\AuthnRequest;
 
 use LightSaml\Action\Profile\Outbound\AuthnRequest\ACSUrlAction;
 use LightSaml\Context\Profile\ProfileContext;
@@ -14,7 +14,7 @@ use LightSaml\Resolver\Endpoint\Criteria\BindingCriteria;
 use LightSaml\Resolver\Endpoint\Criteria\DescriptorTypeCriteria;
 use LightSaml\Resolver\Endpoint\Criteria\ServiceTypeCriteria;
 use LightSaml\SamlConstants;
-use LightSaml\Tests\BaseTestCase;
+use Tests\BaseTestCase;
 
 class ACSUrlActionTest extends BaseTestCase
 {

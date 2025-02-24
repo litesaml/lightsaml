@@ -1,10 +1,10 @@
 <?php
 
-namespace LightSaml\Tests\Binding;
+namespace Tests\Binding;
 
 use LightSaml\Binding\BindingFactory;
 use LightSaml\SamlConstants;
-use LightSaml\Tests\BaseTestCase;
+use Tests\BaseTestCase;
 use Psr\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\Request;
 

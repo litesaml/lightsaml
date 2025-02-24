@@ -1,6 +1,6 @@
 <?php
 
-namespace LightSaml\Tests\Action\Profile\Inbound\Response;
+namespace Tests\Action\Profile\Inbound\Response;
 
 use LightSaml\Action\Profile\Inbound\Response\DecryptAssertionsAction;
 use LightSaml\Context\Profile\ProfileContext;
@@ -13,7 +13,7 @@ use LightSaml\Model\Metadata\EntityDescriptor;
 use LightSaml\Model\Protocol\Response;
 use LightSaml\Profile\Profiles;
 use LightSaml\Resolver\Credential\CredentialResolverQuery;
-use LightSaml\Tests\BaseTestCase;
+use Tests\BaseTestCase;
 use RobRichards\XMLSecLibs\XMLSecurityKey;
 
 class DecryptAssertionsActionTest extends BaseTestCase

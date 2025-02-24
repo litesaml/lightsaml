@@ -1,6 +1,6 @@
 <?php
 
-namespace LightSaml\Tests\Binding;
+namespace Tests\Binding;
 
 use DOMDocument;
 use DOMXPath;
@@ -9,7 +9,7 @@ use LightSaml\Binding\HttpPostBinding;
 use LightSaml\Context\Profile\MessageContext;
 use LightSaml\Model\Protocol\Response;
 use LightSaml\SamlConstants;
-use LightSaml\Tests\BaseTestCase;
+use Tests\BaseTestCase;
 use Symfony\Component\HttpFoundation\Request;
 
 class HttpPostBindingTest extends BaseTestCase

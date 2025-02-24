@@ -1,13 +1,13 @@
 <?php
 
-namespace LightSaml\Tests\Model\Assertion;
+namespace Tests\Model\Assertion;
 
 use LightSaml\Model\Assertion\Assertion;
 use LightSaml\Model\Assertion\AttributeStatement;
 use LightSaml\Model\Assertion\AuthnStatement;
 use LightSaml\Model\Assertion\NameID;
 use LightSaml\Model\Assertion\Subject;
-use LightSaml\Tests\BaseTestCase;
+use Tests\BaseTestCase;
 
 class AssertionTest extends BaseTestCase
 {

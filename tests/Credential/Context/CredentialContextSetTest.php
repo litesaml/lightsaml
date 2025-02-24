@@ -1,10 +1,10 @@
 <?php
 
-namespace LightSaml\Tests\Credential\Context;
+namespace Tests\Credential\Context;
 
 use LightSaml\Credential\Context\CredentialContextSet;
 use LightSaml\Credential\Context\MetadataCredentialContext;
-use LightSaml\Tests\BaseTestCase;
+use Tests\BaseTestCase;
 
 class CredentialContextSetTest extends BaseTestCase
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace LightSaml\Tests\Functional\Binding;
+namespace Tests\Functional\Binding;
 
 use LightSaml\Binding\HttpRedirectBinding;
 use LightSaml\Event\MessageReceived;
@@ -12,7 +12,7 @@ use LightSaml\Model\XmlDSig\SignatureStringReader;
 use LightSaml\Model\XmlDSig\SignatureWriter;
 use LightSaml\Credential\KeyHelper;
 use LightSaml\Credential\X509Certificate;
-use LightSaml\Tests\BaseTestCase;
+use Tests\BaseTestCase;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 

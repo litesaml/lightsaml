@@ -1,6 +1,6 @@
 <?php
 
-namespace LightSaml\Tests\Model\XmlDSig;
+namespace Tests\Model\XmlDSig;
 
 use LightSaml\Credential\KeyHelper;
 use LightSaml\Credential\X509Certificate;
@@ -8,7 +8,7 @@ use LightSaml\Model\Context\DeserializationContext;
 use LightSaml\Model\Context\SerializationContext;
 use LightSaml\Model\XmlDSig\AbstractSignatureReader;
 use LightSaml\Model\XmlDSig\SignatureStringReader;
-use LightSaml\Tests\BaseTestCase;
+use Tests\BaseTestCase;
 
 class SignatureStringReaderTest extends BaseTestCase
 {

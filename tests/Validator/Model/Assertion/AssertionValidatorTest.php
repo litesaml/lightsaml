@@ -1,6 +1,6 @@
 <?php
 
-namespace LightSaml\Tests\Validator\Model\Assertion;
+namespace Tests\Validator\Model\Assertion;
 
 use LightSaml\Model\Assertion\Assertion;
 use LightSaml\Model\Assertion\AttributeStatement;
@@ -11,7 +11,7 @@ use LightSaml\Model\Assertion\Issuer;
 use LightSaml\Model\Assertion\OneTimeUse;
 use LightSaml\Model\Assertion\ProxyRestriction;
 use LightSaml\Model\Assertion\Subject;
-use LightSaml\Tests\BaseTestCase;
+use Tests\BaseTestCase;
 use LightSaml\Validator\Model\Assertion\AssertionValidator;
 
 class AssertionValidatorTest extends BaseTestCase

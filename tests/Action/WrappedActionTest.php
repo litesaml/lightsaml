@@ -1,10 +1,10 @@
 <?php
 
-namespace LightSaml\Tests\Action;
+namespace Tests\Action;
 
 use LightSaml\Action\ActionInterface;
 use LightSaml\Action\WrappedAction;
-use LightSaml\Tests\BaseTestCase;
+use Tests\BaseTestCase;
 
 class WrappedActionTest extends BaseTestCase
 {

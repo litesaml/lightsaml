@@ -1,11 +1,11 @@
 <?php
 
-namespace LightSaml\Tests\Action;
+namespace Tests\Action;
 
 use LightSaml\Action\DispatchEventAction;
 use LightSaml\Context\ContextInterface;
 use LightSaml\Event\ActionOccurred;
-use LightSaml\Tests\BaseTestCase;
+use Tests\BaseTestCase;
 use Psr\EventDispatcher\EventDispatcherInterface;
 
 class DispatchEventActionTest extends BaseTestCase

@@ -1,10 +1,10 @@
 <?php
 
-namespace LightSaml\Tests\Provider\NameID;
+namespace Tests\Provider\NameID;
 
 use LightSaml\Model\Assertion\NameID;
 use LightSaml\Provider\NameID\FixedNameIdProvider;
-use LightSaml\Tests\BaseTestCase;
+use Tests\BaseTestCase;
 
 class FixedNameIdProviderTest extends BaseTestCase
 {

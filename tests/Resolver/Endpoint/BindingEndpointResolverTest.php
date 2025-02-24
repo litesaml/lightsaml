@@ -1,6 +1,6 @@
 <?php
 
-namespace LightSaml\Tests\Resolver\Endpoint;
+namespace Tests\Resolver\Endpoint;
 
 use LightSaml\Criteria\CriteriaSet;
 use LightSaml\Model\Metadata\EndpointReference;
@@ -10,7 +10,7 @@ use LightSaml\Model\Metadata\SpSsoDescriptor;
 use LightSaml\Resolver\Endpoint\BindingEndpointResolver;
 use LightSaml\Resolver\Endpoint\Criteria\BindingCriteria;
 use LightSaml\SamlConstants;
-use LightSaml\Tests\BaseTestCase;
+use Tests\BaseTestCase;
 
 class BindingEndpointResolverTest extends BaseTestCase
 {

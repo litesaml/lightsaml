@@ -1,12 +1,12 @@
 <?php
 
-namespace LightSaml\Tests\Action\Assertion\Inbound;
+namespace Tests\Action\Assertion\Inbound;
 
 use LightSaml\Action\Assertion\Inbound\AssertionIssuerFormatValidatorAction;
 use LightSaml\Model\Assertion\Assertion;
 use LightSaml\Model\Assertion\Issuer;
 use LightSaml\SamlConstants;
-use LightSaml\Tests\BaseTestCase;
+use Tests\BaseTestCase;
 
 class AssertionIssuerFormatValidatorActionTest extends BaseTestCase
 {

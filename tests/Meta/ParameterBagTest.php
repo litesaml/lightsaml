@@ -1,9 +1,9 @@
 <?php
 
-namespace LightSaml\Tests\Meta;
+namespace Tests\Meta;
 
 use LightSaml\Meta\ParameterBag;
-use LightSaml\Tests\BaseTestCase;
+use Tests\BaseTestCase;
 
 class ParameterBagTest extends BaseTestCase
 {

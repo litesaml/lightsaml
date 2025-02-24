@@ -1,10 +1,10 @@
 <?php
 
-namespace LightSaml\Tests\Action\Assertion\Inbound;
+namespace Tests\Action\Assertion\Inbound;
 
 use LightSaml\Action\Assertion\Inbound\TimeValidatorAction;
 use LightSaml\Model\Assertion\Assertion;
-use LightSaml\Tests\BaseTestCase;
+use Tests\BaseTestCase;
 
 class TimeValidatorActionTest extends BaseTestCase
 {

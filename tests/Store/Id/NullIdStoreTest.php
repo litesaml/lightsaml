@@ -1,9 +1,9 @@
 <?php
 
-namespace LightSaml\Tests\Store\Id;
+namespace Tests\Store\Id;
 
 use LightSaml\Store\Id\NullIdStore;
-use LightSaml\Tests\BaseTestCase;
+use Tests\BaseTestCase;
 
 class NullIdStoreTest extends BaseTestCase
 {

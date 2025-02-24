@@ -1,10 +1,10 @@
 <?php
 
-namespace LightSaml\Tests\Credential\Criteria;
+namespace Tests\Credential\Criteria;
 
 use LightSaml\Credential\Criteria\PrivateKeyCriteria;
 use LightSaml\Credential\Criteria\TrustCriteriaInterface;
-use LightSaml\Tests\BaseTestCase;
+use Tests\BaseTestCase;
 
 class PrivateKeyCriteriaTest extends BaseTestCase
 {

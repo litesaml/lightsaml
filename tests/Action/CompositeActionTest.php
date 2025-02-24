@@ -1,12 +1,12 @@
 <?php
 
-namespace LightSaml\Tests\Action;
+namespace Tests\Action;
 
 use LightSaml\Action\ActionInterface;
 use LightSaml\Action\CompositeAction;
-use LightSaml\Tests\BaseTestCase;
-use LightSaml\Tests\Mock\Action\BarAction;
-use LightSaml\Tests\Mock\Action\FooAction;
+use Tests\BaseTestCase;
+use Tests\Mock\Action\BarAction;
+use Tests\Mock\Action\FooAction;
 
 class CompositeActionTest extends BaseTestCase
 {
@@ -117,12 +117,12 @@ class CompositeActionTest extends BaseTestCase
         $expectedValue = <<<EOT
 {
     "LightSaml\\\\Action\\\\CompositeAction": {
-        "LightSaml\\\\Tests\\\\Mock\\\\Action\\\\FooAction": [],
+        "Tests\\\\Mock\\\\Action\\\\FooAction": [],
         "LightSaml\\\\Action\\\\CompositeAction": {
-            "LightSaml\\\\Tests\\\\Mock\\\\Action\\\\FooAction": [],
-            "LightSaml\\\\Tests\\\\Mock\\\\Action\\\\BarAction": []
+            "Tests\\\\Mock\\\\Action\\\\FooAction": [],
+            "Tests\\\\Mock\\\\Action\\\\BarAction": []
         },
-        "LightSaml\\\\Tests\\\\Mock\\\\Action\\\\BarAction": []
+        "Tests\\\\Mock\\\\Action\\\\BarAction": []
     }
 }
 EOT;

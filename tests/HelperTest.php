@@ -1,10 +1,10 @@
 <?php
 
-namespace LightSaml\Tests;
+namespace Tests;
 
 use LightSaml\Helper;
 use LightSaml\SamlConstants;
-use LightSaml\Tests\BaseTestCase;
+use Tests\BaseTestCase;
 
 class HelperTest extends BaseTestCase
 {

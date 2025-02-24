@@ -1,10 +1,10 @@
 <?php
 
-namespace LightSaml\Tests\Functional\Store\Credential;
+namespace Tests\Functional\Store\Credential;
 
 use LightSaml\Credential\CredentialInterface;
 use LightSaml\Store\Credential\X509FileCredentialStore;
-use LightSaml\Tests\BaseTestCase;
+use Tests\BaseTestCase;
 
 class X509FileCredentialStoreTest extends BaseTestCase
 {

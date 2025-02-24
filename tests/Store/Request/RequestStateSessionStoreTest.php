@@ -1,11 +1,11 @@
 <?php
 
-namespace LightSaml\Tests\Store\Request;
+namespace Tests\Store\Request;
 
 use LightSaml\Meta\ParameterBag;
 use LightSaml\State\Request\RequestState;
 use LightSaml\Store\Request\RequestStateSessionStore;
-use LightSaml\Tests\BaseTestCase;
+use Tests\BaseTestCase;
 
 class RequestStateSessionStoreTest extends BaseTestCase
 {

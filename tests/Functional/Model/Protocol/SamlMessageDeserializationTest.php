@@ -1,6 +1,6 @@
 <?php
 
-namespace LightSaml\Tests\Functional\Model\Protocol;
+namespace Tests\Functional\Model\Protocol;
 
 use LightSaml\Model\Context\DeserializationContext;
 use LightSaml\Model\Protocol\AuthnRequest;
@@ -8,7 +8,7 @@ use LightSaml\Model\Protocol\LogoutRequest;
 use LightSaml\Model\Protocol\LogoutResponse;
 use LightSaml\Model\Protocol\Response;
 use LightSaml\Model\Protocol\SamlMessage;
-use LightSaml\Tests\BaseTestCase;
+use Tests\BaseTestCase;
 
 class SamlMessageDeserializationTest extends BaseTestCase
 {

@@ -1,10 +1,10 @@
 <?php
 
-namespace LightSaml\Tests\Action\Profile\Outbound\Message;
+namespace Tests\Action\Profile\Outbound\Message;
 
 use LightSaml\Action\Profile\Outbound\Message\MessageIssueInstantAction;
 use LightSaml\Model\Protocol\AuthnRequest;
-use LightSaml\Tests\BaseTestCase;
+use Tests\BaseTestCase;
 
 class MessageIssueInstantActionTest extends BaseTestCase
 {

@@ -1,9 +1,9 @@
 <?php
 
-namespace LightSaml\Tests\Helper;
+namespace Tests\Helper;
 
 use LightSaml\Model\Metadata\KeyDescriptor;
-use LightSaml\Tests\BaseTestCase;
+use Tests\BaseTestCase;
 
 class KeyDescriptorChecker
 {

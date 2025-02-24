@@ -1,8 +1,8 @@
 <?php
 
-namespace LightSaml\Tests\Model\Xsd;
+namespace Tests\Model\Xsd;
 
-use LightSaml\Tests\BaseTestCase;
+use Tests\BaseTestCase;
 use LightSaml\Validator\Model\Xsd\XsdValidator;
 
 class XsdValidatorTest extends BaseTestCase

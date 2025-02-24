@@ -1,11 +1,11 @@
 <?php
 
-namespace LightSaml\Tests\Model\Protocol;
+namespace Tests\Model\Protocol;
 
 use LightSaml\Model\Protocol\Status;
 use LightSaml\Model\Protocol\StatusCode;
 use LightSaml\SamlConstants;
-use LightSaml\Tests\BaseTestCase;
+use Tests\BaseTestCase;
 
 class StatusTest extends BaseTestCase
 {

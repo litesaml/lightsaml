@@ -1,6 +1,6 @@
 <?php
 
-namespace LightSaml\Tests\Context\Profile;
+namespace Tests\Context\Profile;
 
 use LightSaml\Context\Profile\MessageContext;
 use LightSaml\Model\Protocol\AuthnRequest;
@@ -8,7 +8,7 @@ use LightSaml\Model\Protocol\LogoutRequest;
 use LightSaml\Model\Protocol\LogoutResponse;
 use LightSaml\Model\Protocol\Response;
 use LightSaml\Model\Protocol\SamlMessage;
-use LightSaml\Tests\BaseTestCase;
+use Tests\BaseTestCase;
 
 class MessageContextTest extends BaseTestCase
 {

@@ -1,10 +1,10 @@
 <?php
 
-namespace LightSaml\Tests\Model\Assertion;
+namespace Tests\Model\Assertion;
 
 use LightSaml\Model\Assertion\Attribute;
 use LightSaml\Model\Assertion\AttributeStatement;
-use LightSaml\Tests\BaseTestCase;
+use Tests\BaseTestCase;
 
 class AttributeStatementTest extends BaseTestCase
 {

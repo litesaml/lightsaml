@@ -1,11 +1,11 @@
 <?php
 
-namespace LightSaml\Tests\Store\EntityDescriptor;
+namespace Tests\Store\EntityDescriptor;
 
 use LightSaml\Model\Metadata\EntitiesDescriptor;
 use LightSaml\Model\Metadata\EntityDescriptor;
 use LightSaml\Store\EntityDescriptor\FixedEntityDescriptorStore;
-use LightSaml\Tests\BaseTestCase;
+use Tests\BaseTestCase;
 
 class FixedEntityDescriptorStoreTest extends BaseTestCase
 {

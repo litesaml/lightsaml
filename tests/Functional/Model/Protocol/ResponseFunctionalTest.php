@@ -1,6 +1,6 @@
 <?php
 
-namespace LightSaml\Tests\Functional\Model\Protocol;
+namespace Tests\Functional\Model\Protocol;
 
 use LightSaml\ClaimTypes;
 use LightSaml\Model\Context\DeserializationContext;
@@ -9,7 +9,7 @@ use LightSaml\Model\XmlDSig\SignatureXmlReader;
 use LightSaml\SamlConstants;
 use LightSaml\Credential\KeyHelper;
 use LightSaml\Credential\X509Certificate;
-use LightSaml\Tests\BaseTestCase;
+use Tests\BaseTestCase;
 
 class ResponseFunctionalTest extends BaseTestCase
 {

@@ -1,10 +1,10 @@
 <?php
 
-namespace LightSaml\Tests\Provider\EntityDescriptor;
+namespace Tests\Provider\EntityDescriptor;
 
 use LightSaml\Model\Metadata\EntityDescriptor;
 use LightSaml\Provider\EntityDescriptor\FixedEntityDescriptorProvider;
-use LightSaml\Tests\BaseTestCase;
+use Tests\BaseTestCase;
 
 class FixedEntityDescriptorProviderTest extends BaseTestCase
 {

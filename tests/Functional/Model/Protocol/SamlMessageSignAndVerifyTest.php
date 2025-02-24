@@ -1,6 +1,6 @@
 <?php
 
-namespace LightSaml\Tests\Functional\Model\Protocol;
+namespace Tests\Functional\Model\Protocol;
 
 use LightSaml\Credential\KeyHelper;
 use LightSaml\Credential\X509Certificate;
@@ -21,7 +21,7 @@ use LightSaml\Model\Protocol\StatusCode;
 use LightSaml\Model\XmlDSig\AbstractSignatureReader;
 use LightSaml\Model\XmlDSig\SignatureWriter;
 use LightSaml\SamlConstants;
-use LightSaml\Tests\BaseTestCase;
+use Tests\BaseTestCase;
 
 class SamlMessageSignAndVerifyTest extends BaseTestCase
 {

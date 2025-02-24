@@ -1,12 +1,12 @@
 <?php
 
-namespace LightSaml\Tests\Resolver\Credential;
+namespace Tests\Resolver\Credential;
 
 use LightSaml\Credential\CredentialInterface;
 use LightSaml\Criteria\CriteriaSet;
 use LightSaml\Resolver\Credential\CredentialResolverInterface;
 use LightSaml\Resolver\Credential\CredentialResolverQuery;
-use LightSaml\Tests\BaseTestCase;
+use Tests\BaseTestCase;
 use RobRichards\XMLSecLibs\XMLSecurityKey;
 
 class CredentialResolverQueryTest extends BaseTestCase

@@ -1,6 +1,6 @@
 <?php
 
-namespace LightSaml\Tests\Functional\Binding;
+namespace Tests\Functional\Binding;
 
 use LightSaml\Binding\HttpPostBinding;
 use LightSaml\Context\Profile\MessageContext;
@@ -10,7 +10,7 @@ use LightSaml\Model\Protocol\AuthnRequest;
 use LightSaml\Model\XmlDSig\SignatureWriter;
 use LightSaml\Credential\KeyHelper;
 use LightSaml\Credential\X509Certificate;
-use LightSaml\Tests\BaseTestCase;
+use Tests\BaseTestCase;
 use Symfony\Component\HttpFoundation\Request;
 
 class HttpPostBindingFunctionalTest extends BaseTestCase

@@ -1,10 +1,10 @@
 <?php
 
-namespace LightSaml\Tests\Validator\Model\NameId;
+namespace Tests\Validator\Model\NameId;
 
 use LightSaml\Model\Assertion\NameID;
 use LightSaml\SamlConstants;
-use LightSaml\Tests\BaseTestCase;
+use Tests\BaseTestCase;
 use LightSaml\Validator\Model\NameId\NameIdValidator;
 
 class NameIdValidatorTest extends BaseTestCase
