@@ -4,6 +4,12 @@
 All notable changes to this project will be documented in this file.
 <!--- END HEADER -->
 
+## 4.3.2 (2025-02-24)
+
+### Code Refactoring
+
+* Mark Pimple Bridge classes as deprecated
+
 ## 4.3.1 (2025-02-24)
 
 ### Bug Fixes
