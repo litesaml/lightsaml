@@ -142,7 +142,12 @@ final class Helper
      */
     public static function validateWellFormedUriString($value)
     {
-        $value = trim((string)$value);
+        if (is_null($value)) {
+            return false;
+        }
+
+        $value = trim($value);
+
         if ('' === $value || strlen($value) > 65520) {
             return false;
         }
