@@ -4,6 +4,26 @@
 All notable changes to this project will be documented in this file.
 <!--- END HEADER -->
 
+## 4.4.0 (2025-02-24)
+
+### Features
+
+* Can handle compressed or uncompressed post request
+
+### Code Refactoring
+
+* Remove monolog/monolog dependency (#82)
+* Remove Symfony dom-crawler & css-selector dependency (#84
+* Remove php-conventional-changelog dependency
+
+### Tests
+
+* Remove LightSaml prefix
+
+### Bug Fixes
+
+* Helper::validateWellFormedUriString() return false on null
+
 ## 4.3.2 (2025-02-24)
 
 ### Code Refactoring
