@@ -14,6 +14,9 @@ use LightSaml\Validator\Model\Assertion\AssertionValidatorInterface;
 use LightSaml\Validator\Model\NameId\NameIdValidatorInterface;
 use LightSaml\Validator\Model\Signature\SignatureValidatorInterface;
 
+/**
+ * @deprecated 5.0.0 No longer used by internal code and not recommended
+ */
 class ServiceContainer extends AbstractPimpleContainer implements ServiceContainerInterface
 {
     public const ASSERTION_VALIDATOR = 'lightsaml.container.assertion_validator';

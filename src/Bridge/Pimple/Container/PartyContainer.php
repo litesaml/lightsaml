@@ -6,6 +6,9 @@ use LightSaml\Build\Container\PartyContainerInterface;
 use LightSaml\Store\EntityDescriptor\EntityDescriptorStoreInterface;
 use LightSaml\Store\TrustOptions\TrustOptionsStoreInterface;
 
+/**
+ * @deprecated 5.0.0 No longer used by internal code and not recommended
+ */
 class PartyContainer extends AbstractPimpleContainer implements PartyContainerInterface
 {
     public const IDP_ENTITY_DESCRIPTOR = 'lightsaml.container.idp_entity_descriptor';

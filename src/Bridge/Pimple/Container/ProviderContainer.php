@@ -8,6 +8,9 @@ use LightSaml\Provider\Attribute\AttributeValueProviderInterface;
 use LightSaml\Provider\NameID\NameIdProviderInterface;
 use LightSaml\Provider\Session\SessionInfoProviderInterface;
 
+/**
+ * @deprecated 5.0.0 No longer used by internal code and not recommended
+ */
 class ProviderContainer extends AbstractPimpleContainer implements ProviderContainerInterface
 {
     public const ATTRIBUTE_VALUE_PROVIDER = 'lightsaml.container.attribute_value_provider';

@@ -9,6 +9,9 @@ use LightSaml\Store\TrustOptions\FixedTrustOptionsStore;
 use Pimple\Container;
 use Pimple\ServiceProviderInterface;
 
+/**
+ * @deprecated 5.0.0 No longer used by internal code and not recommended
+ */
 class PartyContainerProvider implements ServiceProviderInterface
 {
     /**

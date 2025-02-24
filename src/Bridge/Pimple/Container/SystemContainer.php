@@ -9,6 +9,9 @@ use Psr\Log\LoggerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
+/**
+ * @deprecated 5.0.0 No longer used by internal code and not recommended
+ */
 class SystemContainer extends AbstractPimpleContainer implements SystemContainerInterface
 {
     public const REQUEST = 'lightsaml.container.request';

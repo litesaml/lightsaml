@@ -7,6 +7,9 @@ use LightSaml\Store\Id\IdStoreInterface;
 use LightSaml\Store\Request\RequestStateStoreInterface;
 use LightSaml\Store\Sso\SsoStateStoreInterface;
 
+/**
+ * @deprecated 5.0.0 No longer used by internal code and not recommended
+ */
 class StoreContainer extends AbstractPimpleContainer implements StoreContainerInterface
 {
     public const REQUEST_STATE_STORE = 'lightsaml.container.request_state_store';

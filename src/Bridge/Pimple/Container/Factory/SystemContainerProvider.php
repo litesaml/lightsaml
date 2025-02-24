@@ -12,6 +12,9 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\HttpFoundation\Session\Storage\MockArraySessionStorage;
 
+/**
+ * @deprecated 5.0.0 No longer used by internal code and not recommended
+ */
 class SystemContainerProvider implements ServiceProviderInterface
 {
     /**

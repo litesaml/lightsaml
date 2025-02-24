@@ -7,6 +7,9 @@ use LightSaml\Error\LightSamlBuildException;
 use Pimple\Container;
 use Pimple\ServiceProviderInterface;
 
+/**
+ * @deprecated 5.0.0 No longer used by internal code and not recommended
+ */
 class ProviderContainerProvider implements ServiceProviderInterface
 {
     /**

@@ -6,6 +6,9 @@ use LightSaml\Build\Container\OwnContainerInterface;
 use LightSaml\Credential\CredentialInterface;
 use LightSaml\Provider\EntityDescriptor\EntityDescriptorProviderInterface;
 
+/**
+ * @deprecated 5.0.0 No longer used by internal code and not recommended
+ */
 class OwnContainer extends AbstractPimpleContainer implements OwnContainerInterface
 {
     public const OWN_ENTITY_DESCRIPTOR_PROVIDER = 'lightsaml.container.own_entity_descriptor_provider';

@@ -11,6 +11,9 @@ use LightSaml\Build\Container\ServiceContainerInterface;
 use LightSaml\Build\Container\StoreContainerInterface;
 use LightSaml\Build\Container\SystemContainerInterface;
 
+/**
+ * @deprecated 5.0.0 No longer used by internal code and not recommended
+ */
 class BuildContainer extends AbstractPimpleContainer implements BuildContainerInterface
 {
     /** @var SystemContainerInterface */

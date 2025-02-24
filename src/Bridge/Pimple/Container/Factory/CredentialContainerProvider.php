@@ -11,6 +11,9 @@ use LightSaml\Store\Credential\Factory\CredentialFactory;
 use Pimple\Container;
 use Pimple\ServiceProviderInterface;
 
+/**
+ * @deprecated 5.0.0 No longer used by internal code and not recommended
+ */
 class CredentialContainerProvider implements ServiceProviderInterface
 {
     /** @var CredentialInterface[] */

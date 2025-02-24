@@ -25,6 +25,9 @@ use LightSaml\Validator\Model\Subject\SubjectValidator;
 use Pimple\Container;
 use Pimple\ServiceProviderInterface;
 
+/**
+ * @deprecated 5.0.0 No longer used by internal code and not recommended
+ */
 class ServiceContainerProvider implements ServiceProviderInterface
 {
     public function __construct(private readonly CredentialContainerInterface $credentialContainer, private readonly StoreContainerInterface $storeContainer, private readonly SystemContainerInterface $systemContainer)
