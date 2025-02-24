@@ -2,6 +2,8 @@
 
 namespace LightSaml\Tests\Functional\Bridge\Pimple;
 
+use DOMDocument;
+use DOMXPath;
 use LightSaml\Bridge\Pimple\Container\BuildContainer;
 use LightSaml\Bridge\Pimple\Container\PartyContainer;
 use LightSaml\Bridge\Pimple\Container\StoreContainer;
@@ -17,7 +19,6 @@ use LightSaml\Tests\BaseTestCase;
 use LightSaml\Tests\Fixtures\Meta\TimeProviderMock;
 use Pimple\Container;
 use Psr\EventDispatcher\EventDispatcherInterface;
-use Symfony\Component\DomCrawler\Crawler;
 use Symfony\Component\HttpFoundation\Request;
 
 class ProfileTest extends BaseTestCase
@@ -71,9 +72,11 @@ class ProfileTest extends BaseTestCase
 
         $html = $context->getHttpResponseContext()->getResponse()->getContent();
 
-        $crawler = new Crawler($html);
+        $dom = new DomDocument();
+        $dom->loadHTML($html);
+        $xpath = new DOMXPath($dom);
+        $code = $xpath->query('//input[@name="SAMLRequest"]')->item(0)->getAttribute('value');
 
-        $code = $crawler->filter('body form input[name="SAMLRequest"]')->first()->attr('value');
         $xml = base64_decode($code);
 
         $root = new \SimpleXMLElement($xml);
