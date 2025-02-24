@@ -4,6 +4,12 @@
 All notable changes to this project will be documented in this file.
 <!--- END HEADER -->
 
+## 4.3.1 (2025-02-24)
+
+### Bug Fixes
+
+* Can use Symfony v7+
+
 ## 4.3.0 (2025-02-23)
 
 ### Code Refactoring
