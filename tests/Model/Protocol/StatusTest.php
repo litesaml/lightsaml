@@ -15,7 +15,7 @@ class StatusTest extends BaseTestCase
         $status = new Status(new StatusCode(SamlConstants::STATUS_SUCCESS), $message);
         $this->assertEquals($status->getStatusMessage(), $message);
     }
-    
+
     public function test_status_set_message_setter()
     {
         $message = "Test message";

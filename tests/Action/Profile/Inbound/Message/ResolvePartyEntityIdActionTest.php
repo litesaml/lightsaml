@@ -4,10 +4,12 @@ namespace Tests\Action\Profile\Inbound\Message;
 
 use LightSaml\Action\Profile\Inbound\Message\ResolvePartyEntityIdAction;
 use LightSaml\Context\Profile\ProfileContext;
+use LightSaml\Error\LightSamlContextException;
 use LightSaml\Meta\TrustOptions\TrustOptions;
 use LightSaml\Model\Metadata\EntityDescriptor;
 use LightSaml\Profile\Profiles;
 use LightSaml\Store\TrustOptions\TrustOptionsStoreInterface;
+use PHPUnit\Framework\MockObject\MockObject;
 use Tests\BaseTestCase;
 
 class ResolvePartyEntityIdActionTest extends BaseTestCase
@@ -49,7 +51,7 @@ class ResolvePartyEntityIdActionTest extends BaseTestCase
     public function test_throws_if_entity_id_is_not_set_in_context()
     {
         $this->expectExceptionMessage("EntityID is not set in the party context");
-        $this->expectException(\LightSaml\Error\LightSamlContextException::class);
+        $this->expectException(LightSamlContextException::class);
         $action = new ResolvePartyEntityIdAction(
             $logger = $this->getLoggerMock(),
             $spEntityStore = $this->getEntityDescriptorStoreMock(),
@@ -191,7 +193,7 @@ class ResolvePartyEntityIdActionTest extends BaseTestCase
     }
 
     /**
-     * @return \PHPUnit_Framework_MockObject_MockObject|\LightSaml\Store\TrustOptions\TrustOptionsStoreInterface
+     * @return MockObject|TrustOptionsStoreInterface
      */
     private function getTrustOptionsStore()
     {

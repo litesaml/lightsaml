@@ -2,10 +2,11 @@
 
 namespace Tests\Model\Protocol;
 
-use LightSaml\Model\Context\SerializationContext;
+use DateTime;
 use LightSaml\Model\Assertion\Conditions;
 use LightSaml\Model\Assertion\Issuer;
 use LightSaml\Model\Assertion\Subject;
+use LightSaml\Model\Context\SerializationContext;
 use LightSaml\Model\Protocol\AuthnRequest;
 use LightSaml\Model\Protocol\NameIDPolicy;
 use LightSaml\SamlConstants;
@@ -75,7 +76,7 @@ class AuthnRequestTest extends BaseTestCase
         $context = new SerializationContext();
         $request = new AuthnRequest();
         $request->setID('request-id')
-            ->setIssueInstant(new \DateTime('2013-10-10T15:26:20Z'))
+            ->setIssueInstant(new DateTime('2013-10-10T15:26:20Z'))
             ->setDestination('http://destination.com/authn')
             ->setAssertionConsumerServiceURL('http://sp.com/acs')
             ->setProtocolBinding(SamlConstants::BINDING_SAML2_HTTP_REDIRECT)

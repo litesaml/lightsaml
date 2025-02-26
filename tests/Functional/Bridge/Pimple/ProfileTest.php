@@ -2,28 +2,51 @@
 
 namespace Tests\Functional\Bridge\Pimple;
 
+use DateTime;
+use DateTimeZone;
 use DOMDocument;
 use DOMXPath;
 use LightSaml\Bridge\Pimple\Container\BuildContainer;
+use LightSaml\Bridge\Pimple\Container\Factory\CredentialContainerProvider;
+use LightSaml\Bridge\Pimple\Container\Factory\OwnContainerProvider;
+use LightSaml\Bridge\Pimple\Container\Factory\PartyContainerProvider;
+use LightSaml\Bridge\Pimple\Container\Factory\ProviderContainerProvider;
+use LightSaml\Bridge\Pimple\Container\Factory\ServiceContainerProvider;
+use LightSaml\Bridge\Pimple\Container\Factory\StoreContainerProvider;
+use LightSaml\Bridge\Pimple\Container\Factory\SystemContainerProvider;
 use LightSaml\Bridge\Pimple\Container\PartyContainer;
 use LightSaml\Bridge\Pimple\Container\StoreContainer;
 use LightSaml\Bridge\Pimple\Container\SystemContainer;
+use LightSaml\Builder\EntityDescriptor\SimpleEntityDescriptorBuilder;
+use LightSaml\Builder\Profile\Metadata\MetadataProfileBuilder;
+use LightSaml\Builder\Profile\WebBrowserSso\Sp\SsoSpReceiveResponseProfileBuilder;
+use LightSaml\Builder\Profile\WebBrowserSso\Sp\SsoSpSendAuthnRequestProfileBuilder;
 use LightSaml\ClaimTypes;
+use LightSaml\Credential\KeyHelper;
+use LightSaml\Credential\X509Certificate;
+use LightSaml\Credential\X509Credential;
+use LightSaml\Error\LightSamlBuildException;
 use LightSaml\Helper;
+use LightSaml\Model\Metadata\EntitiesDescriptor;
+use LightSaml\Model\Metadata\EntityDescriptor;
 use LightSaml\Model\Protocol\Response;
 use LightSaml\Provider\TimeProvider\TimeProviderInterface;
 use LightSaml\SamlConstants;
 use LightSaml\State\Request\RequestState;
+use LightSaml\Store\EntityDescriptor\EntityDescriptorStoreInterface;
+use LightSaml\Store\EntityDescriptor\FixedEntityDescriptorStore;
 use LightSaml\Store\Request\RequestStateArrayStore;
-use Tests\BaseTestCase;
-use Tests\Fixtures\Meta\TimeProviderMock;
 use Pimple\Container;
 use Psr\EventDispatcher\EventDispatcherInterface;
+use SimpleXMLElement;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Session\Session;
+use Tests\BaseTestCase;
+use Tests\Fixtures\Meta\TimeProviderMock;
 
 class ProfileTest extends BaseTestCase
 {
-    const OWN_ENTITY_ID = 'https://localhost/lightSAML/lightSAML';
+    public const OWN_ENTITY_ID = 'https://localhost/lightSAML/lightSAML';
 
     public function test_idp_stores()
     {
@@ -41,7 +64,7 @@ class ProfileTest extends BaseTestCase
     {
         $buildContainer = $this->getBuildContainer();
 
-        $builder = new \LightSaml\Builder\Profile\Metadata\MetadataProfileBuilder($buildContainer);
+        $builder = new MetadataProfileBuilder($buildContainer);
 
         $context = $builder->buildContext();
         $action = $builder->buildAction();
@@ -51,7 +74,7 @@ class ProfileTest extends BaseTestCase
         $this->assertNotNull($context->getHttpResponseContext()->getResponse());
         $xml = $context->getHttpResponseContext()->getResponse()->getContent();
 
-        $root = new \SimpleXMLElement($xml);
+        $root = new SimpleXMLElement($xml);
 
         $this->assertEquals('EntityDescriptor', $root->getName());
         $this->assertEquals('SPSSODescriptor', $root->SPSSODescriptor->getName());
@@ -64,7 +87,7 @@ class ProfileTest extends BaseTestCase
 
         $idpEntityId = 'https://localhost/lightSAML/lightSAML-IDP';
 
-        $builder = new \LightSaml\Builder\Profile\WebBrowserSso\Sp\SsoSpSendAuthnRequestProfileBuilder($buildContainer, $idpEntityId);
+        $builder = new SsoSpSendAuthnRequestProfileBuilder($buildContainer, $idpEntityId);
         $context = $builder->buildContext();
         $action = $builder->buildAction();
 
@@ -72,14 +95,14 @@ class ProfileTest extends BaseTestCase
 
         $html = $context->getHttpResponseContext()->getResponse()->getContent();
 
-        $dom = new DomDocument();
+        $dom = new DOMDocument();
         $dom->loadHTML($html);
         $xpath = new DOMXPath($dom);
         $code = $xpath->query('//input[@name="SAMLRequest"]')->item(0)->getAttribute('value');
 
-        $xml = base64_decode($code);
+        $xml = base64_decode($code, true);
 
-        $root = new \SimpleXMLElement($xml);
+        $root = new SimpleXMLElement($xml);
         $root->registerXPathNamespace('saml', SamlConstants::NS_ASSERTION);
         $this->assertEquals('AuthnRequest', $root->getName());
         $this->assertEquals(self::OWN_ENTITY_ID, (string) $root->children('saml', true)->Issuer);
@@ -92,11 +115,11 @@ class ProfileTest extends BaseTestCase
         $buildContainer = $this->getBuildContainer(
             '_1db06e4f91d3997b7ed3285a59f77028071db2dc5f',
             new TimeProviderMock(
-                new \DateTime('@'.Helper::parseSAMLTime('2015-11-22T15:37:14Z'), new \DateTimeZone('UTC'))
+                new DateTime('@' . Helper::parseSAMLTime('2015-11-22T15:37:14Z'), new DateTimeZone('UTC'))
             )
         );
 
-        $builder = new \LightSaml\Builder\Profile\WebBrowserSso\Sp\SsoSpReceiveResponseProfileBuilder($buildContainer);
+        $builder = new SsoSpReceiveResponseProfileBuilder($buildContainer);
 
         $context = $builder->buildContext();
         $action = $builder->buildAction();
@@ -117,7 +140,7 @@ class ProfileTest extends BaseTestCase
     public function test_attribute_value_provider_throws_exception()
     {
         $this->expectExceptionMessage("Attribute value provider not set");
-        $this->expectException(\LightSaml\Error\LightSamlBuildException::class);
+        $this->expectException(LightSamlBuildException::class);
         $buildContainer = $this->getBuildContainer();
         $buildContainer->getProviderContainer()->getAttributeValueProvider();
     }
@@ -125,7 +148,7 @@ class ProfileTest extends BaseTestCase
     public function test_session_info_provider_throws_exception()
     {
         $this->expectExceptionMessage("Session info provider not set");
-        $this->expectException(\LightSaml\Error\LightSamlBuildException::class);
+        $this->expectException(LightSamlBuildException::class);
         $buildContainer = $this->getBuildContainer();
         $buildContainer->getProviderContainer()->getSessionInfoProvider();
     }
@@ -133,7 +156,7 @@ class ProfileTest extends BaseTestCase
     public function test_name_id_provider_throws_exception()
     {
         $this->expectExceptionMessage("Name ID provider not set");
-        $this->expectException(\LightSaml\Error\LightSamlBuildException::class);
+        $this->expectException(LightSamlBuildException::class);
         $buildContainer = $this->getBuildContainer();
         $buildContainer->getProviderContainer()->getNameIdProvider();
     }
@@ -141,25 +164,25 @@ class ProfileTest extends BaseTestCase
     public function test_session()
     {
         $buildContainer = $this->getBuildContainer();
-        $this->assertInstanceOf(\Symfony\Component\HttpFoundation\Session\Session::class, $buildContainer->getSystemContainer()->getSession());
+        $this->assertInstanceOf(Session::class, $buildContainer->getSystemContainer()->getSession());
     }
 
     public function test_idp_entity_descriptor()
     {
         $pimple = new Container();
-        $pimple->register(new \LightSaml\Bridge\Pimple\Container\Factory\PartyContainerProvider());
+        $pimple->register(new PartyContainerProvider());
         $buildContainer = new BuildContainer($pimple);
 
-        $this->assertInstanceOf(\LightSaml\Store\EntityDescriptor\EntityDescriptorStoreInterface::class, $buildContainer->getPartyContainer()->getIdpEntityDescriptorStore());
+        $this->assertInstanceOf(EntityDescriptorStoreInterface::class, $buildContainer->getPartyContainer()->getIdpEntityDescriptorStore());
     }
 
     public function test_sp_entity_descriptor()
     {
         $pimple = new Container();
-        $pimple->register(new \LightSaml\Bridge\Pimple\Container\Factory\PartyContainerProvider());
+        $pimple->register(new PartyContainerProvider());
         $buildContainer = new BuildContainer($pimple);
 
-        $this->assertInstanceOf(\LightSaml\Store\EntityDescriptor\EntityDescriptorStoreInterface::class, $buildContainer->getPartyContainer()->getSpEntityDescriptorStore());
+        $this->assertInstanceOf(EntityDescriptorStoreInterface::class, $buildContainer->getPartyContainer()->getSpEntityDescriptorStore());
     }
 
     private function getBuildContainer($inResponseTo = null, ?TimeProviderInterface $timeProvider = null)
@@ -171,49 +194,49 @@ class ProfileTest extends BaseTestCase
         $buildContainer = new BuildContainer($pimple);
 
         // OWN
-        $ownCredential = new \LightSaml\Credential\X509Credential(
-            \LightSaml\Credential\X509Certificate::fromFile(__DIR__.'/../../../resources/web_saml.crt'),
-            \LightSaml\Credential\KeyHelper::createPrivateKey(__DIR__.'/../../../resources/web_saml.key', null, true)
+        $ownCredential = new X509Credential(
+            X509Certificate::fromFile(__DIR__ . '/../../../resources/web_saml.crt'),
+            KeyHelper::createPrivateKey(__DIR__ . '/../../../resources/web_saml.key', null, true)
         );
         $ownCredential->setEntityId(self::OWN_ENTITY_ID);
 
-        $ownEntityDescriptor = new \LightSaml\Builder\EntityDescriptor\SimpleEntityDescriptorBuilder(
+        $ownEntityDescriptor = new SimpleEntityDescriptorBuilder(
             self::OWN_ENTITY_ID,
             'https://localhost/lightsaml/lightSAML/web/sp/acs.php',
             null,
             $ownCredential->getCertificate()
         );
 
-        $buildContainer->getPimple()->register(new \LightSaml\Bridge\Pimple\Container\Factory\OwnContainerProvider(
+        $buildContainer->getPimple()->register(new OwnContainerProvider(
             $ownEntityDescriptor,
             [$ownCredential]
         ));
 
-        $systemContainerProvider = new \LightSaml\Bridge\Pimple\Container\Factory\SystemContainerProvider(
+        $systemContainerProvider = new SystemContainerProvider(
             true,
             $pimple['event-dispatcher']
         );
 
         // SYSTEM
         $buildContainer->getPimple()->register($systemContainerProvider);
-        if ($timeProvider instanceof \LightSaml\Provider\TimeProvider\TimeProviderInterface) {
+        if ($timeProvider instanceof TimeProviderInterface) {
             $pimple[SystemContainer::TIME_PROVIDER] = function () use ($timeProvider) {
                 return $timeProvider;
             };
         }
 
         // PARTY
-        $buildContainer->getPimple()->register(new \LightSaml\Bridge\Pimple\Container\Factory\PartyContainerProvider());
+        $buildContainer->getPimple()->register(new PartyContainerProvider());
         $pimple[PartyContainer::IDP_ENTITY_DESCRIPTOR] = function () {
-            $idpProvider = new \LightSaml\Store\EntityDescriptor\FixedEntityDescriptorStore();
+            $idpProvider = new FixedEntityDescriptorStore();
             $idpProvider->add(
-                \LightSaml\Model\Metadata\EntitiesDescriptor::load(__DIR__.'/../../../resources/testshib-providers.xml')
+                EntitiesDescriptor::load(__DIR__ . '/../../../resources/testshib-providers.xml')
             );
             $idpProvider->add(
-                \LightSaml\Model\Metadata\EntityDescriptor::load(__DIR__.'/../../../resources/localhost-lightsaml-lightsaml-idp.xml')
+                EntityDescriptor::load(__DIR__ . '/../../../resources/localhost-lightsaml-lightsaml-idp.xml')
             );
             $idpProvider->add(
-                \LightSaml\Model\Metadata\EntityDescriptor::load(__DIR__.'/../../../resources/openidp.feide.no.xml')
+                EntityDescriptor::load(__DIR__ . '/../../../resources/openidp.feide.no.xml')
             );
 
             return $idpProvider;
@@ -221,7 +244,7 @@ class ProfileTest extends BaseTestCase
 
         // STORE
         $buildContainer->getPimple()->register(
-            new \LightSaml\Bridge\Pimple\Container\Factory\StoreContainerProvider(
+            new StoreContainerProvider(
                 $buildContainer->getSystemContainer()
             )
         );
@@ -236,12 +259,12 @@ class ProfileTest extends BaseTestCase
 
         // PROVIDER
         $buildContainer->getPimple()->register(
-            new \LightSaml\Bridge\Pimple\Container\Factory\ProviderContainerProvider()
+            new ProviderContainerProvider()
         );
 
         // CREDENTIAL
         $buildContainer->getPimple()->register(
-            new \LightSaml\Bridge\Pimple\Container\Factory\CredentialContainerProvider(
+            new CredentialContainerProvider(
                 $buildContainer->getPartyContainer(),
                 $buildContainer->getOwnContainer()
             )
@@ -249,7 +272,7 @@ class ProfileTest extends BaseTestCase
 
         // SERVICE
         $buildContainer->getPimple()->register(
-            new \LightSaml\Bridge\Pimple\Container\Factory\ServiceContainerProvider(
+            new ServiceContainerProvider(
                 $buildContainer->getCredentialContainer(),
                 $buildContainer->getStoreContainer(),
                 $buildContainer->getSystemContainer()

@@ -4,6 +4,7 @@ namespace Tests\Action\Profile\Inbound\Message;
 
 use LightSaml\Action\Profile\Inbound\Message\EntityIdFromMessageIssuerAction;
 use LightSaml\Context\Profile\ProfileContext;
+use LightSaml\Error\LightSamlContextException;
 use LightSaml\Model\Assertion\Issuer;
 use LightSaml\Model\Protocol\AuthnRequest;
 use LightSaml\Profile\Profiles;
@@ -28,7 +29,7 @@ class EntityIdFromMessageIssuerActionTest extends BaseTestCase
     public function test_throws_when_inbound_message_has_no_issuer()
     {
         $this->expectExceptionMessage("Inbound messages does not have Issuer");
-        $this->expectException(\LightSaml\Error\LightSamlContextException::class);
+        $this->expectException(LightSamlContextException::class);
         $action = new EntityIdFromMessageIssuerAction($this->getLoggerMock());
 
         $context = new ProfileContext(Profiles::SSO_IDP_RECEIVE_AUTHN_REQUEST, ProfileContext::ROLE_IDP);

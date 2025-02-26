@@ -2,7 +2,9 @@
 
 namespace Tests\Action\Assertion\Inbound;
 
+use DateTime;
 use LightSaml\Action\Assertion\Inbound\RepeatedIdValidatorAction;
+use LightSaml\Error\LightSamlContextException;
 use LightSaml\Model\Assertion\Assertion;
 use LightSaml\Model\Assertion\AuthnStatement;
 use LightSaml\Model\Assertion\Issuer;
@@ -49,7 +51,7 @@ class RepeatedIdValidatorActionTest extends BaseTestCase
             ->with('Bearer Assertion must have ID attribute', $this->isType('array'));
 
         $this->expectExceptionMessage("Bearer Assertion must have ID attribute");
-        $this->expectException(\LightSaml\Error\LightSamlContextException::class);
+        $this->expectException(LightSamlContextException::class);
 
         $action->execute($assertionContext);
     }
@@ -73,7 +75,7 @@ class RepeatedIdValidatorActionTest extends BaseTestCase
             ->with('Bearer Assertion must have Issuer element', $this->isType('array'));
 
         $this->expectExceptionMessage("Bearer Assertion must have Issuer element");
-        $this->expectException(\LightSaml\Error\LightSamlContextException::class);
+        $this->expectException(LightSamlContextException::class);
 
         $action->execute($assertionContext);
     }
@@ -103,7 +105,7 @@ class RepeatedIdValidatorActionTest extends BaseTestCase
             ->with("Repeated assertion id '123' of issuer 'http://issuer.com'", $this->isType('array'));
 
         $this->expectExceptionMessage("Repeated assertion id '123' of issuer 'http://issuer.com'");
-        $this->expectException(\LightSaml\Error\LightSamlContextException::class);
+        $this->expectException(LightSamlContextException::class);
 
         $action->execute($assertionContext);
     }
@@ -134,7 +136,7 @@ class RepeatedIdValidatorActionTest extends BaseTestCase
             ->with('Bearer SubjectConfirmation must have SubjectConfirmationData element', $this->isType('array'));
 
         $this->expectExceptionMessage("Bearer SubjectConfirmation must have SubjectConfirmationData element");
-        $this->expectException(\LightSaml\Error\LightSamlContextException::class);
+        $this->expectException(LightSamlContextException::class);
 
         $action->execute($assertionContext);
     }
@@ -142,7 +144,7 @@ class RepeatedIdValidatorActionTest extends BaseTestCase
     public function test_throws_context_exception_if_no_not_on_or_after_attribute()
     {
         $this->expectExceptionMessage("Bearer SubjectConfirmation must have NotOnOrAfter attribute");
-        $this->expectException(\LightSaml\Error\LightSamlContextException::class);
+        $this->expectException(LightSamlContextException::class);
         $action = new RepeatedIdValidatorAction(
             $loggerMock = $this->getLoggerMock(),
             $idStoreMock = $this->getIdStoreMock()
@@ -184,7 +186,7 @@ class RepeatedIdValidatorActionTest extends BaseTestCase
         $assertion->getSubject()->addSubjectConfirmation($subjectConfirmation = new SubjectConfirmation());
         $subjectConfirmation->setMethod(SamlConstants::CONFIRMATION_METHOD_BEARER);
         $subjectConfirmation->setSubjectConfirmationData(new SubjectConfirmationData());
-        $subjectConfirmation->getSubjectConfirmationData()->setNotOnOrAfter(new \DateTime());
+        $subjectConfirmation->getSubjectConfirmationData()->setNotOnOrAfter(new DateTime());
 
         $idStoreMock->expects($this->once())
             ->method('has')
@@ -193,7 +195,7 @@ class RepeatedIdValidatorActionTest extends BaseTestCase
 
         $idStoreMock->expects($this->once())
             ->method('set')
-            ->with($issuer, $assertionId, $this->isInstanceOf(\DateTime::class));
+            ->with($issuer, $assertionId, $this->isInstanceOf(DateTime::class));
 
         $action->execute($assertionContext);
     }

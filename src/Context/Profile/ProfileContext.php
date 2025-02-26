@@ -3,6 +3,11 @@
 namespace LightSaml\Context\Profile;
 
 use LightSaml\Error\LightSamlContextException;
+use LightSaml\Meta\TrustOptions\TrustOptions;
+use LightSaml\Model\Metadata\Endpoint;
+use LightSaml\Model\Metadata\EntityDescriptor;
+use LightSaml\Model\Protocol\SamlMessage;
+use Symfony\Component\HttpFoundation\Request;
 
 class ProfileContext extends AbstractProfileContext
 {
@@ -122,7 +127,7 @@ class ProfileContext extends AbstractProfileContext
     }
 
     /**
-     * @return \Symfony\Component\HttpFoundation\Request
+     * @return Request
      */
     public function getHttpRequest()
     {
@@ -135,7 +140,7 @@ class ProfileContext extends AbstractProfileContext
     }
 
     /**
-     * @return \LightSaml\Model\Protocol\SamlMessage
+     * @return SamlMessage
      */
     public function getInboundMessage()
     {
@@ -148,7 +153,7 @@ class ProfileContext extends AbstractProfileContext
     }
 
     /**
-     * @return \LightSaml\Model\Protocol\SamlMessage
+     * @return SamlMessage
      */
     public function getOutboundMessage()
     {
@@ -161,7 +166,7 @@ class ProfileContext extends AbstractProfileContext
     }
 
     /**
-     * @return \LightSaml\Model\Metadata\Endpoint
+     * @return Endpoint
      */
     public function getEndpoint()
     {
@@ -174,7 +179,7 @@ class ProfileContext extends AbstractProfileContext
     }
 
     /**
-     * @return \LightSaml\Model\Metadata\EntityDescriptor
+     * @return EntityDescriptor
      */
     public function getOwnEntityDescriptor()
     {
@@ -187,7 +192,7 @@ class ProfileContext extends AbstractProfileContext
     }
 
     /**
-     * @return \LightSaml\Model\Metadata\EntityDescriptor
+     * @return EntityDescriptor
      */
     public function getPartyEntityDescriptor()
     {
@@ -200,7 +205,7 @@ class ProfileContext extends AbstractProfileContext
     }
 
     /**
-     * @return \LightSaml\Meta\TrustOptions\TrustOptions
+     * @return TrustOptions
      */
     public function getTrustOptions()
     {

@@ -2,12 +2,14 @@
 
 namespace Tests\Action\Profile\Inbound\Response;
 
+use LightSaml\Action\ActionInterface;
 use LightSaml\Action\Profile\Inbound\Response\AssertionAction;
 use LightSaml\Context\Profile\AssertionContext;
 use LightSaml\Context\Profile\ProfileContext;
 use LightSaml\Model\Assertion\Assertion;
 use LightSaml\Model\Protocol\Response;
 use LightSaml\Profile\Profiles;
+use PHPUnit\Framework\MockObject\MockObject;
 use Tests\BaseTestCase;
 use Tests\Mock\Action\FooAction;
 
@@ -93,10 +95,10 @@ class AssertionActionTest extends BaseTestCase
     }
 
     /**
-     * @return \PHPUnit_Framework_MockObject_MockObject|\LightSaml\Action\ActionInterface
+     * @return MockObject|ActionInterface
      */
     private function getActionMock()
     {
-        return $this->getMockBuilder(\LightSaml\Action\ActionInterface::class)->getMock();
+        return $this->getMockBuilder(ActionInterface::class)->getMock();
     }
 }

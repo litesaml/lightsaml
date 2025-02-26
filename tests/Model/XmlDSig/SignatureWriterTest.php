@@ -5,6 +5,7 @@ namespace Tests\Model\XmlDSig;
 use LightSaml\Meta\SigningOptions;
 use LightSaml\Model\Context\DeserializationContext;
 use LightSaml\Model\XmlDSig\SignatureWriter;
+use LogicException;
 use Tests\BaseTestCase;
 
 class SignatureWriterTest extends BaseTestCase
@@ -45,7 +46,7 @@ class SignatureWriterTest extends BaseTestCase
     public function test_throws_logic_exception_on_deserialize()
     {
         $this->expectExceptionMessage("SignatureWriter can not be deserialized");
-        $this->expectException(\LogicException::class);
+        $this->expectException(LogicException::class);
         $deserializationContext = new DeserializationContext();
         $deserializationContext->getDocument()->loadXML('<a></a>');
         $writer = new SignatureWriter();

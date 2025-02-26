@@ -2,6 +2,8 @@
 
 namespace LightSaml\Model\Assertion;
 
+use DateTime;
+use DOMNode;
 use LightSaml\Helper;
 use LightSaml\Model\Context\DeserializationContext;
 use LightSaml\Model\Context\SerializationContext;
@@ -45,7 +47,7 @@ class AuthnStatement extends AbstractStatement
     }
 
     /**
-     * @return \LightSaml\Model\Assertion\AuthnContext
+     * @return AuthnContext
      */
     public function getAuthnContext()
     {
@@ -53,7 +55,7 @@ class AuthnStatement extends AbstractStatement
     }
 
     /**
-     * @param int|string|\DateTime $authnInstant
+     * @param int|string|DateTime $authnInstant
      *
      * @return AuthnStatement
      */
@@ -81,19 +83,19 @@ class AuthnStatement extends AbstractStatement
             return Helper::time2string($this->authnInstant);
         }
 
-        return null;
+        return;
     }
 
     /**
-     * @return \DateTime|null
+     * @return DateTime|null
      */
     public function getAuthnInstantDateTime()
     {
         if ($this->authnInstant) {
-            return new \DateTime('@' . $this->authnInstant);
+            return new DateTime('@' . $this->authnInstant);
         }
 
-        return null;
+        return;
     }
 
     /**
@@ -117,7 +119,7 @@ class AuthnStatement extends AbstractStatement
     }
 
     /**
-     * @param int|string|\DateTime $sessionNotOnOrAfter
+     * @param int|string|DateTime $sessionNotOnOrAfter
      *
      * @return AuthnStatement
      */
@@ -145,19 +147,19 @@ class AuthnStatement extends AbstractStatement
             return Helper::time2string($this->sessionNotOnOrAfter);
         }
 
-        return null;
+        return;
     }
 
     /**
-     * @return \DateTime|null
+     * @return DateTime|null
      */
     public function getSessionNotOnOrAfterDateTime()
     {
         if ($this->sessionNotOnOrAfter) {
-            return new \DateTime('@' . $this->sessionNotOnOrAfter);
+            return new DateTime('@' . $this->sessionNotOnOrAfter);
         }
 
-        return null;
+        return;
     }
 
     /**
@@ -173,7 +175,7 @@ class AuthnStatement extends AbstractStatement
     }
 
     /**
-     * @return \LightSaml\Model\Assertion\SubjectLocality
+     * @return SubjectLocality
      */
     public function getSubjectLocality()
     {
@@ -183,7 +185,7 @@ class AuthnStatement extends AbstractStatement
     /**
      * @return void
      */
-    public function serialize(\DOMNode $parent, SerializationContext $context)
+    public function serialize(DOMNode $parent, SerializationContext $context)
     {
         $result = $this->createElement('AuthnStatement', SamlConstants::NS_ASSERTION, $parent, $context);
 
@@ -199,15 +201,15 @@ class AuthnStatement extends AbstractStatement
         );
     }
 
-    public function deserialize(\DOMNode $node, DeserializationContext $context)
+    public function deserialize(DOMNode $node, DeserializationContext $context)
     {
         $this->checkXmlNodeName($node, 'AuthnStatement', SamlConstants::NS_ASSERTION);
 
         $this->attributesFromXml($node, ['AuthnInstant', 'SessionNotOnOrAfter', 'SessionIndex']);
 
         $this->singleElementsFromXml($node, $context, [
-            'SubjectLocality' => ['saml', \LightSaml\Model\Assertion\SubjectLocality::class],
-            'AuthnContext' => ['saml', \LightSaml\Model\Assertion\AuthnContext::class],
+            'SubjectLocality' => ['saml', SubjectLocality::class],
+            'AuthnContext' => ['saml', AuthnContext::class],
         ]);
     }
 }

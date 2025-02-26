@@ -12,7 +12,7 @@ class LogoutRequestFunctionalTest extends BaseTestCase
     public function test__deserialize_logout_request01()
     {
         $context = new DeserializationContext();
-        $context->getDocument()->load(__DIR__.'/../../../resources/logoutrequest01.xml');
+        $context->getDocument()->load(__DIR__ . '/../../../resources/logoutrequest01.xml');
 
         $request = new LogoutRequest();
         $request->deserialize($context->getDocument(), $context);

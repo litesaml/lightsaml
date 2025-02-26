@@ -7,7 +7,6 @@ use LightSaml\Credential\Criteria\PrivateKeyCriteria;
 use LightSaml\Criteria\CriteriaSet;
 use LightSaml\Resolver\Credential\PrivateKeyResolver;
 use Tests\BaseTestCase;
-use RobRichards\XMLSecLibs\XMLSecurityKey;
 
 class PrivateKeyResolverTest extends BaseTestCase
 {

@@ -7,9 +7,8 @@ use RobRichards\XMLSecLibs\XMLSecurityKey;
 class X509Credential extends AbstractCredential implements X509CredentialInterface
 {
     /**
-     * @param XMLSecurityKey $privateKey
      */
-    public function __construct(protected \LightSaml\Credential\X509Certificate $certificate, ?XMLSecurityKey $privateKey = null)
+    public function __construct(protected X509Certificate $certificate, ?XMLSecurityKey $privateKey = null)
     {
         parent::__construct();
 
@@ -17,7 +16,7 @@ class X509Credential extends AbstractCredential implements X509CredentialInterfa
 
         $this->setKeyNames([$this->getCertificate()->getName()]);
 
-        if ($privateKey instanceof \RobRichards\XMLSecLibs\XMLSecurityKey) {
+        if ($privateKey instanceof XMLSecurityKey) {
             $this->setPrivateKey($privateKey);
         }
     }

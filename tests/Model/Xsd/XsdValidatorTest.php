@@ -2,8 +2,8 @@
 
 namespace Tests\Model\Xsd;
 
-use Tests\BaseTestCase;
 use LightSaml\Validator\Model\Xsd\XsdValidator;
+use Tests\BaseTestCase;
 
 class XsdValidatorTest extends BaseTestCase
 {

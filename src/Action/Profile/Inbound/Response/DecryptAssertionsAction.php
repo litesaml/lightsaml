@@ -20,7 +20,7 @@ use Psr\Log\LoggerInterface;
 
 class DecryptAssertionsAction extends AbstractProfileAction
 {
-    public function __construct(LoggerInterface $logger, protected \LightSaml\Resolver\Credential\CredentialResolverInterface $credentialResolver)
+    public function __construct(LoggerInterface $logger, protected CredentialResolverInterface $credentialResolver)
     {
         parent::__construct($logger);
     }

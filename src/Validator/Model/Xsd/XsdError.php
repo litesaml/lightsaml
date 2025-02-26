@@ -2,7 +2,10 @@
 
 namespace LightSaml\Validator\Model\Xsd;
 
-class XsdError implements \Stringable
+use LibXMLError;
+use Stringable;
+
+class XsdError implements Stringable
 {
     public const WARNING = 'Warning';
     public const ERROR = 'Error';
@@ -16,9 +19,10 @@ class XsdError implements \Stringable
 
     /**
      * @deprecated
+     *
      * @return XsdError
      */
-    public static function fromLibXMLError(\LibXMLError $error)
+    public static function fromLibXMLError(LibXMLError $error)
     {
         return new self(
             self::$levelMap[$error->level] ?? 'Unknown',

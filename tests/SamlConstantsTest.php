@@ -3,20 +3,21 @@
 namespace Tests;
 
 use LightSaml\SamlConstants;
-use Tests\BaseTestCase;
+use PHPUnit\Framework\Attributes\DataProvider;
+use ReflectionClass;
 
 class SamlConstantsTest extends BaseTestCase
 {
-    #[\PHPUnit\Framework\Attributes\DataProvider('methodsProvider')]
+    #[DataProvider('methodsProvider')]
     public function test__is_not_valid($method)
     {
         $this->assertFalse(SamlConstants::$method('Nonsense'));
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('constantsProvider')]
+    #[DataProvider('constantsProvider')]
     public function test__is_valid_method($method, $constant)
     {
-        $value = constant('\LightSaml\SamlConstants::'.$constant);
+        $value = constant('\LightSaml\SamlConstants::' . $constant);
         $this->assertTrue(SamlConstants::$method($value));
     }
 
@@ -42,11 +43,11 @@ class SamlConstantsTest extends BaseTestCase
     public function getConstants($method)
     {
         $ret = [];
-        $ref = new \ReflectionClass(\LightSaml\SamlConstants::class);
+        $ref = new ReflectionClass(SamlConstants::class);
         $prefix = strtoupper(
             preg_replace('/([a-z])([A-Z])/', '$1_$2', $method)
         );
-        $method = 'is'.$method.'Valid';
+        $method = 'is' . $method . 'Valid';
 
         foreach (array_keys($ref->getConstants()) as $constant) {
             if (str_starts_with($constant, $prefix)) {

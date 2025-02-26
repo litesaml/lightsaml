@@ -2,6 +2,7 @@
 
 namespace LightSaml\Credential;
 
+use InvalidArgumentException;
 use LightSaml\Error\LightSamlSecurityException;
 use RobRichards\XMLSecLibs\XMLSecurityKey;
 
@@ -41,15 +42,15 @@ class KeyHelper
     /**
      * @param string $algorithm
      *
-     * @throws \LightSaml\Error\LightSamlSecurityException
-     * @throws \InvalidArgumentException
+     * @throws LightSamlSecurityException
+     * @throws InvalidArgumentException
      *
      * @return XMLSecurityKey
      */
     public static function castKey(XMLSecurityKey $key, $algorithm)
     {
         if (false == is_string($algorithm)) {
-            throw new \InvalidArgumentException('Algorithm must be string');
+            throw new InvalidArgumentException('Algorithm must be string');
         }
 
         // do nothing if algorithm is already the type of the key

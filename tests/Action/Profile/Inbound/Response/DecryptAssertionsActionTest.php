@@ -4,17 +4,22 @@ namespace Tests\Action\Profile\Inbound\Response;
 
 use LightSaml\Action\Profile\Inbound\Response\DecryptAssertionsAction;
 use LightSaml\Context\Profile\ProfileContext;
+use LightSaml\Credential\CredentialInterface;
 use LightSaml\Credential\Criteria\EntityIdCriteria;
 use LightSaml\Credential\Criteria\MetadataCriteria;
 use LightSaml\Credential\Criteria\UsageCriteria;
 use LightSaml\Credential\UsageType;
+use LightSaml\Error\LightSamlContextException;
 use LightSaml\Model\Assertion\Assertion;
+use LightSaml\Model\Assertion\EncryptedAssertionReader;
 use LightSaml\Model\Metadata\EntityDescriptor;
 use LightSaml\Model\Protocol\Response;
 use LightSaml\Profile\Profiles;
 use LightSaml\Resolver\Credential\CredentialResolverQuery;
-use Tests\BaseTestCase;
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\MockObject\MockObject;
 use RobRichards\XMLSecLibs\XMLSecurityKey;
+use Tests\BaseTestCase;
 
 class DecryptAssertionsActionTest extends BaseTestCase
 {
@@ -32,7 +37,7 @@ class DecryptAssertionsActionTest extends BaseTestCase
         ];
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('resolves_credentials_for_own_entity_id_party_role_and_encryption_usage_provider')]
+    #[DataProvider('resolves_credentials_for_own_entity_id_party_role_and_encryption_usage_provider')]
     public function test_resolves_credentials_and_decrypts_assertions($ownRole, $expectedMetadataCriteria)
     {
         $action = new DecryptAssertionsAction(
@@ -101,7 +106,7 @@ class DecryptAssertionsActionTest extends BaseTestCase
     public function test_throws_context_exception_when_no_credentials_resolved()
     {
         $this->expectExceptionMessage("No credentials resolved for assertion decryption");
-        $this->expectException(\LightSaml\Error\LightSamlContextException::class);
+        $this->expectException(LightSamlContextException::class);
         $action = new DecryptAssertionsAction(
             $loggerMock = $this->getLoggerMock(),
             $credentialResolverMock = $this->getCredentialResolverMock()
@@ -126,18 +131,18 @@ class DecryptAssertionsActionTest extends BaseTestCase
     }
 
     /**
-     * @return \PHPUnit_Framework_MockObject_MockObject|\LightSaml\Credential\CredentialInterface
+     * @return MockObject|CredentialInterface
      */
     private function getCredentialMock()
     {
-        return $this->getMockBuilder(\LightSaml\Credential\CredentialInterface::class)->getMock();
+        return $this->getMockBuilder(CredentialInterface::class)->getMock();
     }
 
     /**
-     * @return \PHPUnit_Framework_MockObject_MockObject|\LightSaml\Model\Assertion\EncryptedAssertionReader
+     * @return MockObject|EncryptedAssertionReader
      */
     private function getEncryptedAssertionReaderMock()
     {
-        return $this->getMockBuilder(\LightSaml\Model\Assertion\EncryptedAssertionReader::class)->getMock();
+        return $this->getMockBuilder(EncryptedAssertionReader::class)->getMock();
     }
 }

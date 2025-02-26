@@ -33,7 +33,7 @@ class FileEntityDescriptorStore implements EntityDescriptorStoreInterface
             if ($this->object->getEntityID() == $entityId) {
                 return $this->object;
             } else {
-                return null;
+                return;
             }
         } else {
             return $this->object->getByEntityId($entityId);

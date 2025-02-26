@@ -25,7 +25,7 @@ abstract class AbstractCredential implements CredentialInterface
     /** @var string|null */
     private $secretKey;
 
-    private \LightSaml\Credential\Context\CredentialContextSet $credentialContext;
+    private CredentialContextSet $credentialContext;
 
     public function __construct()
     {

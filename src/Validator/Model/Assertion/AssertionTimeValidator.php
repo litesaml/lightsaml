@@ -12,7 +12,7 @@ class AssertionTimeValidator implements AssertionTimeValidatorInterface
      * @param int $now
      * @param int $allowedSecondsSkew
      *
-     * @throws \LightSaml\Error\LightSamlValidationException
+     * @throws LightSamlValidationException
      *
      * @return void
      */

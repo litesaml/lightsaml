@@ -2,6 +2,7 @@
 
 namespace LightSaml\Credential;
 
+use InvalidArgumentException;
 use LightSaml\Error\LightSamlException;
 use LightSaml\Error\LightSamlSecurityException;
 use LightSaml\SamlConstants;
@@ -64,13 +65,13 @@ class X509Certificate
      *
      * @return X509Certificate
      *
-     * @throws \InvalidArgumentException
+     * @throws InvalidArgumentException
      */
     public function loadPem($data)
     {
         $pattern = '/^-----BEGIN CERTIFICATE-----([^-]*)^-----END CERTIFICATE-----/m';
         if (false == preg_match($pattern, $data, $matches)) {
-            throw new \InvalidArgumentException('Invalid PEM encoded certificate');
+            throw new InvalidArgumentException('Invalid PEM encoded certificate');
         }
         $this->data = preg_replace('/\s+/', '', $matches[1]);
         $this->parse();
@@ -83,12 +84,12 @@ class X509Certificate
      *
      * @return X509Certificate
      *
-     * @throws \InvalidArgumentException
+     * @throws InvalidArgumentException
      */
     public function loadFromFile($filename)
     {
         if (!is_file($filename)) {
-            throw new \InvalidArgumentException(sprintf("File not found '%s'", $filename));
+            throw new InvalidArgumentException(sprintf("File not found '%s'", $filename));
         }
         $content = file_get_contents($filename);
         $this->loadPem($content);
@@ -153,7 +154,7 @@ class X509Certificate
     /**
      * @return string
      *
-     * @throws \LightSaml\Error\LightSamlException
+     * @throws LightSamlException
      */
     public function getName()
     {
@@ -167,7 +168,7 @@ class X509Certificate
     /**
      * @return string
      *
-     * @throws \LightSaml\Error\LightSamlException
+     * @throws LightSamlException
      */
     public function getSubject()
     {
@@ -181,7 +182,7 @@ class X509Certificate
     /**
      * @return array
      *
-     * @throws \LightSaml\Error\LightSamlException
+     * @throws LightSamlException
      */
     public function getIssuer()
     {
@@ -195,7 +196,7 @@ class X509Certificate
     /**
      * @return int
      *
-     * @throws \LightSaml\Error\LightSamlException
+     * @throws LightSamlException
      */
     public function getValidFromTimestamp()
     {
@@ -209,7 +210,7 @@ class X509Certificate
     /**
      * @return int
      *
-     * @throws \LightSaml\Error\LightSamlException
+     * @throws LightSamlException
      */
     public function getValidToTimestamp()
     {
@@ -223,7 +224,7 @@ class X509Certificate
     /**
      * @return array
      *
-     * @throws \LightSaml\Error\LightSamlException
+     * @throws LightSamlException
      */
     public function getInfo()
     {
@@ -235,7 +236,7 @@ class X509Certificate
     }
 
     /**
-     * @throws \LightSaml\Error\LightSamlException
+     * @throws LightSamlException
      *
      * @return string
      */

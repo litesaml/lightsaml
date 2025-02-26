@@ -9,12 +9,13 @@ use LightSaml\Model\Protocol\AuthnRequest;
 use LightSaml\Model\Protocol\LogoutRequest;
 use LightSaml\Model\Protocol\LogoutResponse;
 use LightSaml\Model\Protocol\Response;
+use LightSaml\Model\Protocol\SamlMessage;
 use LightSaml\Model\Protocol\StatusResponse;
 
 abstract class MessageContextHelper
 {
     /**
-     * @return \LightSaml\Model\Protocol\SamlMessage
+     * @return SamlMessage
      */
     public static function asSamlMessage(MessageContext $context)
     {
@@ -27,7 +28,7 @@ abstract class MessageContextHelper
     }
 
     /**
-     * @return \LightSaml\Model\Protocol\AuthnRequest
+     * @return AuthnRequest
      */
     public static function asAuthnRequest(MessageContext $context)
     {
@@ -40,7 +41,7 @@ abstract class MessageContextHelper
     }
 
     /**
-     * @return \LightSaml\Model\Protocol\AbstractRequest
+     * @return AbstractRequest
      */
     public static function asAbstractRequest(MessageContext $context)
     {
@@ -53,7 +54,7 @@ abstract class MessageContextHelper
     }
 
     /**
-     * @return \LightSaml\Model\Protocol\Response
+     * @return Response
      */
     public static function asResponse(MessageContext $context)
     {
@@ -66,7 +67,7 @@ abstract class MessageContextHelper
     }
 
     /**
-     * @return \LightSaml\Model\Protocol\StatusResponse
+     * @return StatusResponse
      */
     public static function asStatusResponse(MessageContext $context)
     {
@@ -79,7 +80,7 @@ abstract class MessageContextHelper
     }
 
     /**
-     * @return \LightSaml\Model\Protocol\LogoutRequest
+     * @return LogoutRequest
      */
     public static function asLogoutRequest(MessageContext $context)
     {
@@ -92,7 +93,7 @@ abstract class MessageContextHelper
     }
 
     /**
-     * @return \LightSaml\Model\Protocol\LogoutResponse
+     * @return LogoutResponse
      */
     public static function asLogoutResponse(MessageContext $context)
     {

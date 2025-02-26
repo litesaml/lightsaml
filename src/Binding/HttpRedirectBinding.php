@@ -2,6 +2,7 @@
 
 namespace LightSaml\Binding;
 
+use Exception;
 use LightSaml\Context\Profile\Helper\MessageContextHelper;
 use LightSaml\Context\Profile\MessageContext;
 use LightSaml\Error\LightSamlBindingException;
@@ -13,13 +14,14 @@ use LightSaml\SamlConstants;
 use RobRichards\XMLSecLibs\XMLSecurityKey;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class HttpRedirectBinding extends AbstractBinding
 {
     /**
      * @param string|null $destination
      *
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return Response
      */
     public function send(MessageContext $context, $destination = null)
     {
@@ -38,7 +40,7 @@ class HttpRedirectBinding extends AbstractBinding
     }
 
     /**
-     * @throws \Exception
+     * @throws Exception
      */
     protected function processData(array $data, MessageContext $context)
     {
@@ -89,13 +91,13 @@ class HttpRedirectBinding extends AbstractBinding
      * @param string $msg
      * @param string $encoding
      *
-     * @throws \LightSaml\Error\LightSamlBindingException
+     * @throws LightSamlBindingException
      *
      * @return string
      */
     protected function decodeMessageString($msg, $encoding)
     {
-        $msg = base64_decode($msg);
+        $msg = base64_decode($msg, true);
         return match ($encoding) {
             SamlConstants::ENCODING_DEFLATE => gzinflate($msg),
             default => throw new LightSamlBindingException(sprintf("Unknown encoding '%s'", $encoding)),
@@ -184,7 +186,7 @@ class HttpRedirectBinding extends AbstractBinding
     protected function addSignatureToUrl(&$msg, ?SignatureWriter $signature = null)
     {
         /** @var $key XMLSecurityKey */
-        $key = $signature instanceof \LightSaml\Model\XmlDSig\SignatureWriter ? $signature->getXmlSecurityKey() : null;
+        $key = $signature instanceof SignatureWriter ? $signature->getXmlSecurityKey() : null;
 
         if (null != $key) {
             $msg .= '&SigAlg=' . urlencode($key->type);
@@ -246,6 +248,7 @@ class HttpRedirectBinding extends AbstractBinding
 
     /**
      * @param string $queryString
+     *
      * @return array
      */
     protected function parseQueryString($queryString)

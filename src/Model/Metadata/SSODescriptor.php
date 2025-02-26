@@ -2,6 +2,7 @@
 
 namespace LightSaml\Model\Metadata;
 
+use DOMNode;
 use LightSaml\Model\Context\DeserializationContext;
 use LightSaml\Model\Context\SerializationContext;
 use LightSaml\SamlConstants;
@@ -62,7 +63,7 @@ abstract class SSODescriptor extends RoleDescriptor
             }
         }
 
-        return null;
+        return;
     }
 
     /**
@@ -103,7 +104,7 @@ abstract class SSODescriptor extends RoleDescriptor
         return false;
     }
 
-    public function serialize(\DOMNode $parent, SerializationContext $context)
+    public function serialize(DOMNode $parent, SerializationContext $context)
     {
         parent::serialize($parent, $context);
 
@@ -111,7 +112,7 @@ abstract class SSODescriptor extends RoleDescriptor
         $this->manyElementsToXml($this->getAllNameIDFormats(), $parent, $context, 'NameIDFormat', SamlConstants::NS_METADATA);
     }
 
-    public function deserialize(\DOMNode $node, DeserializationContext $context)
+    public function deserialize(DOMNode $node, DeserializationContext $context)
     {
         parent::deserialize($node, $context);
 
@@ -122,7 +123,7 @@ abstract class SSODescriptor extends RoleDescriptor
             $context,
             'SingleLogoutService',
             'md',
-            \LightSaml\Model\Metadata\SingleLogoutService::class,
+            SingleLogoutService::class,
             'addSingleLogoutService'
         );
     }

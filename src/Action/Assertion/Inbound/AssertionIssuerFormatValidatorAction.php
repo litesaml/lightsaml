@@ -6,7 +6,6 @@ use LightSaml\Action\Assertion\AbstractAssertionAction;
 use LightSaml\Context\Profile\AssertionContext;
 use LightSaml\Context\Profile\Helper\LogHelper;
 use LightSaml\Error\LightSamlContextException;
-use LightSaml\SamlConstants;
 use Psr\Log\LoggerInterface;
 
 class AssertionIssuerFormatValidatorAction extends AbstractAssertionAction
@@ -28,8 +27,8 @@ class AssertionIssuerFormatValidatorAction extends AbstractAssertionAction
         }
 
         if (
-            $context->getAssertion()->getIssuer()->getFormat() &&
-            $context->getAssertion()->getIssuer()->getFormat() != $this->expectedIssuerFormat
+            $context->getAssertion()->getIssuer()->getFormat()
+            && $context->getAssertion()->getIssuer()->getFormat() != $this->expectedIssuerFormat
         ) {
             $message = sprintf(
                 "Response Issuer Format if set must have value '%s' but it was '%s'",

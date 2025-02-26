@@ -15,7 +15,7 @@ use LightSaml\SamlConstants;
 
 class SignatureValidator implements SignatureValidatorInterface
 {
-    public function __construct(protected \LightSaml\Resolver\Credential\CredentialResolverInterface $credentialResolver)
+    public function __construct(protected CredentialResolverInterface $credentialResolver)
     {
     }
 

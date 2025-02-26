@@ -4,6 +4,7 @@ namespace Tests\Action\Profile\Inbound\Message;
 
 use LightSaml\Action\Profile\Inbound\Message\AssertBindingTypeAction;
 use LightSaml\Context\Profile\ProfileContext;
+use LightSaml\Error\LightSamlContextException;
 use LightSaml\Profile\Profiles;
 use LightSaml\SamlConstants;
 use Tests\BaseTestCase;
@@ -37,7 +38,7 @@ class AssertBindingTypeActionTest extends BaseTestCase
     public function test_throws_when_inbound_binding_type_not_one_of_expected()
     {
         $this->expectExceptionMessage("Unexpected binding type \"urn:oasis:names:tc:SAML:2.0:bindings:SOAP\" - expected binding types are: urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST");
-        $this->expectException(\LightSaml\Error\LightSamlContextException::class);
+        $this->expectException(LightSamlContextException::class);
         $action = new AssertBindingTypeAction(
             $logger = $this->getLoggerMock(),
             [SamlConstants::BINDING_SAML2_HTTP_POST]

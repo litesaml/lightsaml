@@ -5,6 +5,7 @@ namespace Tests\Action\Assertion\Inbound;
 use LightSaml\Action\Assertion\Inbound\InResponseToValidatorAction;
 use LightSaml\Context\Profile\ProfileContexts;
 use LightSaml\Context\Profile\RequestStateContext;
+use LightSaml\Error\LightSamlContextException;
 use LightSaml\Model\Assertion\Assertion;
 use LightSaml\Model\Assertion\Subject;
 use LightSaml\Model\Assertion\SubjectConfirmation;
@@ -48,7 +49,7 @@ class InResponseToValidatorActionTest extends BaseTestCase
         $subjectConfirmation->getSubjectConfirmationData()->setInResponseTo('123123123');
 
         $this->expectExceptionMessage("Unknown InResponseTo '123123123'");
-        $this->expectException(\LightSaml\Error\LightSamlContextException::class);
+        $this->expectException(LightSamlContextException::class);
 
         $action->execute($context);
     }

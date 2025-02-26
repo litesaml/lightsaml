@@ -10,11 +10,10 @@ use LightSaml\Context\Profile\RequestStateContext;
 use LightSaml\Profile\Profiles;
 use LightSaml\State\Request\RequestState;
 use LightSaml\Store\Request\RequestStateStoreInterface;
-use Tests\BaseTestCase;
 use Mockery;
-use Mockery\Mock;
 use PHPUnit\Framework\Attributes\DoesNotPerformAssertions;
 use Psr\Log\LoggerInterface;
+use Tests\BaseTestCase;
 
 class FlushRequestStatesActionTest extends BaseTestCase
 {
@@ -48,7 +47,7 @@ class FlushRequestStatesActionTest extends BaseTestCase
                 ->andReturn(false);
         });
 
-        $loggerMock = \Mockery::mock(LoggerInterface::class, function ($mock) use ($expectedIds) {
+        $loggerMock = Mockery::mock(LoggerInterface::class, function ($mock) use ($expectedIds) {
             $mock->shouldReceive('debug')
                 ->once()
                 ->with($this->equalTo(sprintf('Removed request state "%s"', $expectedIds[0])), $this->isType('array'));

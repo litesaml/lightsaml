@@ -2,6 +2,7 @@
 
 namespace Tests\Functional\Model\Metadata;
 
+use LightSaml\Error\LightSamlXmlException;
 use LightSaml\Model\Context\DeserializationContext;
 use LightSaml\Model\Metadata\AssertionConsumerService;
 use LightSaml\Model\Metadata\EntityDescriptor;
@@ -19,7 +20,7 @@ class EntityDescriptorFunctionalTest extends BaseTestCase
     public function test__deserialization_idp2_ed()
     {
         $context = new DeserializationContext();
-        $context->getDocument()->load(__DIR__.'/../../../resources/idp2-ed.xml');
+        $context->getDocument()->load(__DIR__ . '/../../../resources/idp2-ed.xml');
 
         $ed = new EntityDescriptor();
         $ed->deserialize($context->getDocument(), $context);
@@ -50,8 +51,8 @@ class EntityDescriptorFunctionalTest extends BaseTestCase
         $this->assertCount(2, $sp->getAllSingleLogoutServices());
         $this->assertCount(3, $sp->getAllAssertionConsumerServices());
         $this->assertCount(3, $sp->getAllNameIDFormats());
-        $this->assertContainsOnly(\LightSaml\Model\Metadata\SingleLogoutService::class, $sp->getAllSingleLogoutServices());
-        $this->assertContainsOnly(\LightSaml\Model\Metadata\AssertionConsumerService::class, $sp->getAllAssertionConsumerServices());
+        $this->assertContainsOnly(SingleLogoutService::class, $sp->getAllSingleLogoutServices());
+        $this->assertContainsOnly(AssertionConsumerService::class, $sp->getAllAssertionConsumerServices());
         $this->assertContainsOnly('string', $sp->getAllNameIDFormats());
 
         $this->checkSLO($sp, SamlConstants::BINDING_SAML2_HTTP_REDIRECT, 'https://b1.bead.loc/adfs/ls/');
@@ -80,8 +81,8 @@ class EntityDescriptorFunctionalTest extends BaseTestCase
         $this->assertCount(3, $idp->getAllNameIDFormats());
         $this->assertCount(2, $idp->getAllSingleSignOnServices());
 
-        $this->assertContainsOnly(\LightSaml\Model\Metadata\SingleLogoutService::class, $idp->getAllSingleLogoutServices());
-        $this->assertContainsOnly(\LightSaml\Model\Metadata\SingleSignOnService::class, $idp->getAllSingleSignOnServices());
+        $this->assertContainsOnly(SingleLogoutService::class, $idp->getAllSingleLogoutServices());
+        $this->assertContainsOnly(SingleSignOnService::class, $idp->getAllSingleSignOnServices());
         $this->assertContainsOnly('string', $idp->getAllNameIDFormats());
 
         $this->checkSLO($idp, SamlConstants::BINDING_SAML2_HTTP_REDIRECT, 'https://b1.bead.loc/adfs/ls/');
@@ -99,7 +100,7 @@ class EntityDescriptorFunctionalTest extends BaseTestCase
     public function test__deserialize_formatted_certificate()
     {
         $context = new DeserializationContext();
-        $context->getDocument()->load(__DIR__.'/../../../resources/ed01-formatted-certificate.xml');
+        $context->getDocument()->load(__DIR__ . '/../../../resources/ed01-formatted-certificate.xml');
 
         $ed = new EntityDescriptor();
         $ed->deserialize($context->getDocument(), $context);
@@ -116,15 +117,15 @@ class EntityDescriptorFunctionalTest extends BaseTestCase
 
     public function test_deserialize_engine_surfconext_nl_authentication_idp_metadata()
     {
-        $ed = EntityDescriptor::load(__DIR__.'/../../../resources/engine.surfconext.nl_authentication_idp_metadata.xml');
+        $ed = EntityDescriptor::load(__DIR__ . '/../../../resources/engine.surfconext.nl_authentication_idp_metadata.xml');
         $this->assertEquals('https://engine.surfconext.nl/authentication/idp/metadata', $ed->getEntityID());
     }
 
     public function test_throws_on_entities_descriptor_document()
     {
         $this->expectExceptionMessage("Expected 'EntityDescriptor' xml node and 'urn:oasis:names:tc:SAML:2.0:metadata' namespace but got node 'EntitiesDescriptor' and namespace 'urn:oasis:names:tc:SAML:2.0:metadata'");
-        $this->expectException(\LightSaml\Error\LightSamlXmlException::class);
-        EntityDescriptor::load(__DIR__.'/../../../resources/testshib-providers.xml');
+        $this->expectException(LightSamlXmlException::class);
+        EntityDescriptor::load(__DIR__ . '/../../../resources/testshib-providers.xml');
     }
 
     private function checkKD(SSODescriptor $descriptor, $use, $certificate)

@@ -2,7 +2,9 @@
 
 namespace Tests\Credential;
 
+use LightSaml\Credential\AbstractCredential;
 use LightSaml\Credential\UsageType;
+use PHPUnit\Framework\MockObject\MockObject;
 use Tests\BaseTestCase;
 
 class AbstractCredentialTest extends BaseTestCase
@@ -52,10 +54,10 @@ class AbstractCredentialTest extends BaseTestCase
     }
 
     /**
-     * @return \PHPUnit_Framework_MockObject_MockObject|\LightSaml\Credential\AbstractCredential
+     * @return MockObject|AbstractCredential
      */
     private function getAbstractCredentialMock()
     {
-        return $this->getMockForAbstractClass(\LightSaml\Credential\AbstractCredential::class);
+        return $this->getMockForAbstractClass(AbstractCredential::class);
     }
 }

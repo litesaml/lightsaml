@@ -2,19 +2,23 @@
 
 namespace Tests\Functional\Binding;
 
+use DOMDocument;
 use LightSaml\Binding\HttpRedirectBinding;
+use LightSaml\Context\Profile\MessageContext;
+use LightSaml\Credential\KeyHelper;
+use LightSaml\Credential\X509Certificate;
 use LightSaml\Event\MessageReceived;
 use LightSaml\Event\MessageSent;
 use LightSaml\Model\Context\DeserializationContext;
-use LightSaml\Context\Profile\MessageContext;
 use LightSaml\Model\Protocol\AuthnRequest;
+use LightSaml\Model\XmlDSig\AbstractSignatureReader;
 use LightSaml\Model\XmlDSig\SignatureStringReader;
 use LightSaml\Model\XmlDSig\SignatureWriter;
-use LightSaml\Credential\KeyHelper;
-use LightSaml\Credential\X509Certificate;
-use Tests\BaseTestCase;
+use PHPUnit\Framework\MockObject\MockObject;
+use Psr\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Tests\BaseTestCase;
 
 class HttpRedirectBindingFunctionalTest extends BaseTestCase
 {
@@ -34,7 +38,7 @@ class HttpRedirectBindingFunctionalTest extends BaseTestCase
             ->method('dispatch')
             ->willReturnCallback(function (MessageSent $event) {
                 $this->assertNotEmpty($event->message);
-                $doc = new \DOMDocument();
+                $doc = new DOMDocument();
                 $doc->loadXML($event->message);
                 $this->assertEquals('AuthnRequest', $doc->firstChild->localName);
                 return $event;
@@ -49,14 +53,14 @@ class HttpRedirectBindingFunctionalTest extends BaseTestCase
         /** @var RedirectResponse $response */
         $response = $biding->send($messageContext);
 
-        $this->assertInstanceOf(\Symfony\Component\HttpFoundation\RedirectResponse::class, $response);
+        $this->assertInstanceOf(RedirectResponse::class, $response);
 
         $url = $response->getTargetUrl();
         $this->assertNotEmpty($url);
 
         $urlInfo = parse_url($url);
 
-        $this->assertEquals($expectedDestination, $urlInfo['scheme'].'://'.$urlInfo['host'].$urlInfo['path']);
+        $this->assertEquals($expectedDestination, $urlInfo['scheme'] . '://' . $urlInfo['host'] . $urlInfo['path']);
 
         $query = [];
         parse_str($urlInfo['query'], $query);
@@ -77,7 +81,7 @@ class HttpRedirectBindingFunctionalTest extends BaseTestCase
             $query['Signature']
         );
 
-        $xml = gzinflate(base64_decode($query['SAMLRequest']));
+        $xml = gzinflate(base64_decode($query['SAMLRequest'], true));
 
         $context = new DeserializationContext();
         $context->getDocument()->loadXML($xml);
@@ -103,14 +107,14 @@ class HttpRedirectBindingFunctionalTest extends BaseTestCase
         /** @var RedirectResponse $response */
         $response = $biding->send($messageContext, $expectedDestination);
 
-        $this->assertInstanceOf(\Symfony\Component\HttpFoundation\RedirectResponse::class, $response);
+        $this->assertInstanceOf(RedirectResponse::class, $response);
 
         $url = $response->getTargetUrl();
         $this->assertNotEmpty($url);
 
         $urlInfo = parse_url($url);
 
-        $this->assertEquals($expectedDestination, $urlInfo['scheme'].'://'.$urlInfo['host'].$urlInfo['path']);
+        $this->assertEquals($expectedDestination, $urlInfo['scheme'] . '://' . $urlInfo['host'] . $urlInfo['path']);
     }
 
     public function test__receive_authn_request()
@@ -124,7 +128,7 @@ class HttpRedirectBindingFunctionalTest extends BaseTestCase
             ->method('dispatch')
             ->willReturnCallback(function (MessageReceived $event) {
                 $this->assertNotEmpty($event->message);
-                $doc = new \DOMDocument();
+                $doc = new DOMDocument();
                 $doc->loadXML($event->message);
                 $this->assertEquals('AuthnRequest', $doc->firstChild->localName);
                 return $event;
@@ -134,23 +138,23 @@ class HttpRedirectBindingFunctionalTest extends BaseTestCase
         $this->assertSame($eventDispatcherMock, $binding->getEventDispatcher());
 
         $request = new Request();
-        $request->server->add(['QUERY_STRING' => 'SAMLRequest='.urlencode('RY/NCsIwEITvPkXI3TaptY3BKkIvBb2oePAiMUmxYBPtbsXHdxFEGBgY5tuf5frd39nLD9DFUHGZCL5eTZabEW9h75+jB2TUCFDxcQg6GuhAB9N70Gj1YbPb6iwR+jFEjDbeOWvqil+Us7ZYqHlbuEU7IxfXq8vnReZblSvfzowvlVOlKzk7/XbTHMIBRt8EQBOQIiHzqZCko8y0EKQzZzUd1QWDX+qG+ACdpu4fJjb2qaEPeLqafAA=').
-                            '&RelayState='.urlencode($expectedRelayState).
-                            '&SigAlg='.urlencode('http://www.w3.org/2000/09/xmldsig#rsa-sha1').
-                            '&Signature='.urlencode('SI4nZH+9tjLO24k2La/v5DJ/OfGWw/nKKc/Nh8ih/AN71HuIzFl30F3Va+pDOidRYgJ8dIB2Juf5DIQYggDz+AiR/NI9gkAIGKRYZ3bhBPzC0XVtTQ075Qxwa3HWimh2Lywj7WV0QANOptodnjp1aUf4SuSHfEYrcWTf5C0gOZhiXT7XIQH0wpL1BdLwaePlduVCfaaMq2iNadNFBHi2+d9+FrCHyxYdmR8r5CbNg1vNEHj1xYwWUMBEtvJIYAt116++ei78dQYKlv5Mz98pTB1bkjRtONh+w7Mdy1gGT+D/gDz1kl+kAfxIT6D2x54GFBKM01gAGRUrb0Z6j2Nn6Q==')]);
+        $request->server->add(['QUERY_STRING' => 'SAMLRequest=' . urlencode('RY/NCsIwEITvPkXI3TaptY3BKkIvBb2oePAiMUmxYBPtbsXHdxFEGBgY5tuf5frd39nLD9DFUHGZCL5eTZabEW9h75+jB2TUCFDxcQg6GuhAB9N70Gj1YbPb6iwR+jFEjDbeOWvqil+Us7ZYqHlbuEU7IxfXq8vnReZblSvfzowvlVOlKzk7/XbTHMIBRt8EQBOQIiHzqZCko8y0EKQzZzUd1QWDX+qG+ACdpu4fJjb2qaEPeLqafAA=')
+                            . '&RelayState=' . urlencode($expectedRelayState)
+                            . '&SigAlg=' . urlencode('http://www.w3.org/2000/09/xmldsig#rsa-sha1')
+                            . '&Signature=' . urlencode('SI4nZH+9tjLO24k2La/v5DJ/OfGWw/nKKc/Nh8ih/AN71HuIzFl30F3Va+pDOidRYgJ8dIB2Juf5DIQYggDz+AiR/NI9gkAIGKRYZ3bhBPzC0XVtTQ075Qxwa3HWimh2Lywj7WV0QANOptodnjp1aUf4SuSHfEYrcWTf5C0gOZhiXT7XIQH0wpL1BdLwaePlduVCfaaMq2iNadNFBHi2+d9+FrCHyxYdmR8r5CbNg1vNEHj1xYwWUMBEtvJIYAt116++ei78dQYKlv5Mz98pTB1bkjRtONh+w7Mdy1gGT+D/gDz1kl+kAfxIT6D2x54GFBKM01gAGRUrb0Z6j2Nn6Q==')]);
 
         $messageContext = new MessageContext();
         $binding->receive($request, $messageContext);
-        /** @var \LightSaml\Model\Protocol\AuthnRequest $message */
+        /** @var AuthnRequest $message */
         $message = $messageContext->getMessage();
 
-        $this->assertInstanceOf(\LightSaml\Model\Protocol\AuthnRequest::class, $message);
+        $this->assertInstanceOf(AuthnRequest::class, $message);
         $this->assertEquals($expectedRelayState, $message->getRelayState());
         $this->assertEquals('_8dcc6985f6d9f385f0bbd4562ef848ef3ae78d87d7', $message->getID());
         $this->assertEquals('2014-01-01T12:00:00Z', $message->getIssueInstantString());
         $this->assertNotNull($message->getSignature());
-        $this->assertInstanceOf(\LightSaml\Model\XmlDSig\AbstractSignatureReader::class, $message->getSignature());
-        $this->assertInstanceOf(\LightSaml\Model\XmlDSig\SignatureStringReader::class, $message->getSignature());
+        $this->assertInstanceOf(AbstractSignatureReader::class, $message->getSignature());
+        $this->assertInstanceOf(SignatureStringReader::class, $message->getSignature());
 
         /** @var SignatureStringReader $signature */
         $signature = $message->getSignature();
@@ -171,9 +175,9 @@ class HttpRedirectBindingFunctionalTest extends BaseTestCase
         $authnRequest->setID('_8dcc6985f6d9f385f0bbd4562ef848ef3ae78d87d7');
 
         $certificate = new X509Certificate();
-        $certificate->loadFromFile(__DIR__.'/../../resources/saml.crt');
+        $certificate->loadFromFile(__DIR__ . '/../../resources/saml.crt');
 
-        $key = KeyHelper::createPrivateKey(__DIR__.'/../../resources/saml.pem', '', true);
+        $key = KeyHelper::createPrivateKey(__DIR__ . '/../../resources/saml.pem', '', true);
 
         $authnRequest->setSignature(new SignatureWriter($certificate, $key));
 
@@ -181,10 +185,10 @@ class HttpRedirectBindingFunctionalTest extends BaseTestCase
     }
 
     /**
-     * @return \PHPUnit_Framework_MockObject_MockObject|\Psr\EventDispatcher\EventDispatcherInterface
+     * @return MockObject|EventDispatcherInterface
      */
     private function getEventDispatcherMock()
     {
-        return $this->getMockBuilder(\Psr\EventDispatcher\EventDispatcherInterface::class)->getMock();
+        return $this->getMockBuilder(EventDispatcherInterface::class)->getMock();
     }
 }

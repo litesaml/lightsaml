@@ -2,6 +2,7 @@
 
 namespace LightSaml\Model\Assertion;
 
+use DOMElement;
 use LightSaml\Model\Context\DeserializationContext;
 use RobRichards\XMLSecLibs\XMLSecurityKey;
 
@@ -34,7 +35,7 @@ class EncryptedAssertionReader extends EncryptedElementReader
     /**
      * @return Assertion
      */
-    protected function getAssertionFromDom(\DOMElement $dom, DeserializationContext $deserializationContext)
+    protected function getAssertionFromDom(DOMElement $dom, DeserializationContext $deserializationContext)
     {
         $deserializationContext->setDocument($dom->ownerDocument);
 

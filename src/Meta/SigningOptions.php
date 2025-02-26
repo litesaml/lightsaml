@@ -13,11 +13,9 @@ class SigningOptions
     /** @var bool */
     private $enabled = true;
 
-    private readonly \LightSaml\Meta\ParameterBag $certificateOptions;
+    private readonly ParameterBag $certificateOptions;
 
     /**
-     * @param XMLSecurityKey  $privateKey
-     * @param X509Certificate $certificate
      */
     public function __construct(private ?XMLSecurityKey $privateKey = null, private ?X509Certificate $certificate = null)
     {
@@ -33,7 +31,6 @@ class SigningOptions
     }
 
     /**
-     * @param X509Certificate $certificate
      *
      * @return SigningOptions
      */
@@ -53,7 +50,6 @@ class SigningOptions
     }
 
     /**
-     * @param XMLSecurityKey $privateKey
      *
      * @return SigningOptions
      */

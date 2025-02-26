@@ -5,6 +5,7 @@ namespace Tests\Action\Profile\Inbound\Message;
 use LightSaml\Action\Profile\Inbound\Message\AbstractDestinationValidatorAction;
 use LightSaml\Context\Profile\ProfileContext;
 use LightSaml\Criteria\CriteriaSet;
+use LightSaml\Error\LightSamlContextException;
 use LightSaml\Model\Metadata\EntityDescriptor;
 use LightSaml\Model\Metadata\IdpSsoDescriptor;
 use LightSaml\Model\Metadata\SpSsoDescriptor;
@@ -12,7 +13,7 @@ use LightSaml\Model\Protocol\AuthnRequest;
 use LightSaml\Profile\Profiles;
 use LightSaml\Resolver\Endpoint\Criteria\DescriptorTypeCriteria;
 use LightSaml\Resolver\Endpoint\Criteria\LocationCriteria;
-use LightSaml\Resolver\Endpoint\EndpointResolverInterface;
+use PHPUnit\Framework\Attributes\DataProvider;
 use Tests\BaseTestCase;
 
 class AbstractDestinationValidatorActionTest extends BaseTestCase
@@ -71,7 +72,7 @@ class AbstractDestinationValidatorActionTest extends BaseTestCase
         ];
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('makes_descriptor_type_criteria_for_own_role_provider')]
+    #[DataProvider('makes_descriptor_type_criteria_for_own_role_provider')]
     public function test_makes_descriptor_type_criteria_for_own_role($ownRole, $descriptorType)
     {
         $loggerMock = $this->getLoggerMock();
@@ -108,7 +109,7 @@ class AbstractDestinationValidatorActionTest extends BaseTestCase
     public function test_throws_exception_when_destination_does_not_match()
     {
         $this->expectExceptionMessage("Invalid inbound message destination \"http://localhost/foo\"");
-        $this->expectException(\LightSaml\Error\LightSamlContextException::class);
+        $this->expectException(LightSamlContextException::class);
         $loggerMock = $this->getLoggerMock();
         $endpointResolverMock = $this->getEndpointResolverMock();
         /** @var AbstractDestinationValidatorAction $action */
@@ -141,5 +142,4 @@ class AbstractDestinationValidatorActionTest extends BaseTestCase
 
         return $context;
     }
-
 }

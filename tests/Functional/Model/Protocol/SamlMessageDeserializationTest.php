@@ -8,6 +8,7 @@ use LightSaml\Model\Protocol\LogoutRequest;
 use LightSaml\Model\Protocol\LogoutResponse;
 use LightSaml\Model\Protocol\Response;
 use LightSaml\Model\Protocol\SamlMessage;
+use PHPUnit\Framework\Attributes\DataProvider;
 use Tests\BaseTestCase;
 
 class SamlMessageDeserializationTest extends BaseTestCase
@@ -26,7 +27,7 @@ class SamlMessageDeserializationTest extends BaseTestCase
         ];
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('deserialize_provider')]
+    #[DataProvider('deserialize_provider')]
     public function test_deserialize($xml, $expectedType)
     {
         $deserializationContext = new DeserializationContext();

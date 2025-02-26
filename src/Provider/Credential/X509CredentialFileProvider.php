@@ -15,7 +15,6 @@ class X509CredentialFileProvider implements CredentialProviderInterface
      * @param string $entityId
      * @param string $certificatePath
      * @param string $privateKeyPath
-     * @param        $privateKeyPassword
      * @param string $privateKeyPassword
      */
     public function __construct(private $entityId, private $certificatePath, private $privateKeyPath, private $privateKeyPassword)

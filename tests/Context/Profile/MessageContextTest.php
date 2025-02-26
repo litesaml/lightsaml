@@ -8,6 +8,7 @@ use LightSaml\Model\Protocol\LogoutRequest;
 use LightSaml\Model\Protocol\LogoutResponse;
 use LightSaml\Model\Protocol\Response;
 use LightSaml\Model\Protocol\SamlMessage;
+use PHPUnit\Framework\Attributes\DataProvider;
 use Tests\BaseTestCase;
 
 class MessageContextTest extends BaseTestCase
@@ -29,11 +30,11 @@ class MessageContextTest extends BaseTestCase
         ];
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('message_as_concrete_type_provider')]
+    #[DataProvider('message_as_concrete_type_provider')]
     public function test_message_as_concrete_type($method, $hasValue, ?SamlMessage $message = null)
     {
         $context = new MessageContext();
-        if ($message instanceof \LightSaml\Model\Protocol\SamlMessage) {
+        if ($message instanceof SamlMessage) {
             $context->setMessage($message);
         }
 

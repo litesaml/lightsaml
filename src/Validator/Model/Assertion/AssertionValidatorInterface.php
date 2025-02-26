@@ -2,12 +2,13 @@
 
 namespace LightSaml\Validator\Model\Assertion;
 
+use LightSaml\Error\LightSamlValidationException;
 use LightSaml\Model\Assertion\Assertion;
 
 interface AssertionValidatorInterface
 {
     /**
-     * @throws \LightSaml\Error\LightSamlValidationException
+     * @throws LightSamlValidationException
      *
      * @return void
      */

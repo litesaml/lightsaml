@@ -4,15 +4,15 @@ namespace LightSaml\Binding;
 
 use LightSaml\Error\LightSamlBindingException;
 use LightSaml\SamlConstants;
+use LogicException;
 use Psr\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\Request;
 
 class BindingFactory implements BindingFactoryInterface
 {
     /**
-     * @param EventDispatcherInterface $eventDispatcher
      */
-    public function __construct(protected ?\Psr\EventDispatcher\EventDispatcherInterface $eventDispatcher = null)
+    public function __construct(protected ?EventDispatcherInterface $eventDispatcher = null)
     {
     }
 
@@ -39,8 +39,8 @@ class BindingFactory implements BindingFactoryInterface
     /**
      * @param string $bindingType
      *
-     * @throws \LogicException
-     * @throws \LightSaml\Error\LightSamlBindingException
+     * @throws LogicException
+     * @throws LightSamlBindingException
      *
      * @return AbstractBinding
      */
@@ -57,9 +57,9 @@ class BindingFactory implements BindingFactoryInterface
                 break;
 
             case SamlConstants::BINDING_SAML2_HTTP_ARTIFACT:
-                throw new \LogicException('Artifact binding not implemented');
+                throw new LogicException('Artifact binding not implemented');
             case SamlConstants::BINDING_SAML2_SOAP:
-                throw new \LogicException('SOAP binding not implemented');
+                throw new LogicException('SOAP binding not implemented');
         }
 
         if ($result) {
@@ -83,7 +83,7 @@ class BindingFactory implements BindingFactoryInterface
             return $this->processPOST($request);
         }
 
-        return null;
+        return;
     }
 
     /**
@@ -98,7 +98,7 @@ class BindingFactory implements BindingFactoryInterface
             return SamlConstants::BINDING_SAML2_HTTP_ARTIFACT;
         }
 
-        return null;
+        return;
     }
 
     /**
@@ -121,6 +121,6 @@ class BindingFactory implements BindingFactoryInterface
             }
         }
 
-        return null;
+        return;
     }
 }

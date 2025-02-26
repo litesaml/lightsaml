@@ -45,7 +45,6 @@ class AssertionContext extends AbstractProfileContext
     }
 
     /**
-     * @param Assertion $assertion
      *
      * @return AssertionContext
      */
@@ -65,7 +64,6 @@ class AssertionContext extends AbstractProfileContext
     }
 
     /**
-     * @param EncryptedElement $encryptedAssertion
      *
      * @return AssertionContext
      */

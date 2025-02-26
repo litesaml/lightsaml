@@ -2,19 +2,24 @@
 
 namespace Tests\Model\Metadata;
 
+use DOMXPath;
+use InvalidArgumentException;
 use LightSaml\Model\Context\DeserializationContext;
 use LightSaml\Model\Context\SerializationContext;
 use LightSaml\Model\Metadata\EntitiesDescriptor;
 use LightSaml\Model\Metadata\EntityDescriptor;
+use LightSaml\Model\SamlElementInterface;
 use LightSaml\SamlConstants;
+use ReflectionClass;
+use stdClass;
 use Tests\BaseTestCase;
 
 class EntitiesDescriptorTest extends BaseTestCase
 {
     public function test_implement_saml_element_interface()
     {
-        $rc = new \ReflectionClass(\LightSaml\Model\Metadata\EntitiesDescriptor::class);
-        $this->assertTrue($rc->implementsInterface(\LightSaml\Model\SamlElementInterface::class));
+        $rc = new ReflectionClass(EntitiesDescriptor::class);
+        $this->assertTrue($rc->implementsInterface(SamlElementInterface::class));
     }
 
     public function test_set_valid_string_to_valid_until()
@@ -33,14 +38,14 @@ class EntitiesDescriptorTest extends BaseTestCase
 
     public function test_throw_on_set_invalid_string_to_valid_until()
     {
-        $this->expectException(\InvalidArgumentException::class);
+        $this->expectException(InvalidArgumentException::class);
         $ed = new EntitiesDescriptor();
         $ed->setValidUntil('something');
     }
 
     public function test_throw_on_set_negative_int_to_valid_until()
     {
-        $this->expectException(\InvalidArgumentException::class);
+        $this->expectException(InvalidArgumentException::class);
         $ed = new EntitiesDescriptor();
         $ed->setValidUntil(-1);
     }
@@ -54,7 +59,7 @@ class EntitiesDescriptorTest extends BaseTestCase
 
     public function test_throw_on_invalid_period_string_set_to_cache_duration()
     {
-        $this->expectException(\InvalidArgumentException::class);
+        $this->expectException(InvalidArgumentException::class);
         $ed = new EntitiesDescriptor();
         $ed->setCacheDuration('83D2Y');
     }
@@ -75,35 +80,35 @@ class EntitiesDescriptorTest extends BaseTestCase
 
     public function test_throw_on_invalid_object_type_given_to_add_item()
     {
-        $this->expectException(\InvalidArgumentException::class);
+        $this->expectException(InvalidArgumentException::class);
         $ed = new EntitiesDescriptor();
-        $ed->addItem(new \stdClass());
+        $ed->addItem(new stdClass());
     }
 
     public function test_throw_on_array_given_to_add_item()
     {
-        $this->expectException(\InvalidArgumentException::class);
+        $this->expectException(InvalidArgumentException::class);
         $ed = new EntitiesDescriptor();
         $ed->addItem([]);
     }
 
     public function test_throw_on_string_given_to_add_item()
     {
-        $this->expectException(\InvalidArgumentException::class);
+        $this->expectException(InvalidArgumentException::class);
         $ed = new EntitiesDescriptor();
         $ed->addItem('foo');
     }
 
     public function test_throw_on_int_given_to_add_item()
     {
-        $this->expectException(\InvalidArgumentException::class);
+        $this->expectException(InvalidArgumentException::class);
         $ed = new EntitiesDescriptor();
         $ed->addItem(123);
     }
 
     public function test_throw_when_itself_given_to_add_item()
     {
-        $this->expectException(\InvalidArgumentException::class);
+        $this->expectException(InvalidArgumentException::class);
         $ed = new EntitiesDescriptor();
         $ed->addItem($ed);
     }
@@ -137,7 +142,7 @@ class EntitiesDescriptorTest extends BaseTestCase
 
     public function test_throw_when_circular_reference_detected_in_add_item()
     {
-        $this->expectException(\InvalidArgumentException::class);
+        $this->expectException(InvalidArgumentException::class);
         $esd1 = new EntitiesDescriptor();
         $esd1->addItem(new EntityDescriptor('ed1'));
         $esd1->addItem(new EntityDescriptor('ed2'));
@@ -169,7 +174,7 @@ class EntitiesDescriptorTest extends BaseTestCase
 
         $all = $esd1->getAllEntityDescriptors();
         $this->assertCount(4, $all);
-        $this->assertContainsOnlyInstancesOf(\LightSaml\Model\Metadata\EntityDescriptor::class, $all);
+        $this->assertContainsOnlyInstancesOf(EntityDescriptor::class, $all);
 
         $this->assertEquals('ed1', $all[0]->getEntityID());
         $this->assertEquals('ed2', $all[1]->getEntityID());
@@ -190,7 +195,7 @@ class EntitiesDescriptorTest extends BaseTestCase
         $ctx = new SerializationContext();
         $esd->serialize($ctx->getDocument(), $ctx);
 
-        $xpath = new \DOMXPath($ctx->getDocument());
+        $xpath = new DOMXPath($ctx->getDocument());
         $xpath->registerNamespace('md', SamlConstants::NS_METADATA);
 
         $this->assertEquals(1, $xpath->query('/md:EntitiesDescriptor')->length);
@@ -228,8 +233,8 @@ EOT;
         $items = $esd->getAllItems();
         $this->assertCount(3, $items);
 
-        $this->assertInstanceOf(\LightSaml\Model\Metadata\EntityDescriptor::class, $items[0]);
-        $this->assertInstanceOf(\LightSaml\Model\Metadata\EntityDescriptor::class, $items[1]);
-        $this->assertInstanceOf(\LightSaml\Model\Metadata\EntitiesDescriptor::class, $items[2]);
+        $this->assertInstanceOf(EntityDescriptor::class, $items[0]);
+        $this->assertInstanceOf(EntityDescriptor::class, $items[1]);
+        $this->assertInstanceOf(EntitiesDescriptor::class, $items[2]);
     }
 }

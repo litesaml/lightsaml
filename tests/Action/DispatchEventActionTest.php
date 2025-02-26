@@ -5,8 +5,9 @@ namespace Tests\Action;
 use LightSaml\Action\DispatchEventAction;
 use LightSaml\Context\ContextInterface;
 use LightSaml\Event\ActionOccurred;
-use Tests\BaseTestCase;
+use PHPUnit\Framework\MockObject\MockObject;
 use Psr\EventDispatcher\EventDispatcherInterface;
+use Tests\BaseTestCase;
 
 class DispatchEventActionTest extends BaseTestCase
 {
@@ -38,7 +39,7 @@ class DispatchEventActionTest extends BaseTestCase
     }
 
     /**
-     * @return \PHPUnit_Framework_MockObject_MockObject|\LightSaml\Context\ContextInterface
+     * @return MockObject|ContextInterface
      */
     private function getContextMock()
     {
@@ -46,7 +47,7 @@ class DispatchEventActionTest extends BaseTestCase
     }
 
     /**
-     * @return \PHPUnit_Framework_MockObject_MockObject|\Psr\EventDispatcher\EventDispatcherInterface
+     * @return MockObject|EventDispatcherInterface
      */
     private function getEventDispatcherMock()
     {

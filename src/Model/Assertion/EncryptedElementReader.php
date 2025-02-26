@@ -2,11 +2,17 @@
 
 namespace LightSaml\Model\Assertion;
 
+use DOMDocument;
+use DOMElement;
+use DOMNode;
+use Exception;
+use InvalidArgumentException;
 use LightSaml\Credential\CredentialInterface;
 use LightSaml\Error\LightSamlSecurityException;
 use LightSaml\Error\LightSamlXmlException;
 use LightSaml\Model\Context\DeserializationContext;
 use LightSaml\Model\Context\SerializationContext;
+use LogicException;
 use RobRichards\XMLSecLibs\XMLSecEnc;
 use RobRichards\XMLSecLibs\XMLSecurityKey;
 
@@ -38,14 +44,14 @@ class EncryptedElementReader extends EncryptedElement
     }
 
     /**
-     * @throws \LogicException
+     * @throws LogicException
      */
-    public function serialize(\DOMNode $parent, SerializationContext $context): never
+    public function serialize(DOMNode $parent, SerializationContext $context): never
     {
-        throw new \LogicException('EncryptedElementReader can not be used for serialization');
+        throw new LogicException('EncryptedElementReader can not be used for serialization');
     }
 
-    public function deserialize(\DOMNode $node, DeserializationContext $context)
+    public function deserialize(DOMNode $node, DeserializationContext $context)
     {
         $list = $context->getXpath()->query('xenc:EncryptedData', $node);
         if (0 == $list->length) {
@@ -55,7 +61,7 @@ class EncryptedElementReader extends EncryptedElement
             throw new LightSamlXmlException('More than one encrypted data element in <saml:EncryptedAssertion>');
         }
 
-        /** @var \DOMElement $encryptedData */
+        /** @var DOMElement $encryptedData */
         $encryptedData = $list->item(0);
         $this->xmlEnc = new XMLSecEnc();
         $this->xmlEnc->setNode($encryptedData);
@@ -69,15 +75,15 @@ class EncryptedElementReader extends EncryptedElement
     /**
      * @param XMLSecurityKey[] $inputKeys
      *
-     * @throws \LogicException
-     * @throws \LightSaml\Error\LightSamlXmlException
-     * @throws \LightSaml\Error\LightSamlSecurityException
+     * @throws LogicException
+     * @throws LightSamlXmlException
+     * @throws LightSamlSecurityException
      *
-     * @return \DOMElement
+     * @return DOMElement
      */
     public function decryptMulti(array $inputKeys)
     {
-        /** @var \LogicException $lastException */
+        /** @var LogicException $lastException */
         $lastException = null;
 
         foreach ($inputKeys as $key) {
@@ -85,12 +91,12 @@ class EncryptedElementReader extends EncryptedElement
                 $key = $key->getPrivateKey();
             }
             if (false == $key instanceof XMLSecurityKey) {
-                throw new \InvalidArgumentException('Expected XMLSecurityKey');
+                throw new InvalidArgumentException('Expected XMLSecurityKey');
             }
 
             try {
                 return $this->decrypt($key);
-            } catch (\Exception $ex) {
+            } catch (Exception $ex) {
                 $lastException = $ex;
             }
         }
@@ -103,11 +109,11 @@ class EncryptedElementReader extends EncryptedElement
     }
 
     /**
-     * @throws \LogicException
-     * @throws \LightSaml\Error\LightSamlXmlException
-     * @throws \LightSaml\Error\LightSamlSecurityException
+     * @throws LogicException
+     * @throws LightSamlXmlException
+     * @throws LightSamlSecurityException
      *
-     * @return \DOMElement
+     * @return DOMElement
      */
     public function decrypt(XMLSecurityKey $inputKey)
     {
@@ -128,7 +134,7 @@ class EncryptedElementReader extends EncryptedElement
     /**
      * @param string $decrypted
      *
-     * @return \DOMElement
+     * @return DOMElement
      */
     protected function buildXmlElement($decrypted)
     {
@@ -141,7 +147,7 @@ class EncryptedElementReader extends EncryptedElement
             '<root xmlns:saml="urn:oasis:names:tc:SAML:2.0:assertion" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">%s</root>',
             $decrypted
         );
-        $newDoc = new \DOMDocument();
+        $newDoc = new DOMDocument();
         if (false == @$newDoc->loadXML($xml)) {
             throw new LightSamlXmlException('Failed to parse decrypted XML. Maybe the wrong sharedkey was used?');
         }
@@ -150,7 +156,7 @@ class EncryptedElementReader extends EncryptedElement
             throw new LightSamlSecurityException('Missing encrypted element.');
         }
 
-        if (false == $decryptedElement instanceof \DOMElement) {
+        if (false == $decryptedElement instanceof DOMElement) {
             throw new LightSamlXmlException('Decrypted element was not actually a DOMElement.');
         }
 
@@ -160,20 +166,20 @@ class EncryptedElementReader extends EncryptedElement
     /**
      * @return string
      *
-     * @throws \Exception
+     * @throws Exception
      */
     protected function decryptCipher()
     {
         $decrypted = $this->xmlEnc->decryptNode($this->symmetricKey, false);
         if (false == is_string($decrypted)) {
-            throw new \LogicException('Expected decrypted string');
+            throw new LogicException('Expected decrypted string');
         }
 
         return $decrypted;
     }
 
     /**
-     * @throws \Exception
+     * @throws Exception
      */
     protected function decryptSymmetricKey(XMLSecurityKey $inputKey)
     {
@@ -191,7 +197,7 @@ class EncryptedElementReader extends EncryptedElement
         /** @var string $key */
         $key = $encKey->decryptKey($this->symmetricKeyInfo);
         if (false == is_string($key)) {
-            throw new \LogicException('Expected string');
+            throw new LogicException('Expected string');
         }
         if (strlen($key) != $keySize) {
             throw new LightSamlSecurityException(sprintf("Unexpected key size of '%s' bits for encryption algorithm '%s', expected '%s' bits size", strlen($key) * 8, $this->symmetricKey->type, $keySize));
@@ -203,7 +209,7 @@ class EncryptedElementReader extends EncryptedElement
     /**
      * @return XMLSecurityKey
      *
-     * @throws \LightSaml\Error\LightSamlXmlException
+     * @throws LightSamlXmlException
      */
     protected function loadSymmetricKey()
     {
@@ -216,7 +222,7 @@ class EncryptedElementReader extends EncryptedElement
     }
 
     /**
-     * @throws \LightSaml\Error\LightSamlXmlException
+     * @throws LightSamlXmlException
      *
      * @return XMLSecurityKey
      */
