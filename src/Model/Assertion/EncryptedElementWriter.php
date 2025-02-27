@@ -2,16 +2,19 @@
 
 namespace LightSaml\Model\Assertion;
 
+use DOMElement;
+use DOMNode;
 use LightSaml\Error\LightSamlException;
 use LightSaml\Model\AbstractSamlModel;
 use LightSaml\Model\Context\DeserializationContext;
 use LightSaml\Model\Context\SerializationContext;
+use LogicException;
 use RobRichards\XMLSecLibs\XMLSecEnc;
 use RobRichards\XMLSecLibs\XMLSecurityKey;
 
 abstract class EncryptedElementWriter extends EncryptedElement
 {
-    /** @var \DOMElement */
+    /** @var DOMElement */
     protected $encryptedElement;
 
     /**
@@ -69,14 +72,14 @@ abstract class EncryptedElementWriter extends EncryptedElement
     }
 
     /**
-     * @return \DOMElement
+     * @return DOMElement
      */
-    abstract protected function createRootElement(\DOMNode $parent, SerializationContext $context);
+    abstract protected function createRootElement(DOMNode $parent, SerializationContext $context);
 
     /**
      * @return void
      */
-    public function serialize(\DOMNode $parent, SerializationContext $context)
+    public function serialize(DOMNode $parent, SerializationContext $context)
     {
         if (null === $this->encryptedElement) {
             throw new LightSamlException('Encrypted element missing');
@@ -87,8 +90,8 @@ abstract class EncryptedElementWriter extends EncryptedElement
         $root->appendChild($context->getDocument()->importNode($this->encryptedElement, true));
     }
 
-    public function deserialize(\DOMNode $node, DeserializationContext $context)
+    public function deserialize(DOMNode $node, DeserializationContext $context)
     {
-        throw new \LogicException('EncryptedElementWriter can not be used for deserialization');
+        throw new LogicException('EncryptedElementWriter can not be used for deserialization');
     }
 }

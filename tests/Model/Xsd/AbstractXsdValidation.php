@@ -11,12 +11,12 @@ use LightSaml\Model\Metadata\EntityDescriptor;
 use LightSaml\Model\Protocol\SamlMessage;
 use LightSaml\Model\SamlElementInterface;
 use LightSaml\Model\XmlDSig\SignatureWriter;
-use Tests\BaseTestCase;
 use LightSaml\Validator\Model\Xsd\XsdValidator;
+use Tests\BaseTestCase;
 
 abstract class AbstractXsdValidation extends BaseTestCase
 {
-    protected function setUp() : void
+    protected function setUp(): void
     {
         libxml_use_internal_errors(true);
     }
@@ -26,7 +26,7 @@ abstract class AbstractXsdValidation extends BaseTestCase
      */
     protected function getX509Certificate()
     {
-        return X509Certificate::fromFile(__DIR__.'/../../resources/saml.crt');
+        return X509Certificate::fromFile(__DIR__ . '/../../resources/saml.crt');
     }
 
     /**
@@ -36,7 +36,7 @@ abstract class AbstractXsdValidation extends BaseTestCase
     {
         $object->setSignature(new SignatureWriter(
             $this->getX509Certificate(),
-            KeyHelper::createPrivateKey(__DIR__.'/../../resources/saml.pem', '', true)
+            KeyHelper::createPrivateKey(__DIR__ . '/../../resources/saml.pem', '', true)
         ));
     }
 
@@ -46,7 +46,7 @@ abstract class AbstractXsdValidation extends BaseTestCase
         $xml = $this->serialize($samlElement);
         $errors = $validator->validateProtocol($xml);
         if ($errors) {
-            $this->fail("\n".implode("\n", $errors)."\n\n$xml\n\n");
+            $this->fail("\n" . implode("\n", $errors) . "\n\n$xml\n\n");
         }
         $this->assertTrue(true);
     }
@@ -57,7 +57,7 @@ abstract class AbstractXsdValidation extends BaseTestCase
         $xml = $this->serialize($samlElement);
         $errors = $validator->validateMetadata($xml);
         if ($errors) {
-            $this->fail("\n".implode("\n", $errors)."\n\n$xml\n\n");
+            $this->fail("\n" . implode("\n", $errors) . "\n\n$xml\n\n");
         }
         $this->assertTrue(true);
     }

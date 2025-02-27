@@ -7,6 +7,7 @@ use LightSaml\Model\Assertion\AttributeStatement;
 use LightSaml\Model\Assertion\AuthnStatement;
 use LightSaml\Model\Assertion\NameID;
 use LightSaml\Model\Assertion\Subject;
+use PHPUnit\Framework\Attributes\DataProvider;
 use Tests\BaseTestCase;
 
 class AssertionTest extends BaseTestCase
@@ -23,7 +24,7 @@ class AssertionTest extends BaseTestCase
         ];
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('equals_provider')]
+    #[DataProvider('equals_provider')]
     public function test_equals($nameId, $format, $expectedValue, Assertion $assertion)
     {
         $this->assertEquals($expectedValue, $assertion->equals($nameId, $format));
@@ -42,7 +43,7 @@ class AssertionTest extends BaseTestCase
         ];
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('has_session_index_provider')]
+    #[DataProvider('has_session_index_provider')]
     public function test_has_session_index($sessionIndex, $expectedValue, Assertion $assertion)
     {
         $this->assertEquals($expectedValue, $assertion->hasSessionIndex($sessionIndex));
@@ -61,7 +62,7 @@ class AssertionTest extends BaseTestCase
         ];
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('has_any_session_index_provider')]
+    #[DataProvider('has_any_session_index_provider')]
     public function test_has_any_session_index($expectedValue, Assertion $assertion)
     {
         $this->assertEquals($expectedValue, $assertion->hasAnySessionIndex());

@@ -2,6 +2,7 @@
 
 namespace LightSaml\Model\Metadata;
 
+use DOMNode;
 use LightSaml\Model\Assertion\Attribute;
 use LightSaml\Model\Context\DeserializationContext;
 use LightSaml\Model\Context\SerializationContext;
@@ -106,7 +107,7 @@ class IdpSsoDescriptor extends SSODescriptor
             }
         }
 
-        return null;
+        return;
     }
 
     /**
@@ -123,14 +124,14 @@ class IdpSsoDescriptor extends SSODescriptor
     }
 
     /**
-     * @return \LightSaml\Model\Assertion\Attribute[]|null
+     * @return Attribute[]|null
      */
     public function getAllAttributes()
     {
         return $this->attributes;
     }
 
-    public function serialize(\DOMNode $parent, SerializationContext $context)
+    public function serialize(DOMNode $parent, SerializationContext $context)
     {
         $result = $this->createElement('IDPSSODescriptor', SamlConstants::NS_METADATA, $parent, $context);
 
@@ -150,7 +151,7 @@ class IdpSsoDescriptor extends SSODescriptor
         }
     }
 
-    public function deserialize(\DOMNode $node, DeserializationContext $context)
+    public function deserialize(DOMNode $node, DeserializationContext $context)
     {
         $this->checkXmlNodeName($node, 'IDPSSODescriptor', SamlConstants::NS_METADATA);
 
@@ -164,7 +165,7 @@ class IdpSsoDescriptor extends SSODescriptor
             $context,
             'SingleSignOnService',
             'md',
-            \LightSaml\Model\Metadata\SingleSignOnService::class,
+            SingleSignOnService::class,
             'addSingleSignOnService'
         );
 
@@ -174,7 +175,7 @@ class IdpSsoDescriptor extends SSODescriptor
             $context,
             'Attribute',
             'saml',
-            \LightSaml\Model\Assertion\Attribute::class,
+            Attribute::class,
             'addAttribute'
         );
     }

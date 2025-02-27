@@ -5,6 +5,7 @@ namespace Tests\State\Sso;
 use LightSaml\Meta\ParameterBag;
 use LightSaml\State\Sso\SsoSessionState;
 use LightSaml\State\Sso\SsoState;
+use PHPUnit\Framework\Attributes\DataProvider;
 use Tests\BaseTestCase;
 
 class SsoStateTest extends BaseTestCase
@@ -27,7 +28,7 @@ class SsoStateTest extends BaseTestCase
      * @param string $property
      * @param string $value
      */
-    #[\PHPUnit\Framework\Attributes\DataProvider('property_getter_setter_provider')]
+    #[DataProvider('property_getter_setter_provider')]
     public function test_property_getter_setter($property, $value = 'some.value')
     {
         $state = new SsoState();
@@ -183,7 +184,7 @@ class SsoStateTest extends BaseTestCase
 
         $state->addOption('a', 1);
         $this->assertTrue($state->hasOption('a'));
-        $this->assertEquals(['a'=>1], $state->getOptions());
+        $this->assertEquals(['a' => 1], $state->getOptions());
 
         $state->removeOption('a');
         $this->assertFalse($state->hasOption('a'));

@@ -2,15 +2,23 @@
 
 namespace LightSaml\Model\Protocol;
 
+use DateTime;
+use DOMComment;
+use DOMNode;
+use Exception;
+use InvalidArgumentException;
 use LightSaml\Error\LightSamlXmlException;
 use LightSaml\Helper;
 use LightSaml\Model\AbstractSamlModel;
 use LightSaml\Model\Assertion\Issuer;
+use LightSaml\Model\Assertion\NameID;
 use LightSaml\Model\Context\DeserializationContext;
 use LightSaml\Model\Context\SerializationContext;
 use LightSaml\Model\SamlElementInterface;
 use LightSaml\Model\XmlDSig\Signature;
+use LightSaml\Model\XmlDSig\SignatureXmlReader;
 use LightSaml\SamlConstants;
+use LogicException;
 
 abstract class SamlMessage extends AbstractSamlModel
 {
@@ -43,21 +51,21 @@ abstract class SamlMessage extends AbstractSamlModel
      *
      * @return AuthnRequest|LogoutRequest|LogoutResponse|Response|SamlMessage
      *
-     * @throws \Exception
+     * @throws Exception
      */
     public static function fromXML($xml, DeserializationContext $context)
     {
         if (false == is_string($xml)) {
-            throw new \InvalidArgumentException('Expecting string');
+            throw new InvalidArgumentException('Expecting string');
         }
 
         $context->getDocument()->loadXML($xml);
 
         $node = $context->getDocument()->firstChild;
-        while ($node && $node instanceof \DOMComment) {
+        while ($node && $node instanceof DOMComment) {
             $node = $node->nextSibling;
         }
-        if (!$node instanceof \DOMNode) {
+        if (!$node instanceof DOMNode) {
             throw new LightSamlXmlException('Empty XML');
         }
 
@@ -67,10 +75,10 @@ abstract class SamlMessage extends AbstractSamlModel
 
         $map = [
             'AttributeQuery' => null,
-            'AuthnRequest' => \LightSaml\Model\Protocol\AuthnRequest::class,
-            'LogoutResponse' => \LightSaml\Model\Protocol\LogoutResponse::class,
-            'LogoutRequest' => \LightSaml\Model\Protocol\LogoutRequest::class,
-            'Response' => \LightSaml\Model\Protocol\Response::class,
+            'AuthnRequest' => AuthnRequest::class,
+            'LogoutResponse' => LogoutResponse::class,
+            'LogoutRequest' => LogoutRequest::class,
+            'Response' => Response::class,
             'ArtifactResponse' => null,
             'ArtifactResolve' => null,
         ];
@@ -82,7 +90,7 @@ abstract class SamlMessage extends AbstractSamlModel
                 /** @var SamlElementInterface $result */
                 $result = new $class();
             } else {
-                throw new \LogicException('Deserialization of %s root element is not implemented');
+                throw new LogicException('Deserialization of %s root element is not implemented');
             }
         } else {
             throw new LightSamlXmlException(sprintf("Unknown SAML message '%s'", $rootElementName));
@@ -114,7 +122,7 @@ abstract class SamlMessage extends AbstractSamlModel
     }
 
     /**
-     * @param int|string|\DateTime $issueInstant
+     * @param int|string|DateTime $issueInstant
      *
      * @return SamlMessage
      */
@@ -142,19 +150,19 @@ abstract class SamlMessage extends AbstractSamlModel
             return Helper::time2string($this->issueInstant);
         }
 
-        return null;
+        return;
     }
 
     /**
-     * @return \DateTime|null
+     * @return DateTime|null
      */
     public function getIssueInstantDateTime()
     {
         if ($this->issueInstant) {
-            return new \DateTime('@' . $this->issueInstant);
+            return new DateTime('@' . $this->issueInstant);
         }
 
-        return null;
+        return;
     }
 
     /**
@@ -208,7 +216,7 @@ abstract class SamlMessage extends AbstractSamlModel
     }
 
     /**
-     * @return \LightSaml\Model\Assertion\NameID|null
+     * @return NameID|null
      */
     public function getIssuer()
     {
@@ -276,20 +284,20 @@ abstract class SamlMessage extends AbstractSamlModel
     /**
      * @return void
      */
-    public function serialize(\DOMNode $parent, SerializationContext $context)
+    public function serialize(DOMNode $parent, SerializationContext $context)
     {
         $this->attributesToXml(['ID', 'Version', 'IssueInstant', 'Destination', 'Consent'], $parent);
 
         $this->singleElementsToXml(['Issuer'], $parent, $context);
     }
 
-    public function deserialize(\DOMNode $node, DeserializationContext $context)
+    public function deserialize(DOMNode $node, DeserializationContext $context)
     {
         $this->attributesFromXml($node, ['ID', 'Version', 'IssueInstant', 'Destination', 'Consent']);
 
         $this->singleElementsFromXml($node, $context, [
-            'Issuer' => ['saml', \LightSaml\Model\Assertion\Issuer::class],
-            'Signature' => ['ds', \LightSaml\Model\XmlDSig\SignatureXmlReader::class],
+            'Issuer' => ['saml', Issuer::class],
+            'Signature' => ['ds', SignatureXmlReader::class],
         ]);
     }
 }

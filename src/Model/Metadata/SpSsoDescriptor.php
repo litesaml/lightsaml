@@ -2,6 +2,7 @@
 
 namespace LightSaml\Model\Metadata;
 
+use DOMNode;
 use LightSaml\Model\Context\DeserializationContext;
 use LightSaml\Model\Context\SerializationContext;
 use LightSaml\SamlConstants;
@@ -88,7 +89,7 @@ class SpSsoDescriptor extends SSODescriptor
             }
         }
 
-        return null;
+        return;
     }
 
     /**
@@ -104,7 +105,7 @@ class SpSsoDescriptor extends SSODescriptor
             }
         }
 
-        return null;
+        return;
     }
 
     /**
@@ -147,7 +148,7 @@ class SpSsoDescriptor extends SSODescriptor
         return $this->wantAssertionsSigned;
     }
 
-    public function serialize(\DOMNode $parent, SerializationContext $context)
+    public function serialize(DOMNode $parent, SerializationContext $context)
     {
         $result = $this->createElement('SPSSODescriptor', SamlConstants::NS_METADATA, $parent, $context);
 
@@ -158,7 +159,7 @@ class SpSsoDescriptor extends SSODescriptor
         $this->manyElementsToXml($this->getAllAssertionConsumerServices(), $result, $context, null);
     }
 
-    public function deserialize(\DOMNode $node, DeserializationContext $context)
+    public function deserialize(DOMNode $node, DeserializationContext $context)
     {
         $this->checkXmlNodeName($node, 'SPSSODescriptor', SamlConstants::NS_METADATA);
 
@@ -171,7 +172,7 @@ class SpSsoDescriptor extends SSODescriptor
             $context,
             'AssertionConsumerService',
             'md',
-            \LightSaml\Model\Metadata\AssertionConsumerService::class,
+            AssertionConsumerService::class,
             'addAssertionConsumerService'
         );
     }

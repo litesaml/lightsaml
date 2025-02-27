@@ -2,6 +2,7 @@
 
 namespace LightSaml\Model\Assertion;
 
+use DOMNode;
 use LightSaml\Model\AbstractSamlModel;
 use LightSaml\Model\Context\DeserializationContext;
 use LightSaml\Model\Context\SerializationContext;
@@ -137,7 +138,7 @@ class Attribute extends AbstractSamlModel
     /**
      * @return void
      */
-    public function serialize(\DOMNode $parent, SerializationContext $context)
+    public function serialize(DOMNode $parent, SerializationContext $context)
     {
         $result = $this->createElement('Attribute', SamlConstants::NS_ASSERTION, $parent, $context);
 
@@ -146,7 +147,7 @@ class Attribute extends AbstractSamlModel
         $this->manyElementsToXml($this->getAllAttributeValues(), $result, $context, 'AttributeValue', SamlConstants::NS_ASSERTION);
     }
 
-    public function deserialize(\DOMNode $node, DeserializationContext $context)
+    public function deserialize(DOMNode $node, DeserializationContext $context)
     {
         $this->checkXmlNodeName($node, 'Attribute', SamlConstants::NS_ASSERTION);
 

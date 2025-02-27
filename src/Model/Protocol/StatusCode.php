@@ -2,6 +2,7 @@
 
 namespace LightSaml\Model\Protocol;
 
+use DOMNode;
 use LightSaml\Model\AbstractSamlModel;
 use LightSaml\Model\Context\DeserializationContext;
 use LightSaml\Model\Context\SerializationContext;
@@ -58,7 +59,7 @@ class StatusCode extends AbstractSamlModel
     /**
      * @return void
      */
-    public function serialize(\DOMNode $parent, SerializationContext $context)
+    public function serialize(DOMNode $parent, SerializationContext $context)
     {
         $result = $this->createElement('samlp:StatusCode', SamlConstants::NS_PROTOCOL, $parent, $context);
 
@@ -67,14 +68,14 @@ class StatusCode extends AbstractSamlModel
         $this->singleElementsToXml(['StatusCode'], $result, $context);
     }
 
-    public function deserialize(\DOMNode $node, DeserializationContext $context)
+    public function deserialize(DOMNode $node, DeserializationContext $context)
     {
         $this->checkXmlNodeName($node, 'StatusCode', SamlConstants::NS_PROTOCOL);
 
         $this->attributesFromXml($node, ['Value']);
 
         $this->singleElementsFromXml($node, $context, [
-            'StatusCode' => ['samlp', \LightSaml\Model\Protocol\StatusCode::class],
+            'StatusCode' => ['samlp', StatusCode::class],
         ]);
     }
 }

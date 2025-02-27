@@ -2,6 +2,8 @@
 
 namespace LightSaml\Provider\TimeProvider;
 
+use DateTime;
+
 interface TimeProviderInterface
 {
     /**
@@ -10,7 +12,7 @@ interface TimeProviderInterface
     public function getTimestamp();
 
     /**
-     * @return \DateTime
+     * @return DateTime
      */
     public function getDateTime();
 }

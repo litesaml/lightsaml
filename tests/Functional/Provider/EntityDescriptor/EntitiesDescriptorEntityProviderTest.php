@@ -12,7 +12,7 @@ class EntitiesDescriptorEntityProviderTest extends BaseTestCase
     public function test___provides_by_specified_entity_id()
     {
         $entitiesProvider = new FileEntitiesDescriptorProvider(
-            __DIR__.'/../../../resources/testshib-providers.xml'
+            __DIR__ . '/../../../resources/testshib-providers.xml'
         );
 
         $provider = new EntitiesDescriptorEntityProvider(

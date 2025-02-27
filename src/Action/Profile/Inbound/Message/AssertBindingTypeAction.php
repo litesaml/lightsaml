@@ -20,7 +20,7 @@ class AssertBindingTypeAction extends AbstractProfileAction
 
     protected function doExecute(ProfileContext $context)
     {
-        if (false === in_array($context->getInboundContext()->getBindingType(), $this->expectedBindingTypes)) {
+        if (false === in_array($context->getInboundContext()->getBindingType(), $this->expectedBindingTypes, true)) {
             $message = sprintf(
                 'Unexpected binding type "%s" - expected binding types are: %s',
                 $context->getInboundContext()->getBindingType(),

@@ -4,6 +4,7 @@ namespace Tests\Action\Assertion\Inbound;
 
 use LightSaml\Action\Assertion\Inbound\RecipientValidatorAction;
 use LightSaml\Criteria\CriteriaSet;
+use LightSaml\Error\LightSamlContextException;
 use LightSaml\Model\Assertion\Assertion;
 use LightSaml\Model\Assertion\AuthnStatement;
 use LightSaml\Model\Assertion\Subject;
@@ -66,7 +67,7 @@ class RecipientValidatorActionTest extends BaseTestCase
             ->with('Bearer SubjectConfirmation must contain Recipient attribute');
 
         $this->expectExceptionMessage("Bearer SubjectConfirmation must contain Recipient attribute");
-        $this->expectException(\LightSaml\Error\LightSamlContextException::class);
+        $this->expectException(LightSamlContextException::class);
 
         $action->execute($assertionContext);
     }
@@ -74,7 +75,7 @@ class RecipientValidatorActionTest extends BaseTestCase
     public function test_throws_context_exception_when_recipient_does_not_match_any_own_acs_service_location()
     {
         $this->expectExceptionMessage("Recipient 'http://recipient.com' does not match SP descriptor");
-        $this->expectException(\LightSaml\Error\LightSamlContextException::class);
+        $this->expectException(LightSamlContextException::class);
         $action = new RecipientValidatorAction(
             $loggerMock = $this->getLoggerMock(),
             $endpointResolver = $this->getEndpointResolverMock()

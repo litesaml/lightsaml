@@ -46,7 +46,6 @@ class BindingCriteria implements CriteriaInterface
     }
 
     /**
-     * @param $binding
      *
      * @return int|null Preference of a binding or null if not preferred
      */

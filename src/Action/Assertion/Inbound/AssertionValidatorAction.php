@@ -9,7 +9,7 @@ use Psr\Log\LoggerInterface;
 
 class AssertionValidatorAction extends AbstractAssertionAction
 {
-    public function __construct(LoggerInterface $logger, protected \LightSaml\Validator\Model\Assertion\AssertionValidatorInterface $assertionValidator)
+    public function __construct(LoggerInterface $logger, protected AssertionValidatorInterface $assertionValidator)
     {
         parent::__construct($logger);
     }

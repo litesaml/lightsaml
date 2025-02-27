@@ -2,6 +2,8 @@
 
 namespace LightSaml\Model\Metadata;
 
+use DOMNode;
+use InvalidArgumentException;
 use LightSaml\Credential\X509Certificate;
 use LightSaml\Error\LightSamlXmlException;
 use LightSaml\Model\AbstractSamlModel;
@@ -26,13 +28,13 @@ class KeyDescriptor extends AbstractSamlModel
      *
      * @return KeyDescriptor
      *
-     * @throws \InvalidArgumentException
+     * @throws InvalidArgumentException
      */
     public function setUse($use)
     {
         $use = trim($use);
         if (false != $use && self::USE_ENCRYPTION !== $use && self::USE_SIGNING !== $use) {
-            throw new \InvalidArgumentException(sprintf("Invalid use value '%s'", $use));
+            throw new InvalidArgumentException(sprintf("Invalid use value '%s'", $use));
         }
         $this->use = $use;
 
@@ -68,7 +70,7 @@ class KeyDescriptor extends AbstractSamlModel
     /**
      * @return void
      */
-    public function serialize(\DOMNode $parent, SerializationContext $context)
+    public function serialize(DOMNode $parent, SerializationContext $context)
     {
         $result = $this->createElement('KeyDescriptor', SamlConstants::NS_METADATA, $parent, $context);
 
@@ -81,7 +83,7 @@ class KeyDescriptor extends AbstractSamlModel
         $xCert->nodeValue = $this->getCertificate()->getData();
     }
 
-    public function deserialize(\DOMNode $node, DeserializationContext $context)
+    public function deserialize(DOMNode $node, DeserializationContext $context)
     {
         $this->checkXmlNodeName($node, 'KeyDescriptor', SamlConstants::NS_METADATA);
 

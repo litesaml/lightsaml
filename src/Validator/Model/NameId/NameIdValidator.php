@@ -20,7 +20,7 @@ class NameIdValidator implements NameIdValidatorInterface
     ];
 
     /**
-     * @throws \LightSaml\Error\LightSamlValidationException
+     * @throws LightSamlValidationException
      *
      * @return void
      */

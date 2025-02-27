@@ -11,7 +11,7 @@ class RequestStateSessionStore extends AbstractRequestStateArrayStore
      * @param string $providerId
      * @param string $prefix
      */
-    public function __construct(protected ?\Symfony\Component\HttpFoundation\Session\SessionInterface $session, protected $providerId, protected $prefix = 'saml_request_state_')
+    public function __construct(protected ?SessionInterface $session, protected $providerId, protected $prefix = 'saml_request_state_')
     {
     }
 

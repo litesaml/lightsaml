@@ -6,8 +6,8 @@ use LightSaml\Action\Profile\Outbound\Message\SendMessageAction;
 use LightSaml\Context\Profile\MessageContext;
 use LightSaml\Model\Metadata\SingleSignOnService;
 use LightSaml\SamlConstants;
-use Tests\BaseTestCase;
 use Symfony\Component\HttpFoundation\Response;
+use Tests\BaseTestCase;
 
 class SendMessageActionTest extends BaseTestCase
 {

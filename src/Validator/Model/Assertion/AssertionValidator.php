@@ -18,7 +18,7 @@ use LightSaml\Validator\Model\Subject\SubjectValidatorInterface;
 
 class AssertionValidator implements AssertionValidatorInterface
 {
-    public function __construct(protected \LightSaml\Validator\Model\NameId\NameIdValidatorInterface $nameIdValidator, protected \LightSaml\Validator\Model\Subject\SubjectValidatorInterface $subjectValidator, protected \LightSaml\Validator\Model\Statement\StatementValidatorInterface $statementValidator)
+    public function __construct(protected NameIdValidatorInterface $nameIdValidator, protected SubjectValidatorInterface $subjectValidator, protected StatementValidatorInterface $statementValidator)
     {
     }
 
@@ -110,9 +110,9 @@ class AssertionValidator implements AssertionValidatorInterface
     protected function validateConditionsInterval(Conditions $conditions)
     {
         if (
-            $conditions->getNotBeforeTimestamp() &&
-            $conditions->getNotOnOrAfterTimestamp() &&
-            $conditions->getNotBeforeTimestamp() > $conditions->getNotOnOrAfterTimestamp()
+            $conditions->getNotBeforeTimestamp()
+            && $conditions->getNotOnOrAfterTimestamp()
+            && $conditions->getNotBeforeTimestamp() > $conditions->getNotOnOrAfterTimestamp()
         ) {
             throw new LightSamlValidationException('Conditions NotBefore MUST BE less than NotOnOrAfter');
         }

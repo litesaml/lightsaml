@@ -6,6 +6,7 @@ use LightSaml\Action\Profile\Outbound\Message\ResolveEndpointBaseAction;
 use LightSaml\Action\Profile\Outbound\Message\ResolveEndpointSloAction;
 use LightSaml\Context\Profile\ProfileContext;
 use LightSaml\Criteria\CriteriaSet;
+use LightSaml\Error\LightSamlContextException;
 use LightSaml\Model\Metadata\EntityDescriptor;
 use LightSaml\Model\Metadata\IdpSsoDescriptor;
 use LightSaml\Model\Metadata\SingleLogoutService;
@@ -80,7 +81,7 @@ class ResolveEndpointSloActionTest extends AbstractResolveEndpointAction
     public function test_throws_context_exception_own_entity_id_does_not_match_sso_idp_nor_sp()
     {
         $this->expectExceptionMessage("Unable to resolve logout target descriptor type");
-        $this->expectException(\LightSaml\Error\LightSamlContextException::class);
+        $this->expectException(LightSamlContextException::class);
         $message = new AuthnRequest();
 
         $context = $this->createContext(ProfileContext::ROLE_IDP, $message);

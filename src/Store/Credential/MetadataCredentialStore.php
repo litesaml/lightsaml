@@ -12,7 +12,7 @@ use LightSaml\Store\EntityDescriptor\EntityDescriptorStoreInterface;
 
 class MetadataCredentialStore implements CredentialStoreInterface
 {
-    public function __construct(protected \LightSaml\Store\EntityDescriptor\EntityDescriptorStoreInterface $entityDescriptorProvider)
+    public function __construct(protected EntityDescriptorStoreInterface $entityDescriptorProvider)
     {
     }
 

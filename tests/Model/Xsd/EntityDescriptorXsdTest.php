@@ -29,9 +29,10 @@ class EntityDescriptorXsdTest extends AbstractXsdValidation
 
         $entityDescriptor->addItem($idpSsoDescriptor = new IdpSsoDescriptor());
         $idpSsoDescriptor
-            ->addAttribute((new Attribute(ClaimTypes::EMAIL_ADDRESS))
-                ->setNameFormat('urn:oasis:names:tc:SAML:2.0:attrname-format:uri')
-                ->setFriendlyName('Email address')
+            ->addAttribute(
+                (new Attribute(ClaimTypes::EMAIL_ADDRESS))
+                    ->setNameFormat('urn:oasis:names:tc:SAML:2.0:attrname-format:uri')
+                    ->setFriendlyName('Email address')
             )
             ->addSingleSignOnService(new SingleSignOnService('https://idp.com/login', SamlConstants::BINDING_SAML2_HTTP_POST))
             ->addSingleSignOnService(new SingleSignOnService('https://idp.com/login', SamlConstants::BINDING_SAML2_HTTP_REDIRECT))
@@ -59,14 +60,16 @@ class EntityDescriptorXsdTest extends AbstractXsdValidation
         ;
 
         $entityDescriptor
-            ->addContactPerson((new ContactPerson())
-                ->setContactType(ContactPerson::TYPE_SUPPORT)
-                ->setEmailAddress('support@idp.com')
+            ->addContactPerson(
+                (new ContactPerson())
+                    ->setContactType(ContactPerson::TYPE_SUPPORT)
+                    ->setEmailAddress('support@idp.com')
             )
-            ->addOrganization((new Organization())
-                ->setOrganizationName('Org name')
-                ->setOrganizationDisplayName('Org display name')
-                ->setOrganizationURL('https://idp.com')
+            ->addOrganization(
+                (new Organization())
+                    ->setOrganizationName('Org name')
+                    ->setOrganizationDisplayName('Org display name')
+                    ->setOrganizationURL('https://idp.com')
             )
         ;
 

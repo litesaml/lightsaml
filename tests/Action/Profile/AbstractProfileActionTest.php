@@ -5,9 +5,11 @@ namespace Tests\Action\Profile;
 use LightSaml\Action\Profile\AbstractProfileAction;
 use LightSaml\Context\ContextInterface;
 use LightSaml\Context\Profile\ProfileContext;
+use LightSaml\Error\LightSamlContextException;
 use LightSaml\Profile\Profiles;
-use Tests\BaseTestCase;
+use PHPUnit\Framework\MockObject\MockObject;
 use Psr\Log\LoggerInterface;
+use Tests\BaseTestCase;
 
 class AbstractProfileActionTest extends BaseTestCase
 {
@@ -27,8 +29,8 @@ class AbstractProfileActionTest extends BaseTestCase
     public function test_throws_exception_on_non_profile_context()
     {
         $this->expectExceptionMessage("Expected ProfileContext but got");
-        $this->expectException(\LightSaml\Error\LightSamlContextException::class);
-        /** @var LoggerInterface|\PHPUnit_Framework_MockObject_MockObject $loggerMock */
+        $this->expectException(LightSamlContextException::class);
+        /** @var LoggerInterface|MockObject $loggerMock */
         $loggerMock = $this->getMockBuilder(LoggerInterface::class)->getMock();
         $loggerMock->expects($this->once())
             ->method('emergency');
@@ -41,7 +43,7 @@ class AbstractProfileActionTest extends BaseTestCase
     }
 
     /**
-     * @return \PHPUnit_Framework_MockObject_MockObject|\LightSaml\Action\Profile\AbstractProfileAction
+     * @return MockObject|AbstractProfileAction
      */
     private function getAbstractProfileActionMock($loggerMock)
     {
@@ -49,7 +51,7 @@ class AbstractProfileActionTest extends BaseTestCase
     }
 
     /**
-     * @return \PHPUnit_Framework_MockObject_MockObject|\LightSaml\Context\ContextInterface
+     * @return MockObject|ContextInterface
      */
     private function getContextMock()
     {

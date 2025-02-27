@@ -7,6 +7,7 @@ use LightSaml\Context\Profile\Helper\LogHelper;
 use LightSaml\Context\Profile\ProfileContext;
 use LightSaml\Error\LightSamlContextException;
 use LightSaml\Meta\TrustOptions\TrustOptions;
+use LightSaml\Model\Metadata\EntityDescriptor;
 use LightSaml\Store\EntityDescriptor\EntityDescriptorStoreInterface;
 use LightSaml\Store\TrustOptions\TrustOptionsStoreInterface;
 use Psr\Log\LoggerInterface;
@@ -20,7 +21,7 @@ class ResolvePartyEntityIdAction extends AbstractProfileAction
         LoggerInterface $logger,
         private readonly EntityDescriptorStoreInterface $spEntityDescriptorProvider,
         private readonly EntityDescriptorStoreInterface $idpEntityDescriptorProvider,
-        protected \LightSaml\Store\TrustOptions\TrustOptionsStoreInterface $trustOptionsProvider
+        protected TrustOptionsStoreInterface $trustOptionsProvider
     ) {
         parent::__construct($logger);
     }
@@ -77,7 +78,7 @@ class ResolvePartyEntityIdAction extends AbstractProfileAction
     /**
      * @param string $entityId
      *
-     * @return \LightSaml\Model\Metadata\EntityDescriptor
+     * @return EntityDescriptor
      */
     protected function getPartyEntityDescriptor(
         ProfileContext $context,

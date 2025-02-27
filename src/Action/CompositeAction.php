@@ -3,8 +3,9 @@
 namespace LightSaml\Action;
 
 use LightSaml\Context\ContextInterface;
+use Stringable;
 
-class CompositeAction implements ActionInterface, DebugPrintTreeActionInterface, CompositeActionInterface, \Stringable
+class CompositeAction implements ActionInterface, DebugPrintTreeActionInterface, CompositeActionInterface, Stringable
 {
     /** @var ActionInterface[] */
     protected $children = [];

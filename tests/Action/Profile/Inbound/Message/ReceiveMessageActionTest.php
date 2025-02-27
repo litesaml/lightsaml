@@ -4,10 +4,11 @@ namespace Tests\Action\Profile\Inbound\Message;
 
 use LightSaml\Action\Profile\Inbound\Message\ReceiveMessageAction;
 use LightSaml\Context\Profile\ProfileContext;
+use LightSaml\Error\LightSamlBindingException;
 use LightSaml\Profile\Profiles;
 use LightSaml\SamlConstants;
-use Tests\BaseTestCase;
 use Symfony\Component\HttpFoundation\Request;
+use Tests\BaseTestCase;
 
 class ReceiveMessageActionTest extends BaseTestCase
 {
@@ -20,7 +21,7 @@ class ReceiveMessageActionTest extends BaseTestCase
     public function test_throws_on_invalid_binding()
     {
         $this->expectExceptionMessage("Unable to resolve binding type, invalid or unsupported http request");
-        $this->expectException(\LightSaml\Error\LightSamlBindingException::class);
+        $this->expectException(LightSamlBindingException::class);
         $action = new ReceiveMessageAction($logger = $this->getLoggerMock(), $bindingFactory = $this->getBindingFactoryMock());
 
         $context = new ProfileContext(Profiles::SSO_SP_SEND_AUTHN_REQUEST, ProfileContext::ROLE_SP);

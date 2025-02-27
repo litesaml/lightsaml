@@ -6,7 +6,7 @@ use LightSaml\Model\Metadata\EntityDescriptor;
 
 class FixedEntityDescriptorProvider implements EntityDescriptorProviderInterface
 {
-    public function __construct(protected \LightSaml\Model\Metadata\EntityDescriptor $entityDescriptor)
+    public function __construct(protected EntityDescriptor $entityDescriptor)
     {
     }
 

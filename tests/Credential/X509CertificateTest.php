@@ -2,7 +2,10 @@
 
 namespace Tests\Credential;
 
+use InvalidArgumentException;
 use LightSaml\Credential\X509Certificate;
+use LightSaml\Error\LightSamlException;
+use PHPUnit\Framework\Attributes\DataProvider;
 use Tests\BaseTestCase;
 
 class X509CertificateTest extends BaseTestCase
@@ -10,7 +13,7 @@ class X509CertificateTest extends BaseTestCase
     public function test__error_on_invalid_load_pem_context()
     {
         $this->expectExceptionMessage("Invalid PEM encoded certificate");
-        $this->expectException(\InvalidArgumentException::class);
+        $this->expectException(InvalidArgumentException::class);
         $certificate = new X509Certificate();
         $certificate->loadPem('not a pem format');
     }
@@ -18,7 +21,7 @@ class X509CertificateTest extends BaseTestCase
     public function test_error_on_invalid_load_from_file()
     {
         $this->expectExceptionMessage("File not found '/non/existing/file/123'");
-        $this->expectException(\InvalidArgumentException::class);
+        $this->expectException(InvalidArgumentException::class);
         $certificate = new X509Certificate();
         $certificate->loadFromFile('/non/existing/file/123');
     }
@@ -26,7 +29,7 @@ class X509CertificateTest extends BaseTestCase
     public function test_error_when_parse_called_with_out_data_set()
     {
         $this->expectExceptionMessage("Certificate data not set");
-        $this->expectException(\LightSaml\Error\LightSamlException::class);
+        $this->expectException(LightSamlException::class);
         $certificate = new X509Certificate();
         $certificate->parse();
     }
@@ -44,12 +47,11 @@ class X509CertificateTest extends BaseTestCase
         ];
     }
 
-    
-    #[\PHPUnit\Framework\Attributes\DataProvider('throws_exception_when_data_not_set_provider')]
+    #[DataProvider('throws_exception_when_data_not_set_provider')]
     public function test_throws_exception_when_data_not_set($method)
     {
         $this->expectExceptionMessage("Certificate data not set");
-        $this->expectException(\LightSaml\Error\LightSamlException::class);
+        $this->expectException(LightSamlException::class);
         $certificate = new X509Certificate();
         $certificate->{$method}();
     }

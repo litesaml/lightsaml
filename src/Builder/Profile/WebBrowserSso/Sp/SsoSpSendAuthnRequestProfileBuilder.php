@@ -3,12 +3,14 @@
 namespace LightSaml\Builder\Profile\WebBrowserSso\Sp;
 
 use LightSaml\Build\Container\BuildContainerInterface;
+use LightSaml\Builder\Action\ActionBuilderInterface;
 use LightSaml\Builder\Action\Profile\SingleSignOn\Sp\SsoSpSendAuthnRequestActionBuilder;
 use LightSaml\Builder\Profile\AbstractProfileBuilder;
 use LightSaml\Context\Profile\ProfileContext;
 use LightSaml\Meta\TrustOptions\TrustOptions;
 use LightSaml\Model\Metadata\EntityDescriptor;
 use LightSaml\Profile\Profiles;
+use RuntimeException;
 
 class SsoSpSendAuthnRequestProfileBuilder extends AbstractProfileBuilder
 {
@@ -26,7 +28,7 @@ class SsoSpSendAuthnRequestProfileBuilder extends AbstractProfileBuilder
 
         $idpEd = $this->container->getPartyContainer()->getIdpEntityDescriptorStore()->get($this->idpEntityId);
         if (false == $idpEd) {
-            throw new \RuntimeException(sprintf('Unknown IDP "%s"', $this->idpEntityId));
+            throw new RuntimeException(sprintf('Unknown IDP "%s"', $this->idpEntityId));
         }
 
         $trustOptions = $this->getTrustOptions($idpEd);
@@ -56,7 +58,7 @@ class SsoSpSendAuthnRequestProfileBuilder extends AbstractProfileBuilder
     }
 
     /**
-     * @return \LightSaml\Builder\Action\ActionBuilderInterface
+     * @return ActionBuilderInterface
      */
     protected function getActionBuilder()
     {

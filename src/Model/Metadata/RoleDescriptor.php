@@ -2,6 +2,9 @@
 
 namespace LightSaml\Model\Metadata;
 
+use DateTime;
+use DOMNode;
+use InvalidArgumentException;
 use LightSaml\Helper;
 use LightSaml\Model\AbstractSamlModel;
 use LightSaml\Model\Context\DeserializationContext;
@@ -41,7 +44,7 @@ abstract class RoleDescriptor extends AbstractSamlModel
     /**
      * @param string|null $cacheDuration
      *
-     * @throws \InvalidArgumentException
+     * @throws InvalidArgumentException
      *
      * @return RoleDescriptor
      */
@@ -76,7 +79,7 @@ abstract class RoleDescriptor extends AbstractSamlModel
     }
 
     /**
-     * @return \LightSaml\Model\Metadata\ContactPerson[]|null
+     * @return ContactPerson[]|null
      */
     public function getAllContactPersons()
     {
@@ -137,7 +140,7 @@ abstract class RoleDescriptor extends AbstractSamlModel
     }
 
     /**
-     * @return \LightSaml\Model\Metadata\KeyDescriptor[]|null
+     * @return KeyDescriptor[]|null
      */
     public function getAllKeyDescriptors()
     {
@@ -176,7 +179,7 @@ abstract class RoleDescriptor extends AbstractSamlModel
             }
         }
 
-        return null;
+        return;
     }
 
     /**
@@ -234,7 +237,7 @@ abstract class RoleDescriptor extends AbstractSamlModel
     }
 
     /**
-     * @return \LightSaml\Model\XmlDSig\Signature[]|null
+     * @return Signature[]|null
      */
     public function getAllSignatures()
     {
@@ -262,7 +265,7 @@ abstract class RoleDescriptor extends AbstractSamlModel
             return Helper::time2string($this->validUntil);
         }
 
-        return null;
+        return;
     }
 
     /**
@@ -274,21 +277,21 @@ abstract class RoleDescriptor extends AbstractSamlModel
     }
 
     /**
-     * @return \DateTime|null
+     * @return DateTime|null
      */
     public function getValidUntilDateTime()
     {
         if ($this->validUntil) {
-            return new \DateTime('@' . $this->validUntil);
+            return new DateTime('@' . $this->validUntil);
         }
 
-        return null;
+        return;
     }
 
     /**
      * @return void
      */
-    public function serialize(\DOMNode $parent, SerializationContext $context)
+    public function serialize(DOMNode $parent, SerializationContext $context)
     {
         $this->attributesToXml(
             ['protocolSupportEnumeration', 'ID', 'validUntil', 'cacheDuration', 'errorURL'],
@@ -301,7 +304,7 @@ abstract class RoleDescriptor extends AbstractSamlModel
         $this->manyElementsToXml($this->getAllContactPersons(), $parent, $context, null);
     }
 
-    public function deserialize(\DOMNode $node, DeserializationContext $context)
+    public function deserialize(DOMNode $node, DeserializationContext $context)
     {
         $this->attributesFromXml(
             $node,
@@ -313,7 +316,7 @@ abstract class RoleDescriptor extends AbstractSamlModel
             $context,
             'Signature',
             'ds',
-            \LightSaml\Model\XmlDSig\Signature::class,
+            Signature::class,
             'addSignature'
         );
         $this->manyElementsFromXml(
@@ -321,7 +324,7 @@ abstract class RoleDescriptor extends AbstractSamlModel
             $context,
             'KeyDescriptor',
             'md',
-            \LightSaml\Model\Metadata\KeyDescriptor::class,
+            KeyDescriptor::class,
             'addKeyDescriptor'
         );
         $this->manyElementsFromXml(
@@ -329,7 +332,7 @@ abstract class RoleDescriptor extends AbstractSamlModel
             $context,
             'Organization',
             'md',
-            \LightSaml\Model\Metadata\Organization::class,
+            Organization::class,
             'addOrganization'
         );
         $this->manyElementsFromXml(
@@ -337,7 +340,7 @@ abstract class RoleDescriptor extends AbstractSamlModel
             $context,
             'ContactPerson',
             'md',
-            \LightSaml\Model\Metadata\ContactPerson::class,
+            ContactPerson::class,
             'addContactPerson'
         );
     }

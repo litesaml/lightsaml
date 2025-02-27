@@ -2,20 +2,23 @@
 
 namespace Tests\Validator\Model\Subject;
 
+use LightSaml\Error\LightSamlValidationException;
 use LightSaml\Model\Assertion\NameID;
 use LightSaml\Model\Assertion\Subject;
 use LightSaml\Model\Assertion\SubjectConfirmation;
 use LightSaml\Model\Assertion\SubjectConfirmationData;
 use LightSaml\SamlConstants;
-use Tests\BaseTestCase;
+use LightSaml\Validator\Model\NameId\NameIdValidatorInterface;
 use LightSaml\Validator\Model\Subject\SubjectValidator;
+use PHPUnit\Framework\MockObject\MockObject;
+use Tests\BaseTestCase;
 
 class SubjectValidatorTest extends BaseTestCase
 {
     public function test_fails_when_no_subject_and_no_subject_confirmation()
     {
         $this->expectExceptionMessage("Subject MUST contain either an identifier or a subject confirmation");
-        $this->expectException(\LightSaml\Error\LightSamlValidationException::class);
+        $this->expectException(LightSamlValidationException::class);
         $subject = new Subject();
 
         $nameIdValidatorMock = $this->getNameIdValidatorMock();
@@ -85,7 +88,7 @@ class SubjectValidatorTest extends BaseTestCase
     public function test_fails_on_empty_method()
     {
         $this->expectExceptionMessage("Method attribute of SubjectConfirmation MUST contain at least one non-whitespace character");
-        $this->expectException(\LightSaml\Error\LightSamlValidationException::class);
+        $this->expectException(LightSamlValidationException::class);
         $subject = new Subject();
 
         $subjectConfirmation = new SubjectConfirmation();
@@ -100,7 +103,7 @@ class SubjectValidatorTest extends BaseTestCase
     public function test_fails_on_invalid_method()
     {
         $this->expectExceptionMessage("SubjectConfirmation element has Method attribute which is not a wellformed absolute uri");
-        $this->expectException(\LightSaml\Error\LightSamlValidationException::class);
+        $this->expectException(LightSamlValidationException::class);
         $subject = new Subject();
 
         $subjectConfirmation = new SubjectConfirmation();
@@ -116,7 +119,7 @@ class SubjectValidatorTest extends BaseTestCase
     public function test_fails_on_invalid_recipient()
     {
         $this->expectExceptionMessage("Recipient of SubjectConfirmationData must be a wellformed absolute URI");
-        $this->expectException(\LightSaml\Error\LightSamlValidationException::class);
+        $this->expectException(LightSamlValidationException::class);
         $subject = new Subject();
 
         $subjectConfirmationData = new SubjectConfirmationData();
@@ -136,7 +139,7 @@ class SubjectValidatorTest extends BaseTestCase
     public function test_fails_on_not_on_or_after_less_then_not_before()
     {
         $this->expectExceptionMessage("SubjectConfirmationData NotBefore MUST be less than NotOnOrAfter");
-        $this->expectException(\LightSaml\Error\LightSamlValidationException::class);
+        $this->expectException(LightSamlValidationException::class);
         $subject = new Subject();
 
         $subjectConfirmationData = new SubjectConfirmationData();
@@ -155,10 +158,10 @@ class SubjectValidatorTest extends BaseTestCase
     }
 
     /**
-     * @return \PHPUnit_Framework_MockObject_MockObject|\LightSaml\Validator\Model\NameId\NameIdValidatorInterface
+     * @return MockObject|NameIdValidatorInterface
      */
     public function getNameIdValidatorMock()
     {
-        return $this->getMockBuilder(\LightSaml\Validator\Model\NameId\NameIdValidatorInterface::class)->getMock();
+        return $this->getMockBuilder(NameIdValidatorInterface::class)->getMock();
     }
 }

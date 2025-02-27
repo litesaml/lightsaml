@@ -17,7 +17,7 @@ use Psr\Log\LoggerInterface;
  */
 class MessageSignatureValidatorAction extends AbstractProfileAction
 {
-    public function __construct(LoggerInterface $logger, protected \LightSaml\Validator\Model\Signature\SignatureValidatorInterface $signatureValidator)
+    public function __construct(LoggerInterface $logger, protected SignatureValidatorInterface $signatureValidator)
     {
         parent::__construct($logger);
     }

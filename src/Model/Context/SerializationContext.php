@@ -2,25 +2,26 @@
 
 namespace LightSaml\Model\Context;
 
+use DOMDocument;
+
 class SerializationContext
 {
-    protected \DOMDocument $document;
+    protected DOMDocument $document;
 
     /**
-     * @param \DOMDocument $document
      */
-    public function __construct(?\DOMDocument $document = null)
+    public function __construct(?DOMDocument $document = null)
     {
-        $this->document = $document ?: new \DOMDocument();
+        $this->document = $document ?: new DOMDocument();
     }
 
-    public function setDocument(\DOMDocument $document)
+    public function setDocument(DOMDocument $document)
     {
         $this->document = $document;
     }
 
     /**
-     * @return \DOMDocument
+     * @return DOMDocument
      */
     public function getDocument()
     {

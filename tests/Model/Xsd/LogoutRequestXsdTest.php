@@ -2,6 +2,7 @@
 
 namespace Tests\Model\Xsd;
 
+use DateTime;
 use LightSaml\Helper;
 use LightSaml\Model\Assertion\Issuer;
 use LightSaml\Model\Assertion\NameID;
@@ -16,9 +17,9 @@ class LogoutRequestXsdTest extends AbstractXsdValidation
         $logoutRequest
             ->setNameID(new NameID('foo@domain.com', SamlConstants::NAME_ID_FORMAT_EMAIL))
             ->setSessionIndex(Helper::generateID())
-            ->setNotOnOrAfter(new \DateTime('+2 minute'))
+            ->setNotOnOrAfter(new DateTime('+2 minute'))
             ->setID(Helper::generateID())
-            ->setIssueInstant(new \DateTime())
+            ->setIssueInstant(new DateTime())
             ->setDestination('https://destination.com')
             ->setIssuer(new Issuer('https://issuer.com'))
         ;

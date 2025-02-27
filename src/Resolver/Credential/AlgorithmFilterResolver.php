@@ -24,8 +24,8 @@ class AlgorithmFilterResolver extends AbstractQueryableResolver
             /* @var AlgorithmCriteria $criteria */
             foreach ($arrCredentials as $credential) {
                 if (
-                    ($credential->getPrivateKey() && $credential->getPrivateKey()->getAlgorith() == $criteria->getAlgorithm()) ||
-                    ($credential->getPublicKey() && $credential->getPublicKey()->getAlgorith() == $criteria->getAlgorithm())
+                    ($credential->getPrivateKey() && $credential->getPrivateKey()->getAlgorith() == $criteria->getAlgorithm())
+                    || ($credential->getPublicKey() && $credential->getPublicKey()->getAlgorith() == $criteria->getAlgorithm())
                 ) {
                     $result[] = $credential;
                 }

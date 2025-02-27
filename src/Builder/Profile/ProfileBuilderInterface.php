@@ -2,15 +2,18 @@
 
 namespace LightSaml\Builder\Profile;
 
+use LightSaml\Action\CompositeAction;
+use LightSaml\Context\Profile\ProfileContext;
+
 interface ProfileBuilderInterface
 {
     /**
-     * @return \LightSaml\Action\CompositeAction
+     * @return CompositeAction
      */
     public function buildAction();
 
     /**
-     * @return \LightSaml\Context\Profile\ProfileContext
+     * @return ProfileContext
      */
     public function buildContext();
 }

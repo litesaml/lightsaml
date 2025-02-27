@@ -9,7 +9,6 @@ use LightSaml\Context\Profile\ProfileContext;
 abstract class LogHelper
 {
     /**
-     * @param array $extraData
      *
      * @return array
      */
@@ -19,7 +18,6 @@ abstract class LogHelper
     }
 
     /**
-     * @param array $extraData
      *
      * @return array
      */
@@ -29,9 +27,7 @@ abstract class LogHelper
     }
 
     /**
-     * @param ActionInterface $action
-     * @param array           $extraData
-     * @param bool            $logWholeContext
+     * @param bool $logWholeContext
      *
      * @return array
      */
@@ -43,7 +39,7 @@ abstract class LogHelper
             $result['profile_id'] = $topContext->getProfileId();
             $result['own_role'] = $topContext->getOwnRole();
         }
-        if ($action instanceof \LightSaml\Action\ActionInterface) {
+        if ($action instanceof ActionInterface) {
             $result['action'] = $action::class;
         }
         $result['top_context_id'] = spl_object_hash($topContext);

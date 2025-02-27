@@ -2,6 +2,8 @@
 
 namespace LightSaml\Error;
 
-class LightSamlException extends \RuntimeException
+use RuntimeException;
+
+class LightSamlException extends RuntimeException
 {
 }

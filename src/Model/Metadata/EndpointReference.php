@@ -4,7 +4,7 @@ namespace LightSaml\Model\Metadata;
 
 class EndpointReference
 {
-    public function __construct(protected \LightSaml\Model\Metadata\EntityDescriptor $entityDescriptor, protected \LightSaml\Model\Metadata\RoleDescriptor $descriptor, protected \LightSaml\Model\Metadata\Endpoint $endpoint)
+    public function __construct(protected EntityDescriptor $entityDescriptor, protected RoleDescriptor $descriptor, protected Endpoint $endpoint)
     {
     }
 

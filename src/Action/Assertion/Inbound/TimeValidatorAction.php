@@ -15,8 +15,8 @@ class TimeValidatorAction extends AbstractAssertionAction
      */
     public function __construct(
         LoggerInterface $logger,
-        protected \LightSaml\Validator\Model\Assertion\AssertionTimeValidatorInterface $assertionTimeValidator,
-        protected \LightSaml\Provider\TimeProvider\TimeProviderInterface $timeProvider,
+        protected AssertionTimeValidatorInterface $assertionTimeValidator,
+        protected TimeProviderInterface $timeProvider,
         protected $allowedSecondsSkew = 120
     ) {
         parent::__construct($logger);

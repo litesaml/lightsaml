@@ -2,10 +2,12 @@
 
 namespace LightSaml\State\Sso;
 
+use DateTime;
 use LightSaml\Error\LightSamlException;
 use LightSaml\Meta\ParameterBag;
+use Serializable;
 
-class SsoSessionState implements \Serializable
+class SsoSessionState implements Serializable
 {
     /** @var string */
     protected $idpEntityId;
@@ -22,16 +24,16 @@ class SsoSessionState implements \Serializable
     /** @var string */
     protected $sessionIndex;
 
-    /** @var \DateTime */
+    /** @var DateTime */
     protected $sessionInstant;
 
-    /** @var \DateTime */
+    /** @var DateTime */
     protected $firstAuthOn;
 
-    /** @var \DateTime */
+    /** @var DateTime */
     protected $lastAuthOn;
 
-    protected \LightSaml\Meta\ParameterBag $parameters;
+    protected ParameterBag $parameters;
 
     public function __construct()
     {
@@ -139,7 +141,7 @@ class SsoSessionState implements \Serializable
     }
 
     /**
-     * @return \DateTime
+     * @return DateTime
      */
     public function getFirstAuthOn()
     {
@@ -147,7 +149,7 @@ class SsoSessionState implements \Serializable
     }
 
     /**
-     * @param \DateTime $firstAuthOn
+     * @param DateTime $firstAuthOn
      *
      * @return SsoSessionState
      */
@@ -159,7 +161,7 @@ class SsoSessionState implements \Serializable
     }
 
     /**
-     * @return \DateTime
+     * @return DateTime
      */
     public function getLastAuthOn()
     {
@@ -167,7 +169,7 @@ class SsoSessionState implements \Serializable
     }
 
     /**
-     * @param \DateTime $lastAuthOn
+     * @param DateTime $lastAuthOn
      *
      * @return SsoSessionState
      */
@@ -179,7 +181,7 @@ class SsoSessionState implements \Serializable
     }
 
     /**
-     * @return \DateTime
+     * @return DateTime
      */
     public function getSessionInstant()
     {
@@ -187,7 +189,7 @@ class SsoSessionState implements \Serializable
     }
 
     /**
-     * @param \DateTime $sessionInstant
+     * @param DateTime $sessionInstant
      *
      * @return SsoSessionState
      */
@@ -261,7 +263,7 @@ class SsoSessionState implements \Serializable
      *
      * @return string Other party id
      *
-     * @throws \LightSaml\Error\LightSamlException If $partyId does not match sp or idp entity id
+     * @throws LightSamlException If $partyId does not match sp or idp entity id
      */
     public function getOtherPartyId($partyId)
     {
@@ -285,6 +287,7 @@ class SsoSessionState implements \Serializable
     /**
      * (PHP >= 8.1)
      * String representation of object.
+     *
      * @return array
      */
     public function __serialize()

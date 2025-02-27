@@ -14,10 +14,11 @@ use LightSaml\Error\LightSamlContextException;
 use LightSaml\Model\XmlDSig\SignatureWriter;
 use LightSaml\Resolver\Credential\CredentialResolverInterface;
 use LightSaml\SamlConstants;
+use LogicException;
 
 class OwnSignatureResolver implements SignatureResolverInterface
 {
-    public function __construct(protected \LightSaml\Resolver\Credential\CredentialResolverInterface $credentialResolver)
+    public function __construct(protected CredentialResolverInterface $credentialResolver)
     {
     }
 
@@ -60,7 +61,7 @@ class OwnSignatureResolver implements SignatureResolverInterface
 
         $result = $query->firstCredential();
         if ($result && false === $result instanceof X509CredentialInterface) {
-            throw new \LogicException(sprintf('Expected X509CredentialInterface but got %s', $result::class));
+            throw new LogicException(sprintf('Expected X509CredentialInterface but got %s', $result::class));
         }
 
         return $result;

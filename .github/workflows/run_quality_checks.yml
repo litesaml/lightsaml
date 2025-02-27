@@ -1,4 +1,4 @@
-name: Run tests
+name: Run quality checks
 
 on:
   push:
@@ -11,20 +11,19 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
-    strategy:
-      matrix:
-        php: [8.1, 8.2, 8.3, 8.4]
-
     steps:
       - uses: actions/checkout@v1
 
       - name: Set PHP version
         uses: shivammathur/setup-php@v2
         with:
-          php-version: ${{ matrix.php }}
+          php-version: 8.1
 
       - name: Install composer dependencies
         run: composer install --quiet --no-ansi --no-interaction --no-scripts --no-suggest --no-progress --prefer-dist
 
-      - name: Run tests
-        run: composer test
+      - name: Run phpcs
+        run: composer phpcs
+
+      - name: Run phpstan
+        run: composer phpstan

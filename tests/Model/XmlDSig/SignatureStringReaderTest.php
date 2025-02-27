@@ -8,6 +8,7 @@ use LightSaml\Model\Context\DeserializationContext;
 use LightSaml\Model\Context\SerializationContext;
 use LightSaml\Model\XmlDSig\AbstractSignatureReader;
 use LightSaml\Model\XmlDSig\SignatureStringReader;
+use LogicException;
 use Tests\BaseTestCase;
 
 class SignatureStringReaderTest extends BaseTestCase
@@ -53,7 +54,7 @@ class SignatureStringReaderTest extends BaseTestCase
     public function test_serialize_throws_exception()
     {
         $this->expectExceptionMessage("SignatureStringReader can not be serialized");
-        $this->expectException(\LogicException::class);
+        $this->expectException(LogicException::class);
         $context = new SerializationContext();
         $reader = new SignatureStringReader();
         $reader->serialize($context->getDocument(), $context);
@@ -62,7 +63,7 @@ class SignatureStringReaderTest extends BaseTestCase
     public function test_deserialize_throws_exception()
     {
         $this->expectExceptionMessage("SignatureStringReader can not be deserialized");
-        $this->expectException(\LogicException::class);
+        $this->expectException(LogicException::class);
         $context = new DeserializationContext();
         $reader = new SignatureStringReader();
         $reader->deserialize($context->getDocument(), $context);

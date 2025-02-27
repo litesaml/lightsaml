@@ -4,6 +4,8 @@ namespace Tests\Action\Profile\Inbound\StatusResponse;
 
 use LightSaml\Action\Profile\Inbound\StatusResponse\StatusAction;
 use LightSaml\Context\Profile\ProfileContext;
+use LightSaml\Error\LightSamlAuthenticationException;
+use LightSaml\Error\LightSamlContextException;
 use LightSaml\Model\Protocol\Response;
 use LightSaml\Model\Protocol\Status;
 use LightSaml\Model\Protocol\StatusCode;
@@ -35,7 +37,7 @@ class StatusActionTest extends BaseTestCase
     public function test_throws_context_exception_if_no_status()
     {
         $this->expectExceptionMessage("Status response does not have Status set");
-        $this->expectException(\LightSaml\Error\LightSamlContextException::class);
+        $this->expectException(LightSamlContextException::class);
         $action = new StatusAction($loggerMock = $this->getLoggerMock());
 
         $context = new ProfileContext(Profiles::SSO_IDP_RECEIVE_AUTHN_REQUEST, ProfileContext::ROLE_IDP);
@@ -50,7 +52,7 @@ class StatusActionTest extends BaseTestCase
     public function test_throws_authentication_exception_if_status_not_success()
     {
         $this->expectExceptionMessage("Unsuccessful SAML response: urn:oasis:names:tc:SAML:2.0:status:Requester\n\nurn:oasis:names:tc:SAML:2.0:status:UnsupportedBinding");
-        $this->expectException(\LightSaml\Error\LightSamlAuthenticationException::class);
+        $this->expectException(LightSamlAuthenticationException::class);
         $action = new StatusAction($loggerMock = $this->getLoggerMock());
 
         $context = new ProfileContext(Profiles::SSO_IDP_RECEIVE_AUTHN_REQUEST, ProfileContext::ROLE_IDP);

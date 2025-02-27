@@ -7,17 +7,18 @@ use DOMXPath;
 use LightSaml\Binding\BindingFactory;
 use LightSaml\Binding\HttpPostBinding;
 use LightSaml\Context\Profile\MessageContext;
+use LightSaml\Error\LightSamlBindingException;
 use LightSaml\Model\Protocol\Response;
 use LightSaml\SamlConstants;
-use Tests\BaseTestCase;
 use Symfony\Component\HttpFoundation\Request;
+use Tests\BaseTestCase;
 
 class HttpPostBindingTest extends BaseTestCase
 {
     public function test_receive_throws_when_no_message()
     {
         $this->expectExceptionMessage("Missing SAMLRequest or SAMLResponse parameter");
-        $this->expectException(\LightSaml\Error\LightSamlBindingException::class);
+        $this->expectException(LightSamlBindingException::class);
         $request = new Request();
 
         $binding = new HttpPostBinding();
@@ -46,7 +47,7 @@ class HttpPostBindingTest extends BaseTestCase
 
         $html = $httpResponse->getContent();
 
-        $dom = new DomDocument();
+        $dom = new DOMDocument();
         $dom->loadHTML($html);
         $xpath = new DOMXPath($dom);
         $relayStateInput = $xpath->query('//input[@name="RelayState"]');

@@ -2,7 +2,11 @@
 
 namespace LightSaml\Context;
 
-abstract class AbstractContext implements ContextInterface, \Stringable
+use ArrayIterator;
+use InvalidArgumentException;
+use Stringable;
+
+abstract class AbstractContext implements ContextInterface, Stringable
 {
     /** @var ContextInterface|null */
     private $parent;
@@ -59,7 +63,7 @@ abstract class AbstractContext implements ContextInterface, \Stringable
             return $result;
         }
 
-        return null;
+        return;
     }
 
     /**
@@ -82,7 +86,7 @@ abstract class AbstractContext implements ContextInterface, \Stringable
     public function addSubContext($name, $subContext)
     {
         if (false === is_object($subContext)) {
-            throw new \InvalidArgumentException('Expected object or ContextInterface');
+            throw new InvalidArgumentException('Expected object or ContextInterface');
         }
 
         $existing = $this->subContexts[$name] ?? null;
@@ -142,9 +146,9 @@ abstract class AbstractContext implements ContextInterface, \Stringable
         return $this;
     }
 
-    public function getIterator(): \ArrayIterator
+    public function getIterator(): ArrayIterator
     {
-        return new \ArrayIterator($this->subContexts);
+        return new ArrayIterator($this->subContexts);
     }
 
     /**
@@ -188,13 +192,13 @@ abstract class AbstractContext implements ContextInterface, \Stringable
         if (is_string($path)) {
             $path = explode('/', $path);
         } elseif (false === is_array($path)) {
-            throw new \InvalidArgumentException('Expected string or array');
+            throw new InvalidArgumentException('Expected string or array');
         }
 
         $name = array_shift($path);
         $subContext = $this->getSubContext($name);
         if (null == $subContext) {
-            return null;
+            return;
         }
 
         if ($path === []) {

@@ -43,7 +43,7 @@ class CompositeEntityDescriptorStore implements EntityDescriptorStoreInterface
             }
         }
 
-        return null;
+        return;
     }
 
     /**

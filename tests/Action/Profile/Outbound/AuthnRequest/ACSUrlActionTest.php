@@ -5,6 +5,7 @@ namespace Tests\Action\Profile\Outbound\AuthnRequest;
 use LightSaml\Action\Profile\Outbound\AuthnRequest\ACSUrlAction;
 use LightSaml\Context\Profile\ProfileContext;
 use LightSaml\Criteria\CriteriaSet;
+use LightSaml\Error\LightSamlContextException;
 use LightSaml\Model\Metadata\AssertionConsumerService;
 use LightSaml\Model\Metadata\EntityDescriptor;
 use LightSaml\Model\Metadata\SpSsoDescriptor;
@@ -14,6 +15,7 @@ use LightSaml\Resolver\Endpoint\Criteria\BindingCriteria;
 use LightSaml\Resolver\Endpoint\Criteria\DescriptorTypeCriteria;
 use LightSaml\Resolver\Endpoint\Criteria\ServiceTypeCriteria;
 use LightSaml\SamlConstants;
+use PHPUnit\Framework\MockObject\MockObject;
 use Tests\BaseTestCase;
 
 class ACSUrlActionTest extends BaseTestCase
@@ -64,7 +66,7 @@ class ACSUrlActionTest extends BaseTestCase
     public function test_throws_context_exception_if_no_own_acs_service()
     {
         $this->expectExceptionMessage("Missing ACS Service with HTTP POST binding in own SP SSO Descriptor");
-        $this->expectException(\LightSaml\Error\LightSamlContextException::class);
+        $this->expectException(LightSamlContextException::class);
         $action = new ACSUrlAction(
             $loggerMock = $this->getLoggerMock(),
             $endpointResolverMock = $this->getEndpointResolverMock()
@@ -88,7 +90,7 @@ class ACSUrlActionTest extends BaseTestCase
     }
 
     /**
-     * @return \PHPUnit_Framework_MockObject_MockObject|EntityDescriptor
+     * @return MockObject|EntityDescriptor
      */
     private function getEntityDescriptorMock()
     {

@@ -9,7 +9,7 @@ use LightSaml\Store\Credential\CredentialStoreInterface;
 
 class EntityIdResolver extends AbstractQueryableResolver
 {
-    public function __construct(protected \LightSaml\Store\Credential\CredentialStoreInterface $credentialStore)
+    public function __construct(protected CredentialStoreInterface $credentialStore)
     {
     }
 

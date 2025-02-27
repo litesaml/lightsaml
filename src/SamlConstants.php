@@ -87,7 +87,7 @@ abstract class SamlConstants
             self::PROTOCOL_WS_FED,
         ];
 
-        return in_array($value, $arr);
+        return in_array($value, $arr, true);
     }
 
     /**
@@ -104,7 +104,7 @@ abstract class SamlConstants
             self::NS_XMLDSIG,
         ];
 
-        return in_array($value, $arr);
+        return in_array($value, $arr, true);
     }
 
     /**
@@ -127,7 +127,7 @@ abstract class SamlConstants
             self::NAME_ID_FORMAT_UNSPECIFIED,
         ];
 
-        return in_array($value, $arr);
+        return in_array($value, $arr, true);
     }
 
     /**
@@ -149,7 +149,7 @@ abstract class SamlConstants
             self::BINDING_WS_FED_WEB_SVC,
         ];
 
-        return in_array($value, $arr);
+        return in_array($value, $arr, true);
     }
 
     /**
@@ -171,7 +171,7 @@ abstract class SamlConstants
             self::STATUS_UNSUPPORTED_BINDING,
         ];
 
-        return in_array($value, $arr);
+        return in_array($value, $arr, true);
     }
 
     /**
@@ -187,7 +187,7 @@ abstract class SamlConstants
             self::CONFIRMATION_METHOD_SENDER_VOUCHES,
         ];
 
-        return in_array($value, $arr);
+        return in_array($value, $arr, true);
     }
 
     /**
@@ -204,7 +204,7 @@ abstract class SamlConstants
             self::AUTHN_CONTEXT_WINDOWS,
         ];
 
-        return in_array($value, $arr);
+        return in_array($value, $arr, true);
     }
 
     /**
@@ -221,6 +221,6 @@ abstract class SamlConstants
             self::LOGOUT_REASON_SP_TIMEOUT,
         ];
 
-        return in_array($value, $arr);
+        return in_array($value, $arr, true);
     }
 }

@@ -10,7 +10,7 @@ use Psr\Log\LoggerInterface;
 
 abstract class AbstractProfileAction implements ActionInterface
 {
-    public function __construct(protected \Psr\Log\LoggerInterface $logger)
+    public function __construct(protected LoggerInterface $logger)
     {
     }
 

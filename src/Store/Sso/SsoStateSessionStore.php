@@ -11,7 +11,7 @@ class SsoStateSessionStore implements SsoStateStoreInterface
     /**
      * @param string $key
      */
-    public function __construct(protected ?\Symfony\Component\HttpFoundation\Session\SessionInterface $session, protected $key)
+    public function __construct(protected ?SessionInterface $session, protected $key)
     {
     }
 

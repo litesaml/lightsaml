@@ -7,6 +7,7 @@ use LightSaml\Event\MessageReceived;
 use LightSaml\Event\MessageSent;
 use Psr\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 abstract class AbstractBinding
 {
@@ -54,7 +55,7 @@ abstract class AbstractBinding
     /**
      * @param string|null $destination
      *
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return Response
      */
     abstract public function send(MessageContext $context, $destination = null);
 

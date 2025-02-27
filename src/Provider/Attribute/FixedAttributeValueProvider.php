@@ -21,7 +21,7 @@ class FixedAttributeValueProvider implements AttributeValueProviderInterface
     }
 
     /**
-     * @param \LightSaml\Model\Assertion\Attribute[] $attributes
+     * @param Attribute[] $attributes
      *
      * @return FixedAttributeValueProvider
      */

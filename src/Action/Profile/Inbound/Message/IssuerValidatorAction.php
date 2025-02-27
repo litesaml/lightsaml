@@ -16,7 +16,7 @@ class IssuerValidatorAction extends AbstractProfileAction
     /**
      * @param string $allowedFormat
      */
-    public function __construct(LoggerInterface $logger, protected \LightSaml\Validator\Model\NameId\NameIdValidatorInterface $nameIdValidator, protected $allowedFormat)
+    public function __construct(LoggerInterface $logger, protected NameIdValidatorInterface $nameIdValidator, protected $allowedFormat)
     {
         parent::__construct($logger);
     }
@@ -35,10 +35,10 @@ class IssuerValidatorAction extends AbstractProfileAction
         }
 
         if (
-            $this->allowedFormat &&
-            $message->getIssuer()->getValue() &&
-            $message->getIssuer()->getFormat() &&
-            $message->getIssuer()->getFormat() != $this->allowedFormat
+            $this->allowedFormat
+            && $message->getIssuer()->getValue()
+            && $message->getIssuer()->getFormat()
+            && $message->getIssuer()->getFormat() != $this->allowedFormat
         ) {
             $message = sprintf(
                 "Response Issuer Format if set must have value '%s' but it was '%s'",

@@ -3,13 +3,14 @@
 namespace LightSaml\State\Sso;
 
 use LightSaml\Meta\ParameterBag;
+use Serializable;
 
-class SsoState implements \Serializable
+class SsoState implements Serializable
 {
     /** @var string */
     private $localSessionId;
 
-    private \LightSaml\Meta\ParameterBag $parameters;
+    private ParameterBag $parameters;
 
     /** @var SsoSessionState[] */
     private $ssoSessions = [];
@@ -131,11 +132,6 @@ class SsoState implements \Serializable
     }
 
     /**
-     * @param $idpEntityId
-     * @param $spEntityId
-     * @param $nameId
-     * @param $nameIdFormat
-     * @param $sessionIndex
      *
      * @return SsoSessionState[]
      */
@@ -145,11 +141,11 @@ class SsoState implements \Serializable
 
         foreach ($this->ssoSessions as $ssoSession) {
             if (
-                (!$idpEntityId || $ssoSession->getIdpEntityId() === $idpEntityId) &&
-                (!$spEntityId || $ssoSession->getSpEntityId() === $spEntityId) &&
-                (!$nameId || $ssoSession->getNameId() === $nameId) &&
-                (!$nameIdFormat || $ssoSession->getNameIdFormat() === $nameIdFormat) &&
-                (!$sessionIndex || $ssoSession->getSessionIndex() === $sessionIndex)
+                (!$idpEntityId || $ssoSession->getIdpEntityId() === $idpEntityId)
+                && (!$spEntityId || $ssoSession->getSpEntityId() === $spEntityId)
+                && (!$nameId || $ssoSession->getNameId() === $nameId)
+                && (!$nameIdFormat || $ssoSession->getNameIdFormat() === $nameIdFormat)
+                && (!$sessionIndex || $ssoSession->getSessionIndex() === $sessionIndex)
             ) {
                 $result[] = $ssoSession;
             }
@@ -180,6 +176,7 @@ class SsoState implements \Serializable
 
     /**
      * (PHP >= 8.1)
+     *
      * @return array
      */
     public function __serialize()

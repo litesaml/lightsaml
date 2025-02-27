@@ -14,7 +14,7 @@ use Psr\Log\LoggerInterface;
  */
 class MessageIssueInstantAction extends AbstractProfileAction
 {
-    public function __construct(LoggerInterface $logger, protected \LightSaml\Provider\TimeProvider\TimeProviderInterface $timeProvider)
+    public function __construct(LoggerInterface $logger, protected TimeProviderInterface $timeProvider)
     {
         parent::__construct($logger);
     }

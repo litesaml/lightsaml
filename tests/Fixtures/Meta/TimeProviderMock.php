@@ -2,21 +2,21 @@
 
 namespace Tests\Fixtures\Meta;
 
+use DateTime;
 use LightSaml\Provider\TimeProvider\TimeProviderInterface;
 
 class TimeProviderMock implements TimeProviderInterface
 {
     /**
-     * @param \DateTime $value
      */
-    public function __construct(protected ?\DateTime $value = null)
+    public function __construct(protected ?DateTime $value = null)
     {
     }
 
     /**
      * @return TimeProviderMock
      */
-    public function setNow(\DateTime $value)
+    public function setNow(DateTime $value)
     {
         $this->value = $value;
 
@@ -29,7 +29,7 @@ class TimeProviderMock implements TimeProviderInterface
     }
 
     /**
-     * @return \DateTime
+     * @return DateTime
      */
     public function getDateTime()
     {

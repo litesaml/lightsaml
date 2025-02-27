@@ -2,7 +2,6 @@
 
 namespace Tests\Action\Profile\Outbound\Message;
 
-use LightSaml\Action\Profile\Outbound\Message\ResolveEndpointBaseAction;
 use LightSaml\Context\Profile\ProfileContext;
 use LightSaml\Criteria\CriteriaSet;
 use LightSaml\Model\Metadata\Endpoint;
@@ -15,24 +14,25 @@ use LightSaml\Resolver\Endpoint\Criteria\IndexCriteria;
 use LightSaml\Resolver\Endpoint\Criteria\LocationCriteria;
 use LightSaml\Resolver\Endpoint\Criteria\ServiceTypeCriteria;
 use LightSaml\Resolver\Endpoint\EndpointResolverInterface;
-use Tests\BaseTestCase;
+use PHPUnit\Framework\MockObject\MockObject;
 use Psr\Log\LoggerInterface;
+use Tests\BaseTestCase;
 
 abstract class AbstractResolveEndpointAction extends BaseTestCase
 {
-    /** @var ResolveEndpointBaseActionTest|\PHPUnit_Framework_MockObject_MockObject */
+    /** @var ResolveEndpointBaseActionTest|MockObject */
     protected $action;
 
-    /** @var \Psr\Log\LoggerInterface|\PHPUnit_Framework_MockObject_MockObject */
+    /** @var LoggerInterface|MockObject */
     protected $logger;
 
-    /** @var  EndpointResolverInterface|\PHPUnit_Framework_MockObject_MockObject */
+    /** @var  EndpointResolverInterface|MockObject */
     protected $endpointResolver;
 
     /**
      *
      */
-    protected function setUp() : void
+    protected function setUp(): void
     {
         $this->logger = $this->getLoggerMock();
         $this->endpointResolver = $this->getMockBuilder(EndpointResolverInterface::class)->getMock();
@@ -62,13 +62,10 @@ abstract class AbstractResolveEndpointAction extends BaseTestCase
     }
 
     /**
-     * @param string           $ownRole
-     * @param SamlMessage      $inboundMessage
-     * @param Endpoint         $endpoint
-     * @param EntityDescriptor $partyEntityDescriptor
-     * @param string           $profileId
+     * @param string $ownRole
+     * @param string $profileId
      *
-     * @return \LightSaml\Context\Profile\ProfileContext
+     * @return ProfileContext
      */
     protected function createContext(
         $ownRole = ProfileContext::ROLE_IDP,
@@ -79,16 +76,16 @@ abstract class AbstractResolveEndpointAction extends BaseTestCase
     ) {
         $context = $this->getProfileContext($profileId, $ownRole);
 
-        if ($endpoint instanceof \LightSaml\Model\Metadata\Endpoint) {
+        if ($endpoint instanceof Endpoint) {
             $context->getEndpointContext()->setEndpoint($endpoint);
         }
 
         if (null == $partyEntityDescriptor) {
-            $partyEntityDescriptor = EntityDescriptor::load(__DIR__.'/../../../../resources/idp2-ed-formatted.xml');
+            $partyEntityDescriptor = EntityDescriptor::load(__DIR__ . '/../../../../resources/idp2-ed-formatted.xml');
         }
         $context->getPartyEntityContext()->setEntityDescriptor($partyEntityDescriptor);
 
-        if ($inboundMessage instanceof \LightSaml\Model\Protocol\SamlMessage) {
+        if ($inboundMessage instanceof SamlMessage) {
             $context->getInboundContext()->setMessage($inboundMessage);
         }
 
@@ -108,7 +105,7 @@ abstract class AbstractResolveEndpointAction extends BaseTestCase
     }
 
     /**
-     * @param string      $value
+     * @param string $value
      */
     protected function criteriaSetShouldHaveDescriptorTypeCriteria(CriteriaSet $criteriaSet, $value)
     {
@@ -123,7 +120,7 @@ abstract class AbstractResolveEndpointAction extends BaseTestCase
     }
 
     /**
-     * @param string      $value
+     * @param string $value
      */
     protected function criteriaSetShouldHaveServiceTypeCriteria(CriteriaSet $criteriaSet, $value)
     {
@@ -138,7 +135,7 @@ abstract class AbstractResolveEndpointAction extends BaseTestCase
     }
 
     /**
-     * @param string      $value
+     * @param string $value
      */
     protected function criteriaSetShouldHaveIndexCriteria(CriteriaSet $criteriaSet, $value)
     {
@@ -153,7 +150,7 @@ abstract class AbstractResolveEndpointAction extends BaseTestCase
     }
 
     /**
-     * @param string      $value
+     * @param string $value
      */
     protected function criteriaSetShouldHaveLocationCriteria(CriteriaSet $criteriaSet, $value)
     {

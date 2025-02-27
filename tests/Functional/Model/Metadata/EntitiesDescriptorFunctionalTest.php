@@ -2,6 +2,7 @@
 
 namespace Tests\Functional\Model\Metadata;
 
+use LightSaml\Error\LightSamlXmlException;
 use LightSaml\Model\Context\DeserializationContext;
 use LightSaml\Model\Metadata\ContactPerson;
 use LightSaml\Model\Metadata\EntitiesDescriptor;
@@ -19,7 +20,7 @@ class EntitiesDescriptorFunctionalTest extends BaseTestCase
     public function test__deserialize_test_shib()
     {
         $context = new DeserializationContext();
-        $context->getDocument()->load(__DIR__.'/../../../resources/testshib-providers.xml');
+        $context->getDocument()->load(__DIR__ . '/../../../resources/testshib-providers.xml');
 
         $entitiesDescriptor = new EntitiesDescriptor();
         $entitiesDescriptor->deserialize($context->getDocument(), $context);
@@ -207,7 +208,7 @@ class EntitiesDescriptorFunctionalTest extends BaseTestCase
     public function test_deserialize_ukfederation_metadata()
     {
         $context = new DeserializationContext();
-        $context->getDocument()->load(__DIR__.'/../../../resources/ukfederation-metadata.xml');
+        $context->getDocument()->load(__DIR__ . '/../../../resources/ukfederation-metadata.xml');
 
         $entitiesDescriptor = new EntitiesDescriptor();
         $entitiesDescriptor->deserialize($context->getDocument(), $context);
@@ -217,7 +218,7 @@ class EntitiesDescriptorFunctionalTest extends BaseTestCase
     public function test_throws_on_entity_descriptor()
     {
         $this->expectExceptionMessage("Expected 'EntitiesDescriptor' xml node and 'urn:oasis:names:tc:SAML:2.0:metadata' namespace but got node 'EntityDescriptor' and namespace 'urn:oasis:names:tc:SAML:2.0:metadata'");
-        $this->expectException(\LightSaml\Error\LightSamlXmlException::class);
-        EntitiesDescriptor::load(__DIR__.'/../../../resources/idp-ed.xml');
+        $this->expectException(LightSamlXmlException::class);
+        EntitiesDescriptor::load(__DIR__ . '/../../../resources/idp-ed.xml');
     }
 }

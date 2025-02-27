@@ -2,6 +2,7 @@
 
 namespace LightSaml\Model\Assertion;
 
+use DOMNode;
 use LightSaml\Model\Context\DeserializationContext;
 use LightSaml\Model\Context\SerializationContext;
 use LightSaml\SamlConstants;
@@ -62,14 +63,14 @@ class AudienceRestriction extends AbstractCondition
         return false;
     }
 
-    public function serialize(\DOMNode $parent, SerializationContext $context)
+    public function serialize(DOMNode $parent, SerializationContext $context)
     {
         $result = $this->createElement('AudienceRestriction', SamlConstants::NS_ASSERTION, $parent, $context);
 
         $this->manyElementsToXml($this->getAllAudience(), $result, $context, 'Audience', SamlConstants::NS_ASSERTION);
     }
 
-    public function deserialize(\DOMNode $node, DeserializationContext $context)
+    public function deserialize(DOMNode $node, DeserializationContext $context)
     {
         $this->checkXmlNodeName($node, 'AudienceRestriction', SamlConstants::NS_ASSERTION);
 

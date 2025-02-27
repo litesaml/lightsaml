@@ -17,7 +17,7 @@ abstract class AbstractProfileContext extends AbstractContext
             $result = $result->getParent();
         }
 
-        if ($result instanceof \LightSaml\Context\Profile\ProfileContext) {
+        if ($result instanceof ProfileContext) {
             return $result;
         }
 

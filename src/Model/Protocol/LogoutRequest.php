@@ -2,6 +2,8 @@
 
 namespace LightSaml\Model\Protocol;
 
+use DateTime;
+use DOMNode;
 use LightSaml\Helper;
 use LightSaml\Model\Assertion\NameID;
 use LightSaml\Model\Context\DeserializationContext;
@@ -41,7 +43,7 @@ class LogoutRequest extends AbstractRequest
     }
 
     /**
-     * @param int|\DateTime|string $notOnOrAfter
+     * @param int|DateTime|string $notOnOrAfter
      *
      * @return LogoutRequest
      */
@@ -69,19 +71,19 @@ class LogoutRequest extends AbstractRequest
             return Helper::time2string($this->notOnOrAfter);
         }
 
-        return null;
+        return;
     }
 
     /**
-     * @return \DateTime|null
+     * @return DateTime|null
      */
     public function getNotOnOrAfterDateTime()
     {
         if ($this->notOnOrAfter) {
-            return new \DateTime('@' . $this->notOnOrAfter);
+            return new DateTime('@' . $this->notOnOrAfter);
         }
 
-        return null;
+        return;
     }
 
     /**
@@ -124,7 +126,7 @@ class LogoutRequest extends AbstractRequest
         return $this->sessionIndex;
     }
 
-    public function serialize(\DOMNode $parent, SerializationContext $context)
+    public function serialize(DOMNode $parent, SerializationContext $context)
     {
         $result = $this->createElement('LogoutRequest', SamlConstants::NS_PROTOCOL, $parent, $context);
 
@@ -138,7 +140,7 @@ class LogoutRequest extends AbstractRequest
         $this->singleElementsToXml(['Signature'], $result, $context);
     }
 
-    public function deserialize(\DOMNode $node, DeserializationContext $context)
+    public function deserialize(DOMNode $node, DeserializationContext $context)
     {
         $this->checkXmlNodeName($node, 'LogoutRequest', SamlConstants::NS_PROTOCOL);
 
@@ -147,7 +149,7 @@ class LogoutRequest extends AbstractRequest
         $this->attributesFromXml($node, ['Reason', 'NotOnOrAfter']);
 
         $this->singleElementsFromXml($node, $context, [
-            'NameID' => ['saml', \LightSaml\Model\Assertion\NameID::class],
+            'NameID' => ['saml', NameID::class],
             'SessionIndex' => ['samlp', null],
         ]);
     }

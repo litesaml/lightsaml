@@ -2,9 +2,11 @@
 
 namespace LightSaml\Model\XmlDSig;
 
+use DOMNode;
 use LightSaml\Error\LightSamlSecurityException;
 use LightSaml\Model\Context\DeserializationContext;
 use LightSaml\Model\Context\SerializationContext;
+use LogicException;
 use RobRichards\XMLSecLibs\XMLSecurityKey;
 
 class SignatureStringReader extends AbstractSignatureReader
@@ -79,7 +81,7 @@ class SignatureStringReader extends AbstractSignatureReader
 
         $key = $this->castKeyIfNecessary($key);
 
-        $signature = base64_decode($this->getSignature());
+        $signature = base64_decode($this->getSignature(), true);
 
         if (false == $key->verifySignature($this->getData(), $signature)) {
             throw new LightSamlSecurityException('Unable to validate signature on query string');
@@ -89,15 +91,15 @@ class SignatureStringReader extends AbstractSignatureReader
     }
 
     /**
-     * @throws \LogicException
+     * @throws LogicException
      */
-    public function serialize(\DOMNode $parent, SerializationContext $context): never
+    public function serialize(DOMNode $parent, SerializationContext $context): never
     {
-        throw new \LogicException('SignatureStringReader can not be serialized');
+        throw new LogicException('SignatureStringReader can not be serialized');
     }
 
-    public function deserialize(\DOMNode $node, DeserializationContext $context): never
+    public function deserialize(DOMNode $node, DeserializationContext $context): never
     {
-        throw new \LogicException('SignatureStringReader can not be deserialized');
+        throw new LogicException('SignatureStringReader can not be deserialized');
     }
 }

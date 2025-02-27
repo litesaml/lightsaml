@@ -11,13 +11,16 @@ use LightSaml\Credential\Criteria\X509CredentialCriteria;
 use LightSaml\Credential\UsageType;
 use LightSaml\Credential\X509Certificate;
 use LightSaml\Criteria\CriteriaSet;
+use LightSaml\Error\LightSamlContextException;
 use LightSaml\Meta\TrustOptions\TrustOptions;
 use LightSaml\Model\Metadata\EntityDescriptor;
 use LightSaml\Profile\Profiles;
 use LightSaml\Resolver\Credential\CredentialResolverQuery;
 use LightSaml\Resolver\Signature\OwnSignatureResolver;
-use Tests\BaseTestCase;
+use LogicException;
+use PHPUnit\Framework\Attributes\DataProvider;
 use RobRichards\XMLSecLibs\XMLSecurityKey;
+use Tests\BaseTestCase;
 
 class OwnSignatureResolverTest extends BaseTestCase
 {
@@ -30,7 +33,7 @@ class OwnSignatureResolverTest extends BaseTestCase
     public function test_throws_context_exception_when_no_credential_resolved()
     {
         $this->expectExceptionMessage("Unable to find signing credential");
-        $this->expectException(\LightSaml\Error\LightSamlContextException::class);
+        $this->expectException(LightSamlContextException::class);
         $signatureResolver = new OwnSignatureResolver($credentialResolverMock = $this->getCredentialResolverMock());
 
         $context = $this->getProfileContext();
@@ -77,7 +80,7 @@ class OwnSignatureResolverTest extends BaseTestCase
         ];
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('_provider')]
+    #[DataProvider('_provider')]
     public function test_credential_criterias($profileRole, $expectedMetadataType)
     {
         $signatureResolver = new OwnSignatureResolver($credentialResolverMock = $this->getCredentialResolverMock());
@@ -103,7 +106,7 @@ class OwnSignatureResolverTest extends BaseTestCase
     public function test_throws_logic_exception_when_returned_value_if_not_credential()
     {
         $this->expectExceptionMessage("Expected X509CredentialInterface but got");
-        $this->expectException(\LogicException::class);
+        $this->expectException(LogicException::class);
         $signatureResolver = new OwnSignatureResolver($credentialResolverMock = $this->getCredentialResolverMock());
 
         $context = $this->getProfileContext();

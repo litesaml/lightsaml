@@ -2,11 +2,14 @@
 
 namespace LightSaml\Action\Assertion\Inbound;
 
+use DateTime;
 use LightSaml\Action\Assertion\AbstractAssertionAction;
 use LightSaml\Context\Profile\AssertionContext;
 use LightSaml\Context\Profile\Helper\LogHelper;
 use LightSaml\Error\LightSamlContextException;
+use LightSaml\Error\LightSamlValidationException;
 use LightSaml\Store\Id\IdStoreInterface;
+use LogicException;
 use Psr\Log\LoggerInterface;
 
 /**
@@ -17,7 +20,7 @@ use Psr\Log\LoggerInterface;
  */
 class RepeatedIdValidatorAction extends AbstractAssertionAction
 {
-    public function __construct(LoggerInterface $logger, protected \LightSaml\Store\Id\IdStoreInterface $idStore)
+    public function __construct(LoggerInterface $logger, protected IdStoreInterface $idStore)
     {
         parent::__construct($logger);
     }
@@ -33,7 +36,7 @@ class RepeatedIdValidatorAction extends AbstractAssertionAction
     }
 
     /**
-     * @throws \LightSaml\Error\LightSamlContextException
+     * @throws LightSamlContextException
      */
     protected function validateBearerAssertion(AssertionContext $context)
     {
@@ -70,18 +73,18 @@ class RepeatedIdValidatorAction extends AbstractAssertionAction
     }
 
     /**
-     * @throws \LogicException
-     * @throws \LightSaml\Error\LightSamlValidationException
+     * @throws LogicException
+     * @throws LightSamlValidationException
      *
-     * @return \DateTime
+     * @return DateTime
      */
     protected function getIdExpiryTime(AssertionContext $context)
     {
-        /** @var \DateTime $result */
+        /** @var DateTime $result */
         $result = null;
         $bearerConfirmations = $context->getAssertion()->getSubject()->getBearerConfirmations();
         if (null == $bearerConfirmations) {
-            throw new \LogicException('Bearer assertion must have bearer subject confirmations');
+            throw new LogicException('Bearer assertion must have bearer subject confirmations');
         }
 
         foreach ($bearerConfirmations as $subjectConfirmation) {

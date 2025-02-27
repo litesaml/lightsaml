@@ -4,6 +4,7 @@ namespace Tests\Action\Profile\Inbound\Response;
 
 use LightSaml\Action\Profile\Inbound\Response\HasAuthnStatementValidatorAction;
 use LightSaml\Context\Profile\ProfileContext;
+use LightSaml\Error\LightSamlContextException;
 use LightSaml\Model\Assertion\Assertion;
 use LightSaml\Model\Assertion\AuthnStatement;
 use LightSaml\Model\Protocol\Response;
@@ -35,7 +36,7 @@ class HasAuthnStatementValidatorActionTest extends BaseTestCase
     public function test_throws_context_exception_if_no_authn_statement()
     {
         $this->expectExceptionMessage("Response must have at least one Assertion containing AuthnStatement element");
-        $this->expectException(\LightSaml\Error\LightSamlContextException::class);
+        $this->expectException(LightSamlContextException::class);
         $action = new HasAuthnStatementValidatorAction($this->getLoggerMock());
 
         $context = new ProfileContext(Profiles::SSO_IDP_RECEIVE_AUTHN_REQUEST, ProfileContext::ROLE_IDP);

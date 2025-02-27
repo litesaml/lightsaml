@@ -2,6 +2,7 @@
 
 namespace LightSaml\Builder\Profile\Metadata;
 
+use LightSaml\Builder\Action\ActionBuilderInterface;
 use LightSaml\Builder\Action\Profile\Metadata\MetadataActionBuilder;
 use LightSaml\Builder\Profile\AbstractProfileBuilder;
 use LightSaml\Context\Profile\ProfileContext;
@@ -26,7 +27,7 @@ class MetadataProfileBuilder extends AbstractProfileBuilder
     }
 
     /**
-     * @return \LightSaml\Builder\Action\ActionBuilderInterface
+     * @return ActionBuilderInterface
      */
     protected function getActionBuilder()
     {

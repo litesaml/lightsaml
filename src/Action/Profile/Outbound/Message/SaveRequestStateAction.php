@@ -13,7 +13,7 @@ use Psr\Log\LoggerInterface;
 
 class SaveRequestStateAction extends AbstractProfileAction
 {
-    public function __construct(LoggerInterface $logger, protected \LightSaml\Store\Request\RequestStateStoreInterface $requestStore)
+    public function __construct(LoggerInterface $logger, protected RequestStateStoreInterface $requestStore)
     {
         parent::__construct($logger);
     }

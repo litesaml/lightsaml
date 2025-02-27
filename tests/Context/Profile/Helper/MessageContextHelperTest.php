@@ -2,6 +2,7 @@
 
 namespace Tests\Context\Profile\Helper;
 
+use Exception;
 use LightSaml\Context\Profile\Helper\MessageContextHelper;
 use LightSaml\Context\Profile\MessageContext;
 use LightSaml\Error\LightSamlContextException;
@@ -12,6 +13,8 @@ use LightSaml\Model\Protocol\LogoutResponse;
 use LightSaml\Model\Protocol\Response;
 use LightSaml\Model\Protocol\SamlMessage;
 use LightSaml\Model\Protocol\StatusResponse;
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\MockObject\MockObject;
 use Tests\BaseTestCase;
 
 class MessageContextHelperTest extends BaseTestCase
@@ -55,25 +58,25 @@ class MessageContextHelperTest extends BaseTestCase
         ];
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('helperProvider')]
+    #[DataProvider('helperProvider')]
     public function test__helper($method, ?SamlMessage $message = null, $expectedException = null, $expectedMessage = null)
     {
         $context = new MessageContext();
-        if ($message instanceof \LightSaml\Model\Protocol\SamlMessage) {
+        if ($message instanceof SamlMessage) {
             $context->setMessage($message);
         }
 
         if ($expectedException) {
             try {
-                call_user_func([\LightSaml\Context\Profile\Helper\MessageContextHelper::class, $method], $context);
-            } catch (\Exception $ex) {
+                call_user_func([MessageContextHelper::class, $method], $context);
+            } catch (Exception $ex) {
                 $this->assertInstanceOf($expectedException, $ex);
                 if ($expectedMessage) {
                     $this->assertEquals($expectedMessage, $ex->getMessage());
                 }
             }
         } else {
-            $actualMessage = call_user_func([\LightSaml\Context\Profile\Helper\MessageContextHelper::class, $method], $context);
+            $actualMessage = call_user_func([MessageContextHelper::class, $method], $context);
             $this->assertSame($message, $actualMessage);
         }
     }
@@ -87,7 +90,7 @@ class MessageContextHelperTest extends BaseTestCase
     }
 
     /**
-     * @return \PHPUnit_Framework_MockObject_MockObject|SamlMessage
+     * @return MockObject|SamlMessage
      */
     private function getMessageMock()
     {

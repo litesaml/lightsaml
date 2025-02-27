@@ -5,6 +5,7 @@ namespace Tests\Store\TrustOptions;
 use LightSaml\Meta\TrustOptions\TrustOptions;
 use LightSaml\Store\TrustOptions\CompositeTrustOptionsStore;
 use LightSaml\Store\TrustOptions\TrustOptionsStoreInterface;
+use PHPUnit\Framework\MockObject\MockObject;
 use Tests\BaseTestCase;
 
 class CompositeTrustOptionsStoreTest extends BaseTestCase
@@ -20,7 +21,7 @@ class CompositeTrustOptionsStoreTest extends BaseTestCase
         new CompositeTrustOptionsStore([$this->getTrustOptionsStoreMock(), $this->getTrustOptionsStoreMock()]);
         $this->assertTrue(true);
     }
-    
+
     public function test_can_add_stores()
     {
         $composite = new CompositeTrustOptionsStore();
@@ -105,7 +106,7 @@ class CompositeTrustOptionsStoreTest extends BaseTestCase
     }
 
     /**
-     * @return \PHPUnit_Framework_MockObject_MockObject|TrustOptionsStoreInterface
+     * @return MockObject|TrustOptionsStoreInterface
      */
     private function getTrustOptionsStoreMock()
     {

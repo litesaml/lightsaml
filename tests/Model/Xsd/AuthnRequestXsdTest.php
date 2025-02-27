@@ -2,13 +2,11 @@
 
 namespace Tests\Model\Xsd;
 
-use LightSaml\Credential\KeyHelper;
-use LightSaml\Credential\X509Certificate;
+use DateTime;
 use LightSaml\Helper;
 use LightSaml\Model\Assertion\Issuer;
 use LightSaml\Model\Protocol\AuthnRequest;
 use LightSaml\Model\Protocol\NameIDPolicy;
-use LightSaml\Model\XmlDSig\SignatureWriter;
 use LightSaml\SamlConstants;
 
 class AuthnRequestXsdTest extends AbstractXsdValidation
@@ -21,7 +19,7 @@ class AuthnRequestXsdTest extends AbstractXsdValidation
             ->setNameIDPolicy(new NameIDPolicy(SamlConstants::NAME_ID_FORMAT_EMAIL, true))
             ->setProtocolBinding(SamlConstants::PROTOCOL_SAML2)
             ->setID(Helper::generateID())
-            ->setIssueInstant(new \DateTime())
+            ->setIssueInstant(new DateTime())
             ->setDestination('https://idp.com/destination')
             ->setIssuer(new Issuer('https://sp.com'))
         ;

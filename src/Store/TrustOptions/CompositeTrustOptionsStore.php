@@ -43,7 +43,7 @@ class CompositeTrustOptionsStore implements TrustOptionsStoreInterface
             }
         }
 
-        return null;
+        return;
     }
 
     /**

@@ -2,6 +2,8 @@
 
 namespace LightSaml\Model\Assertion;
 
+use DateTime;
+use DOMNode;
 use LightSaml\Helper;
 use LightSaml\Model\AbstractSamlModel;
 use LightSaml\Model\Context\DeserializationContext;
@@ -44,7 +46,7 @@ class Conditions extends AbstractSamlModel
     }
 
     /**
-     * @return \LightSaml\Model\Assertion\AudienceRestriction[]
+     * @return AudienceRestriction[]
      */
     public function getAllAudienceRestrictions()
     {
@@ -59,7 +61,7 @@ class Conditions extends AbstractSamlModel
     }
 
     /**
-     * @return \LightSaml\Model\Assertion\AudienceRestriction|null
+     * @return AudienceRestriction|null
      */
     public function getFirstAudienceRestriction()
     {
@@ -69,11 +71,11 @@ class Conditions extends AbstractSamlModel
             }
         }
 
-        return null;
+        return;
     }
 
     /**
-     * @return \LightSaml\Model\Assertion\OneTimeUse[]
+     * @return OneTimeUse[]
      */
     public function getAllOneTimeUses()
     {
@@ -88,7 +90,7 @@ class Conditions extends AbstractSamlModel
     }
 
     /**
-     * @return \LightSaml\Model\Assertion\OneTimeUse|null
+     * @return OneTimeUse|null
      */
     public function getFirstOneTimeUse()
     {
@@ -98,11 +100,11 @@ class Conditions extends AbstractSamlModel
             }
         }
 
-        return null;
+        return;
     }
 
     /**
-     * @return \LightSaml\Model\Assertion\ProxyRestriction[]
+     * @return ProxyRestriction[]
      */
     public function getAllProxyRestrictions()
     {
@@ -117,7 +119,7 @@ class Conditions extends AbstractSamlModel
     }
 
     /**
-     * @return \LightSaml\Model\Assertion\ProxyRestriction|null
+     * @return ProxyRestriction|null
      */
     public function getFirstProxyRestriction()
     {
@@ -127,11 +129,11 @@ class Conditions extends AbstractSamlModel
             }
         }
 
-        return null;
+        return;
     }
 
     /**
-     * @param int|string|\DateTime $notBefore
+     * @param int|string|DateTime $notBefore
      *
      * @return Conditions
      */
@@ -159,23 +161,23 @@ class Conditions extends AbstractSamlModel
             return Helper::time2string($this->notBefore);
         }
 
-        return null;
+        return;
     }
 
     /**
-     * @return \DateTime|null
+     * @return DateTime|null
      */
     public function getNotBeforeDateTime()
     {
         if ($this->notBefore) {
-            return new \DateTime('@' . $this->notBefore);
+            return new DateTime('@' . $this->notBefore);
         }
 
-        return null;
+        return;
     }
 
     /**
-     * @param int|string|\DateTime $notOnOrAfter
+     * @param int|string|DateTime $notOnOrAfter
      *
      * @return Conditions
      */
@@ -203,25 +205,25 @@ class Conditions extends AbstractSamlModel
             return Helper::time2string($this->notOnOrAfter);
         }
 
-        return null;
+        return;
     }
 
     /**
-     * @return \DateTime|null
+     * @return DateTime|null
      */
     public function getNotOnOrAfterDateTime()
     {
         if ($this->notOnOrAfter) {
-            return new \DateTime('@' . $this->notOnOrAfter);
+            return new DateTime('@' . $this->notOnOrAfter);
         }
 
-        return null;
+        return;
     }
 
     /**
      * @return void
      */
-    public function serialize(\DOMNode $parent, SerializationContext $context)
+    public function serialize(DOMNode $parent, SerializationContext $context)
     {
         $result = $this->createElement('Conditions', SamlConstants::NS_ASSERTION, $parent, $context);
 
@@ -235,7 +237,7 @@ class Conditions extends AbstractSamlModel
         }
     }
 
-    public function deserialize(\DOMNode $node, DeserializationContext $context)
+    public function deserialize(DOMNode $node, DeserializationContext $context)
     {
         $this->checkXmlNodeName($node, 'Conditions', SamlConstants::NS_ASSERTION);
 
@@ -246,7 +248,7 @@ class Conditions extends AbstractSamlModel
             $context,
             'AudienceRestriction',
             'saml',
-            \LightSaml\Model\Assertion\AudienceRestriction::class,
+            AudienceRestriction::class,
             'addItem'
         );
         $this->manyElementsFromXml(
@@ -254,7 +256,7 @@ class Conditions extends AbstractSamlModel
             $context,
             'OneTimeUse',
             'saml',
-            \LightSaml\Model\Assertion\OneTimeUse::class,
+            OneTimeUse::class,
             'addItem'
         );
         $this->manyElementsFromXml(
@@ -262,7 +264,7 @@ class Conditions extends AbstractSamlModel
             $context,
             'ProxyRestriction',
             'saml',
-            \LightSaml\Model\Assertion\ProxyRestriction::class,
+            ProxyRestriction::class,
             'addItem'
         );
     }

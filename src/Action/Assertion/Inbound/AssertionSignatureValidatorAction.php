@@ -18,7 +18,7 @@ class AssertionSignatureValidatorAction extends AbstractAssertionAction
     /**
      * @param bool $requireSignature
      */
-    public function __construct(LoggerInterface $logger, protected \LightSaml\Validator\Model\Signature\SignatureValidatorInterface $signatureValidator, protected $requireSignature = true)
+    public function __construct(LoggerInterface $logger, protected SignatureValidatorInterface $signatureValidator, protected $requireSignature = true)
     {
         parent::__construct($logger);
     }

@@ -16,7 +16,7 @@ use LightSaml\Store\Credential\CredentialStoreInterface;
 
 class CredentialResolverFactory
 {
-    public function __construct(protected \LightSaml\Store\Credential\CredentialStoreInterface $credentialStore)
+    public function __construct(protected CredentialStoreInterface $credentialStore)
     {
     }
 

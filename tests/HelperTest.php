@@ -2,9 +2,11 @@
 
 namespace Tests;
 
+use DateTime;
+use InvalidArgumentException;
 use LightSaml\Helper;
 use LightSaml\SamlConstants;
-use Tests\BaseTestCase;
+use PHPUnit\Framework\Attributes\DataProvider;
 
 class HelperTest extends BaseTestCase
 {
@@ -52,7 +54,7 @@ class HelperTest extends BaseTestCase
      * @param string $timestamp
      * @param string $string
      */
-    #[\PHPUnit\Framework\Attributes\DataProvider('timestamp2StringProvider')]
+    #[DataProvider('timestamp2StringProvider')]
     public function test__time_to_string($timestamp, $string)
     {
         $this->assertEquals($string, Helper::time2string($timestamp));
@@ -62,7 +64,7 @@ class HelperTest extends BaseTestCase
      * @param string $value
      * @param int    $timestamp
      */
-    #[\PHPUnit\Framework\Attributes\DataProvider('string2TimestampProvider')]
+    #[DataProvider('string2TimestampProvider')]
     public function test__get_timestamp_from_value_with_string($value, $timestamp)
     {
         $this->assertEquals($timestamp, Helper::getTimestampFromValue($value));
@@ -72,10 +74,10 @@ class HelperTest extends BaseTestCase
      * @param string $value
      * @param int    $timestamp
      */
-    #[\PHPUnit\Framework\Attributes\DataProvider('string2TimestampProvider')]
+    #[DataProvider('string2TimestampProvider')]
     public function test__get_timestamp_from_value_with_date_time($value, $timestamp)
     {
-        $dt = new \DateTime('@'.$timestamp);
+        $dt = new DateTime('@' . $timestamp);
         $this->assertEquals($timestamp, Helper::getTimestampFromValue($dt));
     }
 
@@ -83,7 +85,7 @@ class HelperTest extends BaseTestCase
      * @param string $value
      * @param int    $timestamp
      */
-    #[\PHPUnit\Framework\Attributes\DataProvider('string2TimestampProvider')]
+    #[DataProvider('string2TimestampProvider')]
     public function test__get_timestamp_from_value_with_int($value, $timestamp)
     {
         $this->assertEquals($timestamp, Helper::getTimestampFromValue($timestamp));
@@ -91,7 +93,7 @@ class HelperTest extends BaseTestCase
 
     public function test__get_timestamp_from_value_with_invalid_value()
     {
-        $this->expectException(\InvalidArgumentException::class);
+        $this->expectException(InvalidArgumentException::class);
         Helper::getTimestampFromValue([]);
     }
 
@@ -109,7 +111,7 @@ class HelperTest extends BaseTestCase
 
     public function test__generate_random_bytes_error_on_invalid_length()
     {
-        $this->expectException(\InvalidArgumentException::class);
+        $this->expectException(InvalidArgumentException::class);
         Helper::generateRandomBytes('');
     }
 
@@ -120,7 +122,7 @@ class HelperTest extends BaseTestCase
         $this->assertEquals(43, strlen($id));
 
         $arr = [];
-        for ($i = 0; $i<strlen($id); $i++) {
+        for ($i = 0; $i < strlen($id); $i++) {
             $ch = $id[$i];
             $arr[$ch] = true;
         }
@@ -242,7 +244,7 @@ class HelperTest extends BaseTestCase
         return [[1000, 989, 10, false], [1000, 900, 10, false], [1000, 1100, 10, true], [1000, 990, 10, true]];
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('notBeforeProvider')]
+    #[DataProvider('notBeforeProvider')]
     public function test__validate_not_before($notBefore, $now, $allowedSecondsSkew, $expected)
     {
         $this->assertEquals($expected, Helper::validateNotBefore($notBefore, $now, $allowedSecondsSkew));
@@ -253,7 +255,7 @@ class HelperTest extends BaseTestCase
         return [[1000, 900, 10, true], [1000, 1100, 10, false]];
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('notOnOrAfterProvider')]
+    #[DataProvider('notOnOrAfterProvider')]
     public function test__validate_not_on_or_after($notOnOrAfter, $now, $allowedSecondsSkew, $expected)
     {
         $this->assertEquals($expected, Helper::validateNotOnOrAfter($notOnOrAfter, $now, $allowedSecondsSkew));

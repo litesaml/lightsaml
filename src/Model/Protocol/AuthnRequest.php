@@ -2,6 +2,7 @@
 
 namespace LightSaml\Model\Protocol;
 
+use DOMNode;
 use LightSaml\Model\Assertion\Conditions;
 use LightSaml\Model\Assertion\Subject;
 use LightSaml\Model\Context\DeserializationContext;
@@ -152,7 +153,7 @@ class AuthnRequest extends AbstractRequest
     public function getIsPassiveString()
     {
         if (null === $this->isPassive) {
-            return null;
+            return;
         }
 
         return $this->isPassive ? 'true' : 'false';
@@ -184,7 +185,7 @@ class AuthnRequest extends AbstractRequest
     public function getForceAuthnString()
     {
         if (null === $this->forceAuthn) {
-            return null;
+            return;
         }
 
         return $this->forceAuthn ? 'true' : 'false';
@@ -203,7 +204,7 @@ class AuthnRequest extends AbstractRequest
     }
 
     /**
-     * @return \LightSaml\Model\Assertion\Conditions|null
+     * @return Conditions|null
      */
     public function getConditions()
     {
@@ -279,7 +280,7 @@ class AuthnRequest extends AbstractRequest
     /**
      * @return void
      */
-    public function serialize(\DOMNode $parent, SerializationContext $context)
+    public function serialize(DOMNode $parent, SerializationContext $context)
     {
         $result = $this->createElement('AuthnRequest', SamlConstants::NS_PROTOCOL, $parent, $context);
 
@@ -296,7 +297,7 @@ class AuthnRequest extends AbstractRequest
         $this->singleElementsToXml(['Signature'], $result, $context);
     }
 
-    public function deserialize(\DOMNode $node, DeserializationContext $context)
+    public function deserialize(DOMNode $node, DeserializationContext $context)
     {
         $this->checkXmlNodeName($node, 'AuthnRequest', SamlConstants::NS_PROTOCOL);
 
@@ -308,9 +309,9 @@ class AuthnRequest extends AbstractRequest
         ]);
 
         $this->singleElementsFromXml($node, $context, [
-            'Subject' => ['saml', \LightSaml\Model\Assertion\Subject::class],
-            'NameIDPolicy' => ['samlp', \LightSaml\Model\Protocol\NameIDPolicy::class],
-            'Conditions' => ['saml', \LightSaml\Model\Assertion\Conditions::class],
+            'Subject' => ['saml', Subject::class],
+            'NameIDPolicy' => ['samlp', NameIDPolicy::class],
+            'Conditions' => ['saml', Conditions::class],
         ]);
     }
 }

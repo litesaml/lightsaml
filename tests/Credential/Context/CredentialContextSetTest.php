@@ -2,8 +2,11 @@
 
 namespace Tests\Credential\Context;
 
+use InvalidArgumentException;
 use LightSaml\Credential\Context\CredentialContextSet;
 use LightSaml\Credential\Context\MetadataCredentialContext;
+use PHPUnit\Framework\MockObject\MockObject;
+use stdClass;
 use Tests\BaseTestCase;
 
 class CredentialContextSetTest extends BaseTestCase
@@ -36,16 +39,16 @@ class CredentialContextSetTest extends BaseTestCase
     public function test_throws_invalid_argument_exception_if_constructed_with_non_credential_context_array()
     {
         $this->expectExceptionMessage("Expected CredentialContextInterface");
-        $this->expectException(\InvalidArgumentException::class);
-        new CredentialContextSet([new \stdClass()]);
+        $this->expectException(InvalidArgumentException::class);
+        new CredentialContextSet([new stdClass()]);
     }
 
     /**
-     * @return \PHPUnit_Framework_MockObject_MockObject|\LightSaml\Credential\Context\MetadataCredentialContext
+     * @return MockObject|MetadataCredentialContext
      */
     private function getMetadataContextMock()
     {
-        return $this->getMockBuilder(\LightSaml\Credential\Context\MetadataCredentialContext::class)
+        return $this->getMockBuilder(MetadataCredentialContext::class)
             ->disableOriginalConstructor()
             ->getMock();
     }

@@ -5,6 +5,7 @@ namespace Tests\Action\Profile\Outbound\Message;
 use LightSaml\Action\Profile\Outbound\Message\ResolveEndpointBaseAction;
 use LightSaml\Context\Profile\ProfileContext;
 use LightSaml\Criteria\CriteriaSet;
+use LightSaml\Error\LightSamlContextException;
 use LightSaml\Model\Metadata\SingleSignOnService;
 use LightSaml\Model\Metadata\SpSsoDescriptor;
 use LightSaml\Model\Protocol\AuthnRequest;
@@ -60,7 +61,7 @@ class ResolveEndpointBaseActionTest extends AbstractResolveEndpointAction
     public function test_throws_context_exception_when_no_endpoint_resolved()
     {
         $this->expectExceptionMessage("Unable to determine endpoint for entity 'https://B1.bead.loc/adfs/services/trust'");
-        $this->expectException(\LightSaml\Error\LightSamlContextException::class);
+        $this->expectException(LightSamlContextException::class);
         $message = new Response();
         $context = $this->createContext(ProfileContext::ROLE_IDP, $message);
         $this->setEndpointResolver(true, function () {

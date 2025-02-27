@@ -2,6 +2,7 @@
 
 namespace LightSaml\Validator\Model\Assertion;
 
+use LightSaml\Error\LightSamlValidationException;
 use LightSaml\Model\Assertion\Assertion;
 
 interface AssertionTimeValidatorInterface
@@ -10,7 +11,7 @@ interface AssertionTimeValidatorInterface
      * @param int $now
      * @param int $allowedSecondsSkew
      *
-     * @throws \LightSaml\Error\LightSamlValidationException
+     * @throws LightSamlValidationException
      *
      * @return void
      */

@@ -15,7 +15,7 @@ use Psr\Log\LoggerInterface;
  */
 class ReceiveMessageAction extends AbstractProfileAction
 {
-    public function __construct(LoggerInterface $logger, protected \LightSaml\Binding\BindingFactoryInterface $bindingFactory)
+    public function __construct(LoggerInterface $logger, protected BindingFactoryInterface $bindingFactory)
     {
         parent::__construct($logger);
     }

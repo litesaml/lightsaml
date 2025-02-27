@@ -9,7 +9,7 @@ use Pimple\Container;
  */
 abstract class AbstractPimpleContainer
 {
-    public function __construct(protected \Pimple\Container $pimple)
+    public function __construct(protected Container $pimple)
     {
     }
 

@@ -3,12 +3,12 @@
 namespace Tests\Functional\Model\Protocol;
 
 use LightSaml\ClaimTypes;
+use LightSaml\Credential\KeyHelper;
+use LightSaml\Credential\X509Certificate;
 use LightSaml\Model\Context\DeserializationContext;
 use LightSaml\Model\Protocol\Response;
 use LightSaml\Model\XmlDSig\SignatureXmlReader;
 use LightSaml\SamlConstants;
-use LightSaml\Credential\KeyHelper;
-use LightSaml\Credential\X509Certificate;
 use Tests\BaseTestCase;
 
 class ResponseFunctionalTest extends BaseTestCase
@@ -16,7 +16,7 @@ class ResponseFunctionalTest extends BaseTestCase
     public function test_deserialize_response01()
     {
         $context = new DeserializationContext();
-        $context->getDocument()->load(__DIR__.'/../../../resources/response01.xml');
+        $context->getDocument()->load(__DIR__ . '/../../../resources/response01.xml');
 
         $response = new Response();
         $response->deserialize($context->getDocument(), $context);
@@ -78,7 +78,7 @@ class ResponseFunctionalTest extends BaseTestCase
         $this->assertNotNull($as->getSignature());
         /** @var SignatureXmlReader $sig */
         $sig = $as->getSignature();
-        $this->assertInstanceOf(\LightSaml\Model\XmlDSig\SignatureXmlReader::class, $sig);
+        $this->assertInstanceOf(SignatureXmlReader::class, $sig);
         $arrCertificates = $sig->getAllCertificates();
         $this->assertCount(1, $arrCertificates);
 
@@ -92,7 +92,7 @@ class ResponseFunctionalTest extends BaseTestCase
     public function test_deserialize_invalid02()
     {
         $context = new DeserializationContext();
-        $context->getDocument()->load(__DIR__.'/../../../resources/invalid02.xml');
+        $context->getDocument()->load(__DIR__ . '/../../../resources/invalid02.xml');
 
         $response = new Response();
         $response->deserialize($context->getDocument(), $context);
