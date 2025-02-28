@@ -4,6 +4,12 @@
 All notable changes to this project will be documented in this file.
 <!--- END HEADER -->
 
+## 4.5.0 (2025-02-28)
+
+### Styles
+
+* Use PHP CS Fixer as linter (#87)
+
 ## 4.4.0 (2025-02-24)
 
 ### Features
@@ -13,7 +19,7 @@ All notable changes to this project will be documented in this file.
 ### Code Refactoring
 
 * Remove monolog/monolog dependency (#82)
-* Remove Symfony dom-crawler & css-selector dependency (#84
+* Remove Symfony dom-crawler & css-selector dependency (#84)
 * Remove php-conventional-changelog dependency
 
 ### Tests
