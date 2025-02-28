@@ -3,8 +3,9 @@
 namespace Tests\Model\Protocol;
 
 use LightSaml\ClaimTypes;
+use LightSaml\Credential\KeyHelper;
+use LightSaml\Credential\X509Certificate;
 use LightSaml\Meta\SigningOptions;
-use LightSaml\Model\Context\SerializationContext;
 use LightSaml\Model\Assertion\Assertion;
 use LightSaml\Model\Assertion\Attribute;
 use LightSaml\Model\Assertion\AttributeStatement;
@@ -17,13 +18,10 @@ use LightSaml\Model\Assertion\NameID;
 use LightSaml\Model\Assertion\Subject;
 use LightSaml\Model\Assertion\SubjectConfirmation;
 use LightSaml\Model\Assertion\SubjectConfirmationData;
+use LightSaml\Model\Context\SerializationContext;
 use LightSaml\Model\Protocol\Response;
-use LightSaml\Model\Protocol\Status;
-use LightSaml\Model\Protocol\StatusCode;
 use LightSaml\Model\XmlDSig\SignatureWriter;
 use LightSaml\SamlConstants;
-use LightSaml\Credential\KeyHelper;
-use LightSaml\Credential\X509Certificate;
 use Tests\BaseTestCase;
 
 class ResponseTest extends BaseTestCase
@@ -214,49 +212,50 @@ EOT;
             ->setDestination('http://destination.com')
             ->setConsent(SamlConstants::CONSENT_UNSPECIFIED)
             ->setInResponseTo('in-reponse-to')
-            ->addAssertion((new Assertion())
-                ->setId('assertion-id')
-                ->setIssueInstant('2013-10-27T11:55:37Z')
-                ->setIssuer((new Issuer())
-                    ->setValue('assertion-issuer'))
-                ->setSubject((new Subject())
-                    ->setNameID((new NameID())
-                        ->setValue('assertion-name-id')
-                        ->setFormat(SamlConstants::NAME_ID_FORMAT_PERSISTENT))
-                    ->addSubjectConfirmation((new SubjectConfirmation())
-                        ->setMethod(SamlConstants::CONFIRMATION_METHOD_BEARER)
-                        ->setSubjectConfirmationData((new SubjectConfirmationData())
-                            ->setInResponseTo('assertion-in-response-to')
-                            ->setNotOnOrAfter('2013-10-27T12:00:37Z')
-                            ->setRecipient('http://recipient.com'))))
-                ->setConditions((new Conditions())
-                    ->setNotBefore('2013-10-27T11:55:37Z')
-                    ->setNotOnOrAfter('2013-10-27T12:55:37Z')
-                    ->addItem((new AudienceRestriction())
-                        ->addAudience('http://audience.com')))
-                ->addItem((new AttributeStatement())
-                    ->addAttribute((new Attribute())
-                        ->setName(ClaimTypes::COMMON_NAME)
-                        ->setFriendlyName('Common Name')
-                        ->addAttributeValue('cn value'))
-                    ->addAttribute((new Attribute())
-                        ->setName(ClaimTypes::GROUP)
-                        ->setFriendlyName('Group')
-                        ->addAttributeValue('group one')
-                        ->addAttributeValue('group two')))
-                ->addItem((new AuthnStatement())
-                    ->setAuthnInstant('2013-10-27T11:55:36Z')
-                    ->setSessionIndex('session-index')
-                    ->setAuthnContext((new AuthnContext())
-                        ->setAuthnContextClassRef('authn-context-class-ref')))
-                ->setSignature(new SignatureWriter(
-                    X509Certificate::fromFile(__DIR__.'/../../resources/saml.crt'),
-                    KeyHelper::createPrivateKey(
-                        __DIR__.'/../../resources/saml.pem',
-                        '',
-                        true
-                    )
-                ))
+            ->addAssertion(
+                (new Assertion())
+                    ->setId('assertion-id')
+                    ->setIssueInstant('2013-10-27T11:55:37Z')
+                    ->setIssuer((new Issuer())
+                        ->setValue('assertion-issuer'))
+                    ->setSubject((new Subject())
+                        ->setNameID((new NameID())
+                            ->setValue('assertion-name-id')
+                            ->setFormat(SamlConstants::NAME_ID_FORMAT_PERSISTENT))
+                        ->addSubjectConfirmation((new SubjectConfirmation())
+                            ->setMethod(SamlConstants::CONFIRMATION_METHOD_BEARER)
+                            ->setSubjectConfirmationData((new SubjectConfirmationData())
+                                ->setInResponseTo('assertion-in-response-to')
+                                ->setNotOnOrAfter('2013-10-27T12:00:37Z')
+                                ->setRecipient('http://recipient.com'))))
+                    ->setConditions((new Conditions())
+                        ->setNotBefore('2013-10-27T11:55:37Z')
+                        ->setNotOnOrAfter('2013-10-27T12:55:37Z')
+                        ->addItem((new AudienceRestriction())
+                            ->addAudience('http://audience.com')))
+                    ->addItem((new AttributeStatement())
+                        ->addAttribute((new Attribute())
+                            ->setName(ClaimTypes::COMMON_NAME)
+                            ->setFriendlyName('Common Name')
+                            ->addAttributeValue('cn value'))
+                        ->addAttribute((new Attribute())
+                            ->setName(ClaimTypes::GROUP)
+                            ->setFriendlyName('Group')
+                            ->addAttributeValue('group one')
+                            ->addAttributeValue('group two')))
+                    ->addItem((new AuthnStatement())
+                        ->setAuthnInstant('2013-10-27T11:55:36Z')
+                        ->setSessionIndex('session-index')
+                        ->setAuthnContext((new AuthnContext())
+                            ->setAuthnContextClassRef('authn-context-class-ref')))
+                    ->setSignature(new SignatureWriter(
+                        X509Certificate::fromFile(__DIR__ . '/../../resources/saml.crt'),
+                        KeyHelper::createPrivateKey(
+                            __DIR__ . '/../../resources/saml.pem',
+                            '',
+                            true
+                        )
+                    ))
             )
             ->setIssuer((new Issuer())
                 ->setValue('the-issuer'))

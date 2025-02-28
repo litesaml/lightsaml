@@ -2,6 +2,7 @@
 
 namespace LightSaml\Store\EntityDescriptor;
 
+use InvalidArgumentException;
 use LightSaml\Model\Metadata\EntitiesDescriptor;
 use LightSaml\Model\Metadata\EntityDescriptor;
 
@@ -15,13 +16,13 @@ class FixedEntityDescriptorStore implements EntityDescriptorStoreInterface
      *
      * @return FixedEntityDescriptorStore
      *
-     * @throws \InvalidArgumentException
+     * @throws InvalidArgumentException
      */
     public function add($entityDescriptor)
     {
         if ($entityDescriptor instanceof EntityDescriptor) {
             if (false == $entityDescriptor->getEntityID()) {
-                throw new \InvalidArgumentException('EntityDescriptor must have entityId set');
+                throw new InvalidArgumentException('EntityDescriptor must have entityId set');
             }
             $this->descriptors[$entityDescriptor->getEntityID()] = $entityDescriptor;
         } elseif ($entityDescriptor instanceof EntitiesDescriptor) {
@@ -29,7 +30,7 @@ class FixedEntityDescriptorStore implements EntityDescriptorStoreInterface
                 $this->add($item);
             }
         } else {
-            throw new \InvalidArgumentException('Expected EntityDescriptor or EntitiesDescriptor');
+            throw new InvalidArgumentException('Expected EntityDescriptor or EntitiesDescriptor');
         }
 
         return $this;

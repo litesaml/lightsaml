@@ -2,6 +2,7 @@
 
 namespace Tests\Model\Xsd;
 
+use DateTime;
 use LightSaml\Helper;
 use LightSaml\Model\Assertion\Issuer;
 use LightSaml\Model\Protocol\LogoutResponse;
@@ -18,7 +19,7 @@ class LogoutResponseXsdTest extends AbstractXsdValidation
             ->setInResponseTo(Helper::generateID())
             ->setStatus(new Status(new StatusCode(SamlConstants::STATUS_SUCCESS), 'Successfully logged out from service'))
             ->setID(Helper::generateID())
-            ->setIssueInstant(new \DateTime())
+            ->setIssueInstant(new DateTime())
             ->setDestination('https://destination.com')
             ->setIssuer(new Issuer('https://issuer.com'))
         ;

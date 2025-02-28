@@ -29,9 +29,9 @@ class MetadataFilterResolver extends AbstractQueryableResolver
                 /** @var MetadataCredentialContext $metadataContext */
                 $metadataContext = $credential->getCredentialContext()->get(MetadataCredentialContext::class);
                 if (
-                    false == $metadataContext ||
-                    MetadataCriteria::TYPE_IDP == $criteria->getMetadataType() && $metadataContext->getRoleDescriptor() instanceof IdpSsoDescriptor ||
-                    MetadataCriteria::TYPE_SP == $criteria->getMetadataType() && $metadataContext->getRoleDescriptor() instanceof SpSsoDescriptor
+                    false == $metadataContext
+                    || MetadataCriteria::TYPE_IDP == $criteria->getMetadataType() && $metadataContext->getRoleDescriptor() instanceof IdpSsoDescriptor
+                    || MetadataCriteria::TYPE_SP == $criteria->getMetadataType() && $metadataContext->getRoleDescriptor() instanceof SpSsoDescriptor
                 ) {
                     $result[] = $credential;
                 }

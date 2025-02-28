@@ -2,11 +2,13 @@
 
 namespace Tests\Context;
 
+use InvalidArgumentException;
 use LightSaml\Context\AbstractContext;
 use LightSaml\Context\Profile\AssertionContext;
 use LightSaml\Context\Profile\EntityContext;
 use LightSaml\Context\Profile\ProfileContext;
 use LightSaml\Context\Profile\RequestStateContext;
+use PHPUnit\Framework\MockObject\MockObject;
 use Tests\BaseTestCase;
 
 class AbstractContextTest extends BaseTestCase
@@ -74,7 +76,7 @@ class AbstractContextTest extends BaseTestCase
     public function test_add_sub_context_throws_if_not_a_context_value()
     {
         $this->expectExceptionMessage("Expected object or ContextInterface");
-        $this->expectException(\InvalidArgumentException::class);
+        $this->expectException(InvalidArgumentException::class);
         $context = $this->getContextMock();
         $context->addSubContext($name = 'some', '123');
         $context->getSubContext($name);
@@ -239,7 +241,7 @@ EOT;
     }
 
     /**
-     * @return \PHPUnit_Framework_MockObject_MockObject|AbstractContext
+     * @return MockObject|AbstractContext
      */
     private function getContextMock()
     {

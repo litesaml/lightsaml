@@ -2,13 +2,14 @@
 
 namespace Tests\Action;
 
+use Exception;
 use LightSaml\Action\ActionInterface;
 use LightSaml\Action\CatchableErrorAction;
 use LightSaml\Context\AbstractContext;
 use LightSaml\Context\ContextInterface;
 use LightSaml\Context\Profile\ExceptionContext;
-use LightSaml\Context\Profile\ProfileContext;
 use LightSaml\Context\Profile\ProfileContexts;
+use PHPUnit\Framework\MockObject\MockObject;
 use Tests\BaseTestCase;
 
 class CatchableErrorActionTest extends BaseTestCase
@@ -45,7 +46,7 @@ class CatchableErrorActionTest extends BaseTestCase
         $firstAction->expects($this->once())
             ->method('execute')
             ->with($context)
-            ->willThrowException($exception = new \Exception());
+            ->willThrowException($exception = new Exception());
         $secondAction->expects($this->once())
             ->method('execute')
             ->with($context)
@@ -61,7 +62,7 @@ class CatchableErrorActionTest extends BaseTestCase
     }
 
     /**
-     * @return \PHPUnit_Framework_MockObject_MockObject|\LightSaml\Action\ActionInterface
+     * @return MockObject|ActionInterface
      */
     private function getActionMock()
     {
@@ -69,7 +70,7 @@ class CatchableErrorActionTest extends BaseTestCase
     }
 
     /**
-     * @return \PHPUnit_Framework_MockObject_MockObject|\LightSaml\Context\ContextInterface
+     * @return MockObject|ContextInterface
      */
     private function getContextMock()
     {

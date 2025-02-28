@@ -2,6 +2,8 @@
 
 namespace LightSaml\Model\Assertion;
 
+use DateTime;
+use DOMNode;
 use LightSaml\Helper;
 use LightSaml\Model\AbstractSamlModel;
 use LightSaml\Model\Context\DeserializationContext;
@@ -66,7 +68,7 @@ class SubjectConfirmationData extends AbstractSamlModel
     }
 
     /**
-     * @param int|string|\DateTime $notBefore
+     * @param int|string|DateTime $notBefore
      *
      * @return SubjectConfirmationData
      */
@@ -94,23 +96,23 @@ class SubjectConfirmationData extends AbstractSamlModel
             return Helper::time2string($this->notBefore);
         }
 
-        return null;
+        return;
     }
 
     /**
-     * @return \DateTime|null
+     * @return DateTime|null
      */
     public function getNotBeforeDateTime()
     {
         if ($this->notBefore) {
-            return new \DateTime('@' . $this->notBefore);
+            return new DateTime('@' . $this->notBefore);
         }
 
-        return null;
+        return;
     }
 
     /**
-     * @param int|string|\DateTime $notOnOrAfter
+     * @param int|string|DateTime $notOnOrAfter
      *
      * @return SubjectConfirmationData
      */
@@ -138,19 +140,19 @@ class SubjectConfirmationData extends AbstractSamlModel
             return Helper::time2string($this->notOnOrAfter);
         }
 
-        return null;
+        return;
     }
 
     /**
-     * @return \DateTime|null
+     * @return DateTime|null
      */
     public function getNotOnOrAfterDateTime()
     {
         if ($this->notOnOrAfter) {
-            return new \DateTime('@' . $this->notOnOrAfter);
+            return new DateTime('@' . $this->notOnOrAfter);
         }
 
-        return null;
+        return;
     }
 
     /**
@@ -176,7 +178,7 @@ class SubjectConfirmationData extends AbstractSamlModel
     /**
      * @return void
      */
-    public function serialize(\DOMNode $parent, SerializationContext $context)
+    public function serialize(DOMNode $parent, SerializationContext $context)
     {
         $result = $this->createElement('SubjectConfirmationData', SamlConstants::NS_ASSERTION, $parent, $context);
 
@@ -186,7 +188,7 @@ class SubjectConfirmationData extends AbstractSamlModel
         );
     }
 
-    public function deserialize(\DOMNode $node, DeserializationContext $context)
+    public function deserialize(DOMNode $node, DeserializationContext $context)
     {
         $this->checkXmlNodeName($node, 'SubjectConfirmationData', SamlConstants::NS_ASSERTION);
 

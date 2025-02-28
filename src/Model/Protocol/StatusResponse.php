@@ -2,6 +2,7 @@
 
 namespace LightSaml\Model\Protocol;
 
+use DOMNode;
 use LightSaml\Model\Context\DeserializationContext;
 use LightSaml\Model\Context\SerializationContext;
 
@@ -54,7 +55,7 @@ abstract class StatusResponse extends SamlMessage
     /**
      * @return void
      */
-    public function serialize(\DOMNode $parent, SerializationContext $context)
+    public function serialize(DOMNode $parent, SerializationContext $context)
     {
         parent::serialize($parent, $context);
 
@@ -63,12 +64,12 @@ abstract class StatusResponse extends SamlMessage
         $this->singleElementsToXml(['Status'], $parent, $context);
     }
 
-    public function deserialize(\DOMNode $node, DeserializationContext $context)
+    public function deserialize(DOMNode $node, DeserializationContext $context)
     {
         $this->attributesFromXml($node, ['InResponseTo']);
 
         $this->singleElementsFromXml($node, $context, [
-            'Status' => ['samlp', \LightSaml\Model\Protocol\Status::class],
+            'Status' => ['samlp', Status::class],
         ]);
 
         parent::deserialize($node, $context);

@@ -2,17 +2,20 @@
 
 namespace LightSaml\Builder\Profile;
 
+use LightSaml\Action\CompositeAction;
 use LightSaml\Build\Container\BuildContainerInterface;
+use LightSaml\Builder\Action\ActionBuilderInterface;
 use LightSaml\Builder\Context\ProfileContextBuilder;
+use LightSaml\Context\Profile\ProfileContext;
 
 abstract class AbstractProfileBuilder implements ProfileBuilderInterface
 {
-    public function __construct(protected \LightSaml\Build\Container\BuildContainerInterface $container)
+    public function __construct(protected BuildContainerInterface $container)
     {
     }
 
     /**
-     * @return \LightSaml\Action\CompositeAction
+     * @return CompositeAction
      */
     public function buildAction()
     {
@@ -20,7 +23,7 @@ abstract class AbstractProfileBuilder implements ProfileBuilderInterface
     }
 
     /**
-     * @return \LightSaml\Context\Profile\ProfileContext
+     * @return ProfileContext
      */
     public function buildContext()
     {
@@ -46,7 +49,7 @@ abstract class AbstractProfileBuilder implements ProfileBuilderInterface
     abstract protected function getProfileRole();
 
     /**
-     * @return \LightSaml\Builder\Action\ActionBuilderInterface
+     * @return ActionBuilderInterface
      */
     abstract protected function getActionBuilder();
 }

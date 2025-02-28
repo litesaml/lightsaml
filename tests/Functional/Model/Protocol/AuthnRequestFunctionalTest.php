@@ -2,15 +2,16 @@
 
 namespace Tests\Functional\Model\Protocol;
 
+use LightSaml\Credential\KeyHelper;
+use LightSaml\Credential\X509Certificate;
 use LightSaml\Model\Assertion\Issuer;
 use LightSaml\Model\Context\DeserializationContext;
 use LightSaml\Model\Context\SerializationContext;
 use LightSaml\Model\Protocol\AuthnRequest;
-use LightSaml\Credential\KeyHelper;
-use LightSaml\Credential\X509Certificate;
 use LightSaml\Model\XmlDSig\SignatureWriter;
 use LightSaml\Model\XmlDSig\SignatureXmlReader;
 use LightSaml\SamlConstants;
+use LogicException;
 use Tests\BaseTestCase;
 
 class AuthnRequestFunctionalTest extends BaseTestCase
@@ -18,7 +19,7 @@ class AuthnRequestFunctionalTest extends BaseTestCase
     public function test__deserialize_request01()
     {
         $context = new DeserializationContext();
-        $context->getDocument()->load(__DIR__.'/../../../resources/request01.xml');
+        $context->getDocument()->load(__DIR__ . '/../../../resources/request01.xml');
 
         $request = new AuthnRequest();
         $request->deserialize($context->getDocument(), $context);
@@ -41,8 +42,8 @@ class AuthnRequestFunctionalTest extends BaseTestCase
     public function test__signed_serialize_deserialize()
     {
         $certificate = new X509Certificate();
-        $certificate->loadFromFile(__DIR__.'/../../../resources/web_saml.crt');
-        $privateKey = KeyHelper::createPrivateKey(__DIR__.'/../../../resources/web_saml.key', null, true);
+        $certificate->loadFromFile(__DIR__ . '/../../../resources/web_saml.crt');
+        $privateKey = KeyHelper::createPrivateKey(__DIR__ . '/../../../resources/web_saml.key', null, true);
 
         $authnRequest = new AuthnRequest();
         $authnRequest->setID('_894da3368874d2dd637983b6812f66c444f100f205');
@@ -72,12 +73,12 @@ class AuthnRequestFunctionalTest extends BaseTestCase
         $signatureReader = $authnRequest->getSignature();
         if ($signatureReader instanceof SignatureXmlReader) {
             $certificate = new X509Certificate();
-            $certificate->loadFromFile(__DIR__.'/../../../resources/web_saml.crt');
+            $certificate->loadFromFile(__DIR__ . '/../../../resources/web_saml.crt');
             $key = KeyHelper::createPublicKey($certificate);
             $ok = $signatureReader->validate($key);
             $this->assertTrue($ok);
         } else {
-            throw new \LogicException('Expected Signature Xml Reader');
+            throw new LogicException('Expected Signature Xml Reader');
         }
 
     }

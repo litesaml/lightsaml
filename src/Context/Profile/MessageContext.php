@@ -65,7 +65,7 @@ class MessageContext extends AbstractProfileContext
             return $this->message;
         }
 
-        return null;
+        return;
     }
 
     /**
@@ -77,7 +77,7 @@ class MessageContext extends AbstractProfileContext
             return $this->message;
         }
 
-        return null;
+        return;
     }
 
     /**
@@ -89,7 +89,7 @@ class MessageContext extends AbstractProfileContext
             return $this->message;
         }
 
-        return null;
+        return;
     }
 
     /**
@@ -101,7 +101,7 @@ class MessageContext extends AbstractProfileContext
             return $this->message;
         }
 
-        return null;
+        return;
     }
 
     /**

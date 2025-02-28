@@ -2,21 +2,25 @@
 
 namespace Tests\Functional\Trust\Resolver;
 
-use LightSaml\Resolver\Credential\Factory\CredentialResolverFactory;
-use LightSaml\Store\EntityDescriptor\FixedEntityDescriptorStore;
+use LightSaml\Credential\Context\MetadataCredentialContext;
+use LightSaml\Credential\Criteria\EntityIdCriteria;
+use LightSaml\Credential\Criteria\MetadataCriteria;
+use LightSaml\Credential\Criteria\UsageCriteria;
+use LightSaml\Credential\KeyHelper;
+use LightSaml\Credential\UsageType;
+use LightSaml\Credential\X509Certificate;
+use LightSaml\Credential\X509Credential;
+use LightSaml\Criteria\CriteriaSet;
 use LightSaml\Model\Metadata\EntityDescriptor;
+use LightSaml\Model\Metadata\IdpSsoDescriptor;
+use LightSaml\Model\Metadata\SpSsoDescriptor;
+use LightSaml\Resolver\Credential\CredentialResolverInterface;
+use LightSaml\Resolver\Credential\Factory\CredentialResolverFactory;
 use LightSaml\SamlConstants;
 use LightSaml\Store\Credential\CompositeCredentialStore;
 use LightSaml\Store\Credential\MetadataCredentialStore;
 use LightSaml\Store\Credential\StaticCredentialStore;
-use LightSaml\Credential\UsageType;
-use LightSaml\Credential\X509Credential;
-use LightSaml\Credential\KeyHelper;
-use LightSaml\Credential\X509Certificate;
-use LightSaml\Criteria\CriteriaSet;
-use LightSaml\Credential\Criteria\EntityIdCriteria;
-use LightSaml\Credential\Criteria\MetadataCriteria;
-use LightSaml\Credential\Criteria\UsageCriteria;
+use LightSaml\Store\EntityDescriptor\FixedEntityDescriptorStore;
 use Tests\BaseTestCase;
 
 class ResolverFunctionalTest extends BaseTestCase
@@ -45,10 +49,10 @@ class ResolverFunctionalTest extends BaseTestCase
             $crt->getData()
         );
 
-        /** @var \LightSaml\Credential\Context\MetadataCredentialContext $metadataContext */
-        $metadataContext = $credential->getCredentialContext()->get(\LightSaml\Credential\Context\MetadataCredentialContext::class);
+        /** @var MetadataCredentialContext $metadataContext */
+        $metadataContext = $credential->getCredentialContext()->get(MetadataCredentialContext::class);
         $this->assertNotNull($metadataContext);
-        $this->assertInstanceOf(\LightSaml\Model\Metadata\IdpSsoDescriptor::class, $metadataContext->getRoleDescriptor());
+        $this->assertInstanceOf(IdpSsoDescriptor::class, $metadataContext->getRoleDescriptor());
 
         $this->assertEquals(UsageType::SIGNING, $credential->getUsageType());
     }
@@ -77,10 +81,10 @@ class ResolverFunctionalTest extends BaseTestCase
             $crt->getData()
         );
 
-        /** @var \LightSaml\Credential\Context\MetadataCredentialContext $metadataContext */
-        $metadataContext = $credential->getCredentialContext()->get(\LightSaml\Credential\Context\MetadataCredentialContext::class);
+        /** @var MetadataCredentialContext $metadataContext */
+        $metadataContext = $credential->getCredentialContext()->get(MetadataCredentialContext::class);
         $this->assertNotNull($metadataContext);
-        $this->assertInstanceOf(\LightSaml\Model\Metadata\IdpSsoDescriptor::class, $metadataContext->getRoleDescriptor());
+        $this->assertInstanceOf(IdpSsoDescriptor::class, $metadataContext->getRoleDescriptor());
 
         $this->assertEquals(UsageType::SIGNING, $credential->getUsageType());
     }
@@ -109,10 +113,10 @@ class ResolverFunctionalTest extends BaseTestCase
             $crt->getData()
         );
 
-        /** @var \LightSaml\Credential\Context\MetadataCredentialContext $metadataContext */
-        $metadataContext = $credential->getCredentialContext()->get(\LightSaml\Credential\Context\MetadataCredentialContext::class);
+        /** @var MetadataCredentialContext $metadataContext */
+        $metadataContext = $credential->getCredentialContext()->get(MetadataCredentialContext::class);
         $this->assertNotNull($metadataContext);
-        $this->assertInstanceOf(\LightSaml\Model\Metadata\SpSsoDescriptor::class, $metadataContext->getRoleDescriptor());
+        $this->assertInstanceOf(SpSsoDescriptor::class, $metadataContext->getRoleDescriptor());
 
         $this->assertEquals(UsageType::SIGNING, $credential->getUsageType());
     }
@@ -137,24 +141,24 @@ class ResolverFunctionalTest extends BaseTestCase
     }
 
     /**
-     * @return \LightSaml\Resolver\Credential\CredentialResolverInterface
+     * @return CredentialResolverInterface
      */
     private function getResolver()
     {
         $provider = new FixedEntityDescriptorStore();
-        $provider->add(EntityDescriptor::load(__DIR__.'/../../../resources/idp2-ed.xml'));
-        $provider->add(EntityDescriptor::load(__DIR__.'/../../../resources/idp-ed.xml'));
-        $provider->add(EntityDescriptor::load(__DIR__.'/../../../resources/ed01-formatted-certificate.xml'));
-        $provider->add(EntityDescriptor::load(__DIR__.'/../../../resources/sp-ed2.xml'));
+        $provider->add(EntityDescriptor::load(__DIR__ . '/../../../resources/idp2-ed.xml'));
+        $provider->add(EntityDescriptor::load(__DIR__ . '/../../../resources/idp-ed.xml'));
+        $provider->add(EntityDescriptor::load(__DIR__ . '/../../../resources/ed01-formatted-certificate.xml'));
+        $provider->add(EntityDescriptor::load(__DIR__ . '/../../../resources/sp-ed2.xml'));
 
         $metadataStore = new MetadataCredentialStore($provider);
 
         $certificate = new X509Certificate();
-        $certificate->loadFromFile(__DIR__.'/../../../resources/saml.crt');
+        $certificate->loadFromFile(__DIR__ . '/../../../resources/saml.crt');
 
         $credential = new X509Credential(
             $certificate,
-            KeyHelper::createPrivateKey(__DIR__.'/../../../resources/saml.pem', '', true)
+            KeyHelper::createPrivateKey(__DIR__ . '/../../../resources/saml.pem', '', true)
         );
         $credential
             ->setUsageType(UsageType::ENCRYPTION)

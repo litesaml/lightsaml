@@ -10,7 +10,6 @@ use LightSaml\Model\Metadata\EntityDescriptor;
 use LightSaml\Model\Protocol\AuthnRequest;
 use LightSaml\Profile\Profiles;
 use LightSaml\Resolver\Endpoint\Criteria\ServiceTypeCriteria;
-use LightSaml\Resolver\Endpoint\EndpointResolverInterface;
 use Tests\BaseTestCase;
 
 class DestinationValidatorResponseActionTest extends BaseTestCase

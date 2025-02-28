@@ -25,7 +25,7 @@ use Psr\Log\LoggerInterface;
  */
 abstract class ResolveEndpointBaseAction extends AbstractProfileAction
 {
-    public function __construct(LoggerInterface $logger, protected \LightSaml\Resolver\Endpoint\EndpointResolverInterface $endpointResolver)
+    public function __construct(LoggerInterface $logger, protected EndpointResolverInterface $endpointResolver)
     {
         parent::__construct($logger);
     }

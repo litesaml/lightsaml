@@ -3,6 +3,10 @@
 namespace Tests\Credential\Context;
 
 use LightSaml\Credential\Context\MetadataCredentialContext;
+use LightSaml\Model\Metadata\EntityDescriptor;
+use LightSaml\Model\Metadata\KeyDescriptor;
+use LightSaml\Model\Metadata\RoleDescriptor;
+use PHPUnit\Framework\MockObject\MockObject;
 use Tests\BaseTestCase;
 
 class MetadataCredentialContextTest extends BaseTestCase
@@ -21,26 +25,26 @@ class MetadataCredentialContextTest extends BaseTestCase
     }
 
     /**
-     * @return \PHPUnit_Framework_MockObject_MockObject|\LightSaml\Model\Metadata\KeyDescriptor
+     * @return MockObject|KeyDescriptor
      */
     private function getKeyDescriptorMock()
     {
-        return $this->getMockBuilder(\LightSaml\Model\Metadata\KeyDescriptor::class)->getMock();
+        return $this->getMockBuilder(KeyDescriptor::class)->getMock();
     }
 
     /**
-     * @return \PHPUnit_Framework_MockObject_MockObject|\LightSaml\Model\Metadata\RoleDescriptor
+     * @return MockObject|RoleDescriptor
      */
     private function getRoleDescriptorMock()
     {
-        return $this->getMockBuilder(\LightSaml\Model\Metadata\RoleDescriptor::class)->getMock();
+        return $this->getMockBuilder(RoleDescriptor::class)->getMock();
     }
 
     /**
-     * @return \PHPUnit_Framework_MockObject_MockObject|\LightSaml\Model\Metadata\EntityDescriptor
+     * @return MockObject|EntityDescriptor
      */
     private function getEntityDescriptorMock()
     {
-        return $this->getMockBuilder(\LightSaml\Model\Metadata\EntityDescriptor::class)->getMock();
+        return $this->getMockBuilder(EntityDescriptor::class)->getMock();
     }
 }

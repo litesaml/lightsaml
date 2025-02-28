@@ -3,9 +3,10 @@
 namespace Tests\Model\Metadata;
 
 use LightSaml\ClaimTypes;
+use LightSaml\Credential\X509Certificate;
+use LightSaml\Model\Assertion\Attribute;
 use LightSaml\Model\Context\DeserializationContext;
 use LightSaml\Model\Context\SerializationContext;
-use LightSaml\Model\Assertion\Attribute;
 use LightSaml\Model\Metadata\AssertionConsumerService;
 use LightSaml\Model\Metadata\ContactPerson;
 use LightSaml\Model\Metadata\EntityDescriptor;
@@ -16,7 +17,6 @@ use LightSaml\Model\Metadata\SingleLogoutService;
 use LightSaml\Model\Metadata\SingleSignOnService;
 use LightSaml\Model\Metadata\SpSsoDescriptor;
 use LightSaml\SamlConstants;
-use LightSaml\Credential\X509Certificate;
 use Tests\BaseTestCase;
 
 class EntityDescriptorTest extends BaseTestCase
@@ -46,7 +46,7 @@ class EntityDescriptorTest extends BaseTestCase
                 ->addNameIDFormat(SamlConstants::NAME_ID_FORMAT_PERSISTENT)
                 ->addKeyDescriptor((new KeyDescriptor())
                     ->setCertificate((new X509Certificate())
-                        ->loadFromFile(__DIR__.'/../../resources/saml.crt')))
+                        ->loadFromFile(__DIR__ . '/../../resources/saml.crt')))
                 ->addOrganization((new Organization())
                     ->setOrganizationName('Organization Name')
                     ->setOrganizationDisplayName('Display Name')
@@ -192,7 +192,7 @@ EOT;
                 ->addNameIDFormat(SamlConstants::NAME_ID_FORMAT_PERSISTENT)
                 ->addKeyDescriptor((new KeyDescriptor())
                     ->setCertificate((new X509Certificate())
-                        ->loadFromFile(__DIR__.'/../../resources/saml.crt')))
+                        ->loadFromFile(__DIR__ . '/../../resources/saml.crt')))
                 ->addOrganization((new Organization())
                     ->setOrganizationName('Organization Name')
                     ->setOrganizationDisplayName('Display Name')

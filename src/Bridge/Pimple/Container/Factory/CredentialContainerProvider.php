@@ -2,6 +2,7 @@
 
 namespace LightSaml\Bridge\Pimple\Container\Factory;
 
+use InvalidArgumentException;
 use LightSaml\Bridge\Pimple\Container\CredentialContainer;
 use LightSaml\Build\Container\OwnContainerInterface;
 use LightSaml\Build\Container\PartyContainerInterface;
@@ -29,7 +30,7 @@ class CredentialContainerProvider implements ServiceProviderInterface
     public function addExtraCredential(CredentialInterface $credential)
     {
         if (null === $credential->getEntityId()) {
-            throw new \InvalidArgumentException('Extra credential must have entityID');
+            throw new InvalidArgumentException('Extra credential must have entityID');
         }
 
         $this->extraCredentials[] = $credential;

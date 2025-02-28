@@ -2,6 +2,8 @@
 
 namespace LightSaml\Credential\Context;
 
+use InvalidArgumentException;
+
 class CredentialContextSet
 {
     /** @var CredentialContextInterface[] */
@@ -14,7 +16,7 @@ class CredentialContextSet
     {
         foreach ($contexts as $context) {
             if (false == $context instanceof CredentialContextInterface) {
-                throw new \InvalidArgumentException('Expected CredentialContextInterface');
+                throw new InvalidArgumentException('Expected CredentialContextInterface');
             }
             $this->contexts[] = $context;
         }
@@ -41,6 +43,6 @@ class CredentialContextSet
             }
         }
 
-        return null;
+        return;
     }
 }

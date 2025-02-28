@@ -2,13 +2,14 @@
 
 namespace LightSaml\Action;
 
+use Exception;
 use LightSaml\Context\ContextInterface;
 use LightSaml\Context\Profile\ExceptionContext;
 use LightSaml\Context\Profile\ProfileContexts;
 
 class CatchableErrorAction implements ActionInterface
 {
-    public function __construct(protected \LightSaml\Action\ActionInterface $mainAction, protected \LightSaml\Action\ActionInterface $errorAction)
+    public function __construct(protected ActionInterface $mainAction, protected ActionInterface $errorAction)
     {
     }
 
@@ -19,7 +20,7 @@ class CatchableErrorAction implements ActionInterface
     {
         try {
             $this->mainAction->execute($context);
-        } catch (\Exception $ex) {
+        } catch (Exception $ex) {
             /** @var ExceptionContext $exceptionContext */
             $exceptionContext = $context->getSubContext(ProfileContexts::EXCEPTION, ExceptionContext::class);
             $exceptionContext->addException($ex);

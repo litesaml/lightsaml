@@ -2,6 +2,8 @@
 
 namespace Tests\Model\Metadata;
 
+use DateTime;
+use InvalidArgumentException;
 use LightSaml\Model\XmlDSig\SignatureWriter;
 use Tests\BaseTestCase;
 use Tests\Fixtures\Model\Metadata\RoleDescriptorMock;
@@ -17,7 +19,7 @@ class RoleDescriptorTest extends BaseTestCase
 
     public function test__set_invalid_cache_duration()
     {
-        $this->expectException(\InvalidArgumentException::class);
+        $this->expectException(InvalidArgumentException::class);
         $rd = new RoleDescriptorMock();
         $rd->setCacheDuration('123');
     }
@@ -69,7 +71,7 @@ class RoleDescriptorTest extends BaseTestCase
     public function test__set_valid_until_date_time()
     {
         $rd = new RoleDescriptorMock();
-        $rd->setValidUntil(new \DateTime('2013-10-27T11:55:37Z'));
+        $rd->setValidUntil(new DateTime('2013-10-27T11:55:37Z'));
         $this->assertEquals(1382874937, $rd->getValidUntilTimestamp());
     }
 

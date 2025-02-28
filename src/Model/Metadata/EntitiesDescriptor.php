@@ -2,10 +2,14 @@
 
 namespace LightSaml\Model\Metadata;
 
+use DateTime;
+use DOMNode;
+use InvalidArgumentException;
 use LightSaml\Helper;
 use LightSaml\Model\Context\DeserializationContext;
 use LightSaml\Model\Context\SerializationContext;
 use LightSaml\Model\XmlDSig\Signature;
+use LightSaml\Model\XmlDSig\SignatureXmlReader;
 use LightSaml\SamlConstants;
 
 class EntitiesDescriptor extends Metadata
@@ -58,7 +62,7 @@ class EntitiesDescriptor extends Metadata
      *
      * @return EntitiesDescriptor
      *
-     * @throws \InvalidArgumentException
+     * @throws InvalidArgumentException
      */
     public function setCacheDuration($cacheDuration)
     {
@@ -128,7 +132,7 @@ class EntitiesDescriptor extends Metadata
     }
 
     /**
-     * @return \LightSaml\Model\XmlDSig\Signature
+     * @return Signature
      */
     public function getSignature()
     {
@@ -140,13 +144,13 @@ class EntitiesDescriptor extends Metadata
      *
      * @return EntitiesDescriptor
      *
-     * @throws \InvalidArgumentException
+     * @throws InvalidArgumentException
      */
     public function setValidUntil($validUntil)
     {
         $value = Helper::getTimestampFromValue($validUntil);
         if ($value < 0) {
-            throw new \InvalidArgumentException('Invalid validUntil');
+            throw new InvalidArgumentException('Invalid validUntil');
         }
         $this->validUntil = $value;
 
@@ -162,7 +166,7 @@ class EntitiesDescriptor extends Metadata
             return Helper::time2string($this->validUntil);
         }
 
-        return null;
+        return;
     }
 
     /**
@@ -174,15 +178,15 @@ class EntitiesDescriptor extends Metadata
     }
 
     /**
-     * @return \DateTime|null
+     * @return DateTime|null
      */
     public function getValidUntilDateTime()
     {
         if ($this->validUntil) {
-            return new \DateTime('@' . $this->validUntil);
+            return new DateTime('@' . $this->validUntil);
         }
 
-        return null;
+        return;
     }
 
     /**
@@ -190,18 +194,18 @@ class EntitiesDescriptor extends Metadata
      *
      * @return EntitiesDescriptor
      *
-     * @throws \InvalidArgumentException
+     * @throws InvalidArgumentException
      */
     public function addItem($item)
     {
         if (false == $item instanceof self && false == $item instanceof EntityDescriptor) {
-            throw new \InvalidArgumentException('Expected EntitiesDescriptor or EntityDescriptor');
+            throw new InvalidArgumentException('Expected EntitiesDescriptor or EntityDescriptor');
         }
         if ($item === $this) {
-            throw new \InvalidArgumentException('Circular reference detected');
+            throw new InvalidArgumentException('Circular reference detected');
         }
         if ($item instanceof self && $item->containsItem($this)) {
-            throw new \InvalidArgumentException('Circular reference detected');
+            throw new InvalidArgumentException('Circular reference detected');
         }
         $this->items[] = $item;
 
@@ -213,12 +217,12 @@ class EntitiesDescriptor extends Metadata
      *
      * @return bool
      *
-     * @throws \InvalidArgumentException
+     * @throws InvalidArgumentException
      */
     public function containsItem($item)
     {
         if (false == $item instanceof self && false == $item instanceof EntityDescriptor) {
-            throw new \InvalidArgumentException('Expected EntitiesDescriptor or EntityDescriptor');
+            throw new InvalidArgumentException('Expected EntitiesDescriptor or EntityDescriptor');
         }
         foreach ($this->items as $i) {
             if ($i === $item) {
@@ -270,13 +274,13 @@ class EntitiesDescriptor extends Metadata
             }
         }
 
-        return null;
+        return;
     }
 
     /**
      * @return void
      */
-    public function serialize(\DOMNode $parent, SerializationContext $context)
+    public function serialize(DOMNode $parent, SerializationContext $context)
     {
         $result = $this->createElement('EntitiesDescriptor', SamlConstants::NS_METADATA, $parent, $context);
 
@@ -287,14 +291,14 @@ class EntitiesDescriptor extends Metadata
         $this->manyElementsToXml($this->getAllItems(), $result, $context);
     }
 
-    public function deserialize(\DOMNode $node, DeserializationContext $context)
+    public function deserialize(DOMNode $node, DeserializationContext $context)
     {
         $this->checkXmlNodeName($node, 'EntitiesDescriptor', SamlConstants::NS_METADATA);
 
         $this->attributesFromXml($node, ['validUntil', 'cacheDuration', 'ID', 'Name']);
 
         $this->singleElementsFromXml($node, $context, [
-            'Signature' => ['ds', \LightSaml\Model\XmlDSig\SignatureXmlReader::class],
+            'Signature' => ['ds', SignatureXmlReader::class],
         ]);
 
         $this->manyElementsFromXml(
@@ -302,7 +306,7 @@ class EntitiesDescriptor extends Metadata
             $context,
             'EntityDescriptor',
             'md',
-            \LightSaml\Model\Metadata\EntityDescriptor::class,
+            EntityDescriptor::class,
             'addItem'
         );
         $this->manyElementsFromXml(
@@ -310,7 +314,7 @@ class EntitiesDescriptor extends Metadata
             $context,
             'EntitiesDescriptor',
             'md',
-            \LightSaml\Model\Metadata\EntitiesDescriptor::class,
+            EntitiesDescriptor::class,
             'addItem'
         );
     }

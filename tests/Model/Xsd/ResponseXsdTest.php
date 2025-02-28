@@ -2,6 +2,7 @@
 
 namespace Tests\Model\Xsd;
 
+use DateTime;
 use LightSaml\ClaimTypes;
 use LightSaml\Helper;
 use LightSaml\Model\Assertion\Assertion;
@@ -33,7 +34,7 @@ class ResponseXsdTest extends AbstractXsdValidation
             ))
             ->setInResponseTo(Helper::generateID())
             ->setID(Helper::generateID())
-            ->setIssueInstant(new \DateTime())
+            ->setIssueInstant(new DateTime())
             ->setIssuer(new Issuer('https://idp.com'))
         ;
         $this->sign($response);
@@ -50,40 +51,47 @@ class ResponseXsdTest extends AbstractXsdValidation
             ))
             ->setInResponseTo(Helper::generateID())
             ->setID(Helper::generateID())
-            ->setIssueInstant(new \DateTime())
+            ->setIssueInstant(new DateTime())
             ->setIssuer(new Issuer('https://idp.com'))
         ;
 
         $response->addAssertion($assertion = new Assertion());
         $assertion
             ->setId(Helper::generateID())
-            ->setIssueInstant(new \DateTime())
+            ->setIssueInstant(new DateTime())
             ->setIssuer(new Issuer('https://idp.com'))
-            ->setSubject((new Subject())
-                ->setNameID(new NameID('foo@idp.com', SamlConstants::NAME_ID_FORMAT_EMAIL))
-                ->addSubjectConfirmation((new SubjectConfirmation())
-                    ->setMethod(SamlConstants::CONFIRMATION_METHOD_BEARER)
-                    ->setSubjectConfirmationData((new SubjectConfirmationData())
-                        ->setInResponseTo(Helper::generateID())
-                        ->setNotOnOrAfter(new \DateTime('+1 hour'))
-                        ->setRecipient('https://sp.com/acs')
+            ->setSubject(
+                (new Subject())
+                    ->setNameID(new NameID('foo@idp.com', SamlConstants::NAME_ID_FORMAT_EMAIL))
+                    ->addSubjectConfirmation(
+                        (new SubjectConfirmation())
+                            ->setMethod(SamlConstants::CONFIRMATION_METHOD_BEARER)
+                            ->setSubjectConfirmationData(
+                                (new SubjectConfirmationData())
+                                    ->setInResponseTo(Helper::generateID())
+                                    ->setNotOnOrAfter(new DateTime('+1 hour'))
+                                    ->setRecipient('https://sp.com/acs')
+                            )
                     )
-                )
             )
-            ->setConditions((new Conditions())
-                ->setNotBefore(new \DateTime())
-                ->setNotOnOrAfter(new \DateTime('+1 hour'))
-                ->addItem((new AudienceRestriction(['https://sp.com/acs'])))
+            ->setConditions(
+                (new Conditions())
+                    ->setNotBefore(new DateTime())
+                    ->setNotOnOrAfter(new DateTime('+1 hour'))
+                    ->addItem((new AudienceRestriction(['https://sp.com/acs'])))
             )
-            ->addItem((new AttributeStatement())
-                ->addAttribute(new Attribute(ClaimTypes::EMAIL_ADDRESS, 'foo@idp.com'))
+            ->addItem(
+                (new AttributeStatement())
+                    ->addAttribute(new Attribute(ClaimTypes::EMAIL_ADDRESS, 'foo@idp.com'))
             )
-            ->addItem((new AuthnStatement())
-                ->setAuthnInstant(new \DateTime('-1 hour'))
-                ->setSessionIndex(Helper::generateID())
-                ->setAuthnContext((new AuthnContext())
-                    ->setAuthnContextClassRef(SamlConstants::AUTHN_CONTEXT_PASSWORD_PROTECTED_TRANSPORT)
-                )
+            ->addItem(
+                (new AuthnStatement())
+                    ->setAuthnInstant(new DateTime('-1 hour'))
+                    ->setSessionIndex(Helper::generateID())
+                    ->setAuthnContext(
+                        (new AuthnContext())
+                            ->setAuthnContextClassRef(SamlConstants::AUTHN_CONTEXT_PASSWORD_PROTECTED_TRANSPORT)
+                    )
             )
         ;
         $this->sign($assertion);

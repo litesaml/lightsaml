@@ -2,6 +2,7 @@
 
 namespace LightSaml\Model\Metadata;
 
+use DOMNode;
 use LightSaml\Model\AbstractSamlModel;
 use LightSaml\Model\Context\DeserializationContext;
 use LightSaml\Model\Context\SerializationContext;
@@ -79,12 +80,12 @@ abstract class Endpoint extends AbstractSamlModel
         return $this->responseLocation;
     }
 
-    public function serialize(\DOMNode $parent, SerializationContext $context)
+    public function serialize(DOMNode $parent, SerializationContext $context)
     {
         $this->attributesToXml(['Binding', 'Location', 'ResponseLocation'], $parent);
     }
 
-    public function deserialize(\DOMNode $node, DeserializationContext $context)
+    public function deserialize(DOMNode $node, DeserializationContext $context)
     {
         $this->attributesFromXml($node, ['Binding', 'Location', 'ResponseLocation']);
     }

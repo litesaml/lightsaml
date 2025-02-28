@@ -38,7 +38,7 @@ abstract class AbstractRequestStateArrayStore implements RequestStateStoreInterf
             return $result;
         }
 
-        return null;
+        return;
     }
 
     /**

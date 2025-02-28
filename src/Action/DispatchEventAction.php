@@ -8,7 +8,7 @@ use Psr\EventDispatcher\EventDispatcherInterface;
 
 class DispatchEventAction implements ActionInterface
 {
-    public function __construct(protected \Psr\EventDispatcher\EventDispatcherInterface $eventDispatcher)
+    public function __construct(protected EventDispatcherInterface $eventDispatcher)
     {
     }
 

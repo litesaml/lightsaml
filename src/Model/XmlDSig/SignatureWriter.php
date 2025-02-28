@@ -2,11 +2,13 @@
 
 namespace LightSaml\Model\XmlDSig;
 
+use DOMNode;
 use LightSaml\Credential\X509Certificate;
 use LightSaml\Meta\SigningOptions;
 use LightSaml\Model\Context\DeserializationContext;
 use LightSaml\Model\Context\SerializationContext;
 use LightSaml\SamlConstants;
+use LogicException;
 use RobRichards\XMLSecLibs\XMLSecurityDSig;
 use RobRichards\XMLSecLibs\XMLSecurityKey;
 
@@ -42,7 +44,7 @@ class SignatureWriter extends Signature
     /**
      * @param string $digestAlgorithm
      */
-    public function __construct(protected ?\LightSaml\Credential\X509Certificate $certificate = null, protected ?\RobRichards\XMLSecLibs\XMLSecurityKey $xmlSecurityKey = null, protected $digestAlgorithm = XMLSecurityDSig::SHA1)
+    public function __construct(protected ?X509Certificate $certificate = null, protected ?XMLSecurityKey $xmlSecurityKey = null, protected $digestAlgorithm = XMLSecurityDSig::SHA1)
     {
     }
 
@@ -140,7 +142,7 @@ class SignatureWriter extends Signature
         return $this->certificate;
     }
 
-    public function serialize(\DOMNode $parent, SerializationContext $context)
+    public function serialize(DOMNode $parent, SerializationContext $context)
     {
         if ($this->signingOptions && false === $this->signingOptions->isEnabled()) {
             return;
@@ -174,8 +176,8 @@ class SignatureWriter extends Signature
         $objXMLSecDSig->insertSignature($parent, $firstChild);
     }
 
-    public function deserialize(\DOMNode $node, DeserializationContext $context): never
+    public function deserialize(DOMNode $node, DeserializationContext $context): never
     {
-        throw new \LogicException('SignatureWriter can not be deserialized');
+        throw new LogicException('SignatureWriter can not be deserialized');
     }
 }

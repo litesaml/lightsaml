@@ -2,6 +2,7 @@
 
 namespace LightSaml\Model\Metadata;
 
+use DOMNode;
 use LightSaml\Model\Context\DeserializationContext;
 use LightSaml\Model\Context\SerializationContext;
 
@@ -61,13 +62,13 @@ class IndexedEndpoint extends Endpoint
         return $this->index;
     }
 
-    public function serialize(\DOMNode $parent, SerializationContext $context)
+    public function serialize(DOMNode $parent, SerializationContext $context)
     {
         $this->attributesToXml(['index', 'isDefault'], $parent);
         parent::serialize($parent, $context);
     }
 
-    public function deserialize(\DOMNode $node, DeserializationContext $context)
+    public function deserialize(DOMNode $node, DeserializationContext $context)
     {
         $this->attributesFromXml($node, ['index', 'isDefault']);
 

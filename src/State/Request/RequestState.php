@@ -3,10 +3,11 @@
 namespace LightSaml\State\Request;
 
 use LightSaml\Meta\ParameterBag;
+use Serializable;
 
-class RequestState implements \Serializable
+class RequestState implements Serializable
 {
-    private \LightSaml\Meta\ParameterBag $parameters;
+    private ParameterBag $parameters;
 
     /**
      * @param string $id
@@ -49,7 +50,6 @@ class RequestState implements \Serializable
 
     /**
      * @deprecated Since 1.2, to be removed in 2.0. Use getParameters() instead
-     *
      *
      * @return RequestState
      */
@@ -94,7 +94,6 @@ class RequestState implements \Serializable
 
         return [$this->id, $nonce, $this->parameters->__serialize()];
     }
-
 
     /**
      * @param string $serialized The string representation of the object

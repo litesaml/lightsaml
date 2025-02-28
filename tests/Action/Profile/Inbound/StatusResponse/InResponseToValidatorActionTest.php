@@ -6,8 +6,11 @@ use LightSaml\Action\Profile\Inbound\StatusResponse\InResponseToValidatorAction;
 use LightSaml\Context\Profile\ProfileContext;
 use LightSaml\Context\Profile\ProfileContexts;
 use LightSaml\Context\Profile\RequestStateContext;
+use LightSaml\Error\LightSamlContextException;
+use LightSaml\Model\Protocol\StatusResponse;
 use LightSaml\Profile\Profiles;
 use LightSaml\State\Request\RequestState;
+use PHPUnit\Framework\MockObject\MockObject;
 use Tests\BaseTestCase;
 
 class InResponseToValidatorActionTest extends BaseTestCase
@@ -61,7 +64,7 @@ class InResponseToValidatorActionTest extends BaseTestCase
     public function test_throws_context_exception_if_no_request_state_for_in_response_to_from_message()
     {
         $this->expectExceptionMessage("Unknown InResponseTo '1234567890'");
-        $this->expectException(\LightSaml\Error\LightSamlContextException::class);
+        $this->expectException(LightSamlContextException::class);
         $action = new InResponseToValidatorAction(
             $loggerMock = $this->getLoggerMock(),
             $requestStateStoreMock = $this->getRequestStateStoreMock()
@@ -84,11 +87,11 @@ class InResponseToValidatorActionTest extends BaseTestCase
     /**
      * @param string $inResponseTo
      *
-     * @return \PHPUnit_Framework_MockObject_MockObject|\LightSaml\Model\Protocol\StatusResponse
+     * @return MockObject|StatusResponse
      */
     private function getStatusResponseMock($inResponseTo = null)
     {
-        $result = $this->getMockForAbstractClass(\LightSaml\Model\Protocol\StatusResponse::class);
+        $result = $this->getMockForAbstractClass(StatusResponse::class);
         if ($inResponseTo) {
             $result->expects($this->any())
                 ->method('getInResponseTo')

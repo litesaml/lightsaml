@@ -13,7 +13,7 @@ use LightSaml\Model\Assertion\AuthnStatement;
 class StatementValidator implements StatementValidatorInterface
 {
     /**
-     * @throws \LightSaml\Error\LightSamlValidationException
+     * @throws LightSamlValidationException
      *
      * @return void
      */
@@ -53,17 +53,17 @@ class StatementValidator implements StatementValidatorInterface
     private function validateAuthnContext(AuthnContext $authnContext)
     {
         if (
-            false == $authnContext->getAuthnContextClassRef() &&
-            false == $authnContext->getAuthnContextDecl() &&
-            false == $authnContext->getAuthnContextDeclRef()
+            false == $authnContext->getAuthnContextClassRef()
+            && false == $authnContext->getAuthnContextDecl()
+            && false == $authnContext->getAuthnContextDeclRef()
         ) {
             throw new LightSamlValidationException('AuthnContext element MUST contain at least one AuthnContextClassRef, AuthnContextDecl or AuthnContextDeclRef element');
         }
 
         if (
-            $authnContext->getAuthnContextClassRef() &&
-            $authnContext->getAuthnContextDecl() &&
-            $authnContext->getAuthnContextDeclRef()
+            $authnContext->getAuthnContextClassRef()
+            && $authnContext->getAuthnContextDecl()
+            && $authnContext->getAuthnContextDeclRef()
         ) {
             throw new LightSamlValidationException('AuthnContext MUST NOT contain more than two elements.');
         }

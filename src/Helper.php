@@ -2,6 +2,11 @@
 
 namespace LightSaml;
 
+use DateInterval;
+use DateTime;
+use Exception;
+use InvalidArgumentException;
+
 final class Helper
 {
     public const TIME_FORMAT = 'Y-m-d\TH:i:s\Z';
@@ -13,9 +18,9 @@ final class Helper
     {
         if ($duration) {
             try {
-                new \DateInterval((string) $duration);
-            } catch (\Exception $ex) {
-                throw new \InvalidArgumentException(sprintf("Invalid duration '%s' format", $duration), 0, $ex);
+                new DateInterval((string) $duration);
+            } catch (Exception $ex) {
+                throw new InvalidArgumentException(sprintf("Invalid duration '%s' format", $duration), 0, $ex);
             }
         }
     }
@@ -29,22 +34,22 @@ final class Helper
     }
 
     /**
-     * @param int|string|\DateTime $value
+     * @param int|string|DateTime $value
      *
      * @return int
      *
-     * @throws \InvalidArgumentException
+     * @throws InvalidArgumentException
      */
     public static function getTimestampFromValue($value)
     {
         if (is_string($value)) {
             return self::parseSAMLTime($value);
-        } elseif ($value instanceof \DateTime) {
+        } elseif ($value instanceof DateTime) {
             return $value->getTimestamp();
         } elseif (is_int($value)) {
             return $value;
         } else {
-            throw new \InvalidArgumentException();
+            throw new InvalidArgumentException();
         }
     }
 
@@ -53,7 +58,7 @@ final class Helper
      *
      * @return int
      *
-     * @throws \InvalidArgumentException
+     * @throws InvalidArgumentException
      */
     public static function parseSAMLTime($time): int|false
     {
@@ -65,7 +70,7 @@ final class Helper
                 $matches
             )
         ) {
-            throw new \InvalidArgumentException('Invalid SAML2 timestamp: ' . $time);
+            throw new InvalidArgumentException('Invalid SAML2 timestamp: ' . $time);
         }
 
         return strtotime($time);
@@ -74,14 +79,13 @@ final class Helper
     /**
      * @param int $length
      *
-     *
-     * @throws \InvalidArgumentException
+     * @throws InvalidArgumentException
      */
     public static function generateRandomBytes($length): string
     {
         $length = intval($length);
         if ($length <= 0) {
-            throw new \InvalidArgumentException();
+            throw new InvalidArgumentException();
         }
 
         return random_bytes($length);

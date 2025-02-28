@@ -2,6 +2,7 @@
 
 namespace Tests\Functional\Model\Protocol;
 
+use DateTime;
 use LightSaml\Credential\KeyHelper;
 use LightSaml\Credential\X509Certificate;
 use LightSaml\Helper;
@@ -21,6 +22,7 @@ use LightSaml\Model\Protocol\StatusCode;
 use LightSaml\Model\XmlDSig\AbstractSignatureReader;
 use LightSaml\Model\XmlDSig\SignatureWriter;
 use LightSaml\SamlConstants;
+use RobRichards\XMLSecLibs\XMLSecurityKey;
 use Tests\BaseTestCase;
 
 class SamlMessageSignAndVerifyTest extends BaseTestCase
@@ -76,7 +78,7 @@ class SamlMessageSignAndVerifyTest extends BaseTestCase
     {
         $message
             ->setID(Helper::generateID())
-            ->setIssueInstant(new \DateTime())
+            ->setIssueInstant(new DateTime())
             ->setIssuer(new Issuer('https://mydomain.com'))
         ;
         $xml = $this->signAndSerialize($message);
@@ -122,14 +124,14 @@ class SamlMessageSignAndVerifyTest extends BaseTestCase
      */
     private function getCertificate()
     {
-        return X509Certificate::fromFile(__DIR__.'/../../../resources/web_saml.crt');
+        return X509Certificate::fromFile(__DIR__ . '/../../../resources/web_saml.crt');
     }
 
     /**
-     * @return \RobRichards\XMLSecLibs\XMLSecurityKey
+     * @return XMLSecurityKey
      */
     private function getPrivateKey()
     {
-        return KeyHelper::createPrivateKey(__DIR__.'/../../../resources/web_saml.key', null, true);
+        return KeyHelper::createPrivateKey(__DIR__ . '/../../../resources/web_saml.key', null, true);
     }
 }

@@ -3,6 +3,7 @@
 namespace Tests\Action\Assertion\Inbound;
 
 use LightSaml\Action\Assertion\Inbound\AssertionIssuerFormatValidatorAction;
+use LightSaml\Error\LightSamlContextException;
 use LightSaml\Model\Assertion\Assertion;
 use LightSaml\Model\Assertion\Issuer;
 use LightSaml\SamlConstants;
@@ -31,7 +32,7 @@ class AssertionIssuerFormatValidatorActionTest extends BaseTestCase
             ->with('Assertion element must have an issuer element', $this->isType('array'));
 
         $this->expectExceptionMessage("Assertion element must have an issuer element");
-        $this->expectException(\LightSaml\Error\LightSamlContextException::class);
+        $this->expectException(LightSamlContextException::class);
 
         $action->execute($context);
     }
@@ -54,7 +55,7 @@ class AssertionIssuerFormatValidatorActionTest extends BaseTestCase
             );
 
         $this->expectExceptionMessage("Response Issuer Format if set must have value 'urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress' but it was 'urn:oasis:names:tc:SAML:2.0:nameid-format:persistent'");
-        $this->expectException(\LightSaml\Error\LightSamlContextException::class);
+        $this->expectException(LightSamlContextException::class);
 
         $action->execute($context);
     }

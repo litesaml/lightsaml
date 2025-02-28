@@ -2,9 +2,14 @@
 
 namespace LightSaml\Model;
 
+use DOMComment;
+use DOMDocument;
+use DOMElement;
+use DOMNode;
 use LightSaml\Error\LightSamlXmlException;
 use LightSaml\Model\Context\DeserializationContext;
 use LightSaml\Model\Context\SerializationContext;
+use LogicException;
 
 abstract class AbstractSamlModel implements SamlElementInterface
 {
@@ -12,9 +17,9 @@ abstract class AbstractSamlModel implements SamlElementInterface
      * @param string      $name
      * @param string|null $namespace
      *
-     * @return \DOMElement
+     * @return DOMElement
      */
-    protected function createElement($name, $namespace, \DOMNode $parent, SerializationContext $context)
+    protected function createElement($name, $namespace, DOMNode $parent, SerializationContext $context)
     {
         if ($namespace) {
             $result = $context->getDocument()->createElementNS($namespace, $name);
@@ -30,9 +35,9 @@ abstract class AbstractSamlModel implements SamlElementInterface
      * @param string      $name
      * @param string|null $namespace
      *
-     * @throws \LogicException
+     * @throws LogicException
      */
-    private function oneElementToXml($name, \DOMNode $parent, SerializationContext $context, $namespace = null)
+    private function oneElementToXml($name, DOMNode $parent, SerializationContext $context, $namespace = null)
     {
         $value = $this->getPropertyValue($name);
         if (null == $value) {
@@ -48,7 +53,7 @@ abstract class AbstractSamlModel implements SamlElementInterface
             }
             $parent->appendChild($node);
         } else {
-            throw new \LogicException(sprintf("Element '%s' must implement SamlElementInterface or be a string", $name));
+            throw new LogicException(sprintf("Element '%s' must implement SamlElementInterface or be a string", $name));
         }
     }
 
@@ -56,7 +61,7 @@ abstract class AbstractSamlModel implements SamlElementInterface
      * @param array|string[] $names
      * @param string|null    $namespace
      */
-    protected function singleElementsToXml(array $names, \DOMNode $parent, SerializationContext $context, $namespace = null)
+    protected function singleElementsToXml(array $names, DOMNode $parent, SerializationContext $context, $namespace = null)
     {
         foreach ($names as $name) {
             $this->oneElementToXml($name, $parent, $context, $namespace);
@@ -68,22 +73,22 @@ abstract class AbstractSamlModel implements SamlElementInterface
      * @param string|null $nodeName
      * @param string|null $namespaceUri
      *
-     * @throws \LogicException
+     * @throws LogicException
      */
-    protected function manyElementsToXml($value, \DOMNode $node, SerializationContext $context, $nodeName = null, $namespaceUri = null)
+    protected function manyElementsToXml($value, DOMNode $node, SerializationContext $context, $nodeName = null, $namespaceUri = null)
     {
         if (false == $value) {
             return;
         }
 
         if (false == is_array($value)) {
-            throw new \LogicException('value must be array or null');
+            throw new LogicException('value must be array or null');
         }
 
         foreach ($value as $object) {
             if ($object instanceof SamlElementInterface) {
                 if ($nodeName) {
-                    throw new \LogicException('nodeName should not be specified when serializing array of SamlElementInterface');
+                    throw new LogicException('nodeName should not be specified when serializing array of SamlElementInterface');
                 }
                 $object->serialize($node, $context);
             } elseif ($nodeName) {
@@ -94,7 +99,7 @@ abstract class AbstractSamlModel implements SamlElementInterface
                 }
                 $node->appendChild($child);
             } else {
-                throw new \LogicException('Can handle only array of AbstractSamlModel or strings with nodeName parameter specified');
+                throw new LogicException('Can handle only array of AbstractSamlModel or strings with nodeName parameter specified');
             }
         }
     }
@@ -105,9 +110,9 @@ abstract class AbstractSamlModel implements SamlElementInterface
      * @param string      $class
      * @param string      $methodName
      *
-     * @throws \LogicException
+     * @throws LogicException
      */
-    protected function manyElementsFromXml(\DOMElement $node, DeserializationContext $context, $nodeName, $namespacePrefix, $class, $methodName)
+    protected function manyElementsFromXml(DOMElement $node, DeserializationContext $context, $nodeName, $namespacePrefix, $class, $methodName)
     {
         $query = $namespacePrefix ? sprintf('%s:%s', $namespacePrefix, $nodeName) : $nodeName;
 
@@ -117,7 +122,7 @@ abstract class AbstractSamlModel implements SamlElementInterface
                 /** @var SamlElementInterface $object */
                 $object = new $class();
                 if (false == $object instanceof SamlElementInterface) {
-                    throw new \LogicException(sprintf("Node '%s' class '%s' must implement SamlElementInterface", $nodeName, $class));
+                    throw new LogicException(sprintf("Node '%s' class '%s' must implement SamlElementInterface", $nodeName, $class));
                 }
                 $object->deserialize($xml, $context);
                 $this->{$methodName}($object);
@@ -131,11 +136,11 @@ abstract class AbstractSamlModel implements SamlElementInterface
     /**
      * @param string $name
      *
-     * @throws \LogicException
+     * @throws LogicException
      *
      * @return bool True if property value is not empty and attribute was set to the element
      */
-    protected function singleAttributeToXml($name, \DOMElement $element)
+    protected function singleAttributeToXml($name, DOMElement $element)
     {
         $value = $this->getPropertyValue($name);
         if (null !== $value && '' !== $value) {
@@ -154,7 +159,7 @@ abstract class AbstractSamlModel implements SamlElementInterface
     /**
      * @param array|string[] $names
      */
-    protected function attributesToXml(array $names, \DOMElement $element)
+    protected function attributesToXml(array $names, DOMElement $element)
     {
         foreach ($names as $name) {
             $this->singleAttributeToXml($name, $element);
@@ -165,15 +170,15 @@ abstract class AbstractSamlModel implements SamlElementInterface
      * @param string $expectedName
      * @param string $expectedNamespaceUri
      */
-    protected function checkXmlNodeName(\DOMNode &$node, $expectedName, $expectedNamespaceUri)
+    protected function checkXmlNodeName(DOMNode &$node, $expectedName, $expectedNamespaceUri)
     {
-        if ($node instanceof \DOMDocument) {
+        if ($node instanceof DOMDocument) {
             $node = $node->firstChild;
         }
-        while ($node && $node instanceof \DOMComment) {
+        while ($node && $node instanceof DOMComment) {
             $node = $node->nextSibling;
         }
-        if (!$node instanceof \DOMNode) {
+        if (!$node instanceof DOMNode) {
             throw new LightSamlXmlException(sprintf("Unable to find expected '%s' xml node and '%s' namespace", $expectedName, $expectedNamespaceUri));
         } elseif ($node->localName != $expectedName || $node->namespaceURI != $expectedNamespaceUri) {
             throw new LightSamlXmlException(sprintf("Expected '%s' xml node and '%s' namespace but got node '%s' and namespace '%s'", $expectedName, $expectedNamespaceUri, $node->localName, $node->namespaceURI));
@@ -183,7 +188,7 @@ abstract class AbstractSamlModel implements SamlElementInterface
     /**
      * @param string $attributeName
      */
-    protected function singleAttributeFromXml(\DOMElement $node, $attributeName)
+    protected function singleAttributeFromXml(DOMElement $node, $attributeName)
     {
         $value = $node->getAttribute($attributeName);
         if ('' !== $value) {
@@ -199,9 +204,9 @@ abstract class AbstractSamlModel implements SamlElementInterface
      * @param string $class
      * @param string $namespacePrefix
      *
-     * @throws \LogicException
+     * @throws LogicException
      */
-    protected function oneElementFromXml(\DOMElement $node, DeserializationContext $context, $elementName, $class, $namespacePrefix)
+    protected function oneElementFromXml(DOMElement $node, DeserializationContext $context, $elementName, $class, $namespacePrefix)
     {
         $query = $namespacePrefix ? sprintf('./%s:%s', $namespacePrefix, $elementName) : sprintf('./%s', $elementName);
         $arr = $context->getXpath()->query($query, $node);
@@ -210,14 +215,14 @@ abstract class AbstractSamlModel implements SamlElementInterface
         if ($value) {
             $setter = 'set' . $elementName;
             if (false == method_exists($this, $setter)) {
-                throw new \LogicException(sprintf("Unable to find setter for element '%s' in class '%s'", $elementName, static::class));
+                throw new LogicException(sprintf("Unable to find setter for element '%s' in class '%s'", $elementName, static::class));
             }
 
             if ($class) {
                 /** @var AbstractSamlModel $object */
                 $object = new $class();
-                if (false == $object instanceof \LightSaml\Model\SamlElementInterface) {
-                    throw new \LogicException(sprintf("Specified class '%s' for element '%s' must implement SamlElementInterface", $class, $elementName));
+                if (false == $object instanceof SamlElementInterface) {
+                    throw new LogicException(sprintf("Specified class '%s' for element '%s' must implement SamlElementInterface", $class, $elementName));
                 }
 
                 $object->deserialize($value, $context);
@@ -232,14 +237,14 @@ abstract class AbstractSamlModel implements SamlElementInterface
     /**
      * @param array $options elementName=>class
      */
-    protected function singleElementsFromXml(\DOMElement $node, DeserializationContext $context, array $options)
+    protected function singleElementsFromXml(DOMElement $node, DeserializationContext $context, array $options)
     {
         foreach ($options as $elementName => $info) {
             $this->oneElementFromXml($node, $context, $elementName, $info[1], $info[0]);
         }
     }
 
-    protected function attributesFromXml(\DOMElement $node, array $attributeNames)
+    protected function attributesFromXml(DOMElement $node, array $attributeNames)
     {
         foreach ($attributeNames as $attributeName) {
             $this->singleAttributeFromXml($node, $attributeName);
@@ -251,7 +256,7 @@ abstract class AbstractSamlModel implements SamlElementInterface
      *
      * @return mixed
      *
-     * @throws \LogicException
+     * @throws LogicException
      */
     private function getPropertyValue($name)
     {
@@ -263,7 +268,7 @@ abstract class AbstractSamlModel implements SamlElementInterface
             $getter = 'get' . $name;
         }
         if (false == method_exists($this, $getter)) {
-            throw new \LogicException(sprintf("Unable to find getter method for '%s' on '%s'", $name, static::class));
+            throw new LogicException(sprintf("Unable to find getter method for '%s' on '%s'", $name, static::class));
         }
 
         return $this->{$getter}();

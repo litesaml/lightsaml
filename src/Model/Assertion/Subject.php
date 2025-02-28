@@ -2,6 +2,7 @@
 
 namespace LightSaml\Model\Assertion;
 
+use DOMNode;
 use LightSaml\Model\AbstractSamlModel;
 use LightSaml\Model\Context\DeserializationContext;
 use LightSaml\Model\Context\SerializationContext;
@@ -16,7 +17,6 @@ class Subject extends AbstractSamlModel
     protected $subjectConfirmation = [];
 
     /**
-     * @param NameID $nameId
      *
      * @return Subject
      */
@@ -28,7 +28,7 @@ class Subject extends AbstractSamlModel
     }
 
     /**
-     * @return \LightSaml\Model\Assertion\NameID
+     * @return NameID
      */
     public function getNameID()
     {
@@ -62,7 +62,7 @@ class Subject extends AbstractSamlModel
             return $this->subjectConfirmation[0];
         }
 
-        return null;
+        return;
     }
 
     /**
@@ -88,7 +88,7 @@ class Subject extends AbstractSamlModel
     /**
      * @return void
      */
-    public function serialize(\DOMNode $parent, SerializationContext $context)
+    public function serialize(DOMNode $parent, SerializationContext $context)
     {
         $result = $this->createElement('Subject', SamlConstants::NS_ASSERTION, $parent, $context);
 
@@ -96,12 +96,12 @@ class Subject extends AbstractSamlModel
         $this->manyElementsToXml($this->getAllSubjectConfirmations(), $result, $context, null);
     }
 
-    public function deserialize(\DOMNode $node, DeserializationContext $context)
+    public function deserialize(DOMNode $node, DeserializationContext $context)
     {
         $this->checkXmlNodeName($node, 'Subject', SamlConstants::NS_ASSERTION);
 
         $this->singleElementsFromXml($node, $context, [
-            'NameID' => ['saml', \LightSaml\Model\Assertion\NameID::class],
+            'NameID' => ['saml', NameID::class],
         ]);
 
         $this->manyElementsFromXml(
@@ -109,7 +109,7 @@ class Subject extends AbstractSamlModel
             $context,
             'SubjectConfirmation',
             'saml',
-            \LightSaml\Model\Assertion\SubjectConfirmation::class,
+            SubjectConfirmation::class,
             'addSubjectConfirmation'
         );
     }

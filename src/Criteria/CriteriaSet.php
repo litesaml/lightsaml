@@ -53,6 +53,7 @@ class CriteriaSet
 
     /**
      * @param callable $callback
+     *
      * @return CriteriaSet
      */
     public function addIf(mixed $condition, $callback)
@@ -105,7 +106,7 @@ class CriteriaSet
             }
         }
 
-        return null;
+        return;
     }
 
     /**

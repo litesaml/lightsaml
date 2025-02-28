@@ -7,7 +7,7 @@ use LightSaml\Model\Assertion\NameID;
 
 class FixedNameIdProvider implements NameIdProviderInterface
 {
-    public function __construct(protected ?\LightSaml\Model\Assertion\NameID $nameId = null)
+    public function __construct(protected ?NameID $nameId = null)
     {
     }
 

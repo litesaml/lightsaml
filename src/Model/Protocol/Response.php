@@ -2,7 +2,10 @@
 
 namespace LightSaml\Model\Protocol;
 
+use DOMNode;
+use InvalidArgumentException;
 use LightSaml\Model\Assertion\Assertion;
+use LightSaml\Model\Assertion\EncryptedAssertionReader;
 use LightSaml\Model\Assertion\EncryptedElement;
 use LightSaml\Model\Context\DeserializationContext;
 use LightSaml\Model\Context\SerializationContext;
@@ -33,7 +36,7 @@ class Response extends StatusResponse
             return $this->assertions[0];
         }
 
-        return null;
+        return;
     }
 
     /**
@@ -53,14 +56,14 @@ class Response extends StatusResponse
             return $this->encryptedAssertions[0];
         }
 
-        return null;
+        return;
     }
 
     /**
      * Returns assertions with <AuthnStatement> and <Subject> with at least one <SubjectConfirmation>
      * element containing a Method of urn:oasis:names:tc:SAML:2.0:cm:bearer.
      *
-     * @return \LightSaml\Model\Assertion\Assertion[]
+     * @return Assertion[]
      */
     public function getBearerAssertions()
     {
@@ -102,7 +105,7 @@ class Response extends StatusResponse
         }
 
         if (false === $hasThatAssertion) {
-            throw new \InvalidArgumentException('Response does not have assertion specified to be removed');
+            throw new InvalidArgumentException('Response does not have assertion specified to be removed');
         }
 
         return $this;
@@ -118,7 +121,7 @@ class Response extends StatusResponse
         return $this;
     }
 
-    public function serialize(\DOMNode $parent, SerializationContext $context)
+    public function serialize(DOMNode $parent, SerializationContext $context)
     {
         $result = $this->createElement('samlp:Response', SamlConstants::NS_PROTOCOL, $parent, $context);
 
@@ -131,7 +134,7 @@ class Response extends StatusResponse
         $this->singleElementsToXml(['Signature'], $result, $context);
     }
 
-    public function deserialize(\DOMNode $node, DeserializationContext $context)
+    public function deserialize(DOMNode $node, DeserializationContext $context)
     {
         $this->checkXmlNodeName($node, 'Response', SamlConstants::NS_PROTOCOL);
 
@@ -143,7 +146,7 @@ class Response extends StatusResponse
             $context,
             'Assertion',
             'saml',
-            \LightSaml\Model\Assertion\Assertion::class,
+            Assertion::class,
             'addAssertion'
         );
 
@@ -153,7 +156,7 @@ class Response extends StatusResponse
             $context,
             'EncryptedAssertion',
             'saml',
-            \LightSaml\Model\Assertion\EncryptedAssertionReader::class,
+            EncryptedAssertionReader::class,
             'addEncryptedAssertion'
         );
     }

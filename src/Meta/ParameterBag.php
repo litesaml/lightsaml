@@ -2,7 +2,12 @@
 
 namespace LightSaml\Meta;
 
-class ParameterBag implements \IteratorAggregate, \Countable, \Serializable
+use ArrayIterator;
+use Countable;
+use IteratorAggregate;
+use Serializable;
+
+class ParameterBag implements IteratorAggregate, Countable, Serializable
 {
     /**
      * @param array $parameters An array of parameters
@@ -93,9 +98,9 @@ class ParameterBag implements \IteratorAggregate, \Countable, \Serializable
         unset($this->parameters[$key]);
     }
 
-    public function getIterator(): \ArrayIterator
+    public function getIterator(): ArrayIterator
     {
-        return new \ArrayIterator($this->parameters);
+        return new ArrayIterator($this->parameters);
     }
 
     public function count(): int

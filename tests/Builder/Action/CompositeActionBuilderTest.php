@@ -2,10 +2,12 @@
 
 namespace Tests\Builder\Action;
 
+use InvalidArgumentException;
 use LightSaml\Action\ActionInterface;
 use LightSaml\Action\CompositeAction;
 use LightSaml\Builder\Action\CompositeActionBuilder;
 use LightSaml\Context\ContextInterface;
+use PHPUnit\Framework\MockObject\MockObject;
 use Tests\BaseTestCase;
 use Tests\Mock\Action\FooAction;
 
@@ -13,14 +15,14 @@ class CompositeActionBuilderTest extends BaseTestCase
 {
     public function test__throws_on_priority_true()
     {
-        $this->expectException(\InvalidArgumentException::class);
+        $this->expectException(InvalidArgumentException::class);
         $compositeBuilder = new CompositeActionBuilder();
         $compositeBuilder->add(new FooAction(), true);
     }
 
     public function test__throws_on_priority_string()
     {
-        $this->expectException(\InvalidArgumentException::class);
+        $this->expectException(InvalidArgumentException::class);
         $compositeBuilder = new CompositeActionBuilder();
         $compositeBuilder->add(new FooAction(), "asc");
     }
@@ -67,7 +69,7 @@ class CompositeActionBuilderTest extends BaseTestCase
      * @param int $expectedOrder
      * @param int $order
      *
-     * @return \PHPUnit_Framework_MockObject_MockObject|ActionInterface
+     * @return MockObject|ActionInterface
      */
     private function getActionMock($expectedOrder, &$order)
     {

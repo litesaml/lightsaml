@@ -2,6 +2,7 @@
 
 namespace LightSaml\Binding;
 
+use LightSaml\Error\LightSamlBindingException;
 use Symfony\Component\HttpFoundation\Request;
 
 interface BindingFactoryInterface
@@ -14,7 +15,7 @@ interface BindingFactoryInterface
     /**
      * @param string $bindingType
      *
-     * @throws \LightSaml\Error\LightSamlBindingException
+     * @throws LightSamlBindingException
      *
      * @return AbstractBinding
      */

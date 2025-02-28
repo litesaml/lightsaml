@@ -2,16 +2,22 @@
 
 namespace Tests\Functional\Binding;
 
+use DOMDocument;
 use LightSaml\Binding\HttpPostBinding;
+use LightSaml\Binding\SamlPostResponse;
 use LightSaml\Context\Profile\MessageContext;
+use LightSaml\Credential\KeyHelper;
+use LightSaml\Credential\X509Certificate;
 use LightSaml\Event\MessageReceived;
 use LightSaml\Event\MessageSent;
 use LightSaml\Model\Protocol\AuthnRequest;
+use LightSaml\Model\XmlDSig\AbstractSignatureReader;
 use LightSaml\Model\XmlDSig\SignatureWriter;
-use LightSaml\Credential\KeyHelper;
-use LightSaml\Credential\X509Certificate;
-use Tests\BaseTestCase;
+use LightSaml\Model\XmlDSig\SignatureXmlReader;
+use PHPUnit\Framework\MockObject\MockObject;
+use Psr\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\Request;
+use Tests\BaseTestCase;
 
 class HttpPostBindingFunctionalTest extends BaseTestCase
 {
@@ -31,7 +37,7 @@ class HttpPostBindingFunctionalTest extends BaseTestCase
             ->method('dispatch')
             ->willReturnCallback(function (MessageSent $event) {
                 $this->assertNotEmpty($event->message);
-                $doc = new \DOMDocument();
+                $doc = new DOMDocument();
                 $doc->loadXML($event->message);
                 $this->assertEquals('AuthnRequest', $doc->firstChild->localName);
                 return $event;
@@ -43,10 +49,10 @@ class HttpPostBindingFunctionalTest extends BaseTestCase
         $messageContext = new MessageContext();
         $messageContext->setMessage($request);
 
-        /** @var \LightSaml\Binding\SamlPostResponse $response */
+        /** @var SamlPostResponse $response */
         $response = $biding->send($messageContext);
 
-        $this->assertInstanceOf(\LightSaml\Binding\SamlPostResponse::class, $response);
+        $this->assertInstanceOf(SamlPostResponse::class, $response);
 
         $data = $response->getData();
 
@@ -75,10 +81,10 @@ class HttpPostBindingFunctionalTest extends BaseTestCase
         $messageContext = new MessageContext();
         $messageContext->setMessage($request);
 
-        /** @var \LightSaml\Binding\SamlPostResponse $response */
+        /** @var SamlPostResponse $response */
         $response = $biding->send($messageContext, $expectedDestination);
 
-        $this->assertInstanceOf(\LightSaml\Binding\SamlPostResponse::class, $response);
+        $this->assertInstanceOf(SamlPostResponse::class, $response);
 
         $this->assertEquals($expectedDestination, $response->getDestination());
     }
@@ -98,7 +104,7 @@ class HttpPostBindingFunctionalTest extends BaseTestCase
             ->method('dispatch')
             ->willReturnCallback(function (MessageReceived $event) {
                 $this->assertNotEmpty($event->message);
-                $doc = new \DOMDocument();
+                $doc = new DOMDocument();
                 $doc->loadXML($event->message);
                 $this->assertEquals('AuthnRequest', $doc->firstChild->localName);
                 return $event;
@@ -109,16 +115,16 @@ class HttpPostBindingFunctionalTest extends BaseTestCase
 
         $messageContext = new MessageContext();
         $binding->receive($request, $messageContext);
-        /** @var \LightSaml\Model\Protocol\AuthnRequest $message */
+        /** @var AuthnRequest $message */
         $message = $messageContext->getMessage();
 
-        $this->assertInstanceOf(\LightSaml\Model\Protocol\AuthnRequest::class, $message);
+        $this->assertInstanceOf(AuthnRequest::class, $message);
 
         $this->assertEquals($expectedRelayState, $message->getRelayState());
 
         $this->assertNotNull($message->getSignature());
-        $this->assertInstanceOf(\LightSaml\Model\XmlDSig\AbstractSignatureReader::class, $message->getSignature());
-        $this->assertInstanceOf(\LightSaml\Model\XmlDSig\SignatureXmlReader::class, $message->getSignature());
+        $this->assertInstanceOf(AbstractSignatureReader::class, $message->getSignature());
+        $this->assertInstanceOf(SignatureXmlReader::class, $message->getSignature());
     }
 
     public function test_receive_authn_request_compressed()
@@ -127,10 +133,10 @@ class HttpPostBindingFunctionalTest extends BaseTestCase
 
         $request = new Request();
         $request->setMethod('POST');
-        $request->request->add(array(
+        $request->request->add([
             'SAMLRequest' => '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',
             'RelayState' => $expectedRelayState,
-        ));
+        ]);
 
         $binding = new HttpPostBinding();
 
@@ -139,7 +145,7 @@ class HttpPostBindingFunctionalTest extends BaseTestCase
             ->method('dispatch')
             ->willReturnCallback(function (MessageReceived $event) {
                 $this->assertNotEmpty($event->message);
-                $doc = new \DOMDocument();
+                $doc = new DOMDocument();
                 $doc->loadXML($event->message);
                 $this->assertEquals('AuthnRequest', $doc->firstChild->localName);
                 return $event;
@@ -150,7 +156,7 @@ class HttpPostBindingFunctionalTest extends BaseTestCase
 
         $messageContext = new MessageContext();
         $binding->receive($request, $messageContext);
-        /** @var \LightSaml\Model\Protocol\AuthnRequest $message */
+        /** @var AuthnRequest $message */
         $message = $messageContext->getMessage();
 
         $this->assertInstanceOf('LightSaml\Model\Protocol\AuthnRequest', $message);
@@ -172,9 +178,9 @@ class HttpPostBindingFunctionalTest extends BaseTestCase
         $authnRequest->setID('_8dcc6985f6d9f385f0bbd4562ef848ef3ae78d87d7');
 
         $certificate = new X509Certificate();
-        $certificate->loadFromFile(__DIR__.'/../../resources/saml.crt');
+        $certificate->loadFromFile(__DIR__ . '/../../resources/saml.crt');
 
-        $key = KeyHelper::createPrivateKey(__DIR__.'/../../resources/saml.pem', '', true);
+        $key = KeyHelper::createPrivateKey(__DIR__ . '/../../resources/saml.pem', '', true);
 
         $authnRequest->setSignature(new SignatureWriter($certificate, $key));
 
@@ -182,10 +188,10 @@ class HttpPostBindingFunctionalTest extends BaseTestCase
     }
 
     /**
-     * @return \PHPUnit_Framework_MockObject_MockObject|\Psr\EventDispatcher\EventDispatcherInterface
+     * @return MockObject|EventDispatcherInterface
      */
     private function getEventDispatcherMock()
     {
-        return $this->getMockBuilder(\Psr\EventDispatcher\EventDispatcherInterface::class)->getMock();
+        return $this->getMockBuilder(EventDispatcherInterface::class)->getMock();
     }
 }

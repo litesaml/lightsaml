@@ -10,3 +10,5 @@
 /Makefile export-ignore
 /phpstan.neon.dist export-ignore
 /phpunit.xml export-ignore
+/rector.php export-ignore
+/phpcs.php export-ignore

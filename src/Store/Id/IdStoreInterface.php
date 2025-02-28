@@ -2,6 +2,8 @@
 
 namespace LightSaml\Store\Id;
 
+use DateTime;
+
 interface IdStoreInterface
 {
     /**
@@ -10,7 +12,7 @@ interface IdStoreInterface
      *
      * @return void
      */
-    public function set($entityId, $id, \DateTime $expiryTime);
+    public function set($entityId, $id, DateTime $expiryTime);
 
     /**
      * @param string $entityId
