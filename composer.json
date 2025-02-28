@@ -35,7 +35,6 @@
         "psr/log": "^3.0"
     },
     "require-dev": {
-        "pimple/pimple": "~3.0",
         "phpunit/phpunit": "^10.1",
         "mockery/mockery": "^1.4.4",
         "rector/rector": "^1.2.2",
