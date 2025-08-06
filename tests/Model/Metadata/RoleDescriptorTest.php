@@ -4,6 +4,7 @@ namespace Tests\Model\Metadata;
 
 use DateTime;
 use InvalidArgumentException;
+use LightSaml\Model\Metadata\KeyDescriptor;
 use LightSaml\Model\XmlDSig\SignatureWriter;
 use Tests\BaseTestCase;
 use Tests\Fixtures\Model\Metadata\RoleDescriptorMock;
@@ -42,6 +43,18 @@ class RoleDescriptorTest extends BaseTestCase
     {
         $rd = new RoleDescriptorMock();
         $this->assertNull($rd->getFirstKeyDescriptor());
+    }
+
+    public function test__get_all_key_descriptors_returns_null_when_empty()
+    {
+        $rd = new RoleDescriptorMock();
+        $this->assertNull($rd->getAllKeyDescriptors());
+    }
+
+    public function test__get_all_key_descriptors_by_use_returns_empty_array()
+    {
+        $rd = new RoleDescriptorMock();
+        $this->assertIsArray($rd->getAllKeyDescriptorsByUse(KeyDescriptor::USE_SIGNING));
     }
 
     public function test__add_signature()

@@ -155,9 +155,12 @@ abstract class RoleDescriptor extends AbstractSamlModel
     public function getAllKeyDescriptorsByUse($use)
     {
         $result = [];
-        foreach ($this->getAllKeyDescriptors() as $kd) {
-            if ($kd->getUse() == $use) {
-                $result[] = $kd;
+
+        if ($this->getAllKeyDescriptors()) {
+            foreach ($this->getAllKeyDescriptors() as $kd) {
+                if ($kd->getUse() == $use) {
+                    $result[] = $kd;
+                }
             }
         }
 
