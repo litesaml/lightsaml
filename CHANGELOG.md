@@ -4,6 +4,12 @@
 All notable changes to this project will be documented in this file.
 <!--- END HEADER -->
 
+## 4.5.1 (2025-08-06)
+
+### Bug Fixes
+
+* RoleDescriptor::getAllKeyDescriptorsByUse() dont fail on null keyDescriptors (#91)
+
 ## 4.5.0 (2025-02-28)
 
 ### Styles
