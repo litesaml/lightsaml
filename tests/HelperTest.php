@@ -10,23 +10,23 @@ use PHPUnit\Framework\Attributes\DataProvider;
 
 class HelperTest extends BaseTestCase
 {
-    protected $timestamps = [[1412399250, '2014-10-04T05:07:30Z'], [1412368132, '2014-10-03T20:28:52Z'], [1412331547, '2014-10-03T10:19:07Z']];
+    protected static $timestamps = [[1412399250, '2014-10-04T05:07:30Z'], [1412368132, '2014-10-03T20:28:52Z'], [1412331547, '2014-10-03T10:19:07Z']];
 
     /**
      * @return array
      */
-    public function timestamp2StringProvider()
+    public static function timestamp2StringProvider()
     {
-        return $this->timestamps;
+        return self::$timestamps;
     }
 
     /**
      * @return array
      */
-    public function string2TimestampProvider()
+    public static function string2TimestampProvider()
     {
         $timestamps = array_merge(
-            $this->timestamps,
+            self::$timestamps,
             [
                 [1412399250, '2014-10-04T05:07:30+00:00'],
                 [1412368132, '2014-10-03T20:28:52+00:00'],

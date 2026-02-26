@@ -26,21 +26,21 @@ class SamlConstantsTest extends BaseTestCase
         return [['isProtocolValid'], ['isNsValid'], ['isNameIdFormatValid'], ['isBindingValid'], ['isStatusValid'], ['isConfirmationMethodValid'], ['isAuthnContextValid'], ['isLogoutReasonValid']];
     }
 
-    public function constantsProvider(): array
+    public static function constantsProvider(): array
     {
         return array_merge(
-            $this->getConstants('Protocol'),
-            $this->getConstants('Ns'),
-            $this->getConstants('NameIdFormat'),
-            $this->getConstants('Binding'),
-            $this->getConstants('Status'),
-            $this->getConstants('ConfirmationMethod'),
-            $this->getConstants('AuthnContext'),
-            $this->getConstants('LogoutReason')
+            self::getConstants('Protocol'),
+            self::getConstants('Ns'),
+            self::getConstants('NameIdFormat'),
+            self::getConstants('Binding'),
+            self::getConstants('Status'),
+            self::getConstants('ConfirmationMethod'),
+            self::getConstants('AuthnContext'),
+            self::getConstants('LogoutReason')
         );
     }
 
-    public function getConstants($method)
+    public static function getConstants($method)
     {
         $ret = [];
         $ref = new ReflectionClass(SamlConstants::class);

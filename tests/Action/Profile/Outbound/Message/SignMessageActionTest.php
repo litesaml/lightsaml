@@ -2,8 +2,11 @@
 
 namespace Tests\Action\Profile\Outbound\Message;
 
+use DOMNode;
 use LightSaml\Action\Profile\Outbound\Message\SignMessageAction;
 use LightSaml\Meta\TrustOptions\TrustOptions;
+use LightSaml\Model\Context\DeserializationContext;
+use LightSaml\Model\Context\SerializationContext;
 use LightSaml\Model\Protocol\AuthnRequest;
 use LightSaml\Model\Protocol\Response;
 use LightSaml\Model\Protocol\SamlMessage;
@@ -43,10 +46,18 @@ class SignMessageActionTest extends BaseTestCase
         $this->assertTrue(true);
     }
 
-    public function does_not_support_message_provider()
+    public static function does_not_support_message_provider()
     {
         return [
-            [$this->getMockForAbstractClass(SamlMessage::class)],
+            [new class () extends SamlMessage {
+                public function serialize(DOMNode $parent, SerializationContext $context)
+                {
+                }
+
+                public function deserialize(DOMNode $node, DeserializationContext $context)
+                {
+                }
+            }],
         ];
     }
 

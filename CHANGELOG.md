@@ -4,6 +4,12 @@
 All notable changes to this project will be documented in this file.
 <!--- END HEADER -->
 
+## 4.6.0 (2026-02-26)
+
+## Features
+
+* Supports Symfony 8.* 
+
 ## 4.5.1 (2025-08-06)
 
 ### Bug Fixes
