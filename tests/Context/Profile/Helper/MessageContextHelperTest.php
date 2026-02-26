@@ -2,10 +2,13 @@
 
 namespace Tests\Context\Profile\Helper;
 
+use DOMNode;
 use Exception;
 use LightSaml\Context\Profile\Helper\MessageContextHelper;
 use LightSaml\Context\Profile\MessageContext;
 use LightSaml\Error\LightSamlContextException;
+use LightSaml\Model\Context\DeserializationContext;
+use LightSaml\Model\Context\SerializationContext;
 use LightSaml\Model\Protocol\AbstractRequest;
 use LightSaml\Model\Protocol\AuthnRequest;
 use LightSaml\Model\Protocol\LogoutRequest;
@@ -19,20 +22,32 @@ use Tests\BaseTestCase;
 
 class MessageContextHelperTest extends BaseTestCase
 {
-    public function helperProvider()
+    public static function helperProvider()
     {
+        $samlMessage = new class () extends SamlMessage {};
+        $abstractRequest = new class () extends AbstractRequest {};
+        $statusResponse = new class () extends StatusResponse {
+            public function serialize(DOMNode $parent, SerializationContext $context)
+            {
+            }
+
+            public function deserialize(DOMNode $node, DeserializationContext $context)
+            {
+            }
+        };
+
         return [
             ['asSamlMessage', null, LightSamlContextException::class, 'Missing SamlMessage'],
-            ['asSamlMessage', $this->getMockForAbstractClass(SamlMessage::class), null, null],
+            ['asSamlMessage', $samlMessage, null, null],
 
             ['asAuthnRequest', null, LightSamlContextException::class, 'Expected AuthnRequest'],
-            ['asAuthnRequest', $this->getMockForAbstractClass(SamlMessage::class), LightSamlContextException::class, 'Expected AuthnRequest'],
+            ['asAuthnRequest', $samlMessage, LightSamlContextException::class, 'Expected AuthnRequest'],
             ['asAuthnRequest', new Response(), LightSamlContextException::class, 'Expected AuthnRequest'],
             ['asAuthnRequest', new AuthnRequest(), null, null],
 
             ['asAbstractRequest', null, LightSamlContextException::class, 'Expected AbstractRequest'],
             ['asAbstractRequest', new Response(), LightSamlContextException::class, 'Expected AbstractRequest'],
-            ['asAbstractRequest', $this->getMockForAbstractClass(AbstractRequest::class), null, null],
+            ['asAbstractRequest', $abstractRequest, null, null],
             ['asAbstractRequest', new AuthnRequest(), null, null],
             ['asAbstractRequest', new LogoutRequest(), null, null],
 
@@ -45,7 +60,7 @@ class MessageContextHelperTest extends BaseTestCase
             ['asStatusResponse', new AuthnRequest(), LightSamlContextException::class, 'Expected StatusResponse'],
             ['asStatusResponse', new Response(), null, null],
             ['asStatusResponse', new LogoutResponse(), null, null],
-            ['asStatusResponse', $this->getMockForAbstractClass(StatusResponse::class), null, null],
+            ['asStatusResponse', $statusResponse, null, null],
 
             ['asLogoutRequest', null, LightSamlContextException::class, 'Expected LogoutRequest'],
             ['asLogoutRequest', new AuthnRequest(), LightSamlContextException::class, 'Expected LogoutRequest'],
