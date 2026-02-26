@@ -4,6 +4,12 @@
 All notable changes to this project will be documented in this file.
 <!--- END HEADER -->
 
+## 4.6.1 (2026-02-26)
+
+### Bug Fixes
+
+* Update robrichards/xmlseclibs to 3.1.4
+
 ## 4.6.0 (2026-02-26)
 
 ## Features
