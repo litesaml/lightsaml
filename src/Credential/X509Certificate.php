@@ -119,29 +119,45 @@ class X509Certificate
             $this->signatureAlgorithm = self::$typeMap[$signatureType];
         } else {
             openssl_x509_export($res, $out, false);
-            if (preg_match('/^\s+Signature Algorithm:\s*(.*)\s*$/m', $out, $match)) {
-                switch ($match[1]) {
-                    case 'sha1WithRSAEncryption':
-                    case 'sha1WithRSA':
-                        $this->signatureAlgorithm = XMLSecurityKey::RSA_SHA1;
-                        break;
-                    case 'sha256WithRSAEncryption':
-                    case 'sha256WithRSA':
-                        $this->signatureAlgorithm = XMLSecurityKey::RSA_SHA256;
-                        break;
-                    case 'sha384WithRSAEncryption':
-                    case 'sha384WithRSA':
-                        $this->signatureAlgorithm = XMLSecurityKey::RSA_SHA384;
-                        break;
-                    case 'sha512WithRSAEncryption':
-                    case 'sha512WithRSA':
-                        $this->signatureAlgorithm = XMLSecurityKey::RSA_SHA512;
-                        break;
-                    case 'md5WithRSAEncryption':
-                    case 'md5WithRSA':
-                        $this->signatureAlgorithm = SamlConstants::XMLDSIG_DIGEST_MD5;
-                        break;
-                    default:
+            if (preg_match('/Signature\s+Algorithm:\s*([^\r\n]+)/i', $out, $match)) {
+                $algo = strtolower(trim($match[1]));
+                // Handle RSA-PSS
+                if ($algo === 'rsassapss') {
+                    if (preg_match('/Hash\s+Algorithm:\s*sha(\d+)/i', $out, $hashMatch)) {
+                        $hashBits = $hashMatch[1];
+                        $this->signatureAlgorithm = match ($hashBits) {
+                            '1' => XMLSecurityKey::RSA_SHA1,
+                            '256' => XMLSecurityKey::RSA_SHA256,
+                            '384' => XMLSecurityKey::RSA_SHA384,
+                            '512' => XMLSecurityKey::RSA_SHA512,
+                            default => null,
+                        };
+                    }
+                }
+                else {
+                    switch ($algo) {
+                        case 'sha1WithRSAEncryption':
+                        case 'sha1WithRSA':
+                            $this->signatureAlgorithm = XMLSecurityKey::RSA_SHA1;
+                            break;
+                        case 'sha256WithRSAEncryption':
+                        case 'sha256WithRSA':
+                            $this->signatureAlgorithm = XMLSecurityKey::RSA_SHA256;
+                            break;
+                        case 'sha384WithRSAEncryption':
+                        case 'sha384WithRSA':
+                            $this->signatureAlgorithm = XMLSecurityKey::RSA_SHA384;
+                            break;
+                        case 'sha512WithRSAEncryption':
+                        case 'sha512WithRSA':
+                            $this->signatureAlgorithm = XMLSecurityKey::RSA_SHA512;
+                            break;
+                        case 'md5WithRSAEncryption':
+                        case 'md5WithRSA':
+                            $this->signatureAlgorithm = SamlConstants::XMLDSIG_DIGEST_MD5;
+                            break;
+                        default:
+                    }
                 }
             }
         }
