@@ -72,6 +72,7 @@ class SsoSessionStateTest extends BaseTestCase
         $this->assertEquals($state->getSessionInstant(), $otherState->getSessionInstant());
     }
 
+    #[\PHPUnit\Framework\Attributes\Group('deprecated')]
     public function test_add_option(): void
     {
         $state = new SsoSessionState();
@@ -88,6 +89,7 @@ class SsoSessionStateTest extends BaseTestCase
         $this->assertEquals($values, $state->getOptions());
     }
 
+    #[\PHPUnit\Framework\Attributes\Group('deprecated')]
     public function test_remove_option(): void
     {
         $state = new SsoSessionState();
@@ -100,9 +102,7 @@ class SsoSessionStateTest extends BaseTestCase
         $this->assertEquals(['b' => 'bbbbb'], $state->getOptions());
     }
 
-    /**
-     * @deprecated Options will be removed in 2.0
-     */
+    #[\PHPUnit\Framework\Attributes\Group('deprecated')]
     public function test_has_option(): void
     {
         $state = new SsoSessionState();

@@ -10,11 +10,6 @@ use Rector\PHPUnit\Set\PHPUnitSetList;
 use Rector\Set\ValueObject\LevelSetList;
 use Rector\TypeDeclaration\Rector\ClassMethod\ReturnTypeFromStrictNativeCallRector;
 use Rector\TypeDeclaration\Rector\Property\TypedPropertyFromStrictConstructorRector;
-use RectorRules\PhpDocToNativeTypeRector;
-use RectorRules\RemoveOutdatedReturnTagRector;
-
-require_once __DIR__ . '/rector_rules/PhpDocToNativeTypeRector.php';
-require_once __DIR__ . '/rector_rules/RemoveOutdatedReturnTagRector.php';
 
 return RectorConfig::configure()
     ->withPaths([
@@ -26,8 +21,6 @@ return RectorConfig::configure()
         InlineConstructorDefaultToPropertyRector::class,
         ReturnTypeFromStrictNativeCallRector::class,
         StaticDataProviderClassMethodRector::class,
-        PhpDocToNativeTypeRector::class,
-        RemoveOutdatedReturnTagRector::class,
     ])
     ->withSets([
         PHPUnitSetList::PHPUNIT_100,

@@ -137,6 +137,7 @@ class SsoStateTest extends BaseTestCase
         $this->assertSame($allSessions[6], $arr[2]);
     }
 
+    #[\PHPUnit\Framework\Attributes\Group('deprecated')]
     public function test_serialize_deserialize(): void
     {
         $arrIdp = [
@@ -169,9 +170,7 @@ class SsoStateTest extends BaseTestCase
         }
     }
 
-    /**
-     * @deprecated Options methods will be removed in 2.0
-     */
+    #[\PHPUnit\Framework\Attributes\Group('deprecated')]
     public function test_options(): void
     {
         $state = new SsoState();

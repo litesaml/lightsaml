@@ -20,9 +20,7 @@ class RequestStateTest extends BaseTestCase
         $this->assertTrue(true);
     }
 
-    /**
-     * @deprecated Nonce argument will be removed in 2.0
-     */
+    #[\PHPUnit\Framework\Attributes\Group('deprecated')]
     public function test_can_be_constructed_wit_id_and_nonce_argument(): void
     {
         new RequestState('id', 'nonce');
