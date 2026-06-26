@@ -14,10 +14,8 @@ class StatementValidator implements StatementValidatorInterface
 {
     /**
      * @throws LightSamlValidationException
-     *
-     * @return void
      */
-    public function validateStatement(AbstractStatement $statement)
+    public function validateStatement(AbstractStatement $statement): void
     {
         if ($statement instanceof AuthnStatement) {
             $this->validateAuthnStatement($statement);
@@ -28,7 +26,7 @@ class StatementValidator implements StatementValidatorInterface
         }
     }
 
-    private function validateAuthnStatement(AuthnStatement $statement)
+    private function validateAuthnStatement(AuthnStatement $statement): void
     {
         if (false == $statement->getAuthnInstantTimestamp()) {
             throw new LightSamlValidationException('AuthnStatement MUST have an AuthnInstant attribute');
@@ -36,7 +34,7 @@ class StatementValidator implements StatementValidatorInterface
         if (false == Helper::validateOptionalString($statement->getSessionIndex())) {
             throw new LightSamlValidationException('SessionIndex attribute of AuthnStatement must contain at least one non-whitespace character');
         }
-        if ($statement->getSubjectLocality()) {
+        if ($statement->getSubjectLocality() instanceof \LightSaml\Model\Assertion\SubjectLocality) {
             if (false == Helper::validateOptionalString($statement->getSubjectLocality()->getAddress())) {
                 throw new LightSamlValidationException('Address attribute of SubjectLocality must contain at least one non-whitespace character');
             }
@@ -50,7 +48,7 @@ class StatementValidator implements StatementValidatorInterface
         $this->validateAuthnContext($statement->getAuthnContext());
     }
 
-    private function validateAuthnContext(AuthnContext $authnContext)
+    private function validateAuthnContext(AuthnContext $authnContext): void
     {
         if (
             false == $authnContext->getAuthnContextClassRef()
@@ -76,7 +74,7 @@ class StatementValidator implements StatementValidatorInterface
         }
     }
 
-    private function validateAttributeStatement(AttributeStatement $statement)
+    private function validateAttributeStatement(AttributeStatement $statement): void
     {
         if (false == $statement->getAllAttributes()) {
             throw new LightSamlValidationException('AttributeStatement MUST contain at least one Attribute or EncryptedAttribute');
@@ -89,10 +87,8 @@ class StatementValidator implements StatementValidatorInterface
 
     /**
      * @throws LightSamlValidationException
-     *
-     * @return void
      */
-    private function validateAttribute(Attribute $attribute)
+    private function validateAttribute(Attribute $attribute): void
     {
         if (false == Helper::validateRequiredString($attribute->getName())) {
             throw new LightSamlValidationException('Name attribute of Attribute element MUST contain at least one non-whitespace character');

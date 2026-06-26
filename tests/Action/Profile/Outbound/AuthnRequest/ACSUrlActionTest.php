@@ -19,13 +19,13 @@ use Tests\BaseTestCase;
 
 class ACSUrlActionTest extends BaseTestCase
 {
-    public function test_constructs_with_logger_and_endpoint_resolver()
+    public function test_constructs_with_logger_and_endpoint_resolver(): void
     {
         new ACSUrlAction($this->getLoggerMock(), $this->getEndpointResolverMock());
         $this->assertTrue(true);
     }
 
-    public function test_finds_acs_endpoint_and_sets_outbounding_authn_request_acs_url()
+    public function test_finds_acs_endpoint_and_sets_outbounding_authn_request_acs_url(): void
     {
         $action = new ACSUrlAction(
             $loggerMock = $this->getLoggerMock(),
@@ -42,7 +42,7 @@ class ACSUrlActionTest extends BaseTestCase
         $endpointResolverMock->expects($this->once())
             ->method('resolve')
             ->with($this->isInstanceOf(CriteriaSet::class), $this->isType('array'))
-            ->willReturnCallback(function (CriteriaSet $criteriaSet, array $candidates) {
+            ->willReturnCallback(function (CriteriaSet $criteriaSet, array $candidates): array {
                 $this->assertTrue($criteriaSet->has(DescriptorTypeCriteria::class));
                 $this->assertEquals(SpSsoDescriptor::class, $criteriaSet->getSingle(DescriptorTypeCriteria::class)->getDescriptorType());
 
@@ -62,7 +62,7 @@ class ACSUrlActionTest extends BaseTestCase
         $this->assertEquals($endpoint->getLocation(), $authnRequest->getAssertionConsumerServiceURL());
     }
 
-    public function test_skips_silently_if_no_own_acs_service()
+    public function test_skips_silently_if_no_own_acs_service(): void
     {
         $action = new ACSUrlAction(
             $loggerMock = $this->getLoggerMock(),
@@ -92,7 +92,7 @@ class ACSUrlActionTest extends BaseTestCase
     /**
      * @return MockObject|EntityDescriptor
      */
-    private function getEntityDescriptorMock()
+    private function getEntityDescriptorMock(): \PHPUnit\Framework\MockObject\MockObject
     {
         return $this->getMockBuilder(EntityDescriptor::class)->getMock();
     }

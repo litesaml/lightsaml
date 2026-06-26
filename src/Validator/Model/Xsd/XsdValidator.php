@@ -10,37 +10,31 @@ use LiteSaml\UnexpectedSchemaException;
 class XsdValidator
 {
     /**
-     * @param string $xml
-     *
      * @return XsdError[]
      */
-    public function validateProtocol($xml)
+    public function validateProtocol(string $xml): array
     {
         return $this->validate($xml, 'saml-schema-protocol-2.0.xsd');
     }
 
     /**
-     * @param string $xml
-     *
      * @return XsdError[]
      */
-    public function validateMetadata($xml)
+    public function validateMetadata(string $xml): array
     {
         return $this->validate($xml, 'saml-schema-metadata-2.0.xsd');
     }
 
     /**
-     * @param string $xml
-     * @param string $schema
      *
      * @return XsdError[]
      */
-    private function validate($xml, $schema)
+    private function validate(string $xml, string $schema): array
     {
         try {
             $errorBag = Schema::validate($xml, $schema);
 
-            return array_map(function (Error $error) {
+            return array_map(function (Error $error): \LightSaml\Validator\Model\Xsd\XsdError {
                 $level = match ($error->level) {
                     LIBXML_ERR_FATAL => XsdError::FATAL,
                     LIBXML_ERR_ERROR => XsdError::ERROR,

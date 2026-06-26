@@ -10,13 +10,13 @@ use Tests\BaseTestCase;
 
 class SsoSessionStateTest extends BaseTestCase
 {
-    public function test_constructs_without_arguments()
+    public function test_constructs_without_arguments(): void
     {
         new SsoSessionState();
         $this->assertTrue(true);
     }
 
-    public static function property_getter_setter_provider()
+    public static function property_getter_setter_provider(): array
     {
         return [
             ['IdpEntityId'],
@@ -32,11 +32,10 @@ class SsoSessionStateTest extends BaseTestCase
 
     /**
      *
-     * @param string $property
      * @param string $value
      */
     #[DataProvider('property_getter_setter_provider')]
-    public function test_property_getter_setter($property, $value = 'some.value')
+    public function test_property_getter_setter(string $property, string|\DateTime $value = 'some.value'): void
     {
         $state = new SsoSessionState();
         $setter = sprintf('set%s', $property);
@@ -45,7 +44,7 @@ class SsoSessionStateTest extends BaseTestCase
         $this->assertEquals($value, $state->{$getter}());
     }
 
-    public function test_serialization_and_deserialization()
+    public function test_serialization_and_deserialization(): void
     {
         $state = new SsoSessionState();
         $state
@@ -73,7 +72,7 @@ class SsoSessionStateTest extends BaseTestCase
         $this->assertEquals($state->getSessionInstant(), $otherState->getSessionInstant());
     }
 
-    public function test_add_option()
+    public function test_add_option(): void
     {
         $state = new SsoSessionState();
 
@@ -89,7 +88,7 @@ class SsoSessionStateTest extends BaseTestCase
         $this->assertEquals($values, $state->getOptions());
     }
 
-    public function test_remove_option()
+    public function test_remove_option(): void
     {
         $state = new SsoSessionState();
 
@@ -104,7 +103,7 @@ class SsoSessionStateTest extends BaseTestCase
     /**
      * @deprecated Options will be removed in 2.0
      */
-    public function test_has_option()
+    public function test_has_option(): void
     {
         $state = new SsoSessionState();
         $this->assertFalse($state->hasOption('a'));
@@ -113,13 +112,13 @@ class SsoSessionStateTest extends BaseTestCase
         $this->assertTrue($state->hasOption('a'));
     }
 
-    public function test_has_parameters()
+    public function test_has_parameters(): void
     {
         $state = new SsoSessionState();
         $this->assertInstanceOf(ParameterBag::class, $state->getParameters());
     }
 
-    public function test_serialization()
+    public function test_serialization(): void
     {
         $state = new SsoSessionState();
         $state->setIdpEntityId('idp');

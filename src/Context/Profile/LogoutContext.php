@@ -12,18 +12,12 @@ class LogoutContext extends AbstractProfileContext
     /** @var bool */
     protected $allSsoSessionsTerminated = false;
 
-    /**
-     * @return SsoSessionState|null
-     */
-    public function getSsoSessionState()
+    public function getSsoSessionState(): ?\LightSaml\State\Sso\SsoSessionState
     {
         return $this->ssoSessionState;
     }
 
-    /**
-     * @return LogoutContext
-     */
-    public function setSsoSessionState(SsoSessionState $ssoSessionState)
+    public function setSsoSessionState(SsoSessionState $ssoSessionState): static
     {
         $this->ssoSessionState = $ssoSessionState;
         $this->allSsoSessionsTerminated = false;
@@ -31,22 +25,14 @@ class LogoutContext extends AbstractProfileContext
         return $this;
     }
 
-    /**
-     * @return bool
-     */
-    public function areAllSsoSessionsTerminated()
+    public function areAllSsoSessionsTerminated(): bool
     {
         return $this->allSsoSessionsTerminated;
     }
 
-    /**
-     * @param bool $allSsoSessionsTerminated
-     *
-     * @return LogoutContext
-     */
-    public function setAllSsoSessionsTerminated($allSsoSessionsTerminated)
+    public function setAllSsoSessionsTerminated(bool $allSsoSessionsTerminated): static
     {
-        $this->allSsoSessionsTerminated = (bool) $allSsoSessionsTerminated;
+        $this->allSsoSessionsTerminated = $allSsoSessionsTerminated;
 
         return $this;
     }

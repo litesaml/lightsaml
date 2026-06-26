@@ -11,20 +11,14 @@ class FixedNameIdProvider implements NameIdProviderInterface
     {
     }
 
-    /**
-     * @return FixedNameIdProvider
-     */
-    public function setNameId(?NameID $nameId = null)
+    public function setNameId(?NameID $nameId = null): static
     {
         $this->nameId = $nameId;
 
         return $this;
     }
 
-    /**
-     * @return NameID|null
-     */
-    public function getNameID(AbstractProfileContext $context)
+    public function getNameID(AbstractProfileContext $context): ?\LightSaml\Model\Assertion\NameID
     {
         return $this->nameId;
     }

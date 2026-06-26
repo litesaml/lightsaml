@@ -6,19 +6,9 @@ use DateTime;
 
 interface IdStoreInterface
 {
-    /**
-     * @param string $entityId
-     * @param string $id
-     *
-     * @return void
-     */
-    public function set($entityId, $id, DateTime $expiryTime);
+    
+    public function set(string $entityId, string $id, DateTime $expiryTime): void;
 
-    /**
-     * @param string $entityId
-     * @param string $id
-     *
-     * @return bool
-     */
-    public function has($entityId, $id);
+    
+    public function has(string $entityId, string $id): bool;
 }

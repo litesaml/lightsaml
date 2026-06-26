@@ -7,13 +7,10 @@ use LightSaml\Provider\EntityDescriptor\EntityDescriptorProviderInterface;
 
 interface OwnContainerInterface
 {
-    /**
-     * @return EntityDescriptorProviderInterface
-     */
-    public function getOwnEntityDescriptorProvider();
+    public function getOwnEntityDescriptorProvider(): \LightSaml\Provider\EntityDescriptor\EntityDescriptorProviderInterface;
 
     /**
      * @return CredentialInterface[]
      */
-    public function getOwnCredentials();
+    public function getOwnCredentials(): array;
 }

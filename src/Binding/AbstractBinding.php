@@ -15,50 +15,34 @@ abstract class AbstractBinding
     /** @var EventDispatcherInterface|null */
     protected $eventDispatcher;
 
-    /**
-     * @return AbstractBinding
-     */
-    public function setEventDispatcher(?EventDispatcherInterface $eventDispatcher = null)
+    public function setEventDispatcher(?EventDispatcherInterface $eventDispatcher = null): \LightSaml\Binding\AbstractBinding
     {
         $this->eventDispatcher = $eventDispatcher;
 
         return $this;
     }
 
-    /**
-     * @return EventDispatcherInterface|null
-     */
-    public function getEventDispatcher()
+    public function getEventDispatcher(): ?\Psr\EventDispatcher\EventDispatcherInterface
     {
         return $this->eventDispatcher;
     }
 
-    /**
-     * @param string $messageString
-     */
-    protected function dispatchReceive($messageString)
+    protected function dispatchReceive(string $messageString)
     {
         if ($this->eventDispatcher) {
             $this->eventDispatcher->dispatch(new MessageReceived($messageString));
         }
     }
 
-    /**
-     * @param string $messageString
-     */
-    protected function dispatchSend($messageString)
+    protected function dispatchSend(string $messageString)
     {
         if ($this->eventDispatcher) {
             $this->eventDispatcher->dispatch(new MessageSent($messageString));
         }
     }
 
-    /**
-     * @param string|null $destination
-     *
-     * @return ResponseInterface
-     */
-    abstract public function send(MessageContext $context, $destination = null);
+    
+    abstract public function send(MessageContext $context, ?string $destination = null): \Psr\Http\Message\ResponseInterface;
 
     abstract public function receive(ServerRequestInterface $request, MessageContext $context): SamlMessage;
 }

@@ -10,26 +10,22 @@ use Tests\BaseTestCase;
 
 class SsoStateTest extends BaseTestCase
 {
-    public function test_can_be_constructed_without_arguments()
+    public function test_can_be_constructed_without_arguments(): void
     {
         new SsoState();
         $this->assertTrue(true);
     }
 
-    public static function property_getter_setter_provider()
+    public static function property_getter_setter_provider(): array
     {
         return [
             ['LocalSessionId']
         ];
     }
 
-    /**
-     *
-     * @param string $property
-     * @param string $value
-     */
+    
     #[DataProvider('property_getter_setter_provider')]
-    public function test_property_getter_setter($property, $value = 'some.value')
+    public function test_property_getter_setter(string $property, string $value = 'some.value'): void
     {
         $state = new SsoState();
         $setter = sprintf('set%s', $property);
@@ -38,7 +34,7 @@ class SsoStateTest extends BaseTestCase
         $this->assertEquals($value, $state->{$getter}());
     }
 
-    public function test_adds_sso_session_state()
+    public function test_adds_sso_session_state(): void
     {
         $state = new SsoState();
 
@@ -58,7 +54,7 @@ class SsoStateTest extends BaseTestCase
         $this->assertCount(2, $state->getSsoSessions());
     }
 
-    public function test_filter_by_idp()
+    public function test_filter_by_idp(): void
     {
         $arrIdp = [
             'http://idp-1.com',
@@ -102,7 +98,7 @@ class SsoStateTest extends BaseTestCase
         $this->assertSame($allSessions[8], $arr[2]);
     }
 
-    public function test_filter_by_sp()
+    public function test_filter_by_sp(): void
     {
         $arrIdp = [
             'http://idp-1.com',
@@ -141,7 +137,7 @@ class SsoStateTest extends BaseTestCase
         $this->assertSame($allSessions[6], $arr[2]);
     }
 
-    public function test_serialize_deserialize()
+    public function test_serialize_deserialize(): void
     {
         $arrIdp = [
             'http://idp-1.com',
@@ -176,7 +172,7 @@ class SsoStateTest extends BaseTestCase
     /**
      * @deprecated Options methods will be removed in 2.0
      */
-    public function test_options()
+    public function test_options(): void
     {
         $state = new SsoState();
         $this->assertFalse($state->hasOption('a'));
@@ -191,7 +187,7 @@ class SsoStateTest extends BaseTestCase
         $this->assertEquals([], $state->getOptions());
     }
 
-    public function test_set_sso_state_sessions()
+    public function test_set_sso_state_sessions(): void
     {
         $state = new SsoState();
         $state->setSsoSessions([$session1 = new SsoSessionState(), $session2 = new SsoSessionState()]);
@@ -202,13 +198,13 @@ class SsoStateTest extends BaseTestCase
         $this->assertSame($session2, $sessions[1]);
     }
 
-    public function test_has_parameters()
+    public function test_has_parameters(): void
     {
         $state = new SsoState();
         $this->assertInstanceOf(ParameterBag::class, $state->getParameters());
     }
 
-    public function test_serialization()
+    public function test_serialization(): void
     {
         $state = new SsoState();
         $state->setLocalSessionId('local-id');
@@ -227,7 +223,7 @@ class SsoStateTest extends BaseTestCase
         $this->assertEquals(count($state->getSsoSessions()), count($other->getSsoSessions()));
     }
 
-    public function test_modify()
+    public function test_modify(): void
     {
         $state = new SsoState();
         $state->addSsoSession($session1 = new SsoSessionState());
@@ -235,8 +231,8 @@ class SsoStateTest extends BaseTestCase
         $state->addSsoSession($session2 = new SsoSessionState());
         $session2->setIdpEntityId('idp-2');
 
-        $state->modify(function (SsoSessionState $session) use ($session1) {
-            return $session->getIdpEntityId() != $session1->getIdpEntityId();
+        $state->modify(function (SsoSessionState $session) use ($session1): bool {
+            return $session->getIdpEntityId() !== $session1->getIdpEntityId();
         });
 
         $sessions = $state->getSsoSessions();
@@ -244,11 +240,8 @@ class SsoStateTest extends BaseTestCase
         $this->assertEquals($session2->getIdpEntityId(), $sessions[0]->getIdpEntityId());
     }
 
-    /**
-     *
-     * @return SsoState
-     */
-    private function buildAllStateCombinations(array $arrIdp, array $arrSp)
+    
+    private function buildAllStateCombinations(array $arrIdp, array $arrSp): \LightSaml\State\Sso\SsoState
     {
         $state = new SsoState();
 

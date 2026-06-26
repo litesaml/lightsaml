@@ -19,13 +19,8 @@ class SignatureValidator implements SignatureValidatorInterface
     {
     }
 
-    /**
-     * @param string $issuer
-     * @param string $metadataType
-     *
-     * @return CredentialInterface|null
-     */
-    public function validate(AbstractSignatureReader $signature, $issuer, $metadataType)
+    
+    public function validate(AbstractSignatureReader $signature, string $issuer, string $metadataType): ?\LightSaml\Credential\CredentialInterface
     {
         $query = $this->credentialResolver->query();
         $query
@@ -39,7 +34,7 @@ class SignatureValidator implements SignatureValidatorInterface
         $query->resolve();
 
         $credentialCandidates = $query->allCredentials();
-        if (empty($credentialCandidates)) {
+        if ($credentialCandidates === []) {
             throw new LightSamlSecurityException('No credentials resolved for signature verification');
         }
 

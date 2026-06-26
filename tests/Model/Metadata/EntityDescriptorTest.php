@@ -21,7 +21,7 @@ use Tests\BaseTestCase;
 
 class EntityDescriptorTest extends BaseTestCase
 {
-    public function test_serialization()
+    public function test_serialization(): void
     {
         $ed = new EntityDescriptor();
         $ed
@@ -127,7 +127,7 @@ EOT;
         $this->assertEquals($expectedXml, $xml);
     }
 
-    public function test_deserialization()
+    public function test_deserialization(): void
     {
         $xml = <<<EOT
 <?xml version="1.0"?>

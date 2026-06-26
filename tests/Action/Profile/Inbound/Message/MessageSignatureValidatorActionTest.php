@@ -19,13 +19,13 @@ use Tests\BaseTestCase;
 
 class MessageSignatureValidatorActionTest extends BaseTestCase
 {
-    public function test_constructs_with_logger_and_signature_validator()
+    public function test_constructs_with_logger_and_signature_validator(): void
     {
         new MessageSignatureValidatorAction($this->getLoggerMock(), $this->getSignatureValidatorMock());
         $this->assertTrue(true);
     }
 
-    public function test_does_nothing_when_message_does_not_have_signature()
+    public function test_does_nothing_when_message_does_not_have_signature(): void
     {
         $action = new MessageSignatureValidatorAction(
             $logger = $this->getLoggerMock(),
@@ -43,7 +43,7 @@ class MessageSignatureValidatorActionTest extends BaseTestCase
         $action->execute($context);
     }
 
-    public function test_throws_if_not_signature_reader()
+    public function test_throws_if_not_signature_reader(): void
     {
         $this->expectExceptionMessage("Expected AbstractSignatureReader");
         $this->expectException(LightSamlModelException::class);
@@ -65,7 +65,7 @@ class MessageSignatureValidatorActionTest extends BaseTestCase
         $action->execute($context);
     }
 
-    public static function success_on_validator_returns_credential_provider()
+    public static function success_on_validator_returns_credential_provider(): array
     {
         return [
             [ProfileContext::ROLE_IDP, MetadataCriteria::TYPE_SP],
@@ -74,7 +74,7 @@ class MessageSignatureValidatorActionTest extends BaseTestCase
     }
 
     #[DataProvider('success_on_validator_returns_credential_provider')]
-    public function test_success_on_validator_returns_credential($ownRole, $metadataType)
+    public function test_success_on_validator_returns_credential(string $ownRole, string $metadataType): void
     {
         $action = new MessageSignatureValidatorAction(
             $logger = $this->getLoggerMock(),
@@ -108,7 +108,7 @@ class MessageSignatureValidatorActionTest extends BaseTestCase
         $action->execute($context);
     }
 
-    public function test_warning_logged_if_no_verification()
+    public function test_warning_logged_if_no_verification(): void
     {
         $action = new MessageSignatureValidatorAction(
             $logger = $this->getLoggerMock(),
@@ -139,7 +139,7 @@ class MessageSignatureValidatorActionTest extends BaseTestCase
     /**
      * @return MockObject|SignatureValidatorInterface
      */
-    private function getSignatureValidatorMock()
+    private function getSignatureValidatorMock(): \PHPUnit\Framework\MockObject\MockObject
     {
         return $this->getMockBuilder(SignatureValidatorInterface::class)->getMock();
     }
@@ -147,7 +147,7 @@ class MessageSignatureValidatorActionTest extends BaseTestCase
     /**
      * @return MockObject|CredentialInterface
      */
-    private function getCredentialMock()
+    private function getCredentialMock(): \PHPUnit\Framework\MockObject\MockObject
     {
         return $this->getMockBuilder(CredentialInterface::class)->getMock();
     }

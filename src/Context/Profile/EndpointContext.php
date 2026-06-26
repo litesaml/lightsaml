@@ -6,21 +6,14 @@ use LightSaml\Model\Metadata\Endpoint;
 
 class EndpointContext extends AbstractProfileContext
 {
-    /** @var Endpoint */
-    private $endpoint;
+    private ?\LightSaml\Model\Metadata\Endpoint $endpoint = null;
 
-    /**
-     * @return Endpoint|null
-     */
-    public function getEndpoint()
+    public function getEndpoint(): ?\LightSaml\Model\Metadata\Endpoint
     {
         return $this->endpoint;
     }
 
-    /**
-     * @return EndpointContext
-     */
-    public function setEndpoint(Endpoint $endpoint)
+    public function setEndpoint(Endpoint $endpoint): static
     {
         $this->endpoint = $endpoint;
 

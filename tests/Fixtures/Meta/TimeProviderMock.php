@@ -9,14 +9,11 @@ class TimeProviderMock implements TimeProviderInterface
 {
     /**
      */
-    public function __construct(protected ?DateTime $value = null)
+    public function __construct(protected DateTime $value = new DateTime())
     {
     }
 
-    /**
-     * @return TimeProviderMock
-     */
-    public function setNow(DateTime $value)
+    public function setNow(DateTime $value): static
     {
         $this->value = $value;
 
@@ -28,10 +25,7 @@ class TimeProviderMock implements TimeProviderInterface
         return $this->value->getTimestamp();
     }
 
-    /**
-     * @return DateTime
-     */
-    public function getDateTime()
+    public function getDateTime(): \DateTime
     {
         return $this->value;
     }

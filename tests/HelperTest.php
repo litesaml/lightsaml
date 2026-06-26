@@ -12,18 +12,12 @@ class HelperTest extends BaseTestCase
 {
     protected static $timestamps = [[1412399250, '2014-10-04T05:07:30Z'], [1412368132, '2014-10-03T20:28:52Z'], [1412331547, '2014-10-03T10:19:07Z']];
 
-    /**
-     * @return array
-     */
-    public static function timestamp2StringProvider()
+    public static function timestamp2StringProvider(): array
     {
         return self::$timestamps;
     }
 
-    /**
-     * @return array
-     */
-    public static function string2TimestampProvider()
+    public static function string2TimestampProvider(): array
     {
         $timestamps = array_merge(
             self::$timestamps,
@@ -50,54 +44,41 @@ class HelperTest extends BaseTestCase
         return $result;
     }
 
-    /**
-     * @param string $timestamp
-     * @param string $string
-     */
     #[DataProvider('timestamp2StringProvider')]
-    public function test__time_to_string($timestamp, $string)
+    public function test__time_to_string(int $timestamp, string $string): void
     {
         $this->assertEquals($string, Helper::time2string($timestamp));
     }
 
     /**
      * @param string $value
-     * @param int    $timestamp
      */
     #[DataProvider('string2TimestampProvider')]
-    public function test__get_timestamp_from_value_with_string($value, $timestamp)
+    public function test__get_timestamp_from_value_with_string(int|string|\DateTime $value, int $timestamp): void
     {
         $this->assertEquals($timestamp, Helper::getTimestampFromValue($value));
     }
 
-    /**
-     * @param string $value
-     * @param int    $timestamp
-     */
     #[DataProvider('string2TimestampProvider')]
-    public function test__get_timestamp_from_value_with_date_time($value, $timestamp)
+    public function test__get_timestamp_from_value_with_date_time(string $value, int $timestamp): void
     {
         $dt = new DateTime('@' . $timestamp);
         $this->assertEquals($timestamp, Helper::getTimestampFromValue($dt));
     }
 
-    /**
-     * @param string $value
-     * @param int    $timestamp
-     */
     #[DataProvider('string2TimestampProvider')]
-    public function test__get_timestamp_from_value_with_int($value, $timestamp)
+    public function test__get_timestamp_from_value_with_int(string $value, int $timestamp): void
     {
         $this->assertEquals($timestamp, Helper::getTimestampFromValue($timestamp));
     }
 
-    public function test__get_timestamp_from_value_with_invalid_value()
+    public function test__get_timestamp_from_value_with_invalid_value(): void
     {
         $this->expectException(InvalidArgumentException::class);
         Helper::getTimestampFromValue([]);
     }
 
-    public function test__generate_random_bytes_length()
+    public function test__generate_random_bytes_length(): void
     {
         $random = Helper::generateRandomBytes(10);
         $this->assertEquals(10, strlen($random));
@@ -109,13 +90,13 @@ class HelperTest extends BaseTestCase
         $this->assertEquals(32, strlen($random));
     }
 
-    public function test__generate_random_bytes_error_on_invalid_length()
+    public function test__generate_random_bytes_error_on_invalid_length(): void
     {
         $this->expectException(InvalidArgumentException::class);
         Helper::generateRandomBytes('');
     }
 
-    public function test__generate_id()
+    public function test__generate_id(): void
     {
         $id = Helper::generateID();
         $this->assertStringStartsWith('_', $id);
@@ -129,106 +110,106 @@ class HelperTest extends BaseTestCase
         $this->assertGreaterThan(8, count($arr));
     }
 
-    public function test__validate_id_string_returns_true_for_valid_string()
+    public function test__validate_id_string_returns_true_for_valid_string(): void
     {
         $this->assertTrue(Helper::validateIdString('1234567890123456'));
         $this->assertTrue(Helper::validateIdString('12345678901234567890'));
     }
 
-    public function test__validate_id_string_returns_false_for_non_string()
+    public function test__validate_id_string_returns_false_for_non_string(): void
     {
         $this->assertFalse(Helper::validateIdString(1234567890123456));
         $this->assertFalse(Helper::validateIdString([]));
     }
 
-    public function test__validate_id_string_returns_false_for_short_string()
+    public function test__validate_id_string_returns_false_for_short_string(): void
     {
         $this->assertFalse(Helper::validateIdString(''));
         $this->assertFalse(Helper::validateIdString('abc'));
         $this->assertFalse(Helper::validateIdString('123456789012345'));
     }
 
-    public function test__validate_required_string_returns_true_for_non_empty_string()
+    public function test__validate_required_string_returns_true_for_non_empty_string(): void
     {
         $this->assertTrue(Helper::validateRequiredString('1'));
         $this->assertTrue(Helper::validateRequiredString('123'));
         $this->assertTrue(Helper::validateRequiredString('123456789'));
     }
 
-    public function test__validate_required_string_returns_false_for_empty_string()
+    public function test__validate_required_string_returns_false_for_empty_string(): void
     {
         $this->assertFalse(Helper::validateRequiredString(''));
     }
 
-    public function test__validate_required_string_returns_false_for_null()
+    public function test__validate_required_string_returns_false_for_null(): void
     {
         $this->assertFalse(Helper::validateRequiredString(null));
     }
 
-    public function test__validate_required_string_returns_false_for_non_string()
+    public function test__validate_required_string_returns_false_for_non_string(): void
     {
         $this->assertFalse(Helper::validateRequiredString(123));
         $this->assertFalse(Helper::validateRequiredString([]));
     }
 
-    public function test__validate_optional_string_returns_true_for_null()
+    public function test__validate_optional_string_returns_true_for_null(): void
     {
         $this->assertTrue(Helper::validateOptionalString(null));
     }
 
-    public function test__validate_optional_string_returns_true_for_non_empty_string()
+    public function test__validate_optional_string_returns_true_for_non_empty_string(): void
     {
         $this->assertTrue(Helper::validateOptionalString('1'));
         $this->assertTrue(Helper::validateOptionalString('1234'));
     }
 
-    public function test__validate_optional_string_returns_false_for_empty_string()
+    public function test__validate_optional_string_returns_false_for_empty_string(): void
     {
         $this->assertFalse(Helper::validateOptionalString(''));
     }
 
-    public function test__validate_optional_string_returns_false_for_non_string()
+    public function test__validate_optional_string_returns_false_for_non_string(): void
     {
         $this->assertFalse(Helper::validateOptionalString(123));
         $this->assertFalse(Helper::validateOptionalString([]));
     }
 
-    public function test__validate_well_formed_uri_string_returns_false_for_empty_string()
+    public function test__validate_well_formed_uri_string_returns_false_for_empty_string(): void
     {
         $this->assertFalse(Helper::validateWellFormedUriString(''));
     }
 
-    public function test__validate_well_formed_uri_string_returns_false_for_null()
+    public function test__validate_well_formed_uri_string_returns_false_for_null(): void
     {
         $this->assertFalse(Helper::validateWellFormedUriString(null));
     }
 
-    public function test__validate_well_formed_uri_string_returns_false_for_too_big_string()
+    public function test__validate_well_formed_uri_string_returns_false_for_too_big_string(): void
     {
         $str = str_pad('', 67000, 'x');
         $this->assertFalse(Helper::validateWellFormedUriString($str));
     }
 
-    public function test__validate_well_formed_uri_string_returns_false_for_string_with_spaces()
+    public function test__validate_well_formed_uri_string_returns_false_for_string_with_spaces(): void
     {
         $this->assertFalse(Helper::validateWellFormedUriString('123 456 789'));
     }
 
-    public function test__validate_well_formed_uri_string_returns_false_for_string_without_scheme()
+    public function test__validate_well_formed_uri_string_returns_false_for_string_without_scheme(): void
     {
         $this->assertFalse(Helper::validateWellFormedUriString('example.com'));
         $this->assertFalse(Helper::validateWellFormedUriString(':example.com'));
         $this->assertFalse(Helper::validateWellFormedUriString('//:example.com'));
     }
 
-    public function test__validate_well_formed_uri_string_returns_false_for_string_with_invalid_scheme()
+    public function test__validate_well_formed_uri_string_returns_false_for_string_with_invalid_scheme(): void
     {
         $this->assertFalse(Helper::validateWellFormedUriString('a=b:example.com'));
         $this->assertFalse(Helper::validateWellFormedUriString('a b:example.com'));
         $this->assertFalse(Helper::validateWellFormedUriString('a&b:example.com'));
     }
 
-    public function test__validate_well_formed_uri_string_returns_false_for_valid_string()
+    public function test__validate_well_formed_uri_string_returns_false_for_valid_string(): void
     {
         $this->assertTrue(Helper::validateWellFormedUriString('http://example.com'));
         $this->assertTrue(Helper::validateWellFormedUriString(SamlConstants::NS_ASSERTION));
@@ -239,24 +220,24 @@ class HelperTest extends BaseTestCase
         $this->assertTrue(Helper::validateWellFormedUriString(SamlConstants::AUTHN_CONTEXT_PASSWORD));
     }
 
-    public static function notBeforeProvider()
+    public static function notBeforeProvider(): array
     {
         return [[1000, 989, 10, false], [1000, 900, 10, false], [1000, 1100, 10, true], [1000, 990, 10, true]];
     }
 
     #[DataProvider('notBeforeProvider')]
-    public function test__validate_not_before($notBefore, $now, $allowedSecondsSkew, $expected)
+    public function test__validate_not_before(int $notBefore, int $now, int $allowedSecondsSkew, bool $expected): void
     {
         $this->assertEquals($expected, Helper::validateNotBefore($notBefore, $now, $allowedSecondsSkew));
     }
 
-    public static function notOnOrAfterProvider()
+    public static function notOnOrAfterProvider(): array
     {
         return [[1000, 900, 10, true], [1000, 1100, 10, false]];
     }
 
     #[DataProvider('notOnOrAfterProvider')]
-    public function test__validate_not_on_or_after($notOnOrAfter, $now, $allowedSecondsSkew, $expected)
+    public function test__validate_not_on_or_after(int $notOnOrAfter, int $now, int $allowedSecondsSkew, bool $expected): void
     {
         $this->assertEquals($expected, Helper::validateNotOnOrAfter($notOnOrAfter, $now, $allowedSecondsSkew));
     }

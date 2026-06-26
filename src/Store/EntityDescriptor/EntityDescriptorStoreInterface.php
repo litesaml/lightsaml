@@ -6,22 +6,14 @@ use LightSaml\Model\Metadata\EntityDescriptor;
 
 interface EntityDescriptorStoreInterface
 {
-    /**
-     * @param string $entityId
-     *
-     * @return EntityDescriptor|null
-     */
-    public function get($entityId);
+    
+    public function get(string $entityId): ?\LightSaml\Model\Metadata\EntityDescriptor;
 
-    /**
-     * @param string $entityId
-     *
-     * @return bool
-     */
-    public function has($entityId);
+    
+    public function has(string $entityId): bool;
 
     /**
      * @return array|EntityDescriptor[]
      */
-    public function all();
+    public function all(): array;
 }

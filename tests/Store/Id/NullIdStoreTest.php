@@ -8,7 +8,7 @@ use Tests\BaseTestCase;
 
 class NullIdStoreTest extends BaseTestCase
 {
-    public function test_returns_false()
+    public function test_returns_false(): void
     {
         $store = new NullIdStore();
         $store->set('foo', 'bar', new DateTime('+1 day'));

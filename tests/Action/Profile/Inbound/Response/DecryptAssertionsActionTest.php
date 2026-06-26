@@ -23,13 +23,13 @@ use Tests\BaseTestCase;
 
 class DecryptAssertionsActionTest extends BaseTestCase
 {
-    public function test_constructs_with_logger_and_credential_resolver()
+    public function test_constructs_with_logger_and_credential_resolver(): void
     {
         new DecryptAssertionsAction($this->getLoggerMock(), $this->getCredentialResolverMock());
         $this->assertTrue(true);
     }
 
-    public static function resolves_credentials_for_own_entity_id_party_role_and_encryption_usage_provider()
+    public static function resolves_credentials_for_own_entity_id_party_role_and_encryption_usage_provider(): array
     {
         return [
             [ProfileContext::ROLE_IDP, MetadataCriteria::TYPE_IDP],
@@ -38,7 +38,7 @@ class DecryptAssertionsActionTest extends BaseTestCase
     }
 
     #[DataProvider('resolves_credentials_for_own_entity_id_party_role_and_encryption_usage_provider')]
-    public function test_resolves_credentials_and_decrypts_assertions($ownRole, $expectedMetadataCriteria)
+    public function test_resolves_credentials_and_decrypts_assertions(string $ownRole, string $expectedMetadataCriteria): void
     {
         $action = new DecryptAssertionsAction(
             $loggerMock = $this->getLoggerMock(),
@@ -84,7 +84,7 @@ class DecryptAssertionsActionTest extends BaseTestCase
         $this->assertSame($decryptedAssertion, $response->getFirstAssertion());
     }
 
-    public function test_does_nothing_if_no_encrypted_assertions()
+    public function test_does_nothing_if_no_encrypted_assertions(): void
     {
         $action = new DecryptAssertionsAction(
             $loggerMock = $this->getLoggerMock(),
@@ -103,7 +103,7 @@ class DecryptAssertionsActionTest extends BaseTestCase
         $action->execute($context);
     }
 
-    public function test_throws_context_exception_when_no_credentials_resolved()
+    public function test_throws_context_exception_when_no_credentials_resolved(): void
     {
         $this->expectExceptionMessage("No credentials resolved for assertion decryption");
         $this->expectException(LightSamlContextException::class);
@@ -133,7 +133,7 @@ class DecryptAssertionsActionTest extends BaseTestCase
     /**
      * @return MockObject|CredentialInterface
      */
-    private function getCredentialMock()
+    private function getCredentialMock(): \PHPUnit\Framework\MockObject\MockObject
     {
         return $this->getMockBuilder(CredentialInterface::class)->getMock();
     }
@@ -141,7 +141,7 @@ class DecryptAssertionsActionTest extends BaseTestCase
     /**
      * @return MockObject|EncryptedAssertionReader
      */
-    private function getEncryptedAssertionReaderMock()
+    private function getEncryptedAssertionReaderMock(): \PHPUnit\Framework\MockObject\MockObject
     {
         return $this->getMockBuilder(EncryptedAssertionReader::class)->getMock();
     }

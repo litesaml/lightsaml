@@ -9,7 +9,7 @@ use LightSaml\SamlConstants;
 
 class NameIdValidator implements NameIdValidatorInterface
 {
-    private static $formatValidators = [
+    private static array $formatValidators = [
         SamlConstants::NAME_ID_FORMAT_EMAIL => 'validateEmailFormat',
         SamlConstants::NAME_ID_FORMAT_X509_SUBJECT_NAME => 'validateX509SubjectNameFormat',
         SamlConstants::NAME_ID_FORMAT_WINDOWS => 'validateWindowsFormat',
@@ -21,10 +21,8 @@ class NameIdValidator implements NameIdValidatorInterface
 
     /**
      * @throws LightSamlValidationException
-     *
-     * @return void
      */
-    public function validateNameId(AbstractNameID $nameId)
+    public function validateNameId(AbstractNameID $nameId): void
     {
         if (false == $nameId->getFormat()) {
             return;

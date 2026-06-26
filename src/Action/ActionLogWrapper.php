@@ -13,7 +13,7 @@ class ActionLogWrapper implements ActionWrapperInterface
     /**
      * @return ActionInterface
      */
-    public function wrap(ActionInterface $action)
+    public function wrap(ActionInterface $action): \LightSaml\Action\LoggableAction
     {
         return new LoggableAction($action, $this->logger);
     }

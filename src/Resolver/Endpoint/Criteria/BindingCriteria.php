@@ -25,10 +25,8 @@ class BindingCriteria implements CriteriaInterface
 
     /**
      * @param string $binding Next preferable binding
-     *
-     * @return BindingCriteria
      */
-    public function add($binding)
+    public function add(string $binding): static
     {
         $this->bindings[$binding] = count($this->bindings) + 1;
 
@@ -49,7 +47,7 @@ class BindingCriteria implements CriteriaInterface
      *
      * @return int|null Preference of a binding or null if not preferred
      */
-    public function getPreference($binding)
+    public function getPreference($binding): ?int
     {
         return $this->bindings[$binding] ?? null;
     }

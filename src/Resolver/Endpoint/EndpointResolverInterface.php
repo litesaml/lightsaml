@@ -12,5 +12,5 @@ interface EndpointResolverInterface
      *
      * @return EndpointReference[]
      */
-    public function resolve(CriteriaSet $criteriaSet, array $candidates);
+    public function resolve(CriteriaSet $criteriaSet, array $candidates): array;
 }

@@ -30,90 +30,55 @@ class AuthnContext extends AbstractSamlModel
      */
     protected $authenticatingAuthority;
 
-    /**
-     * @param string|null $authenticatingAuthority
-     *
-     * @return AuthnContext
-     */
-    public function setAuthenticatingAuthority($authenticatingAuthority)
+    public function setAuthenticatingAuthority(?string $authenticatingAuthority): static
     {
         $this->authenticatingAuthority = (string) $authenticatingAuthority;
 
         return $this;
     }
 
-    /**
-     * @return string
-     */
-    public function getAuthenticatingAuthority()
+    public function getAuthenticatingAuthority(): ?string
     {
         return $this->authenticatingAuthority;
     }
 
-    /**
-     * @param string|null $authnContextClassRef
-     *
-     * @return AuthnContext
-     */
-    public function setAuthnContextClassRef($authnContextClassRef)
+    public function setAuthnContextClassRef(?string $authnContextClassRef): static
     {
         $this->authnContextClassRef = (string) $authnContextClassRef;
 
         return $this;
     }
 
-    /**
-     * @return string|null
-     */
-    public function getAuthnContextClassRef()
+    public function getAuthnContextClassRef(): ?string
     {
         return $this->authnContextClassRef;
     }
 
-    /**
-     * @param string|null $authnContextDecl
-     *
-     * @return AuthnContext
-     */
-    public function setAuthnContextDecl($authnContextDecl)
+    public function setAuthnContextDecl(?string $authnContextDecl): static
     {
         $this->authnContextDecl = (string) $authnContextDecl;
 
         return $this;
     }
 
-    /**
-     * @return string|null
-     */
-    public function getAuthnContextDecl()
+    public function getAuthnContextDecl(): ?string
     {
         return $this->authnContextDecl;
     }
 
-    /**
-     * @param string|null $authnContextDeclRef
-     *
-     * @return AuthnContext
-     */
-    public function setAuthnContextDeclRef($authnContextDeclRef)
+    public function setAuthnContextDeclRef(?string $authnContextDeclRef): static
     {
         $this->authnContextDeclRef = (string) $authnContextDeclRef;
 
         return $this;
     }
 
-    /**
-     * @return string|null
-     */
-    public function getAuthnContextDeclRef()
+    public function getAuthnContextDeclRef(): ?string
     {
         return $this->authnContextDeclRef;
     }
 
-    /**
-     * @return void
-     */
-    public function serialize(DOMNode $parent, SerializationContext $context)
+    public function serialize(DOMNode $parent, SerializationContext $context): void
     {
         $result = $this->createElement('AuthnContext', SamlConstants::NS_ASSERTION, $parent, $context);
 
@@ -125,7 +90,7 @@ class AuthnContext extends AbstractSamlModel
         );
     }
 
-    public function deserialize(DOMNode $node, DeserializationContext $context)
+    public function deserialize(DOMNode $node, DeserializationContext $context): void
     {
         $this->checkXmlNodeName($node, 'AuthnContext', SamlConstants::NS_ASSERTION);
 

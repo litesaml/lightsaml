@@ -22,41 +22,35 @@ class Response extends StatusResponse
     /**
      * @return Assertion[]
      */
-    public function getAllAssertions()
+    public function getAllAssertions(): array
     {
         return $this->assertions;
     }
 
-    /**
-     * @return Assertion|null
-     */
-    public function getFirstAssertion()
+    public function getFirstAssertion(): ?\LightSaml\Model\Assertion\Assertion
     {
         if (is_array($this->assertions) && isset($this->assertions[0])) {
             return $this->assertions[0];
         }
 
-        return;
+        return null;
     }
 
     /**
      * @return EncryptedElement[]
      */
-    public function getAllEncryptedAssertions()
+    public function getAllEncryptedAssertions(): array
     {
         return $this->encryptedAssertions;
     }
 
-    /**
-     * @return EncryptedElement|null
-     */
-    public function getFirstEncryptedAssertion()
+    public function getFirstEncryptedAssertion(): ?\LightSaml\Model\Assertion\EncryptedElement
     {
         if (is_array($this->encryptedAssertions) && isset($this->encryptedAssertions[0])) {
             return $this->encryptedAssertions[0];
         }
 
-        return;
+        return null;
     }
 
     /**
@@ -65,7 +59,7 @@ class Response extends StatusResponse
      *
      * @return Assertion[]
      */
-    public function getBearerAssertions()
+    public function getBearerAssertions(): array
     {
         $result = [];
         if ($this->getAllAssertions()) {
@@ -79,20 +73,14 @@ class Response extends StatusResponse
         return $result;
     }
 
-    /**
-     * @return Response
-     */
-    public function addAssertion(Assertion $assertion)
+    public function addAssertion(Assertion $assertion): static
     {
         $this->assertions[] = $assertion;
 
         return $this;
     }
 
-    /**
-     * @return Response
-     */
-    public function removeAssertion(Assertion $removedAssertion)
+    public function removeAssertion(Assertion $removedAssertion): static
     {
         $arr = [];
         $hasThatAssertion = false;
@@ -111,17 +99,14 @@ class Response extends StatusResponse
         return $this;
     }
 
-    /**
-     * @return Response
-     */
-    public function addEncryptedAssertion(EncryptedElement $encryptedAssertion)
+    public function addEncryptedAssertion(EncryptedElement $encryptedAssertion): static
     {
         $this->encryptedAssertions[] = $encryptedAssertion;
 
         return $this;
     }
 
-    public function serialize(DOMNode $parent, SerializationContext $context)
+    public function serialize(DOMNode $parent, SerializationContext $context): void
     {
         $result = $this->createElement('samlp:Response', SamlConstants::NS_PROTOCOL, $parent, $context);
 
@@ -134,7 +119,7 @@ class Response extends StatusResponse
         $this->singleElementsToXml(['Signature'], $result, $context);
     }
 
-    public function deserialize(DOMNode $node, DeserializationContext $context)
+    public function deserialize(DOMNode $node, DeserializationContext $context): void
     {
         $this->checkXmlNodeName($node, 'Response', SamlConstants::NS_PROTOCOL);
 

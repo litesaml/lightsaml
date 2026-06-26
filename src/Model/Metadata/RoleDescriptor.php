@@ -46,10 +46,8 @@ abstract class RoleDescriptor extends AbstractSamlModel
      * @param string|null $cacheDuration
      *
      * @throws InvalidArgumentException
-     *
-     * @return RoleDescriptor
      */
-    public function setCacheDuration($cacheDuration)
+    public function setCacheDuration(string $cacheDuration): \LightSaml\Model\Metadata\RoleDescriptor
     {
         Helper::validateDurationString($cacheDuration);
 
@@ -58,18 +56,12 @@ abstract class RoleDescriptor extends AbstractSamlModel
         return $this;
     }
 
-    /**
-     * @return string|null
-     */
-    public function getCacheDuration()
+    public function getCacheDuration(): ?string
     {
         return $this->cacheDuration;
     }
 
-    /**
-     * @return RoleDescriptor
-     */
-    public function addContactPerson(ContactPerson $contactPerson)
+    public function addContactPerson(ContactPerson $contactPerson): \LightSaml\Model\Metadata\RoleDescriptor
     {
         if (false == is_array($this->contactPersons)) {
             $this->contactPersons = [];
@@ -82,55 +74,38 @@ abstract class RoleDescriptor extends AbstractSamlModel
     /**
      * @return ContactPerson[]|null
      */
-    public function getAllContactPersons()
+    public function getAllContactPersons(): ?array
     {
         return $this->contactPersons;
     }
 
-    /**
-     * @param string|null $errorURL
-     *
-     * @return RoleDescriptor
-     */
-    public function setErrorURL($errorURL)
+    
+    public function setErrorURL(?string $errorURL): \LightSaml\Model\Metadata\RoleDescriptor
     {
         $this->errorURL = (string) $errorURL;
 
         return $this;
     }
 
-    /**
-     * @return string|null
-     */
-    public function getErrorURL()
+    public function getErrorURL(): ?string
     {
         return $this->errorURL;
     }
 
-    /**
-     * @param string|null $id
-     *
-     * @return RoleDescriptor
-     */
-    public function setID($id)
+    
+    public function setID(?string $id): \LightSaml\Model\Metadata\RoleDescriptor
     {
         $this->id = (string) $id;
 
         return $this;
     }
 
-    /**
-     * @return string|null
-     */
-    public function getID()
+    public function getID(): ?string
     {
         return $this->id;
     }
 
-    /**
-     * @return RoleDescriptor
-     */
-    public function addKeyDescriptor(KeyDescriptor $keyDescriptor)
+    public function addKeyDescriptor(KeyDescriptor $keyDescriptor): \LightSaml\Model\Metadata\RoleDescriptor
     {
         if (false == is_array($this->keyDescriptors)) {
             $this->keyDescriptors = [];
@@ -143,17 +118,15 @@ abstract class RoleDescriptor extends AbstractSamlModel
     /**
      * @return KeyDescriptor[]|null
      */
-    public function getAllKeyDescriptors()
+    public function getAllKeyDescriptors(): ?array
     {
         return $this->keyDescriptors;
     }
 
     /**
-     * @param string $use
-     *
      * @return KeyDescriptor[]
      */
-    public function getAllKeyDescriptorsByUse($use)
+    public function getAllKeyDescriptorsByUse(string $use): array
     {
         $result = [];
 
@@ -168,12 +141,7 @@ abstract class RoleDescriptor extends AbstractSamlModel
         return $result;
     }
 
-    /**
-     * @param string|null $use
-     *
-     * @return KeyDescriptor|null
-     */
-    public function getFirstKeyDescriptor($use = null)
+    public function getFirstKeyDescriptor(?string $use = null): ?\LightSaml\Model\Metadata\KeyDescriptor
     {
         if ($this->getAllKeyDescriptors()) {
             foreach ($this->getAllKeyDescriptors() as $kd) {
@@ -183,13 +151,10 @@ abstract class RoleDescriptor extends AbstractSamlModel
             }
         }
 
-        return;
+        return null;
     }
 
-    /**
-     * @return RoleDescriptor
-     */
-    public function addOrganization(Organization $organization)
+    public function addOrganization(Organization $organization): \LightSaml\Model\Metadata\RoleDescriptor
     {
         if (false == is_array($this->organizations)) {
             $this->organizations = [];
@@ -202,35 +167,25 @@ abstract class RoleDescriptor extends AbstractSamlModel
     /**
      * @return Organization[]|null
      */
-    public function getAllOrganizations()
+    public function getAllOrganizations(): ?array
     {
         return $this->organizations;
     }
 
-    /**
-     * @param string $protocolSupportEnumeration
-     *
-     * @return RoleDescriptor
-     */
-    public function setProtocolSupportEnumeration($protocolSupportEnumeration)
+    
+    public function setProtocolSupportEnumeration(string $protocolSupportEnumeration): \LightSaml\Model\Metadata\RoleDescriptor
     {
-        $this->protocolSupportEnumeration = (string) $protocolSupportEnumeration;
+        $this->protocolSupportEnumeration = $protocolSupportEnumeration;
 
         return $this;
     }
 
-    /**
-     * @return string
-     */
-    public function getProtocolSupportEnumeration()
+    public function getProtocolSupportEnumeration(): string
     {
         return $this->protocolSupportEnumeration;
     }
 
-    /**
-     * @return RoleDescriptor
-     */
-    public function addSignature(Signature $signature)
+    public function addSignature(Signature $signature): \LightSaml\Model\Metadata\RoleDescriptor
     {
         if (false == is_array($this->signatures)) {
             $this->signatures = [];
@@ -243,59 +198,45 @@ abstract class RoleDescriptor extends AbstractSamlModel
     /**
      * @return Signature[]|null
      */
-    public function getAllSignatures()
+    public function getAllSignatures(): ?array
     {
         return $this->signatures;
     }
 
     /**
      * @param int|null $validUntil
-     *
-     * @return RoleDescriptor
      */
-    public function setValidUntil($validUntil)
+    public function setValidUntil(int|string|\DateTime $validUntil): \LightSaml\Model\Metadata\RoleDescriptor
     {
         $this->validUntil = Helper::getTimestampFromValue($validUntil);
 
         return $this;
     }
 
-    /**
-     * @return string
-     */
-    public function getValidUntilString()
+    public function getValidUntilString(): ?string
     {
         if ($this->validUntil) {
             return Helper::time2string($this->validUntil);
         }
 
-        return;
+        return null;
     }
 
-    /**
-     * @return int
-     */
-    public function getValidUntilTimestamp()
+    public function getValidUntilTimestamp(): int
     {
         return $this->validUntil;
     }
 
-    /**
-     * @return DateTime|null
-     */
-    public function getValidUntilDateTime()
+    public function getValidUntilDateTime(): ?\DateTime
     {
         if ($this->validUntil) {
             return new DateTime('@' . $this->validUntil);
         }
 
-        return;
+        return null;
     }
 
-    /**
-     * @return void
-     */
-    public function serialize(DOMNode $parent, SerializationContext $context)
+    public function serialize(DOMNode $parent, SerializationContext $context): void
     {
         $this->attributesToXml(
             ['protocolSupportEnumeration', 'ID', 'validUntil', 'cacheDuration', 'errorURL'],
@@ -308,7 +249,7 @@ abstract class RoleDescriptor extends AbstractSamlModel
         $this->manyElementsToXml($this->getAllContactPersons(), $parent, $context, null);
     }
 
-    public function deserialize(DOMNode $node, DeserializationContext $context)
+    public function deserialize(DOMNode $node, DeserializationContext $context): void
     {
         $this->attributesFromXml(
             $node,

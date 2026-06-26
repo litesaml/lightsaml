@@ -47,13 +47,11 @@ abstract class SamlMessage extends AbstractSamlModel
     protected $relayState;
 
     /**
-     * @param string $xml
      *
-     * @return AuthnRequest|LogoutRequest|LogoutResponse|Response|SamlMessage
      *
      * @throws Exception
      */
-    public static function fromXML($xml, DeserializationContext $context)
+    public static function fromXML(string $xml, DeserializationContext $context): \LightSaml\Model\Protocol\AuthnRequest|\LightSaml\Model\Protocol\LogoutRequest|\LightSaml\Model\Protocol\LogoutResponse|\LightSaml\Model\Protocol\Response|\LightSaml\Model\Protocol\SamlMessage
     {
         if (false == is_string($xml)) {
             throw new InvalidArgumentException('Expecting string');
@@ -101,197 +99,134 @@ abstract class SamlMessage extends AbstractSamlModel
         return $result;
     }
 
-    /**
-     * @param string $id
-     *
-     * @return SamlMessage
-     */
-    public function setID($id)
+    
+    public function setID(string $id): \LightSaml\Model\Protocol\SamlMessage
     {
-        $this->id = (string) $id;
+        $this->id = $id;
 
         return $this;
     }
 
-    /**
-     * @return string
-     */
-    public function getID()
+    public function getID(): ?string
     {
         return $this->id;
     }
 
-    /**
-     * @param int|string|DateTime $issueInstant
-     *
-     * @return SamlMessage
-     */
-    public function setIssueInstant($issueInstant)
+    
+    public function setIssueInstant(int|string|\DateTime $issueInstant): \LightSaml\Model\Protocol\SamlMessage
     {
         $this->issueInstant = Helper::getTimestampFromValue($issueInstant);
 
         return $this;
     }
 
-    /**
-     * @return int|null
-     */
-    public function getIssueInstantTimestamp()
+    public function getIssueInstantTimestamp(): ?int
     {
         return $this->issueInstant;
     }
 
-    /**
-     * @return string|null
-     */
-    public function getIssueInstantString()
+    public function getIssueInstantString(): ?string
     {
         if ($this->issueInstant) {
             return Helper::time2string($this->issueInstant);
         }
 
-        return;
+        return null;
     }
 
-    /**
-     * @return DateTime|null
-     */
-    public function getIssueInstantDateTime()
+    public function getIssueInstantDateTime(): ?\DateTime
     {
         if ($this->issueInstant) {
             return new DateTime('@' . $this->issueInstant);
         }
 
-        return;
+        return null;
     }
 
-    /**
-     * @param string $version
-     *
-     * @return SamlMessage
-     */
-    public function setVersion($version)
+    
+    public function setVersion(string $version): \LightSaml\Model\Protocol\SamlMessage
     {
-        $this->version = (string) $version;
+        $this->version = $version;
 
         return $this;
     }
 
-    /**
-     * @return string
-     */
-    public function getVersion()
+    public function getVersion(): string
     {
         return $this->version;
     }
 
-    /**
-     * @param string|null $destination
-     *
-     * @return SamlMessage
-     */
-    public function setDestination($destination)
+    
+    public function setDestination(?string $destination): \LightSaml\Model\Protocol\SamlMessage
     {
         $this->destination = $destination;
 
         return $this;
     }
 
-    /**
-     * @return string|null
-     */
-    public function getDestination()
+    public function getDestination(): ?string
     {
         return $this->destination;
     }
 
-    /**
-     * @return SamlMessage
-     */
-    public function setIssuer(?Issuer $issuer = null)
+    public function setIssuer(?Issuer $issuer = null): \LightSaml\Model\Protocol\SamlMessage
     {
         $this->issuer = $issuer;
 
         return $this;
     }
 
-    /**
-     * @return NameID|null
-     */
-    public function getIssuer()
+    public function getIssuer(): ?\LightSaml\Model\Assertion\Issuer
     {
         return $this->issuer;
     }
 
-    /**
-     * @param string|null $consent
-     *
-     * @return StatusResponse
-     */
-    public function setConsent($consent)
+    
+    public function setConsent(?string $consent): \LightSaml\Model\Protocol\StatusResponse
     {
         $this->consent = $consent;
 
         return $this;
     }
 
-    /**
-     * @return string|null
-     */
-    public function getConsent()
+    public function getConsent(): ?string
     {
         return $this->consent;
     }
 
-    /**
-     * @return SamlMessage
-     */
-    public function setSignature(?Signature $signature = null)
+    public function setSignature(?Signature $signature = null): \LightSaml\Model\Protocol\SamlMessage
     {
         $this->signature = $signature;
 
         return $this;
     }
 
-    /**
-     * @return Signature|null
-     */
-    public function getSignature()
+    public function getSignature(): ?\LightSaml\Model\XmlDSig\Signature
     {
         return $this->signature;
     }
 
-    /**
-     * @param string|null $relayState
-     *
-     * @return SamlMessage
-     */
-    public function setRelayState($relayState)
+    
+    public function setRelayState(?string $relayState): \LightSaml\Model\Protocol\SamlMessage
     {
         $this->relayState = $relayState;
 
         return $this;
     }
 
-    /**
-     * @return string|null
-     */
-    public function getRelayState()
+    public function getRelayState(): ?string
     {
         return $this->relayState;
     }
 
-    /**
-     * @return void
-     */
-    public function serialize(DOMNode $parent, SerializationContext $context)
+    public function serialize(DOMNode $parent, SerializationContext $context): void
     {
         $this->attributesToXml(['ID', 'Version', 'IssueInstant', 'Destination', 'Consent'], $parent);
 
         $this->singleElementsToXml(['Issuer'], $parent, $context);
     }
 
-    public function deserialize(DOMNode $node, DeserializationContext $context)
+    public function deserialize(DOMNode $node, DeserializationContext $context): void
     {
         $this->attributesFromXml($node, ['ID', 'Version', 'IssueInstant', 'Destination', 'Consent']);
 

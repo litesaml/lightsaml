@@ -7,40 +7,23 @@ use RobRichards\XMLSecLibs\XMLSecurityKey;
 
 interface CredentialInterface
 {
-    /**
-     * @return string
-     */
-    public function getEntityId();
+    public function getEntityId(): string;
 
     /**
      * One of UsageType constants.
-     *
-     * @return string|null
      */
-    public function getUsageType();
+    public function getUsageType(): ?string;
 
     /**
      * @return string[]
      */
-    public function getKeyNames();
+    public function getKeyNames(): array;
 
-    /**
-     * @return XMLSecurityKey|null
-     */
-    public function getPublicKey();
+    public function getPublicKey(): ?\RobRichards\XMLSecLibs\XMLSecurityKey;
 
-    /**
-     * @return XMLSecurityKey|null
-     */
-    public function getPrivateKey();
+    public function getPrivateKey(): ?\RobRichards\XMLSecLibs\XMLSecurityKey;
 
-    /**
-     * @return string|null
-     */
-    public function getSecretKey();
+    public function getSecretKey(): ?string;
 
-    /**
-     * @return CredentialContextSet
-     */
-    public function getCredentialContext();
+    public function getCredentialContext(): \LightSaml\Credential\Context\CredentialContextSet;
 }

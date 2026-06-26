@@ -15,12 +15,8 @@ use LogicException;
 
 abstract class Metadata extends AbstractSamlModel
 {
-    /**
-     * @param string $path
-     *
-     * @return EntitiesDescriptor|EntityDescriptor
-     */
-    public static function fromFile($path)
+    
+    public static function fromFile(string $path): \LightSaml\Model\Metadata\EntitiesDescriptor|\LightSaml\Model\Metadata\EntityDescriptor
     {
         $deserializatonContext = new DeserializationContext();
         $xml = file_get_contents($path);
@@ -29,13 +25,11 @@ abstract class Metadata extends AbstractSamlModel
     }
 
     /**
-     * @param string $xml
      *
-     * @return EntityDescriptor|EntitiesDescriptor
      *
      * @throws Exception
      */
-    public static function fromXML($xml, DeserializationContext $context)
+    public static function fromXML(string $xml, DeserializationContext $context): \LightSaml\Model\Metadata\EntityDescriptor|\LightSaml\Model\Metadata\EntitiesDescriptor
     {
         if (false == is_string($xml)) {
             throw new InvalidArgumentException('Expecting string');

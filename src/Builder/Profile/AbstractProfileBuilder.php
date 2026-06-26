@@ -14,18 +14,12 @@ abstract class AbstractProfileBuilder implements ProfileBuilderInterface
     {
     }
 
-    /**
-     * @return CompositeAction
-     */
-    public function buildAction()
+    public function buildAction(): \LightSaml\Action\CompositeAction
     {
         return $this->getActionBuilder()->build();
     }
 
-    /**
-     * @return ProfileContext
-     */
-    public function buildContext()
+    public function buildContext(): \LightSaml\Context\Profile\ProfileContext
     {
         $builder = new ProfileContextBuilder();
         $builder
@@ -38,18 +32,9 @@ abstract class AbstractProfileBuilder implements ProfileBuilderInterface
         return $builder->build();
     }
 
-    /**
-     * @return string
-     */
-    abstract protected function getProfileId();
+    abstract protected function getProfileId(): string;
 
-    /**
-     * @return string
-     */
-    abstract protected function getProfileRole();
+    abstract protected function getProfileRole(): string;
 
-    /**
-     * @return ActionBuilderInterface
-     */
-    abstract protected function getActionBuilder();
+    abstract protected function getActionBuilder(): \LightSaml\Builder\Action\ActionBuilderInterface;
 }

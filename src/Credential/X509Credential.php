@@ -21,10 +21,7 @@ class X509Credential extends AbstractCredential implements X509CredentialInterfa
         }
     }
 
-    /**
-     * @return X509Certificate
-     */
-    public function getCertificate()
+    public function getCertificate(): \LightSaml\Credential\X509Certificate
     {
         return $this->certificate;
     }

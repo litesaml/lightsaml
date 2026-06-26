@@ -22,7 +22,7 @@ use Tests\BaseTestCase;
 
 class HttpRedirectBindingFunctionalTest extends BaseTestCase
 {
-    public function test__send_authn_request()
+    public function test__send_authn_request(): void
     {
         $expectedRelayState = 'relayState';
         $expectedDestination = 'https://destination.com/auth';
@@ -37,7 +37,7 @@ class HttpRedirectBindingFunctionalTest extends BaseTestCase
         $eventDispatcherMock = $this->getEventDispatcherMock();
         $eventDispatcherMock->expects($this->once())
             ->method('dispatch')
-            ->willReturnCallback(function (MessageSent $event) {
+            ->willReturnCallback(function (MessageSent $event): \LightSaml\Event\MessageSent {
                 $this->assertNotEmpty($event->message);
                 $doc = new DOMDocument();
                 $doc->loadXML($event->message);
@@ -94,7 +94,7 @@ class HttpRedirectBindingFunctionalTest extends BaseTestCase
         $this->assertEquals($request->getIssueInstantTimestamp(), $receivedAuthnRequest->getIssueInstantTimestamp());
     }
 
-    public function test__send_destination()
+    public function test__send_destination(): void
     {
         $expectedDestination = 'https://destination.com/auth';
 
@@ -119,7 +119,7 @@ class HttpRedirectBindingFunctionalTest extends BaseTestCase
         $this->assertEquals($expectedDestination, $urlInfo['scheme'] . '://' . $urlInfo['host'] . $urlInfo['path']);
     }
 
-    public function test__receive_authn_request()
+    public function test__receive_authn_request(): void
     {
         $expectedRelayState = 'relayState';
 
@@ -129,7 +129,7 @@ class HttpRedirectBindingFunctionalTest extends BaseTestCase
         $eventDispatcherMock = $this->getEventDispatcherMock();
         $eventDispatcherMock->expects($this->once())
             ->method('dispatch')
-            ->willReturnCallback(function (MessageReceived $event) {
+            ->willReturnCallback(function (MessageReceived $event): \LightSaml\Event\MessageReceived {
                 $this->assertNotEmpty($event->message);
                 $doc = new DOMDocument();
                 $doc->loadXML($event->message);
@@ -169,10 +169,7 @@ class HttpRedirectBindingFunctionalTest extends BaseTestCase
         );
     }
 
-    /**
-     * @return AuthnRequest
-     */
-    private function getAuthnRequest()
+    private function getAuthnRequest(): \LightSaml\Model\Protocol\AuthnRequest
     {
         $authnRequest = new AuthnRequest();
         $authnRequest->setIssueInstant('2014-01-01T12:00:00Z');
@@ -191,7 +188,7 @@ class HttpRedirectBindingFunctionalTest extends BaseTestCase
     /**
      * @return MockObject|EventDispatcherInterface
      */
-    private function getEventDispatcherMock()
+    private function getEventDispatcherMock(): \PHPUnit\Framework\MockObject\MockObject
     {
         return $this->getMockBuilder(EventDispatcherInterface::class)->getMock();
     }

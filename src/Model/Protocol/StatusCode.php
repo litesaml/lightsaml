@@ -20,46 +20,32 @@ class StatusCode extends AbstractSamlModel
     {
     }
 
-    /**
-     * @param string $value
-     */
-    public function setValue($value)
+    public function setValue(string $value): void
     {
-        $this->value = (string) $value;
+        $this->value = $value;
     }
 
-    /**
-     * @return string
-     */
-    public function getValue()
+    public function getValue(): string
     {
         return $this->value;
     }
 
     /**
      * @param StatusCode|null $statusCode
-     *
-     * @return StatusCode
      */
-    public function setStatusCode(StatusCode $statusCode)
+    public function setStatusCode(StatusCode $statusCode): static
     {
         $this->statusCode = $statusCode;
 
         return $this;
     }
 
-    /**
-     * @return StatusCode|null
-     */
-    public function getStatusCode()
+    public function getStatusCode(): ?\LightSaml\Model\Protocol\StatusCode
     {
         return $this->statusCode;
     }
 
-    /**
-     * @return void
-     */
-    public function serialize(DOMNode $parent, SerializationContext $context)
+    public function serialize(DOMNode $parent, SerializationContext $context): void
     {
         $result = $this->createElement('samlp:StatusCode', SamlConstants::NS_PROTOCOL, $parent, $context);
 
@@ -68,7 +54,7 @@ class StatusCode extends AbstractSamlModel
         $this->singleElementsToXml(['StatusCode'], $result, $context);
     }
 
-    public function deserialize(DOMNode $node, DeserializationContext $context)
+    public function deserialize(DOMNode $node, DeserializationContext $context): void
     {
         $this->checkXmlNodeName($node, 'StatusCode', SamlConstants::NS_PROTOCOL);
 

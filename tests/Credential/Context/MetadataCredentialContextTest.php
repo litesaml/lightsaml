@@ -11,7 +11,7 @@ use Tests\BaseTestCase;
 
 class MetadataCredentialContextTest extends BaseTestCase
 {
-    public function test_returns_objects_set_on_construct()
+    public function test_returns_objects_set_on_construct(): void
     {
         $context = new MetadataCredentialContext(
             $keyDescriptor = $this->getKeyDescriptorMock(),
@@ -27,7 +27,7 @@ class MetadataCredentialContextTest extends BaseTestCase
     /**
      * @return MockObject|KeyDescriptor
      */
-    private function getKeyDescriptorMock()
+    private function getKeyDescriptorMock(): \PHPUnit\Framework\MockObject\MockObject
     {
         return $this->getMockBuilder(KeyDescriptor::class)->getMock();
     }
@@ -35,7 +35,7 @@ class MetadataCredentialContextTest extends BaseTestCase
     /**
      * @return MockObject|RoleDescriptor
      */
-    private function getRoleDescriptorMock()
+    private function getRoleDescriptorMock(): \PHPUnit\Framework\MockObject\MockObject
     {
         return $this->getMockBuilder(RoleDescriptor::class)->getMock();
     }
@@ -43,7 +43,7 @@ class MetadataCredentialContextTest extends BaseTestCase
     /**
      * @return MockObject|EntityDescriptor
      */
-    private function getEntityDescriptorMock()
+    private function getEntityDescriptorMock(): \PHPUnit\Framework\MockObject\MockObject
     {
         return $this->getMockBuilder(EntityDescriptor::class)->getMock();
     }

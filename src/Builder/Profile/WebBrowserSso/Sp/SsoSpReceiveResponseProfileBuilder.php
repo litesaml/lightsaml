@@ -11,18 +11,12 @@ use LightSaml\Profile\Profiles;
 
 class SsoSpReceiveResponseProfileBuilder extends AbstractProfileBuilder
 {
-    /**
-     * @return string
-     */
-    protected function getProfileId()
+    protected function getProfileId(): string
     {
         return Profiles::SSO_SP_RECEIVE_RESPONSE;
     }
 
-    /**
-     * @return string
-     */
-    protected function getProfileRole()
+    protected function getProfileRole(): string
     {
         return ProfileContext::ROLE_SP;
     }
@@ -30,7 +24,7 @@ class SsoSpReceiveResponseProfileBuilder extends AbstractProfileBuilder
     /**
      * @return ActionBuilderInterface
      */
-    protected function getActionBuilder()
+    protected function getActionBuilder(): \LightSaml\Builder\Action\Profile\SingleSignOn\Sp\SsoSpReceiveResponseActionBuilder
     {
         return new SsoSpReceiveResponseActionBuilder(
             $this->container,

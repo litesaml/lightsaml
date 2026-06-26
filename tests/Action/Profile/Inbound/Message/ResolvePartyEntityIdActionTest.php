@@ -14,7 +14,7 @@ use Tests\BaseTestCase;
 
 class ResolvePartyEntityIdActionTest extends BaseTestCase
 {
-    public function test_constructs_with_logger_entity_descriptor_stores_and_trust_options_provider()
+    public function test_constructs_with_logger_entity_descriptor_stores_and_trust_options_provider(): void
     {
         new ResolvePartyEntityIdAction(
             $this->getLoggerMock(),
@@ -25,7 +25,7 @@ class ResolvePartyEntityIdActionTest extends BaseTestCase
         $this->assertTrue(true);
     }
 
-    public function test_does_nothing_if_party_entity_descriptor_and_trust_options_already_set_in_context()
+    public function test_does_nothing_if_party_entity_descriptor_and_trust_options_already_set_in_context(): void
     {
         $action = new ResolvePartyEntityIdAction(
             $logger = $this->getLoggerMock(),
@@ -48,7 +48,7 @@ class ResolvePartyEntityIdActionTest extends BaseTestCase
         $action->execute($context);
     }
 
-    public function test_throws_if_entity_id_is_not_set_in_context()
+    public function test_throws_if_entity_id_is_not_set_in_context(): void
     {
         $this->expectExceptionMessage("EntityID is not set in the party context");
         $this->expectException(LightSamlContextException::class);
@@ -69,7 +69,7 @@ class ResolvePartyEntityIdActionTest extends BaseTestCase
         $action->execute($context);
     }
 
-    public function test_looks_for_idp_entity_descriptor_when_own_role_sp()
+    public function test_looks_for_idp_entity_descriptor_when_own_role_sp(): void
     {
         $action = new ResolvePartyEntityIdAction(
             $logger = $this->getLoggerMock(),
@@ -101,7 +101,7 @@ class ResolvePartyEntityIdActionTest extends BaseTestCase
         $this->assertSame($entityDescriptor, $context->getPartyEntityDescriptor());
     }
 
-    public function test_looks_for_sp_entity_descriptor_when_own_role_idp()
+    public function test_looks_for_sp_entity_descriptor_when_own_role_idp(): void
     {
         $action = new ResolvePartyEntityIdAction(
             $logger = $this->getLoggerMock(),
@@ -134,7 +134,7 @@ class ResolvePartyEntityIdActionTest extends BaseTestCase
         $this->assertSame($entityDescriptor, $context->getPartyEntityContext()->getEntityDescriptor());
     }
 
-    public function test_looks_for_trust_options()
+    public function test_looks_for_trust_options(): void
     {
         $action = new ResolvePartyEntityIdAction(
             $logger = $this->getLoggerMock(),
@@ -163,7 +163,7 @@ class ResolvePartyEntityIdActionTest extends BaseTestCase
         $this->assertSame($entityDescriptor, $context->getPartyEntityContext()->getEntityDescriptor());
     }
 
-    public function test_creates_default_trust_options_if_none_resolved()
+    public function test_creates_default_trust_options_if_none_resolved(): void
     {
         $action = new ResolvePartyEntityIdAction(
             $logger = $this->getLoggerMock(),
@@ -195,7 +195,7 @@ class ResolvePartyEntityIdActionTest extends BaseTestCase
     /**
      * @return MockObject|TrustOptionsStoreInterface
      */
-    private function getTrustOptionsStore()
+    private function getTrustOptionsStore(): \PHPUnit\Framework\MockObject\MockObject
     {
         return $this->getMockBuilder(TrustOptionsStoreInterface::class)->getMock();
     }

@@ -11,53 +11,53 @@ use Tests\Fixtures\Model\Metadata\RoleDescriptorMock;
 
 class RoleDescriptorTest extends BaseTestCase
 {
-    public function test__set_valid_cache_duration()
+    public function test__set_valid_cache_duration(): void
     {
         $rd = new RoleDescriptorMock();
         $rd->setCacheDuration($expectedValue = 'P1Y');
         $this->assertEquals($expectedValue, $rd->getCacheDuration());
     }
 
-    public function test__set_invalid_cache_duration()
+    public function test__set_invalid_cache_duration(): void
     {
         $this->expectException(InvalidArgumentException::class);
         $rd = new RoleDescriptorMock();
         $rd->setCacheDuration('123');
     }
 
-    public function test__set_error_url()
+    public function test__set_error_url(): void
     {
         $rd = new RoleDescriptorMock();
         $rd->setErrorURL($expectedValue = 'http://example.com/error');
         $this->assertEquals($expectedValue, $rd->getErrorURL());
     }
 
-    public function test__set_id()
+    public function test__set_id(): void
     {
         $rd = new RoleDescriptorMock();
         $rd->setID($expectedValue = 'id-123');
         $this->assertEquals($expectedValue, $rd->getID());
     }
 
-    public function test__get_first_key_descriptor_returns_null_when_empty()
+    public function test__get_first_key_descriptor_returns_null_when_empty(): void
     {
         $rd = new RoleDescriptorMock();
         $this->assertNull($rd->getFirstKeyDescriptor());
     }
 
-    public function test__get_all_key_descriptors_returns_null_when_empty()
+    public function test__get_all_key_descriptors_returns_null_when_empty(): void
     {
         $rd = new RoleDescriptorMock();
         $this->assertNull($rd->getAllKeyDescriptors());
     }
 
-    public function test__get_all_key_descriptors_by_use_returns_empty_array()
+    public function test__get_all_key_descriptors_by_use_returns_empty_array(): void
     {
         $rd = new RoleDescriptorMock();
         $this->assertIsArray($rd->getAllKeyDescriptorsByUse(KeyDescriptor::USE_SIGNING));
     }
 
-    public function test__add_signature()
+    public function test__add_signature(): void
     {
         $rd = new RoleDescriptorMock();
         $rd->addSignature($s1 = new SignatureWriter());
@@ -67,28 +67,28 @@ class RoleDescriptorTest extends BaseTestCase
         $this->assertSame($s2, $arr[1]);
     }
 
-    public function test__set_valid_until_string()
+    public function test__set_valid_until_string(): void
     {
         $rd = new RoleDescriptorMock();
         $rd->setValidUntil('2013-10-27T11:55:37Z');
         $this->assertEquals(1382874937, $rd->getValidUntilTimestamp());
     }
 
-    public function test__set_valid_until_timestamp()
+    public function test__set_valid_until_timestamp(): void
     {
         $rd = new RoleDescriptorMock();
         $rd->setValidUntil($expectedValue = 1382874937);
         $this->assertEquals(1382874937, $rd->getValidUntilTimestamp());
     }
 
-    public function test__set_valid_until_date_time()
+    public function test__set_valid_until_date_time(): void
     {
         $rd = new RoleDescriptorMock();
         $rd->setValidUntil(new DateTime('2013-10-27T11:55:37Z'));
         $this->assertEquals(1382874937, $rd->getValidUntilTimestamp());
     }
 
-    public function test__get_valid_until_string()
+    public function test__get_valid_until_string(): void
     {
         $rd = new RoleDescriptorMock();
         $rd->setValidUntil($expectedValue = '2013-10-27T11:55:37Z');

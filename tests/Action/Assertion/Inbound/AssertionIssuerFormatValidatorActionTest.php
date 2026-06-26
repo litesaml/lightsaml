@@ -11,13 +11,13 @@ use Tests\BaseTestCase;
 
 class AssertionIssuerFormatValidatorActionTest extends BaseTestCase
 {
-    public function test_constructs_with_logger_and_name_id_format()
+    public function test_constructs_with_logger_and_name_id_format(): void
     {
         new AssertionIssuerFormatValidatorAction($this->getLoggerMock(), $expectedIssuerFormat = SamlConstants::NAME_ID_FORMAT_EMAIL);
         $this->assertTrue(true);
     }
 
-    public function test_throws_context_exception_when_assertion_has_no_issuer()
+    public function test_throws_context_exception_when_assertion_has_no_issuer(): void
     {
 
         $action = new AssertionIssuerFormatValidatorAction(
@@ -37,7 +37,7 @@ class AssertionIssuerFormatValidatorActionTest extends BaseTestCase
         $action->execute($context);
     }
 
-    public function test_throws_context_exception_when_assertion_issuer_format_does_not_matches_expected_format()
+    public function test_throws_context_exception_when_assertion_issuer_format_does_not_matches_expected_format(): void
     {
         $action = new AssertionIssuerFormatValidatorAction(
             $loggerMock = $this->getLoggerMock(),
@@ -60,7 +60,7 @@ class AssertionIssuerFormatValidatorActionTest extends BaseTestCase
         $action->execute($context);
     }
 
-    public function test_does_nothing_if_issuer_has_no_format()
+    public function test_does_nothing_if_issuer_has_no_format(): void
     {
         $action = new AssertionIssuerFormatValidatorAction(
             $loggerMock = $this->getLoggerMock(),

@@ -21,10 +21,7 @@ class IssuerValidatorAction extends AbstractProfileAction
         parent::__construct($logger);
     }
 
-    /**
-     * @return void
-     */
-    protected function doExecute(ProfileContext $context)
+    protected function doExecute(ProfileContext $context): void
     {
         $message = MessageContextHelper::asSamlMessage($context->getInboundContext());
 

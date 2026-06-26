@@ -13,7 +13,7 @@ use Tests\BaseTestCase;
 
 class AbstractProfileActionTest extends BaseTestCase
 {
-    public function test_calls_do_execute_with_profile_context()
+    public function test_calls_do_execute_with_profile_context(): void
     {
         /** @var LoggerInterface $loggerMock */
         $loggerMock = $this->getMockBuilder(LoggerInterface::class)->getMock();
@@ -26,7 +26,7 @@ class AbstractProfileActionTest extends BaseTestCase
         $action->execute($profileContext);
     }
 
-    public function test_throws_exception_on_non_profile_context()
+    public function test_throws_exception_on_non_profile_context(): void
     {
         $this->expectExceptionMessage("Expected ProfileContext but got");
         $this->expectException(LightSamlContextException::class);
@@ -45,7 +45,7 @@ class AbstractProfileActionTest extends BaseTestCase
     /**
      * @return MockObject|AbstractProfileAction
      */
-    private function getAbstractProfileActionMock($loggerMock)
+    private function getAbstractProfileActionMock($loggerMock): \PHPUnit\Framework\MockObject\MockObject
     {
         return $this->getMockForAbstractClass(AbstractProfileAction::class, [$loggerMock]);
     }
@@ -53,7 +53,7 @@ class AbstractProfileActionTest extends BaseTestCase
     /**
      * @return MockObject|ContextInterface
      */
-    private function getContextMock()
+    private function getContextMock(): \PHPUnit\Framework\MockObject\MockObject
     {
         return $this->getMockBuilder(ContextInterface::class)->getMock();
     }

@@ -8,7 +8,7 @@ use Tests\BaseTestCase;
 
 class FixedNameIdProviderTest extends BaseTestCase
 {
-    public function test_returns_given_name_id()
+    public function test_returns_given_name_id(): void
     {
         $provider = new FixedNameIdProvider($expected = new NameID());
         $this->assertSame($expected, $provider->getNameID($this->getProfileContext()));

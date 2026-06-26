@@ -62,16 +62,12 @@ class Assertion extends AbstractSamlModel
     protected $items = [];
 
     //endregion
-
     /**
      * Core 3.3.4 Processing rules.
      *
-     * @param string      $nameId
-     * @param string|null $format
      *
-     * @return bool
      */
-    public function equals($nameId, $format)
+    public function equals(string $nameId, ?string $format): bool
     {
         if (false == $this->getSubject()) {
             return false;
@@ -84,15 +80,10 @@ class Assertion extends AbstractSamlModel
         if ($this->getSubject()->getNameID()->getValue() != $nameId) {
             return false;
         }
-        return $this->getSubject()->getNameID()->getFormat() == $format;
+        return $this->getSubject()->getNameID()->getFormat() === $format;
     }
 
-    /**
-     * @param string $sessionIndex
-     *
-     * @return bool
-     */
-    public function hasSessionIndex($sessionIndex)
+    public function hasSessionIndex(string $sessionIndex): bool
     {
         if (null == $this->getAllAuthnStatements()) {
             return false;
@@ -107,7 +98,7 @@ class Assertion extends AbstractSamlModel
         return false;
     }
 
-    public function hasAnySessionIndex()
+    public function hasAnySessionIndex(): bool
     {
         if (false == $this->getAllAuthnStatements()) {
             return false;
@@ -123,171 +114,117 @@ class Assertion extends AbstractSamlModel
     }
 
     //region Getters & Setters
-
-    /**
-     * @return Assertion
-     */
-    public function setConditions(?Conditions $conditions = null)
+    public function setConditions(?Conditions $conditions = null): static
     {
         $this->conditions = $conditions;
 
         return $this;
     }
 
-    /**
-     * @return Conditions|null
-     */
-    public function getConditions()
+    public function getConditions(): ?\LightSaml\Model\Assertion\Conditions
     {
         return $this->conditions;
     }
 
-    /**
-     * @param string $id
-     *
-     * @return Assertion
-     */
-    public function setId($id)
+    public function setId(string $id): static
     {
-        $this->id = (string) $id;
+        $this->id = $id;
 
         return $this;
     }
 
-    /**
-     * @return string
-     */
-    public function getId()
+    public function getId(): ?string
     {
         return $this->id;
     }
 
     /**
-     * @param string|int|DateTime $issueInstant
-     *
      * @throws InvalidArgumentException
-     *
-     * @return Assertion
      */
-    public function setIssueInstant($issueInstant)
+    public function setIssueInstant(int|string|\DateTime $issueInstant): static
     {
         $this->issueInstant = Helper::getTimestampFromValue($issueInstant);
 
         return $this;
     }
 
-    /**
-     * @return int
-     */
-    public function getIssueInstantTimestamp()
+    public function getIssueInstantTimestamp(): ?int
     {
         return $this->issueInstant;
     }
 
-    /**
-     * @return string
-     */
-    public function getIssueInstantString()
+    public function getIssueInstantString(): ?string
     {
         if ($this->issueInstant) {
             return Helper::time2string($this->issueInstant);
         }
 
-        return;
+        return null;
     }
 
     /**
      * @return string
      */
-    public function getIssueInstantDateTime()
+    public function getIssueInstantDateTime(): ?\DateTime
     {
         if ($this->issueInstant) {
             return new DateTime('@' . $this->issueInstant);
         }
 
-        return;
+        return null;
     }
 
-    /**
-     *
-     * @return Assertion
-     */
-    public function setIssuer(?Issuer $issuer = null)
+    
+    public function setIssuer(?Issuer $issuer = null): static
     {
         $this->issuer = $issuer;
 
         return $this;
     }
 
-    /**
-     * @return Issuer
-     */
-    public function getIssuer()
+    public function getIssuer(): ?\LightSaml\Model\Assertion\Issuer
     {
         return $this->issuer;
     }
 
-    /**
-     *
-     * @return Assertion
-     */
-    public function setSignature(?Signature $signature = null)
+    
+    public function setSignature(?Signature $signature = null): static
     {
         $this->signature = $signature;
 
         return $this;
     }
 
-    /**
-     * @return Signature|null
-     */
-    public function getSignature()
+    public function getSignature(): ?\LightSaml\Model\XmlDSig\Signature
     {
         return $this->signature;
     }
 
-    /**
-     * @return Assertion
-     */
-    public function setSubject(Subject $subject)
+    public function setSubject(Subject $subject): static
     {
         $this->subject = $subject;
 
         return $this;
     }
 
-    /**
-     * @return Subject
-     */
-    public function getSubject()
+    public function getSubject(): ?\LightSaml\Model\Assertion\Subject
     {
         return $this->subject;
     }
 
-    /**
-     * @param string $version
-     *
-     * @return Assertion
-     */
-    public function setVersion($version)
+    public function setVersion(?string $version): static
     {
-        $this->version = (string) $version;
+        $this->version = $version;
 
         return $this;
     }
 
-    /**
-     * @return string
-     */
-    public function getVersion()
+    public function getVersion(): ?string
     {
         return $this->version;
     }
 
-    /**
-     * @return Assertion
-     */
-    public function addItem(AbstractStatement $statement)
+    public function addItem(AbstractStatement $statement): static
     {
         $this->items[] = $statement;
 
@@ -297,7 +234,7 @@ class Assertion extends AbstractSamlModel
     /**
      * @return AbstractStatement[]|AttributeStatement[]|AuthnStatement[]|array
      */
-    public function getAllItems()
+    public function getAllItems(): array
     {
         return $this->items;
     }
@@ -305,7 +242,7 @@ class Assertion extends AbstractSamlModel
     /**
      * @return AuthnStatement[]
      */
-    public function getAllAuthnStatements()
+    public function getAllAuthnStatements(): array
     {
         $result = [];
         foreach ($this->items as $item) {
@@ -320,7 +257,7 @@ class Assertion extends AbstractSamlModel
     /**
      * @return AttributeStatement[]
      */
-    public function getAllAttributeStatements()
+    public function getAllAttributeStatements(): array
     {
         $result = [];
         foreach ($this->items as $item) {
@@ -332,10 +269,7 @@ class Assertion extends AbstractSamlModel
         return $result;
     }
 
-    /**
-     * @return AttributeStatement|null
-     */
-    public function getFirstAttributeStatement()
+    public function getFirstAttributeStatement(): ?\LightSaml\Model\Assertion\AttributeStatement
     {
         foreach ($this->items as $item) {
             if ($item instanceof AttributeStatement) {
@@ -343,13 +277,10 @@ class Assertion extends AbstractSamlModel
             }
         }
 
-        return;
+        return null;
     }
 
-    /**
-     * @return AuthnStatement|null
-     */
-    public function getFirstAuthnStatement()
+    public function getFirstAuthnStatement(): ?\LightSaml\Model\Assertion\AuthnStatement
     {
         foreach ($this->items as $item) {
             if ($item instanceof AuthnStatement) {
@@ -357,15 +288,11 @@ class Assertion extends AbstractSamlModel
             }
         }
 
-        return;
+        return null;
     }
 
     //endregion
-
-    /**
-     * @return bool
-     */
-    public function hasBearerSubject()
+    public function hasBearerSubject(): bool
     {
         return $this->getAllAuthnStatements() && $this->getSubject() && $this->getSubject()->getBearerConfirmations();
     }
@@ -380,10 +307,7 @@ class Assertion extends AbstractSamlModel
         }
     }
 
-    /**
-     * @return void
-     */
-    public function serialize(DOMNode $parent, SerializationContext $context)
+    public function serialize(DOMNode $parent, SerializationContext $context): void
     {
         $this->prepareForXml();
 
@@ -405,7 +329,7 @@ class Assertion extends AbstractSamlModel
         $this->singleElementsToXml(['Signature'], $result, $context);
     }
 
-    public function deserialize(DOMNode $node, DeserializationContext $context)
+    public function deserialize(DOMNode $node, DeserializationContext $context): void
     {
         $this->checkXmlNodeName($node, 'Assertion', SamlConstants::NS_ASSERTION);
 

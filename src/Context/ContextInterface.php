@@ -6,73 +6,34 @@ use IteratorAggregate;
 
 interface ContextInterface extends IteratorAggregate
 {
-    /**
-     * @return ContextInterface|null
-     */
-    public function getParent();
+    public function getParent(): ?\LightSaml\Context\ContextInterface;
+
+    public function getTopParent(): \LightSaml\Context\ContextInterface;
+
+    public function setParent(?ContextInterface $parent = null): \LightSaml\Context\ContextInterface;
+
+    
+    public function getSubContext(string $name, ?string $class = null): object|null;
+
+
+    public function getSubContextByClass(string $class, bool $autoCreate): object|null;
 
     /**
-     * @return ContextInterface
-     */
-    public function getTopParent();
-
-    /**
-     * @return ContextInterface
-     */
-    public function setParent(?ContextInterface $parent = null);
-
-    /**
-     * @param string      $name
-     * @param string|null $class
-     *
-     * @return ContextInterface|null
-     */
-    public function getSubContext($name, $class = null);
-
-    /**
-     * @param string $class
-     * @param bool   $autoCreate
-     *
-     * @return ContextInterface|null
-     */
-    public function getSubContextByClass($class, $autoCreate);
-
-    /**
-     * @param string                  $name
      * @param object|ContextInterface $subContext
      */
-    public function addSubContext($name, $subContext);
+    public function addSubContext(string $name, $subContext);
 
-    /**
-     * @param string $name
-     *
-     * @return ContextInterface
-     */
-    public function removeSubContext($name);
+    
+    public function removeSubContext(string $name): \LightSaml\Context\ContextInterface;
 
-    /**
-     * @param string $name
-     *
-     * @return bool
-     */
-    public function containsSubContext($name);
+    
+    public function containsSubContext(string $name): bool;
 
-    /**
-     * @return ContextInterface
-     */
-    public function clearSubContexts();
+    public function clearSubContexts(): \LightSaml\Context\ContextInterface;
 
-    /**
-     * @param string $ownName
-     *
-     * @return array
-     */
-    public function debugPrintTree($ownName = 'root');
+    
+    public function debugPrintTree(string $ownName = 'root'): array;
 
-    /**
-     * @param string $path
-     *
-     * @return ContextInterface
-     */
-    public function getPath($path);
+    
+    public function getPath(string|array $path): ?\LightSaml\Context\ContextInterface;
 }

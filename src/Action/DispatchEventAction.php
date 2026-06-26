@@ -12,10 +12,7 @@ class DispatchEventAction implements ActionInterface
     {
     }
 
-    /**
-     * @return void
-     */
-    public function execute(ContextInterface $context)
+    public function execute(ContextInterface $context): void
     {
         $this->eventDispatcher->dispatch(new ActionOccurred($context));
     }

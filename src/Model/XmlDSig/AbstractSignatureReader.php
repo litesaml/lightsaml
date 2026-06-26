@@ -19,12 +19,9 @@ abstract class AbstractSignatureReader extends Signature
      *
      * @throws LightSamlSecurityException If validation fails
      */
-    abstract public function validate(XMLSecurityKey $key);
+    abstract public function validate(XMLSecurityKey $key): bool;
 
-    /**
-     * @return XMLSecurityKey|null
-     */
-    public function getKey()
+    public function getKey(): ?\RobRichards\XMLSecLibs\XMLSecurityKey
     {
         return $this->key;
     }
@@ -37,7 +34,7 @@ abstract class AbstractSignatureReader extends Signature
      *
      * @return CredentialInterface|null Returns credential that validated the signature or null if validation was not performed
      */
-    public function validateMulti(array $credentialCandidates)
+    public function validateMulti(array $credentialCandidates): ?\LightSaml\Credential\CredentialInterface
     {
         $lastException = null;
 
@@ -53,7 +50,7 @@ abstract class AbstractSignatureReader extends Signature
                 $result = $this->validate($credential->getPublicKey());
 
                 if (false === $result) {
-                    return;
+                    return null;
                 }
 
                 return $credential;
@@ -69,15 +66,9 @@ abstract class AbstractSignatureReader extends Signature
         }
     }
 
-    /**
-     * @return string
-     */
-    abstract public function getAlgorithm();
+    abstract public function getAlgorithm(): string;
 
-    /**
-     * @return XMLSecurityKey
-     */
-    protected function castKeyIfNecessary(XMLSecurityKey $key)
+    protected function castKeyIfNecessary(XMLSecurityKey $key): \RobRichards\XMLSecLibs\XMLSecurityKey
     {
         $algorithm = $this->getAlgorithm();
 

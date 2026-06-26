@@ -31,160 +31,96 @@ class TrustOptions
     /** @var string */
     protected $keyTransportEncryptionAlgorithm = XMLSecurityKey::RSA_OAEP_MGF1P;
 
-    /**
-     * @return bool
-     */
-    public function getEncryptAssertions()
+    public function getEncryptAssertions(): bool
     {
         return $this->encryptAssertions;
     }
 
-    /**
-     * @param bool $encryptAssertions
-     *
-     * @return TrustOptions
-     */
-    public function setEncryptAssertions($encryptAssertions)
+    public function setEncryptAssertions(bool $encryptAssertions): static
     {
-        $this->encryptAssertions = (bool) $encryptAssertions;
+        $this->encryptAssertions = $encryptAssertions;
 
         return $this;
     }
 
-    /**
-     * @return bool
-     */
-    public function getEncryptAuthnRequest()
+    public function getEncryptAuthnRequest(): bool
     {
         return $this->encryptAuthnRequest;
     }
 
-    /**
-     * @param bool $encryptAuthnRequest
-     *
-     * @return TrustOptions
-     */
-    public function setEncryptAuthnRequest($encryptAuthnRequest)
+    public function setEncryptAuthnRequest(bool $encryptAuthnRequest): static
     {
-        $this->encryptAuthnRequest = (bool) $encryptAuthnRequest;
+        $this->encryptAuthnRequest = $encryptAuthnRequest;
 
         return $this;
     }
 
-    /**
-     * @return bool
-     */
-    public function getSignAssertions()
+    public function getSignAssertions(): bool
     {
         return $this->signAssertions;
     }
 
-    /**
-     * @param bool $signAssertions
-     *
-     * @return TrustOptions
-     */
-    public function setSignAssertions($signAssertions)
+    public function setSignAssertions(bool $signAssertions): static
     {
-        $this->signAssertions = (bool) $signAssertions;
+        $this->signAssertions = $signAssertions;
 
         return $this;
     }
 
-    /**
-     * @return bool
-     */
-    public function getSignAuthnRequest()
+    public function getSignAuthnRequest(): bool
     {
         return $this->signAuthnRequest;
     }
 
-    /**
-     * @param bool $signAuthnRequest
-     *
-     * @return TrustOptions
-     */
-    public function setSignAuthnRequest($signAuthnRequest)
+    public function setSignAuthnRequest(bool $signAuthnRequest): static
     {
-        $this->signAuthnRequest = (bool) $signAuthnRequest;
+        $this->signAuthnRequest = $signAuthnRequest;
 
         return $this;
     }
 
-    /**
-     * @return bool
-     */
-    public function getSignResponse()
+    public function getSignResponse(): bool
     {
         return $this->signResponse;
     }
 
-    /**
-     * @param bool $signResponse
-     *
-     * @return TrustOptions
-     */
-    public function setSignResponse($signResponse)
+    public function setSignResponse(bool $signResponse): static
     {
-        $this->signResponse = (bool) $signResponse;
+        $this->signResponse = $signResponse;
 
         return $this;
     }
 
-    /**
-     * @return string
-     */
-    public function getSignatureDigestAlgorithm()
+    public function getSignatureDigestAlgorithm(): string
     {
         return $this->signatureDigestAlgorithm;
     }
 
-    /**
-     * @param string $signatureDigestAlgorithm
-     *
-     * @return TrustOptions
-     */
-    public function setSignatureDigestAlgorithm($signatureDigestAlgorithm)
+    public function setSignatureDigestAlgorithm(string $signatureDigestAlgorithm): static
     {
         $this->signatureDigestAlgorithm = $signatureDigestAlgorithm;
 
         return $this;
     }
 
-    /**
-     * @return string
-     */
-    public function getBlockEncryptionAlgorithm()
+    public function getBlockEncryptionAlgorithm(): string
     {
         return $this->blockEncryptionAlgorithm;
     }
 
-    /**
-     * @param string $blockEncryptionAlgorithm
-     *
-     * @return TrustOptions
-     */
-    public function setBlockEncryptionAlgorithm($blockEncryptionAlgorithm)
+    public function setBlockEncryptionAlgorithm(string $blockEncryptionAlgorithm): static
     {
         $this->blockEncryptionAlgorithm = $blockEncryptionAlgorithm;
 
         return $this;
     }
 
-    /**
-     * @return string
-     */
-    public function getKeyTransportEncryptionAlgorithm()
+    public function getKeyTransportEncryptionAlgorithm(): string
     {
         return $this->keyTransportEncryptionAlgorithm;
     }
 
-    /**
-     * @param string $keyTransportEncryptionAlgorithm
-     *
-     * @return TrustOptions
-     */
-    public function setKeyTransportEncryptionAlgorithm($keyTransportEncryptionAlgorithm)
+    public function setKeyTransportEncryptionAlgorithm(string $keyTransportEncryptionAlgorithm): static
     {
         $this->keyTransportEncryptionAlgorithm = $keyTransportEncryptionAlgorithm;
 

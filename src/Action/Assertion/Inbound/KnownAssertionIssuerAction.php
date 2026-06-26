@@ -16,12 +16,9 @@ class KnownAssertionIssuerAction extends AbstractAssertionAction
         parent::__construct($logger);
     }
 
-    /**
-     * @return void
-     */
-    protected function doExecute(AssertionContext $context)
+    protected function doExecute(AssertionContext $context): void
     {
-        if (null === $context->getAssertion()->getIssuer()) {
+        if (!$context->getAssertion()->getIssuer() instanceof \LightSaml\Model\Assertion\Issuer) {
             $message = 'Assertion element must have an issuer element';
             $this->logger->error($message, LogHelper::getActionErrorContext($context, $this));
             throw new LightSamlContextException($context, $message);

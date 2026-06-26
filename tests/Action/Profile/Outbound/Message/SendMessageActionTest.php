@@ -11,13 +11,13 @@ use Tests\BaseTestCase;
 
 class SendMessageActionTest extends BaseTestCase
 {
-    public function test_constructs_with_logger_and_binding_factory()
+    public function test_constructs_with_logger_and_binding_factory(): void
     {
         new SendMessageAction($this->getLoggerMock(), $this->getBindingFactoryMock());
         $this->assertTrue(true);
     }
 
-    public function test_calls_binding_factory_with_endpoint_type_and_calls_binding_and_sets_response_to_context()
+    public function test_calls_binding_factory_with_endpoint_type_and_calls_binding_and_sets_response_to_context(): void
     {
         $action = new SendMessageAction(
             $loggerMock = $this->getLoggerMock(),

@@ -12,110 +12,76 @@ use LightSaml\Model\Protocol\SamlMessage;
 
 class MessageContext extends AbstractProfileContext
 {
-    /** @var SamlMessage */
-    private $message;
+    private ?\LightSaml\Model\Protocol\SamlMessage $message = null;
 
-    /** @var string */
-    private $bindingType;
+    private ?string $bindingType = null;
 
-    /**
-     * @return string
-     */
-    public function getBindingType()
+    public function getBindingType(): string
     {
         return $this->bindingType;
     }
 
-    /**
-     * @param string $bindingType
-     *
-     * @return MessageContext
-     */
-    public function setBindingType($bindingType)
+    public function setBindingType(string $bindingType): static
     {
         $this->bindingType = $bindingType;
 
         return $this;
     }
 
-    /**
-     * @return SamlMessage|null
-     */
-    public function getMessage()
+    public function getMessage(): ?\LightSaml\Model\Protocol\SamlMessage
     {
         return $this->message;
     }
 
-    /**
-     * @return MessageContext
-     */
-    public function setMessage(?SamlMessage $message = null)
+    public function setMessage(?SamlMessage $message = null): static
     {
         $this->message = $message;
 
         return $this;
     }
 
-    /**
-     * @return AuthnRequest|null
-     */
-    public function asAuthnRequest()
+    public function asAuthnRequest(): ?\LightSaml\Model\Protocol\AuthnRequest
     {
         if ($this->message instanceof AuthnRequest) {
             return $this->message;
         }
 
-        return;
+        return null;
     }
 
-    /**
-     * @return LogoutRequest|null
-     */
-    public function asLogoutRequest()
+    public function asLogoutRequest(): ?\LightSaml\Model\Protocol\LogoutRequest
     {
         if ($this->message instanceof LogoutRequest) {
             return $this->message;
         }
 
-        return;
+        return null;
     }
 
-    /**
-     * @return Response|null
-     */
-    public function asResponse()
+    public function asResponse(): ?\LightSaml\Model\Protocol\Response
     {
         if ($this->message instanceof Response) {
             return $this->message;
         }
 
-        return;
+        return null;
     }
 
-    /**
-     * @return LogoutResponse|null
-     */
-    public function asLogoutResponse()
+    public function asLogoutResponse(): ?\LightSaml\Model\Protocol\LogoutResponse
     {
         if ($this->message instanceof LogoutResponse) {
             return $this->message;
         }
 
-        return;
+        return null;
     }
 
-    /**
-     * @return SerializationContext
-     */
-    public function getSerializationContext()
+    public function getSerializationContext(): \LightSaml\Model\Context\SerializationContext
     {
         return $this->getSubContext(ProfileContexts::SERIALIZATION, SerializationContext::class);
     }
 
-    /**
-     * @return DeserializationContext
-     */
-    public function getDeserializationContext()
+    public function getDeserializationContext(): \LightSaml\Model\Context\DeserializationContext
     {
         return $this->getSubContext(ProfileContexts::DESERIALIZATION, DeserializationContext::class);
     }

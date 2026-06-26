@@ -22,10 +22,7 @@ class TimeValidatorAction extends AbstractAssertionAction
         parent::__construct($logger);
     }
 
-    /**
-     * @return void
-     */
-    protected function doExecute(AssertionContext $context)
+    protected function doExecute(AssertionContext $context): void
     {
         $this->assertionTimeValidator->validateTimeRestrictions(
             $context->getAssertion(),

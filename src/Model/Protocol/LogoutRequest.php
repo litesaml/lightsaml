@@ -24,109 +24,73 @@ class LogoutRequest extends AbstractRequest
     /** @var string|null */
     protected $sessionIndex;
 
-    /**
-     * @return LogoutRequest
-     */
-    public function setNameID(NameID $nameID)
+    public function setNameID(NameID $nameID): static
     {
         $this->nameID = $nameID;
 
         return $this;
     }
 
-    /**
-     * @return NameID
-     */
-    public function getNameID()
+    public function getNameID(): \LightSaml\Model\Assertion\NameID
     {
         return $this->nameID;
     }
 
-    /**
-     * @param int|DateTime|string $notOnOrAfter
-     *
-     * @return LogoutRequest
-     */
-    public function setNotOnOrAfter($notOnOrAfter)
+    public function setNotOnOrAfter(int|string|\DateTime $notOnOrAfter): static
     {
         $this->notOnOrAfter = Helper::getTimestampFromValue($notOnOrAfter);
 
         return $this;
     }
 
-    /**
-     * @return int|null
-     */
-    public function getNotOnOrAfterTimestamp()
+    public function getNotOnOrAfterTimestamp(): ?int
     {
         return $this->notOnOrAfter;
     }
 
-    /**
-     * @return string|null
-     */
-    public function getNotOnOrAfterString()
+    public function getNotOnOrAfterString(): ?string
     {
         if ($this->notOnOrAfter) {
             return Helper::time2string($this->notOnOrAfter);
         }
 
-        return;
+        return null;
     }
 
-    /**
-     * @return DateTime|null
-     */
-    public function getNotOnOrAfterDateTime()
+    public function getNotOnOrAfterDateTime(): ?\DateTime
     {
         if ($this->notOnOrAfter) {
             return new DateTime('@' . $this->notOnOrAfter);
         }
 
-        return;
+        return null;
     }
 
-    /**
-     * @param string|null $reason
-     *
-     * @return LogoutRequest
-     */
-    public function setReason($reason)
+    public function setReason(?string $reason): static
     {
         $this->reason = (string) $reason;
 
         return $this;
     }
 
-    /**
-     * @return string|null
-     */
-    public function getReason()
+    public function getReason(): ?string
     {
         return $this->reason;
     }
 
-    /**
-     * @param string|null $sessionIndex
-     *
-     * @return LogoutRequest
-     */
-    public function setSessionIndex($sessionIndex)
+    public function setSessionIndex(?string $sessionIndex): static
     {
         $this->sessionIndex = (string) $sessionIndex;
 
         return $this;
     }
 
-    /**
-     * @return string|null
-     */
-    public function getSessionIndex()
+    public function getSessionIndex(): ?string
     {
         return $this->sessionIndex;
     }
 
-    public function serialize(DOMNode $parent, SerializationContext $context)
+    public function serialize(DOMNode $parent, SerializationContext $context): void
     {
         $result = $this->createElement('LogoutRequest', SamlConstants::NS_PROTOCOL, $parent, $context);
 
@@ -140,7 +104,7 @@ class LogoutRequest extends AbstractRequest
         $this->singleElementsToXml(['Signature'], $result, $context);
     }
 
-    public function deserialize(DOMNode $node, DeserializationContext $context)
+    public function deserialize(DOMNode $node, DeserializationContext $context): void
     {
         $this->checkXmlNodeName($node, 'LogoutRequest', SamlConstants::NS_PROTOCOL);
 

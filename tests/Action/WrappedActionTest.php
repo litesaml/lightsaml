@@ -10,7 +10,7 @@ use Tests\BaseTestCase;
 
 class WrappedActionTest extends BaseTestCase
 {
-    public function test__before_and_after_called()
+    public function test__before_and_after_called(): void
     {
         $context = $this->getContextMock();
 
@@ -26,7 +26,7 @@ class WrappedActionTest extends BaseTestCase
         $wrapper->expects($this->once())
             ->method('beforeAction')
             ->with($context)
-            ->willReturnCallback(function () use (&$beforeCalled, &$executeCalled, &$afterCalled) {
+            ->willReturnCallback(function () use (&$beforeCalled, &$executeCalled, &$afterCalled): void {
                 $this->assertFalse($beforeCalled, 'beforeAction already called - should be called only once');
                 $this->assertFalse($executeCalled, 'execute should not been executed before beforeAction');
                 $this->assertFalse($afterCalled, 'afterAction should be executed before beforeAction');
@@ -36,7 +36,7 @@ class WrappedActionTest extends BaseTestCase
         $action->expects($this->once())
             ->method('execute')
             ->with($context)
-            ->willReturnCallback(function () use (&$beforeCalled, &$executeCalled, &$afterCalled) {
+            ->willReturnCallback(function () use (&$beforeCalled, &$executeCalled, &$afterCalled): void {
                 $this->assertTrue($beforeCalled, 'beforeAction should have been called');
                 $this->assertFalse($executeCalled, 'execute already called - should be executed only once');
                 $this->assertFalse($afterCalled, 'afterAction should be executed before beforeAction');
@@ -46,7 +46,7 @@ class WrappedActionTest extends BaseTestCase
         $wrapper->expects($this->once())
             ->method('afterAction')
             ->with($context)
-            ->willReturnCallback(function () use (&$beforeCalled, &$executeCalled, &$afterCalled) {
+            ->willReturnCallback(function () use (&$beforeCalled, &$executeCalled, &$afterCalled): void {
                 $this->assertTrue($beforeCalled, 'beforeAction should have been called');
                 $this->assertTrue($executeCalled, 'execute should be executed before afterAction');
                 $this->assertFalse($afterCalled, 'afterAction already called - should be executed only once');
@@ -63,7 +63,7 @@ class WrappedActionTest extends BaseTestCase
     /**
      * @return MockObject|ContextInterface
      */
-    private function getContextMock()
+    private function getContextMock(): \PHPUnit\Framework\MockObject\MockObject
     {
         return $this->getMockBuilder(ContextInterface::class)->getMock();
     }

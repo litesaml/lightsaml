@@ -9,7 +9,7 @@ use Tests\BaseTestCase;
 
 class AbstractCredentialTest extends BaseTestCase
 {
-    public function test__set_get_entity_id()
+    public function test__set_get_entity_id(): void
     {
         $credential = $this->getAbstractCredentialMock();
         $credential->setEntityId($expectedValue = 'entity-foo');
@@ -17,7 +17,7 @@ class AbstractCredentialTest extends BaseTestCase
         $this->assertEquals($expectedValue, $credential->getEntityId());
     }
 
-    public function test__set_get_usage_type()
+    public function test__set_get_usage_type(): void
     {
         $credential = $this->getAbstractCredentialMock();
         $credential->setUsageType($expectedValue = UsageType::ENCRYPTION);
@@ -25,7 +25,7 @@ class AbstractCredentialTest extends BaseTestCase
         $this->assertEquals($expectedValue, $credential->getUsageType());
     }
 
-    public function test__set_get_secret_key()
+    public function test__set_get_secret_key(): void
     {
         $credential = $this->getAbstractCredentialMock();
         $credential->setSecretKey($expectedValue = '123123123');
@@ -33,14 +33,14 @@ class AbstractCredentialTest extends BaseTestCase
         $this->assertEquals($expectedValue, $credential->getSecretKey());
     }
 
-    public function test__creates_credential_context_on_construct()
+    public function test__creates_credential_context_on_construct(): void
     {
         $credential = $this->getAbstractCredentialMock();
 
         $this->assertNotNull($credential->getCredentialContext());
     }
 
-    public function test__add_key_name()
+    public function test__add_key_name(): void
     {
         $credential = $this->getAbstractCredentialMock();
 
@@ -56,7 +56,7 @@ class AbstractCredentialTest extends BaseTestCase
     /**
      * @return MockObject|AbstractCredential
      */
-    private function getAbstractCredentialMock()
+    private function getAbstractCredentialMock(): \PHPUnit\Framework\MockObject\MockObject
     {
         return $this->getMockForAbstractClass(AbstractCredential::class);
     }

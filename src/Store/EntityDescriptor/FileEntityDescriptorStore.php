@@ -9,7 +9,7 @@ use LightSaml\Model\Metadata\EntityDescriptor;
 class FileEntityDescriptorStore implements EntityDescriptorStoreInterface
 {
     /** @var EntityDescriptor|EntitiesDescriptor */
-    private $object;
+    private \LightSaml\Model\Metadata\EntityDescriptor|\LightSaml\Model\Metadata\EntitiesDescriptor|null $object = null;
 
     /**
      * @param string $filename
@@ -18,34 +18,26 @@ class FileEntityDescriptorStore implements EntityDescriptorStoreInterface
     {
     }
 
-    /**
-     * @param string $entityId
-     *
-     * @return EntityDescriptor|null
-     */
-    public function get($entityId)
+    
+    public function get(string $entityId): ?\LightSaml\Model\Metadata\EntityDescriptor
     {
         if (null == $this->object) {
             $this->load();
         }
 
         if ($this->object instanceof EntityDescriptor) {
-            if ($this->object->getEntityID() == $entityId) {
+            if ($this->object->getEntityID() === $entityId) {
                 return $this->object;
             } else {
-                return;
+                return null;
             }
         } else {
             return $this->object->getByEntityId($entityId);
         }
     }
 
-    /**
-     * @param string $entityId
-     *
-     * @return bool
-     */
-    public function has($entityId)
+    
+    public function has(string $entityId): bool
     {
         return null != $this->get($entityId);
     }
@@ -53,7 +45,7 @@ class FileEntityDescriptorStore implements EntityDescriptorStoreInterface
     /**
      * @return array|EntityDescriptor[]
      */
-    public function all()
+    public function all(): array
     {
         if (null == $this->object) {
             $this->load();
@@ -66,7 +58,7 @@ class FileEntityDescriptorStore implements EntityDescriptorStoreInterface
         }
     }
 
-    private function load()
+    private function load(): void
     {
         try {
             $this->object = EntityDescriptor::load($this->filename);

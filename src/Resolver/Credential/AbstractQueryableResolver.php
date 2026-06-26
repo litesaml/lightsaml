@@ -4,10 +4,7 @@ namespace LightSaml\Resolver\Credential;
 
 abstract class AbstractQueryableResolver implements CredentialResolverInterface
 {
-    /**
-     * @return CredentialResolverQuery
-     */
-    public function query()
+    public function query(): \LightSaml\Resolver\Credential\CredentialResolverQuery
     {
         return new CredentialResolverQuery($this);
     }

@@ -10,19 +10,19 @@ use LightSaml\Model\Metadata\SpSsoDescriptor;
 
 class ResolveEndpointSloAction extends ResolveEndpointBaseAction
 {
-    protected function getServiceType(ProfileContext $context)
+    protected function getServiceType(ProfileContext $context): string
     {
         return SingleLogoutService::class;
     }
 
-    protected function getDescriptorType(ProfileContext $context)
+    protected function getDescriptorType(ProfileContext $context): string
     {
         $ssoSessionState = $context->getLogoutSsoSessionState();
         $ownEntityId = $context->getOwnEntityDescriptor()->getEntityID();
 
-        if ($ssoSessionState->getIdpEntityId() == $ownEntityId) {
+        if ($ssoSessionState->getIdpEntityId() === $ownEntityId) {
             return SpSsoDescriptor::class;
-        } elseif ($ssoSessionState->getSpEntityId() == $ownEntityId) {
+        } elseif ($ssoSessionState->getSpEntityId() === $ownEntityId) {
             return IdpSsoDescriptor::class;
         } else {
             throw new LightSamlContextException($context, 'Unable to resolve logout target descriptor type');

@@ -16,7 +16,7 @@ use Tests\BaseTestCase;
 
 class AuthnRequestFunctionalTest extends BaseTestCase
 {
-    public function test__deserialize_request01()
+    public function test__deserialize_request01(): void
     {
         $context = new DeserializationContext();
         $context->getDocument()->load(__DIR__ . '/../../../resources/request01.xml');
@@ -39,7 +39,7 @@ class AuthnRequestFunctionalTest extends BaseTestCase
         $this->assertTrue($request->getNameIDPolicy()->getAllowCreate());
     }
 
-    public function test__signed_serialize_deserialize()
+    public function test__signed_serialize_deserialize(): void
     {
         $certificate = new X509Certificate();
         $certificate->loadFromFile(__DIR__ . '/../../../resources/web_saml.crt');

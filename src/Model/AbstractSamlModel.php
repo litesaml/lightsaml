@@ -13,13 +13,8 @@ use LogicException;
 
 abstract class AbstractSamlModel implements SamlElementInterface
 {
-    /**
-     * @param string      $name
-     * @param string|null $namespace
-     *
-     * @return DOMElement
-     */
-    protected function createElement($name, $namespace, DOMNode $parent, SerializationContext $context)
+    
+    protected function createElement(string $name, ?string $namespace, DOMNode $parent, SerializationContext $context): \DOMElement
     {
         if ($namespace) {
             $result = $context->getDocument()->createElementNS($namespace, $name);
@@ -32,12 +27,10 @@ abstract class AbstractSamlModel implements SamlElementInterface
     }
 
     /**
-     * @param string      $name
-     * @param string|null $namespace
      *
      * @throws LogicException
      */
-    private function oneElementToXml($name, DOMNode $parent, SerializationContext $context, $namespace = null)
+    private function oneElementToXml(string $name, DOMNode $parent, SerializationContext $context, ?string $namespace = null): void
     {
         $value = $this->getPropertyValue($name);
         if (null == $value) {
@@ -59,9 +52,8 @@ abstract class AbstractSamlModel implements SamlElementInterface
 
     /**
      * @param array|string[] $names
-     * @param string|null    $namespace
      */
-    protected function singleElementsToXml(array $names, DOMNode $parent, SerializationContext $context, $namespace = null)
+    protected function singleElementsToXml(array $names, DOMNode $parent, SerializationContext $context, ?string $namespace = null)
     {
         foreach ($names as $name) {
             $this->oneElementToXml($name, $parent, $context, $namespace);
@@ -69,13 +61,10 @@ abstract class AbstractSamlModel implements SamlElementInterface
     }
 
     /**
-     * @param array|null  $value
-     * @param string|null $nodeName
-     * @param string|null $namespaceUri
      *
      * @throws LogicException
      */
-    protected function manyElementsToXml($value, DOMNode $node, SerializationContext $context, $nodeName = null, $namespaceUri = null)
+    protected function manyElementsToXml(?array $value, DOMNode $node, SerializationContext $context, ?string $nodeName = null, ?string $namespaceUri = null)
     {
         if (false == $value) {
             return;
@@ -105,20 +94,16 @@ abstract class AbstractSamlModel implements SamlElementInterface
     }
 
     /**
-     * @param string      $nodeName
-     * @param string|null $namespacePrefix
-     * @param string      $class
-     * @param string      $methodName
      *
      * @throws LogicException
      */
-    protected function manyElementsFromXml(DOMElement $node, DeserializationContext $context, $nodeName, $namespacePrefix, $class, $methodName)
+    protected function manyElementsFromXml(DOMElement $node, DeserializationContext $context, string $nodeName, ?string $namespacePrefix, ?string $class, string $methodName)
     {
         $query = $namespacePrefix ? sprintf('%s:%s', $namespacePrefix, $nodeName) : $nodeName;
 
         foreach ($context->getXpath()->query($query, $node) as $xml) {
             /* @var \DOMElement $xml */
-            if ($class) {
+            if ($class !== null && $class !== '' && $class !== '0') {
                 /** @var SamlElementInterface $object */
                 $object = new $class();
                 if (false == $object instanceof SamlElementInterface) {
@@ -134,13 +119,11 @@ abstract class AbstractSamlModel implements SamlElementInterface
     }
 
     /**
-     * @param string $name
      *
      * @throws LogicException
-     *
      * @return bool True if property value is not empty and attribute was set to the element
      */
-    protected function singleAttributeToXml($name, DOMElement $element)
+    protected function singleAttributeToXml(string $name, DOMElement $element): bool
     {
         $value = $this->getPropertyValue($name);
         if (null !== $value && '' !== $value) {
@@ -166,11 +149,7 @@ abstract class AbstractSamlModel implements SamlElementInterface
         }
     }
 
-    /**
-     * @param string $expectedName
-     * @param string $expectedNamespaceUri
-     */
-    protected function checkXmlNodeName(DOMNode &$node, $expectedName, $expectedNamespaceUri)
+    protected function checkXmlNodeName(DOMNode &$node, string $expectedName, string $expectedNamespaceUri)
     {
         if ($node instanceof DOMDocument) {
             $node = $node->firstChild;
@@ -185,10 +164,7 @@ abstract class AbstractSamlModel implements SamlElementInterface
         }
     }
 
-    /**
-     * @param string $attributeName
-     */
-    protected function singleAttributeFromXml(DOMElement $node, $attributeName)
+    protected function singleAttributeFromXml(DOMElement $node, string $attributeName)
     {
         $value = $node->getAttribute($attributeName);
         if ('' !== $value) {
@@ -200,15 +176,11 @@ abstract class AbstractSamlModel implements SamlElementInterface
     }
 
     /**
-     * @param string $elementName
-     * @param string $class
-     * @param string $namespacePrefix
-     *
      * @throws LogicException
      */
-    protected function oneElementFromXml(DOMElement $node, DeserializationContext $context, $elementName, $class, $namespacePrefix)
+    protected function oneElementFromXml(DOMElement $node, DeserializationContext $context, string $elementName, ?string $class, string $namespacePrefix)
     {
-        $query = $namespacePrefix ? sprintf('./%s:%s', $namespacePrefix, $elementName) : sprintf('./%s', $elementName);
+        $query = $namespacePrefix !== '' && $namespacePrefix !== '0' ? sprintf('./%s:%s', $namespacePrefix, $elementName) : sprintf('./%s', $elementName);
         $arr = $context->getXpath()->query($query, $node);
         $value = $arr->length > 0 ? $arr->item(0) : null;
 
@@ -218,7 +190,7 @@ abstract class AbstractSamlModel implements SamlElementInterface
                 throw new LogicException(sprintf("Unable to find setter for element '%s' in class '%s'", $elementName, static::class));
             }
 
-            if ($class) {
+            if ($class !== null && $class !== '' && $class !== '0') {
                 /** @var AbstractSamlModel $object */
                 $object = new $class();
                 if (false == $object instanceof SamlElementInterface) {
@@ -252,13 +224,11 @@ abstract class AbstractSamlModel implements SamlElementInterface
     }
 
     /**
-     * @param string $name
      *
      * @return mixed
-     *
      * @throws LogicException
      */
-    private function getPropertyValue($name)
+    private function getPropertyValue(string $name)
     {
         if (false !== ($pos = strpos($name, ':'))) {
             $name = substr($name, $pos + 1);

@@ -21,7 +21,7 @@ class InResponseToValidatorAction extends AbstractAssertionAction
 
     protected function doExecute(AssertionContext $context)
     {
-        if (null === $context->getAssertion()->getSubject()) {
+        if (!$context->getAssertion()->getSubject() instanceof \LightSaml\Model\Assertion\Subject) {
             return;
         }
 
@@ -42,12 +42,8 @@ class InResponseToValidatorAction extends AbstractAssertionAction
         }
     }
 
-    /**
-     * @param string $inResponseTo
-     *
-     * @return RequestState
-     */
-    protected function validateInResponseTo($inResponseTo, AssertionContext $context)
+    
+    protected function validateInResponseTo(string $inResponseTo, AssertionContext $context): \LightSaml\State\Request\RequestState
     {
         $requestState = $this->requestStore->get($inResponseTo);
         if (null == $requestState) {

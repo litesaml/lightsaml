@@ -8,10 +8,7 @@ use LightSaml\Model\Assertion\EncryptedAssertionReader;
 
 abstract class AssertionContextHelper
 {
-    /**
-     * @return EncryptedAssertionReader
-     */
-    public static function getEncryptedAssertionReader(AssertionContext $context)
+    public static function getEncryptedAssertionReader(AssertionContext $context): \LightSaml\Model\Assertion\EncryptedAssertionReader
     {
         $result = $context->getEncryptedAssertion();
         if ($result instanceof EncryptedAssertionReader) {

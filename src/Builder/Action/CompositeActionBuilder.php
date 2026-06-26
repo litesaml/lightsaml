@@ -10,23 +10,15 @@ class CompositeActionBuilder implements ActionBuilderInterface
 {
     /**
      * int priority => ActionInterface[].
-     *
-     * @var array
      */
-    private $actions = [];
+    private array $actions = [];
 
     /** @var int */
     protected $increaseStep = 5;
 
-    /** @var int */
-    private $biggestPriority = 0;
+    private int $biggestPriority = 0;
 
-    /**
-     * @param int|bool $priority
-     *
-     * @return CompositeActionBuilder
-     */
-    public function add(ActionInterface $action, $priority = false)
+    public function add(ActionInterface $action, int|bool $priority = false): static
     {
         if (false === $priority) {
             ++$this->biggestPriority;
@@ -45,10 +37,7 @@ class CompositeActionBuilder implements ActionBuilderInterface
         return $this;
     }
 
-    /**
-     * @return CompositeAction
-     */
-    public function build()
+    public function build(): \LightSaml\Action\CompositeAction
     {
         $actions = $this->actions;
         ksort($actions);

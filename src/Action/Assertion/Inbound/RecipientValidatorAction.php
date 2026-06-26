@@ -23,10 +23,7 @@ class RecipientValidatorAction extends AbstractAssertionAction
         parent::__construct($logger);
     }
 
-    /**
-     * @return void
-     */
-    protected function doExecute(AssertionContext $context)
+    protected function doExecute(AssertionContext $context): void
     {
         if ($context->getAssertion()->getAllAuthnStatements() && $context->getAssertion()->hasBearerSubject()) {
             $this->validateBearerAssertion($context);
@@ -57,7 +54,7 @@ class RecipientValidatorAction extends AbstractAssertionAction
         $ownEntityDescriptor = $context->getProfileContext()->getOwnEntityDescriptor();
         $arrEndpoints = $this->endpointResolver->resolve($criteriaSet, $ownEntityDescriptor->getAllEndpoints());
 
-        if (empty($arrEndpoints)) {
+        if ($arrEndpoints === []) {
             $message = sprintf("Recipient '%s' does not match SP descriptor", $recipient);
             $this->logger->error($message, LogHelper::getActionErrorContext($context, $this, [
                 'recipient' => $recipient,

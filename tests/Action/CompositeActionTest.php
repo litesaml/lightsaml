@@ -13,26 +13,26 @@ use Tests\Mock\Action\FooAction;
 
 class CompositeActionTest extends BaseTestCase
 {
-    public function test__can_be_constructed_without_arguments()
+    public function test__can_be_constructed_without_arguments(): void
     {
         $composite = new CompositeAction();
         $this->assertCount(0, $composite->getChildren());
     }
 
-    public function test__can_be_constructed_with_array_of_actions()
+    public function test__can_be_constructed_with_array_of_actions(): void
     {
         $composite = new CompositeAction([$this->getActionMock(), $this->getActionMock()]);
         $this->assertCount(2, $composite->getChildren());
     }
 
-    public function test__can_add_child_action()
+    public function test__can_add_child_action(): void
     {
         $composite = new CompositeAction();
         $composite->add($this->getActionMock());
         $this->assertCount(1, $composite->getChildren());
     }
 
-    public function test__execute_called_on_each_child()
+    public function test__execute_called_on_each_child(): void
     {
         $context = $this->getContextMock();
 
@@ -52,7 +52,7 @@ class CompositeActionTest extends BaseTestCase
         $composite->execute($context);
     }
 
-    public function test__map()
+    public function test__map(): void
     {
         $action1 = $this->getActionMock();
         $action2 = $this->getActionMock();
@@ -85,7 +85,7 @@ class CompositeActionTest extends BaseTestCase
         $this->assertSame($action2replacement, $children[1]);
     }
 
-    public function test_debug_tree()
+    public function test_debug_tree(): void
     {
         $innerComposite = new CompositeAction([new FooAction(), new BarAction()]);
         $this->assertCount(2, $innerComposite->getChildren());
@@ -108,7 +108,7 @@ class CompositeActionTest extends BaseTestCase
         $this->assertEquals($expectedTree, $actualTree);
     }
 
-    public function test_to_string_returns_json_debug_tree_string()
+    public function test_to_string_returns_json_debug_tree_string(): void
     {
         $innerComposite = new CompositeAction([new FooAction(), new BarAction()]);
         $this->assertCount(2, $innerComposite->getChildren());
@@ -136,7 +136,7 @@ EOT;
     /**
      * @return MockObject|ActionInterface
      */
-    private function getActionMock()
+    private function getActionMock(): \PHPUnit\Framework\MockObject\MockObject
     {
         return $this->getMockBuilder(ActionInterface::class)->getMock();
     }
@@ -144,7 +144,7 @@ EOT;
     /**
      * @return MockObject|ContextInterface
      */
-    private function getContextMock()
+    private function getContextMock(): \PHPUnit\Framework\MockObject\MockObject
     {
         return $this->getMockBuilder(ContextInterface::class)->getMock();
     }

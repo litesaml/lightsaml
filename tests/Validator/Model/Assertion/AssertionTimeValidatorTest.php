@@ -14,7 +14,7 @@ use Tests\BaseTestCase;
 
 class AssertionTimeValidatorTest extends BaseTestCase
 {
-    public function test_conditions_not_before_fails()
+    public function test_conditions_not_before_fails(): void
     {
         $this->expectExceptionMessage("Conditions.NotBefore must not be in the future");
         $this->expectException(LightSamlValidationException::class);
@@ -29,7 +29,7 @@ class AssertionTimeValidatorTest extends BaseTestCase
         $validator->validateTimeRestrictions($assertion, $now, 10);
     }
 
-    public function test_conditions_not_on_or_after_fails()
+    public function test_conditions_not_on_or_after_fails(): void
     {
         $this->expectExceptionMessage("Conditions.NotOnOrAfter must not be in the past");
         $this->expectException(LightSamlValidationException::class);
@@ -44,7 +44,7 @@ class AssertionTimeValidatorTest extends BaseTestCase
         $validator->validateTimeRestrictions($assertion, $now, 10);
     }
 
-    public function test_authn_statement_session_not_on_or_after_fails()
+    public function test_authn_statement_session_not_on_or_after_fails(): void
     {
         $this->expectExceptionMessage("AuthnStatement attribute SessionNotOnOrAfter MUST be in the future");
         $this->expectException(LightSamlValidationException::class);
@@ -59,7 +59,7 @@ class AssertionTimeValidatorTest extends BaseTestCase
         $validator->validateTimeRestrictions($assertion, $now, 10);
     }
 
-    public function test_subject_not_before_fails()
+    public function test_subject_not_before_fails(): void
     {
         $this->expectExceptionMessage("SubjectConfirmationData.NotBefore must not be in the future");
         $this->expectException(LightSamlValidationException::class);
@@ -80,7 +80,7 @@ class AssertionTimeValidatorTest extends BaseTestCase
         $validator->validateTimeRestrictions($assertion, $now, 10);
     }
 
-    public function test_subject_not_on_or_after_fails()
+    public function test_subject_not_on_or_after_fails(): void
     {
         $this->expectExceptionMessage("SubjectConfirmationData.NotOnOrAfter must not be in the past");
         $this->expectException(LightSamlValidationException::class);
@@ -101,7 +101,7 @@ class AssertionTimeValidatorTest extends BaseTestCase
         $validator->validateTimeRestrictions($assertion, $now, 10);
     }
 
-    public function test_pass()
+    public function test_pass(): void
     {
         $now = 1000;
 

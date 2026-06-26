@@ -26,7 +26,7 @@ use Tests\BaseTestCase;
 
 class ResponseTest extends BaseTestCase
 {
-    public function test_serialization()
+    public function test_serialization(): void
     {
         $response = $this->getResponseObject();
 
@@ -81,7 +81,7 @@ EOT;
         $this->assertEquals($expectedXml, $xml);
     }
 
-    public function test_serialization_with_assertion_signature_subject_name()
+    public function test_serialization_with_assertion_signature_subject_name(): void
     {
         $response = $this->getResponseObject();
 
@@ -141,7 +141,7 @@ EOT;
         $this->assertEquals($expectedXml, $xml);
     }
 
-    public function test_serialization_with_assertion_signature_issuer_serial()
+    public function test_serialization_with_assertion_signature_issuer_serial(): void
     {
         $response = $this->getResponseObject();
 
@@ -201,10 +201,7 @@ EOT;
         $this->assertEquals($expectedXml, $xml);
     }
 
-    /**
-     * @return Response
-     */
-    private function getResponseObject()
+    private function getResponseObject(): \LightSaml\Model\Protocol\Response
     {
         $response = new Response();
         $response->setId('response-id')

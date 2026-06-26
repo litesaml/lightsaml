@@ -14,10 +14,7 @@ use LightSaml\SamlConstants;
  */
 class CreateMessageIssuerAction extends AbstractProfileAction
 {
-    /**
-     * @return void
-     */
-    protected function doExecute(ProfileContext $context)
+    protected function doExecute(ProfileContext $context): void
     {
         $ownEntityDescriptor = $context->getOwnEntityDescriptor();
 

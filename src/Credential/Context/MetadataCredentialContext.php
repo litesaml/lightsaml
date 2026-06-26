@@ -12,26 +12,17 @@ class MetadataCredentialContext implements CredentialContextInterface
     {
     }
 
-    /**
-     * @return EntityDescriptor
-     */
-    public function getEntityDescriptor()
+    public function getEntityDescriptor(): \LightSaml\Model\Metadata\EntityDescriptor
     {
         return $this->entityDescriptor;
     }
 
-    /**
-     * @return KeyDescriptor
-     */
-    public function getKeyDescriptor()
+    public function getKeyDescriptor(): \LightSaml\Model\Metadata\KeyDescriptor
     {
         return $this->keyDescriptor;
     }
 
-    /**
-     * @return RoleDescriptor
-     */
-    public function getRoleDescriptor()
+    public function getRoleDescriptor(): \LightSaml\Model\Metadata\RoleDescriptor
     {
         return $this->roleDescriptor;
     }

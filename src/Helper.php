@@ -11,36 +11,28 @@ final class Helper
 {
     public const TIME_FORMAT = 'Y-m-d\TH:i:s\Z';
 
-    /**
-     * @param string $duration
-     */
-    public static function validateDurationString($duration)
+    public static function validateDurationString(string $duration): void
     {
-        if ($duration) {
+        if ($duration !== '' && $duration !== '0') {
             try {
-                new DateInterval((string) $duration);
+                new DateInterval($duration);
             } catch (Exception $ex) {
                 throw new InvalidArgumentException(sprintf("Invalid duration '%s' format", $duration), 0, $ex);
             }
         }
     }
 
-    /**
-     * @param int $time
-     */
-    public static function time2string($time): string
+    public static function time2string(int $time): string
     {
         return gmdate('Y-m-d\TH:i:s\Z', $time);
     }
 
     /**
-     * @param int|string|DateTime $value
      *
      * @return int
-     *
      * @throws InvalidArgumentException
      */
-    public static function getTimestampFromValue($value)
+    public static function getTimestampFromValue(mixed $value): int|false
     {
         if (is_string($value)) {
             return self::parseSAMLTime($value);
@@ -54,13 +46,11 @@ final class Helper
     }
 
     /**
-     * @param string $time
      *
      * @return int
-     *
      * @throws InvalidArgumentException
      */
-    public static function parseSAMLTime($time): int|false
+    public static function parseSAMLTime(string $time): int|false
     {
         $matches = [];
         if (
@@ -77,11 +67,9 @@ final class Helper
     }
 
     /**
-     * @param int $length
-     *
      * @throws InvalidArgumentException
      */
-    public static function generateRandomBytes($length): string
+    public static function generateRandomBytes(mixed $length): string
     {
         $length = intval($length);
         if ($length <= 0) {
@@ -91,60 +79,35 @@ final class Helper
         return random_bytes($length);
     }
 
-    /**
-     * @param string $bytes
-     */
-    public static function stringToHex($bytes): string
+    public static function stringToHex(string $bytes): string
     {
         return bin2hex($bytes);
     }
 
-    /**
-     * @return string
-     */
-    public static function generateID()
+    public static function generateID(): string
     {
         return '_' . self::stringToHex(self::generateRandomBytes(21));
     }
 
     /**
      * Is ID element at least 128 bits in length (SAML2.0 standard section 1.3.4).
-     *
-     * @param string $id
-     *
-     * @return bool
      */
-    public static function validateIdString($id)
+    public static function validateIdString(mixed $id): bool
     {
         return is_string($id) && strlen(trim($id)) >= 16;
     }
 
-    /**
-     * @param string $value
-     *
-     * @return bool
-     */
-    public static function validateRequiredString($value)
+    public static function validateRequiredString(mixed $value): bool
     {
         return is_string($value) && strlen(trim($value)) > 0;
     }
 
-    /**
-     * @param string $value
-     *
-     * @return bool
-     */
-    public static function validateOptionalString($value)
+    public static function validateOptionalString(mixed $value): bool
     {
         return null === $value || self::validateRequiredString($value);
     }
 
-    /**
-     * @param string $value
-     *
-     * @return bool
-     */
-    public static function validateWellFormedUriString($value)
+    public static function validateWellFormedUriString(mixed $value): bool
     {
         if (is_null($value)) {
             return false;
@@ -174,26 +137,13 @@ final class Helper
 
     /**
      * Returns `true` when `$now` is on or after `$notBefore`.
-     *
-     * @param int $notBefore
-     * @param int $now
-     * @param int $allowedSecondsSkew
-     *
-     * @return bool
      */
-    public static function validateNotBefore($notBefore, $now, $allowedSecondsSkew)
+    public static function validateNotBefore(?int $notBefore, int $now, int $allowedSecondsSkew): bool
     {
         return null == $notBefore || (($notBefore - $allowedSecondsSkew) <= $now);
     }
 
-    /**
-     * @param int $notOnOrAfter
-     * @param int $now
-     * @param int $allowedSecondsSkew
-     *
-     * @return bool
-     */
-    public static function validateNotOnOrAfter($notOnOrAfter, $now, $allowedSecondsSkew)
+    public static function validateNotOnOrAfter(int $notOnOrAfter, int $now, int $allowedSecondsSkew): bool
     {
         return null == $notOnOrAfter || ($now < ($notOnOrAfter + $allowedSecondsSkew));
     }

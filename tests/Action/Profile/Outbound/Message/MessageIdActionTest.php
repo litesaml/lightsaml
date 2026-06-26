@@ -8,13 +8,13 @@ use Tests\BaseTestCase;
 
 class MessageIdActionTest extends BaseTestCase
 {
-    public function test_constructs_with_logger()
+    public function test_constructs_with_logger(): void
     {
         new MessageIdAction($this->getLoggerMock());
         $this->assertTrue(true);
     }
 
-    public function test_sets_id_of_outbounding_message()
+    public function test_sets_id_of_outbounding_message(): void
     {
         $action = new MessageIdAction($this->getLoggerMock());
 

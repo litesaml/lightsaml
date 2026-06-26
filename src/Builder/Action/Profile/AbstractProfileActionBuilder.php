@@ -9,17 +9,13 @@ use LightSaml\Error\LightSamlBuildException;
 
 abstract class AbstractProfileActionBuilder extends CompositeActionBuilder
 {
-    /** @var bool */
-    private $initialized = false;
+    private bool $initialized = false;
 
     public function __construct(protected BuildContainerInterface $buildContainer)
     {
     }
 
-    /**
-     * @return void
-     */
-    public function init()
+    public function init(): void
     {
         if ($this->initialized) {
             throw new LightSamlBuildException('Already initialized');
@@ -30,15 +26,12 @@ abstract class AbstractProfileActionBuilder extends CompositeActionBuilder
         $this->initialized = true;
     }
 
-    /**
-     * @return void
-     */
-    abstract protected function doInitialize();
+    abstract protected function doInitialize(): void;
 
     /**
      * @return ActionInterface
      */
-    public function build()
+    public function build(): \LightSaml\Action\CompositeAction
     {
         if (false === $this->initialized) {
             $this->init();

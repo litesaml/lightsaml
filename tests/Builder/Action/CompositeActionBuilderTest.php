@@ -13,21 +13,21 @@ use Tests\Mock\Action\FooAction;
 
 class CompositeActionBuilderTest extends BaseTestCase
 {
-    public function test__throws_on_priority_true()
+    public function test__throws_on_priority_true(): void
     {
         $this->expectException(InvalidArgumentException::class);
         $compositeBuilder = new CompositeActionBuilder();
         $compositeBuilder->add(new FooAction(), true);
     }
 
-    public function test__throws_on_priority_string()
+    public function test__throws_on_priority_string(): void
     {
         $this->expectException(InvalidArgumentException::class);
         $compositeBuilder = new CompositeActionBuilder();
         $compositeBuilder->add(new FooAction(), "asc");
     }
 
-    public function test__ranked_as_added_with_out_priority_parameter()
+    public function test__ranked_as_added_with_out_priority_parameter(): void
     {
         $order = 1;
         $action1 = $this->getActionMock(1, $order);
@@ -46,7 +46,7 @@ class CompositeActionBuilderTest extends BaseTestCase
         $compositeAction->execute($this->getMockBuilder(ContextInterface::class)->getMock());
     }
 
-    public function test__ranked_as_given_priority_parameter()
+    public function test__ranked_as_given_priority_parameter(): void
     {
         $order = 1;
         $action1 = $this->getActionMock(3, $order);
@@ -66,17 +66,14 @@ class CompositeActionBuilderTest extends BaseTestCase
     }
 
     /**
-     * @param int $expectedOrder
-     * @param int $order
-     *
      * @return MockObject|ActionInterface
      */
-    private function getActionMock($expectedOrder, &$order)
+    private function getActionMock(int $expectedOrder, int &$order): \PHPUnit\Framework\MockObject\MockObject
     {
         $action = $this->getMockBuilder(ActionInterface::class)->getMock();
         $action->expects($this->once())
             ->method('execute')
-            ->willReturnCallback(function () use ($expectedOrder, &$order) {
+            ->willReturnCallback(function () use ($expectedOrder, &$order): void {
                 $this->assertEquals($expectedOrder, $order);
                 $order++;
             })

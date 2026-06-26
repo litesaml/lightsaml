@@ -10,7 +10,7 @@ use Tests\BaseTestCase;
 
 class ActionLogWrapperTest extends BaseTestCase
 {
-    public function test__builds_loggable_action_with_given_logger()
+    public function test__builds_loggable_action_with_given_logger(): void
     {
         $context = $this->getContextMock();
 
@@ -22,7 +22,7 @@ class ActionLogWrapperTest extends BaseTestCase
         $loggerMock  = $this->getLoggerMock();
         $loggerMock->expects($this->once())
             ->method('debug')
-            ->willReturnCallback(function ($pMessage, $pContext) use ($action, $context) {
+            ->willReturnCallback(function ($pMessage, array $pContext) use ($action, $context): void {
                 $expectedMessage = sprintf('Executing action "%s"', $action::class);
                 $this->assertEquals($expectedMessage, $pMessage);
                 $this->assertArrayHasKey('context', $pContext);
@@ -41,7 +41,7 @@ class ActionLogWrapperTest extends BaseTestCase
     /**
      * @return MockObject|ActionInterface
      */
-    private function getActionMock()
+    private function getActionMock(): \PHPUnit\Framework\MockObject\MockObject
     {
         return $this->getMockBuilder(ActionInterface::class)->getMock();
     }
@@ -49,7 +49,7 @@ class ActionLogWrapperTest extends BaseTestCase
     /**
      * @return MockObject|ContextInterface
      */
-    private function getContextMock()
+    private function getContextMock(): \PHPUnit\Framework\MockObject\MockObject
     {
         return $this->getMockBuilder(ContextInterface::class)->getMock();
     }

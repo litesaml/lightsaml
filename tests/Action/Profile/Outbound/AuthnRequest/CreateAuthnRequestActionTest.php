@@ -10,13 +10,13 @@ use Tests\BaseTestCase;
 
 class CreateAuthnRequestActionTest extends BaseTestCase
 {
-    public function test_constructs_with_logger()
+    public function test_constructs_with_logger(): void
     {
         new CreateAuthnRequestAction($this->getLoggerMock());
         $this->assertTrue(true);
     }
 
-    public function test_creates_outbounding_authn_request()
+    public function test_creates_outbounding_authn_request(): void
     {
         $action = new CreateAuthnRequestAction($this->getLoggerMock());
 

@@ -15,15 +15,12 @@ class SerializationContext
         $this->document = $document ?: new DOMDocument();
     }
 
-    public function setDocument(DOMDocument $document)
+    public function setDocument(DOMDocument $document): void
     {
         $this->document = $document;
     }
 
-    /**
-     * @return DOMDocument
-     */
-    public function getDocument()
+    public function getDocument(): \DOMDocument
     {
         return $this->document;
     }

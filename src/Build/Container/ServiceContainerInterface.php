@@ -15,53 +15,26 @@ use LightSaml\Validator\Model\Signature\SignatureValidatorInterface;
 
 interface ServiceContainerInterface
 {
-    /**
-     * @return AssertionValidatorInterface
-     */
-    public function getAssertionValidator();
+    public function getAssertionValidator(): \LightSaml\Validator\Model\Assertion\AssertionValidatorInterface;
 
-    /**
-     * @return AssertionTimeValidator
-     */
-    public function getAssertionTimeValidator();
+    public function getAssertionTimeValidator(): \LightSaml\Validator\Model\Assertion\AssertionTimeValidator;
 
-    /**
-     * @return SignatureResolverInterface
-     */
-    public function getSignatureResolver();
+    public function getSignatureResolver(): \LightSaml\Resolver\Signature\SignatureResolverInterface;
 
-    /**
-     * @return EndpointResolverInterface
-     */
-    public function getEndpointResolver();
+    public function getEndpointResolver(): \LightSaml\Resolver\Endpoint\EndpointResolverInterface;
 
-    /**
-     * @return NameIdValidatorInterface
-     */
-    public function getNameIdValidator();
+    public function getNameIdValidator(): \LightSaml\Validator\Model\NameId\NameIdValidatorInterface;
 
-    /**
-     * @return BindingFactoryInterface
-     */
-    public function getBindingFactory();
+    public function getBindingFactory(): \LightSaml\Binding\BindingFactoryInterface;
 
-    /**
-     * @return SignatureValidatorInterface
-     */
-    public function getSignatureValidator();
+    public function getSignatureValidator(): \LightSaml\Validator\Model\Signature\SignatureValidatorInterface;
 
-    /**
-     * @return CredentialResolverInterface
-     */
-    public function getCredentialResolver();
+    public function getCredentialResolver(): \LightSaml\Resolver\Credential\CredentialResolverInterface;
 
     /**
      * @return LogoutSessionResolverInterface
      */
     public function getLogoutSessionResolver();
 
-    /**
-     * @return SessionProcessorInterface
-     */
-    public function getSessionProcessor();
+    public function getSessionProcessor(): \LightSaml\Resolver\Session\SessionProcessorInterface;
 }

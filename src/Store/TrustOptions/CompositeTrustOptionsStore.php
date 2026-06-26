@@ -7,7 +7,7 @@ use LightSaml\Meta\TrustOptions\TrustOptions;
 class CompositeTrustOptionsStore implements TrustOptionsStoreInterface
 {
     /** @var TrustOptionsStoreInterface[] */
-    private $children = [];
+    private array $children = [];
 
     /**
      * @param TrustOptionsStoreInterface[] $stores
@@ -19,22 +19,15 @@ class CompositeTrustOptionsStore implements TrustOptionsStoreInterface
         }
     }
 
-    /**
-     * @return CompositeTrustOptionsStore This instance
-     */
-    public function add(TrustOptionsStoreInterface $store)
+    public function add(TrustOptionsStoreInterface $store): static
     {
         $this->children[] = $store;
 
         return $this;
     }
 
-    /**
-     * @param string $entityId
-     *
-     * @return TrustOptions|null
-     */
-    public function get($entityId)
+    
+    public function get(string $entityId): ?\LightSaml\Meta\TrustOptions\TrustOptions
     {
         foreach ($this->children as $store) {
             $result = $store->get($entityId);
@@ -43,15 +36,10 @@ class CompositeTrustOptionsStore implements TrustOptionsStoreInterface
             }
         }
 
-        return;
+        return null;
     }
 
-    /**
-     * @param string $entityId
-     *
-     * @return bool
-     */
-    public function has($entityId)
+    public function has(string $entityId): bool
     {
         foreach ($this->children as $store) {
             if ($store->has($entityId)) {

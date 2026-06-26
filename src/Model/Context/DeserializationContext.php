@@ -9,11 +9,9 @@ use RobRichards\XMLSecLibs\XMLSecEnc;
 
 class DeserializationContext
 {
-    /** @var DOMDocument */
-    private $document;
+    private ?\DOMDocument $document = null;
 
-    /** @var DOMXPath */
-    private $xpath;
+    private ?\DOMXPath $xpath = null;
 
     /**
      */
@@ -22,28 +20,19 @@ class DeserializationContext
         $this->document = $document ?: new DOMDocument();
     }
 
-    /**
-     * @return DOMDocument
-     */
-    public function getDocument()
+    public function getDocument(): ?\DOMDocument
     {
         return $this->document;
     }
 
-    /**
-     * @return DeserializationContext
-     */
-    public function setDocument(?DOMDocument $document)
+    public function setDocument(?DOMDocument $document): static
     {
         $this->document = $document;
 
         return $this;
     }
 
-    /**
-     * @return DOMXPath
-     */
-    public function getXpath()
+    public function getXpath(): \DOMXPath
     {
         if (null == $this->xpath) {
             $this->xpath = new DOMXPath($this->document);

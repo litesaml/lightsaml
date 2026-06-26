@@ -9,10 +9,7 @@ class SsoStateFixedStore implements SsoStateStoreInterface
     /** @var SsoState */
     protected $ssoState;
 
-    /**
-     * @return SsoState
-     */
-    public function get()
+    public function get(): \LightSaml\State\Sso\SsoState
     {
         if (null == $this->ssoState) {
             $this->ssoState = new SsoState();
@@ -21,10 +18,7 @@ class SsoStateFixedStore implements SsoStateStoreInterface
         return $this->ssoState;
     }
 
-    /**
-     * @return void
-     */
-    public function set(SsoState $ssoState)
+    public function set(SsoState $ssoState): void
     {
         $this->ssoState = $ssoState;
     }

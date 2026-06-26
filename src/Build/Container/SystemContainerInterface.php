@@ -11,33 +11,15 @@ use Psr\Log\LoggerInterface;
 
 interface SystemContainerInterface
 {
-    /**
-     * @return ServerRequestInterface
-     */
-    public function getRequest();
+    public function getRequest(): \Psr\Http\Message\ServerRequestInterface;
 
-    /**
-     * @return ResponseFactoryInterface
-     */
-    public function getResponseFactory();
+    public function getResponseFactory(): \Psr\Http\Message\ResponseFactoryInterface;
 
-    /**
-     * @return StreamFactoryInterface
-     */
-    public function getStreamFactory();
+    public function getStreamFactory(): \Psr\Http\Message\StreamFactoryInterface;
 
-    /**
-     * @return TimeProviderInterface
-     */
-    public function getTimeProvider();
+    public function getTimeProvider(): \LightSaml\Provider\TimeProvider\TimeProviderInterface;
 
-    /**
-     * @return EventDispatcherInterface
-     */
-    public function getEventDispatcher();
+    public function getEventDispatcher(): \Psr\EventDispatcher\EventDispatcherInterface;
 
-    /**
-     * @return LoggerInterface
-     */
-    public function getLogger();
+    public function getLogger(): \Psr\Log\LoggerInterface;
 }

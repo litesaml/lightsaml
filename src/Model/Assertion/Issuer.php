@@ -4,10 +4,7 @@ namespace LightSaml\Model\Assertion;
 
 class Issuer extends AbstractNameID
 {
-    /**
-     * @return string
-     */
-    protected function getElementName()
+    protected function getElementName(): string
     {
         return 'Issuer';
     }

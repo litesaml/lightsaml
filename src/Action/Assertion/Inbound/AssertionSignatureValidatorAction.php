@@ -23,13 +23,10 @@ class AssertionSignatureValidatorAction extends AbstractAssertionAction
         parent::__construct($logger);
     }
 
-    /**
-     * @return void
-     */
-    protected function doExecute(AssertionContext $context)
+    protected function doExecute(AssertionContext $context): void
     {
         $signature = $context->getAssertion()->getSignature();
-        if (null === $signature) {
+        if (!$signature instanceof \LightSaml\Model\XmlDSig\Signature) {
             if ($this->requireSignature) {
                 $message = 'Assertions must be signed';
                 $this->logger->critical($message, LogHelper::getActionErrorContext($context, $this));
@@ -44,7 +41,7 @@ class AssertionSignatureValidatorAction extends AbstractAssertionAction
         if ($signature instanceof AbstractSignatureReader) {
             $metadataType = ProfileContext::ROLE_IDP === $context->getProfileContext()->getOwnRole() ? MetadataCriteria::TYPE_SP : MetadataCriteria::TYPE_IDP;
             $credential = $this->signatureValidator->validate($signature, $context->getAssertion()->getIssuer()->getValue(), $metadataType);
-            if ($credential) {
+            if ($credential instanceof \LightSaml\Credential\CredentialInterface) {
                 $keyNames = $credential->getKeyNames();
                 $this->logger->debug(
                     sprintf('Assertion signature validated with key "%s"', implode(', ', $keyNames)),

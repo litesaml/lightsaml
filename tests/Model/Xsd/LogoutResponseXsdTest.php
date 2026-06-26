@@ -12,7 +12,7 @@ use LightSaml\SamlConstants;
 
 class LogoutResponseXsdTest extends AbstractXsdValidation
 {
-    public function test_logout_response_with_xsd()
+    public function test_logout_response_with_xsd(): void
     {
         $logoutResponse = new LogoutResponse();
         $logoutResponse

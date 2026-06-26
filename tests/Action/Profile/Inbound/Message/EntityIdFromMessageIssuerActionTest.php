@@ -12,7 +12,7 @@ use Tests\BaseTestCase;
 
 class EntityIdFromMessageIssuerActionTest extends BaseTestCase
 {
-    public function test_sets_inbound_message_issuer_entity_id_to_party_context()
+    public function test_sets_inbound_message_issuer_entity_id_to_party_context(): void
     {
         $action = new EntityIdFromMessageIssuerAction($this->getLoggerMock());
 
@@ -26,7 +26,7 @@ class EntityIdFromMessageIssuerActionTest extends BaseTestCase
         $this->assertEquals($expectedEntityId, $context->getPartyEntityContext()->getEntityId());
     }
 
-    public function test_throws_when_inbound_message_has_no_issuer()
+    public function test_throws_when_inbound_message_has_no_issuer(): void
     {
         $this->expectExceptionMessage("Inbound messages does not have Issuer");
         $this->expectException(LightSamlContextException::class);

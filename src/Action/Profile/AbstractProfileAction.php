@@ -14,10 +14,7 @@ abstract class AbstractProfileAction implements ActionInterface
     {
     }
 
-    /**
-     * @return void
-     */
-    public function execute(ContextInterface $context)
+    public function execute(ContextInterface $context): void
     {
         if ($context instanceof ProfileContext) {
             $this->doExecute($context);

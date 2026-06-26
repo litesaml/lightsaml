@@ -9,27 +9,18 @@ use LightSaml\Credential\X509Credential;
 
 class X509FileCredentialStore implements CredentialStoreInterface
 {
-    /** @var X509Credential */
-    private $credential;
+    private ?\LightSaml\Credential\X509Credential $credential = null;
 
-    /**
-     * @param string $entityId
-     * @param string $certificatePath
-     * @param string $keyPath
-     * @param string $password
-     */
-    public function __construct(private $entityId, private $certificatePath, private $keyPath, private $password)
+    public function __construct(private readonly string $entityId, private readonly string $certificatePath, private readonly string $keyPath, private readonly string $password)
     {
     }
 
     /**
-     * @param string $entityId
-     *
      * @return CredentialInterface[]
      */
-    public function getByEntityId($entityId)
+    public function getByEntityId(string $entityId): array
     {
-        if ($entityId != $this->entityId) {
+        if ($entityId !== $this->entityId) {
             return [];
         }
 

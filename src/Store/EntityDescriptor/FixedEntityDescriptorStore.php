@@ -12,13 +12,10 @@ class FixedEntityDescriptorStore implements EntityDescriptorStoreInterface
     protected $descriptors = [];
 
     /**
-     * @param EntityDescriptor|EntitiesDescriptor $entityDescriptor
-     *
-     * @return FixedEntityDescriptorStore
      *
      * @throws InvalidArgumentException
      */
-    public function add($entityDescriptor)
+    public function add(\LightSaml\Model\Metadata\EntityDescriptor|\LightSaml\Model\Metadata\EntitiesDescriptor $entityDescriptor): static
     {
         if ($entityDescriptor instanceof EntityDescriptor) {
             if (false == $entityDescriptor->getEntityID()) {
@@ -36,22 +33,13 @@ class FixedEntityDescriptorStore implements EntityDescriptorStoreInterface
         return $this;
     }
 
-    /**
-     * @param string $entityId
-     *
-     * @return EntityDescriptor|null
-     */
-    public function get($entityId)
+    
+    public function get(string $entityId): ?\LightSaml\Model\Metadata\EntityDescriptor
     {
         return $this->descriptors[$entityId] ?? null;
     }
 
-    /**
-     * @param string $entityId
-     *
-     * @return bool
-     */
-    public function has($entityId)
+    public function has(string $entityId): bool
     {
         return isset($this->descriptors[$entityId]);
     }

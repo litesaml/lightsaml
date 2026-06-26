@@ -32,22 +32,13 @@ class EntitiesDescriptor extends Metadata
     /** @var EntitiesDescriptor[]|EntityDescriptor[] */
     protected $items = [];
 
-    /**
-     * @param string $filename
-     *
-     * @return EntitiesDescriptor
-     */
-    public static function load($filename)
+    
+    public static function load(string $filename): \LightSaml\Model\Metadata\EntitiesDescriptor
     {
         return self::loadXml(file_get_contents($filename));
     }
 
-    /**
-     * @param string $xml
-     *
-     * @return EntitiesDescriptor
-     */
-    public static function loadXml($xml)
+    public static function loadXml(string $xml): self
     {
         $context = new DeserializationContext();
         $context->getDocument()->loadXML($xml);
@@ -58,13 +49,10 @@ class EntitiesDescriptor extends Metadata
     }
 
     /**
-     * @param string $cacheDuration
-     *
-     * @return EntitiesDescriptor
      *
      * @throws InvalidArgumentException
      */
-    public function setCacheDuration($cacheDuration)
+    public function setCacheDuration(string $cacheDuration): static
     {
         Helper::validateDurationString($cacheDuration);
 
@@ -73,68 +61,43 @@ class EntitiesDescriptor extends Metadata
         return $this;
     }
 
-    /**
-     * @return string
-     */
-    public function getCacheDuration()
+    public function getCacheDuration(): ?string
     {
         return $this->cacheDuration;
     }
 
-    /**
-     * @param string $id
-     *
-     * @return EntitiesDescriptor
-     */
-    public function setID($id)
+    public function setID(string $id): static
     {
-        $this->id = (string) $id;
+        $this->id = $id;
 
         return $this;
     }
 
-    /**
-     * @return string
-     */
-    public function getID()
+    public function getID(): ?string
     {
         return $this->id;
     }
 
-    /**
-     * @param string $name
-     *
-     * @return EntitiesDescriptor
-     */
-    public function setName($name)
+    public function setName(string $name): static
     {
-        $this->name = (string) $name;
+        $this->name = $name;
 
         return $this;
     }
 
-    /**
-     * @return string
-     */
-    public function getName()
+    public function getName(): ?string
     {
         return $this->name;
     }
 
-    /**
-     * @return EntitiesDescriptor
-     */
-    public function setSignature(Signature $signature)
+    public function setSignature(Signature $signature): static
     {
         $this->signature = $signature;
 
         return $this;
     }
 
-    /**
-     * @return Signature
-     */
-    public function getSignature()
+    public function getSignature(): ?\LightSaml\Model\XmlDSig\Signature
     {
         return $this->signature;
     }
@@ -142,11 +105,10 @@ class EntitiesDescriptor extends Metadata
     /**
      * @param int|string $validUntil
      *
-     * @return EntitiesDescriptor
      *
      * @throws InvalidArgumentException
      */
-    public function setValidUntil($validUntil)
+    public function setValidUntil(int|string|\DateTime $validUntil): static
     {
         $value = Helper::getTimestampFromValue($validUntil);
         if ($value < 0) {
@@ -157,46 +119,34 @@ class EntitiesDescriptor extends Metadata
         return $this;
     }
 
-    /**
-     * @return string
-     */
-    public function getValidUntilString()
+    public function getValidUntilString(): ?string
     {
         if ($this->validUntil) {
             return Helper::time2string($this->validUntil);
         }
 
-        return;
+        return null;
     }
 
-    /**
-     * @return int
-     */
-    public function getValidUntilTimestamp()
+    public function getValidUntilTimestamp(): int
     {
         return $this->validUntil;
     }
 
-    /**
-     * @return DateTime|null
-     */
-    public function getValidUntilDateTime()
+    public function getValidUntilDateTime(): ?\DateTime
     {
         if ($this->validUntil) {
             return new DateTime('@' . $this->validUntil);
         }
 
-        return;
+        return null;
     }
 
     /**
-     * @param EntitiesDescriptor|EntityDescriptor $item
-     *
-     * @return EntitiesDescriptor
      *
      * @throws InvalidArgumentException
      */
-    public function addItem($item)
+    public function addItem(mixed $item): static
     {
         if (false == $item instanceof self && false == $item instanceof EntityDescriptor) {
             throw new InvalidArgumentException('Expected EntitiesDescriptor or EntityDescriptor');
@@ -213,13 +163,10 @@ class EntitiesDescriptor extends Metadata
     }
 
     /**
-     * @param EntitiesDescriptor|EntityDescriptor $item
-     *
-     * @return bool
      *
      * @throws InvalidArgumentException
      */
-    public function containsItem($item)
+    public function containsItem(mixed $item): bool
     {
         if (false == $item instanceof self && false == $item instanceof EntityDescriptor) {
             throw new InvalidArgumentException('Expected EntitiesDescriptor or EntityDescriptor');
@@ -239,7 +186,7 @@ class EntitiesDescriptor extends Metadata
     /**
      * @return EntitiesDescriptor[]|EntityDescriptor[]
      */
-    public function getAllItems()
+    public function getAllItems(): array
     {
         return $this->items;
     }
@@ -247,7 +194,7 @@ class EntitiesDescriptor extends Metadata
     /**
      * @return EntityDescriptor[]
      */
-    public function getAllEntityDescriptors()
+    public function getAllEntityDescriptors(): array
     {
         $result = [];
         foreach ($this->items as $item) {
@@ -261,12 +208,8 @@ class EntitiesDescriptor extends Metadata
         return $result;
     }
 
-    /**
-     * @param string $entityId
-     *
-     * @return EntityDescriptor|null
-     */
-    public function getByEntityId($entityId)
+    
+    public function getByEntityId(string $entityId): ?\LightSaml\Model\Metadata\EntityDescriptor
     {
         foreach ($this->getAllEntityDescriptors() as $entityDescriptor) {
             if ($entityDescriptor->getEntityID() == $entityId) {
@@ -274,13 +217,10 @@ class EntitiesDescriptor extends Metadata
             }
         }
 
-        return;
+        return null;
     }
 
-    /**
-     * @return void
-     */
-    public function serialize(DOMNode $parent, SerializationContext $context)
+    public function serialize(DOMNode $parent, SerializationContext $context): void
     {
         $result = $this->createElement('EntitiesDescriptor', SamlConstants::NS_METADATA, $parent, $context);
 
@@ -291,7 +231,7 @@ class EntitiesDescriptor extends Metadata
         $this->manyElementsToXml($this->getAllItems(), $result, $context);
     }
 
-    public function deserialize(DOMNode $node, DeserializationContext $context)
+    public function deserialize(DOMNode $node, DeserializationContext $context): void
     {
         $this->checkXmlNodeName($node, 'EntitiesDescriptor', SamlConstants::NS_METADATA);
 

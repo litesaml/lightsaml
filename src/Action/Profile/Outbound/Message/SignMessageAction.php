@@ -28,7 +28,7 @@ class SignMessageAction extends AbstractProfileAction
         $shouldSign = $this->shouldSignMessage($context);
         if ($shouldSign) {
             $signature = $this->signatureResolver->getSignature($context);
-            if ($signature) {
+            if ($signature instanceof \LightSaml\Model\XmlDSig\SignatureWriter) {
                 MessageContextHelper::asSamlMessage($context->getOutboundContext())
                     ->setSignature($signature)
                 ;
@@ -50,10 +50,7 @@ class SignMessageAction extends AbstractProfileAction
         }
     }
 
-    /**
-     * @return bool
-     */
-    private function shouldSignMessage(ProfileContext $context)
+    private function shouldSignMessage(ProfileContext $context): bool
     {
         $message = $context->getOutboundMessage();
 

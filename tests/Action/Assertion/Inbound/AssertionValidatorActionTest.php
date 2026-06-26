@@ -8,13 +8,13 @@ use Tests\BaseTestCase;
 
 class AssertionValidatorActionTest extends BaseTestCase
 {
-    public function test_constructs_with_logger_and_assertion_validator()
+    public function test_constructs_with_logger_and_assertion_validator(): void
     {
         new AssertionValidatorAction($this->getLoggerMock(), $this->getAssertionValidatorMock());
         $this->assertTrue(true);
     }
 
-    public function test_calls_assertion_validator_with_assertion_from_context()
+    public function test_calls_assertion_validator_with_assertion_from_context(): void
     {
         $action = new AssertionValidatorAction(
             $this->getLoggerMock(),

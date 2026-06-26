@@ -10,12 +10,12 @@ use Tests\BaseTestCase;
 
 class FixedAttributeValueProviderTest extends BaseTestCase
 {
-    public function test_implements_attribute_value_provider_interface()
+    public function test_implements_attribute_value_provider_interface(): void
     {
         $this->assertInstanceOf(AttributeValueProviderInterface::class, new FixedAttributeValueProvider());
     }
 
-    public function test_returns_added_attributes()
+    public function test_returns_added_attributes(): void
     {
         $provider = new FixedAttributeValueProvider();
         $provider->add($attribute1 = new Attribute());

@@ -21,7 +21,7 @@ use Tests\BaseTestCase;
 
 class AssertionValidatorTest extends BaseTestCase
 {
-    public function test_must_have_version()
+    public function test_must_have_version(): void
     {
         $this->expectExceptionMessage("Assertion element must have the Version attribute set");
         $this->expectException(LightSamlValidationException::class);
@@ -37,7 +37,7 @@ class AssertionValidatorTest extends BaseTestCase
         $validator->validateAssertion($assertion);
     }
 
-    public function test_must_have_version20()
+    public function test_must_have_version20(): void
     {
         $this->expectExceptionMessage("Assertion element must have the Version attribute value equal to 2.0");
         $this->expectException(LightSamlValidationException::class);
@@ -53,7 +53,7 @@ class AssertionValidatorTest extends BaseTestCase
         $validator->validateAssertion($assertion);
     }
 
-    public function test_must_have_id()
+    public function test_must_have_id(): void
     {
         $this->expectExceptionMessage("Assertion element must have the ID attribute set");
         $this->expectException(LightSamlValidationException::class);
@@ -68,7 +68,7 @@ class AssertionValidatorTest extends BaseTestCase
         $validator->validateAssertion($assertion);
     }
 
-    public function test_must_have_valid_id()
+    public function test_must_have_valid_id(): void
     {
         $this->expectExceptionMessage("Assertion element must have an ID attribute with at least 16 characters (the equivalent of 128 bits)");
         $this->expectException(LightSamlValidationException::class);
@@ -84,7 +84,7 @@ class AssertionValidatorTest extends BaseTestCase
         $validator->validateAssertion($assertion);
     }
 
-    public function test_must_have_issue_instant()
+    public function test_must_have_issue_instant(): void
     {
         $this->expectExceptionMessage("Assertion element must have the IssueInstant attribute set");
         $this->expectException(LightSamlValidationException::class);
@@ -100,7 +100,7 @@ class AssertionValidatorTest extends BaseTestCase
         $validator->validateAssertion($assertion);
     }
 
-    public function test_must_have_issuer()
+    public function test_must_have_issuer(): void
     {
         $this->expectExceptionMessage("Assertion element must have an issuer element");
         $this->expectException(LightSamlValidationException::class);
@@ -117,7 +117,7 @@ class AssertionValidatorTest extends BaseTestCase
         $validator->validateAssertion($assertion);
     }
 
-    public function test_no_subject_no_statements_fails()
+    public function test_no_subject_no_statements_fails(): void
     {
         $this->expectExceptionMessage("Assertion with no Statements must have a subject");
         $this->expectException(LightSamlValidationException::class);
@@ -139,7 +139,7 @@ class AssertionValidatorTest extends BaseTestCase
         $validator->validateAssertion($assertion);
     }
 
-    public function test_authn_statement_requires_subject()
+    public function test_authn_statement_requires_subject(): void
     {
         $this->expectExceptionMessage("AuthnStatement, AuthzDecisionStatement and AttributeStatement require a subject");
         $this->expectException(LightSamlValidationException::class);
@@ -162,7 +162,7 @@ class AssertionValidatorTest extends BaseTestCase
         $validator->validateAssertion($assertion);
     }
 
-    public function test_attribute_statement_requires_subject()
+    public function test_attribute_statement_requires_subject(): void
     {
         $this->expectExceptionMessage("AuthnStatement, AuthzDecisionStatement and AttributeStatement require a subject");
         $this->expectException(LightSamlValidationException::class);
@@ -185,7 +185,7 @@ class AssertionValidatorTest extends BaseTestCase
         $validator->validateAssertion($assertion);
     }
 
-    public function test_subject_validator_is_called()
+    public function test_subject_validator_is_called(): void
     {
         $nameIdValidatorMock = $this->getNameIdValidatorMock();
         $subjectValidatorMock = $this->getSubjectValidatorMock();
@@ -213,7 +213,7 @@ class AssertionValidatorTest extends BaseTestCase
         $validator->validateAssertion($assertion);
     }
 
-    public function test_conditions_not_before_must_be_less_than_not_on_or_after()
+    public function test_conditions_not_before_must_be_less_than_not_on_or_after(): void
     {
         $this->expectExceptionMessage("Conditions NotBefore MUST BE less than NotOnOrAfter");
         $this->expectException(LightSamlValidationException::class);
@@ -241,7 +241,7 @@ class AssertionValidatorTest extends BaseTestCase
         $validator->validateAssertion($assertion);
     }
 
-    public function test_conditions_one_time_use_not_more_than_one()
+    public function test_conditions_one_time_use_not_more_than_one(): void
     {
         $this->expectExceptionMessage("Assertion contained more than one condition of type OneTimeUse");
         $this->expectException(LightSamlValidationException::class);
@@ -269,7 +269,7 @@ class AssertionValidatorTest extends BaseTestCase
         $validator->validateAssertion($assertion);
     }
 
-    public function test_conditions_proxy_restriction_count_must_be_non_negative_integer()
+    public function test_conditions_proxy_restriction_count_must_be_non_negative_integer(): void
     {
         $this->expectExceptionMessage("Count attribute of ProxyRestriction MUST BE a non-negative integer");
         $this->expectException(LightSamlValidationException::class);
@@ -296,7 +296,7 @@ class AssertionValidatorTest extends BaseTestCase
         $validator->validateAssertion($assertion);
     }
 
-    public function test_conditions_proxy_restriction_audience_must_be_well_formed_uri_string()
+    public function test_conditions_proxy_restriction_audience_must_be_well_formed_uri_string(): void
     {
         $this->expectExceptionMessage("ProxyRestriction Audience MUST BE a wellformed uri");
         $this->expectException(LightSamlValidationException::class);
@@ -325,7 +325,7 @@ class AssertionValidatorTest extends BaseTestCase
         $validator->validateAssertion($assertion);
     }
 
-    public function test_conditions_proxy_restriction_not_more_than_one()
+    public function test_conditions_proxy_restriction_not_more_than_one(): void
     {
         $this->expectExceptionMessage("Assertion contained more than one condition of type ProxyRestriction");
         $this->expectException(LightSamlValidationException::class);
@@ -353,7 +353,7 @@ class AssertionValidatorTest extends BaseTestCase
         $validator->validateAssertion($assertion);
     }
 
-    public function test_conditions_audience_must_be_well_formed_uri_string()
+    public function test_conditions_audience_must_be_well_formed_uri_string(): void
     {
         $this->expectExceptionMessage("AudienceRestriction MUST BE a wellformed uri");
         $this->expectException(LightSamlValidationException::class);
@@ -380,7 +380,7 @@ class AssertionValidatorTest extends BaseTestCase
         $validator->validateAssertion($assertion);
     }
 
-    public function test_statement_validator_is_called_for_attribute_statement()
+    public function test_statement_validator_is_called_for_attribute_statement(): void
     {
         $nameIdValidatorMock = $this->getNameIdValidatorMock();
         $subjectValidatorMock = $this->getSubjectValidatorMock();
@@ -408,7 +408,7 @@ class AssertionValidatorTest extends BaseTestCase
         $validator->validateAssertion($assertion);
     }
 
-    public function test_statement_validator_is_called_for_authn_statement()
+    public function test_statement_validator_is_called_for_authn_statement(): void
     {
         $nameIdValidatorMock = $this->getNameIdValidatorMock();
         $subjectValidatorMock = $this->getSubjectValidatorMock();
@@ -439,7 +439,7 @@ class AssertionValidatorTest extends BaseTestCase
     /**
      * @return MockObject|NameIdValidatorInterface
      */
-    private function getNameIdValidatorMock()
+    private function getNameIdValidatorMock(): \PHPUnit\Framework\MockObject\MockObject
     {
         return $this->getMockBuilder(NameIdValidatorInterface::class)->getMock();
     }
@@ -447,7 +447,7 @@ class AssertionValidatorTest extends BaseTestCase
     /**
      * @return MockObject|StatementValidatorInterface
      */
-    private function getStatementValidatorMock()
+    private function getStatementValidatorMock(): \PHPUnit\Framework\MockObject\MockObject
     {
         return $this->getMockBuilder(StatementValidatorInterface::class)->getMock();
     }
@@ -455,7 +455,7 @@ class AssertionValidatorTest extends BaseTestCase
     /**
      * @return MockObject|SubjectValidatorInterface
      */
-    private function getSubjectValidatorMock()
+    private function getSubjectValidatorMock(): \PHPUnit\Framework\MockObject\MockObject
     {
         return $this->getMockBuilder(SubjectValidatorInterface::class)->getMock();
     }

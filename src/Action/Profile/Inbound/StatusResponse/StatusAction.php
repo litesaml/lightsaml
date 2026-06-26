@@ -30,7 +30,7 @@ class StatusAction extends AbstractProfileAction
 
         $status = $statusResponse->getStatus()->getStatusCode()->getValue();
         $status .= "\n" . $statusResponse->getStatus()->getStatusMessage();
-        if ($statusResponse->getStatus()->getStatusCode()->getStatusCode()) {
+        if ($statusResponse->getStatus()->getStatusCode()->getStatusCode() instanceof \LightSaml\Model\Protocol\StatusCode) {
             $status .= "\n" . $statusResponse->getStatus()->getStatusCode()->getStatusCode()->getValue();
         }
 

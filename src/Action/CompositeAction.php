@@ -23,27 +23,19 @@ class CompositeAction implements ActionInterface, DebugPrintTreeActionInterface,
     /**
      * @return ActionInterface[]
      */
-    public function getChildren()
+    public function getChildren(): array
     {
         return $this->children;
     }
 
-    /**
-     * @return CompositeAction
-     */
-    public function add(ActionInterface $action)
+    public function add(ActionInterface $action): static
     {
         $this->children[] = $action;
 
         return $this;
     }
 
-    /**
-     * @param callable $callable
-     *
-     * @return ActionInterface|null
-     */
-    public function map($callable)
+    public function map(callable $callable): void
     {
         foreach ($this->children as $k => $action) {
             $newAction = call_user_func($callable, $action);
@@ -53,20 +45,14 @@ class CompositeAction implements ActionInterface, DebugPrintTreeActionInterface,
         }
     }
 
-    /**
-     * @return void
-     */
-    public function execute(ContextInterface $context)
+    public function execute(ContextInterface $context): void
     {
         foreach ($this->children as $action) {
             $action->execute($context);
         }
     }
 
-    /**
-     * @return array
-     */
-    public function debugPrintTree()
+    public function debugPrintTree(): array
     {
         $arr = [];
         foreach ($this->children as $childAction) {

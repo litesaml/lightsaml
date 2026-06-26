@@ -4,18 +4,9 @@ namespace LightSaml\Provider\Session;
 
 interface SessionInfoProviderInterface
 {
-    /**
-     * @return int
-     */
-    public function getAuthnInstant();
+    public function getAuthnInstant(): int;
 
-    /**
-     * @return string
-     */
-    public function getSessionIndex();
+    public function getSessionIndex(): string;
 
-    /**
-     * @return string
-     */
-    public function getAuthnContextClassRef();
+    public function getAuthnContextClassRef(): string;
 }

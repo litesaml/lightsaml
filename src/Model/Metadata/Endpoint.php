@@ -20,72 +20,51 @@ abstract class Endpoint extends AbstractSamlModel
     {
     }
 
-    /**
-     * @param string $binding
-     *
-     * @return Endpoint
-     */
-    public function setBinding($binding)
+    
+    public function setBinding(string $binding): \LightSaml\Model\Metadata\Endpoint
     {
-        $this->binding = (string) $binding;
+        $this->binding = $binding;
 
         return $this;
     }
 
-    /**
-     * @return string
-     */
-    public function getBinding()
+    public function getBinding(): ?string
     {
         return $this->binding;
     }
 
-    /**
-     * @param string $location
-     *
-     * @return Endpoint
-     */
-    public function setLocation($location)
+    
+    public function setLocation(string $location): \LightSaml\Model\Metadata\Endpoint
     {
-        $this->location = (string) $location;
+        $this->location = $location;
 
         return $this;
     }
 
-    /**
-     * @return string
-     */
-    public function getLocation()
+    public function getLocation(): ?string
     {
         return $this->location;
     }
 
-    /**
-     * @param string|null $responseLocation
-     *
-     * @return Endpoint
-     */
-    public function setResponseLocation($responseLocation)
+    
+    public function setResponseLocation(?string $responseLocation): \LightSaml\Model\Metadata\Endpoint
     {
-        $this->responseLocation = $responseLocation ? (string) $responseLocation : null;
+        $this->responseLocation = $responseLocation ?: null;
 
         return $this;
     }
 
-    /**
-     * @return string|null
-     */
-    public function getResponseLocation()
+    public function getResponseLocation(): ?string
     {
         return $this->responseLocation;
     }
 
-    public function serialize(DOMNode $parent, SerializationContext $context)
+    public function serialize(DOMNode $parent, SerializationContext $context): void
     {
         $this->attributesToXml(['Binding', 'Location', 'ResponseLocation'], $parent);
     }
 
-    public function deserialize(DOMNode $node, DeserializationContext $context)
+    public function deserialize(DOMNode $node, DeserializationContext $context): void
     {
         $this->attributesFromXml($node, ['Binding', 'Location', 'ResponseLocation']);
     }

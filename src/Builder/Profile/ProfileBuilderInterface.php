@@ -7,13 +7,7 @@ use LightSaml\Context\Profile\ProfileContext;
 
 interface ProfileBuilderInterface
 {
-    /**
-     * @return CompositeAction
-     */
-    public function buildAction();
+    public function buildAction(): \LightSaml\Action\CompositeAction;
 
-    /**
-     * @return ProfileContext
-     */
-    public function buildContext();
+    public function buildContext(): \LightSaml\Context\Profile\ProfileContext;
 }

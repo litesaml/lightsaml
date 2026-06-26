@@ -7,29 +7,18 @@ use LightSaml\Model\Metadata\EntityDescriptor;
 
 class EntityContext extends AbstractProfileContext
 {
-    /** @var string */
-    private $entityId;
+    private ?string $entityId = null;
 
-    /** @var EntityDescriptor */
-    private $entityDescriptor;
+    private ?\LightSaml\Model\Metadata\EntityDescriptor $entityDescriptor = null;
 
-    /** @var TrustOptions */
-    private $trustOptions;
+    private ?\LightSaml\Meta\TrustOptions\TrustOptions $trustOptions = null;
 
-    /**
-     * @return string
-     */
-    public function getEntityId()
+    public function getEntityId(): ?string
     {
         return $this->entityId;
     }
 
-    /**
-     * @param string $entityId
-     *
-     * @return EntityContext
-     */
-    public function setEntityId($entityId)
+    public function setEntityId(string $entityId): static
     {
         $this->entityId = $entityId;
 
@@ -39,15 +28,12 @@ class EntityContext extends AbstractProfileContext
     /**
      * @return EntityDescriptor
      */
-    public function getEntityDescriptor()
+    public function getEntityDescriptor(): ?\LightSaml\Model\Metadata\EntityDescriptor
     {
         return $this->entityDescriptor;
     }
 
-    /**
-     * @return EntityContext
-     */
-    public function setEntityDescriptor(EntityDescriptor $entityDescriptor)
+    public function setEntityDescriptor(EntityDescriptor $entityDescriptor): static
     {
         $this->entityDescriptor = $entityDescriptor;
 
@@ -57,15 +43,12 @@ class EntityContext extends AbstractProfileContext
     /**
      * @return TrustOptions
      */
-    public function getTrustOptions()
+    public function getTrustOptions(): ?\LightSaml\Meta\TrustOptions\TrustOptions
     {
         return $this->trustOptions;
     }
 
-    /**
-     * @return EntityContext
-     */
-    public function setTrustOptions(TrustOptions $trustOptions)
+    public function setTrustOptions(TrustOptions $trustOptions): static
     {
         $this->trustOptions = $trustOptions;
 

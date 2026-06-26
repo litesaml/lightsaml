@@ -16,7 +16,7 @@ class ContactPersonChecker
         $email,
         $phone,
         ?ContactPerson $contact = null
-    ) {
+    ): void {
         $test->assertNotNull($contact);
         $test->assertEquals($type, $contact->getContactType());
         $test->assertEquals($company, $contact->getCompany());

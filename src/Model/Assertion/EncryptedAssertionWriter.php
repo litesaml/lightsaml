@@ -9,10 +9,7 @@ use LightSaml\SamlConstants;
 
 class EncryptedAssertionWriter extends EncryptedElementWriter
 {
-    /**
-     * @return DOMElement
-     */
-    protected function createRootElement(DOMNode $parent, SerializationContext $context)
+    protected function createRootElement(DOMNode $parent, SerializationContext $context): \DOMElement
     {
         return $this->createElement('saml:EncryptedAssertion', SamlConstants::NS_ASSERTION, $parent, $context);
     }

@@ -12,10 +12,7 @@ interface CredentialResolverInterface
      *
      * @return array|CredentialInterface[]
      */
-    public function resolve(CriteriaSet $criteriaSet, array $arrCredentials = []);
+    public function resolve(CriteriaSet $criteriaSet, array $arrCredentials = []): array;
 
-    /**
-     * @return CredentialResolverQuery
-     */
-    public function query();
+    public function query(): \LightSaml\Resolver\Credential\CredentialResolverQuery;
 }

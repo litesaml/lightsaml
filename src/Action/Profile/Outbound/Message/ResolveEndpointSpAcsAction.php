@@ -7,7 +7,7 @@ use LightSaml\Model\Metadata\AssertionConsumerService;
 
 class ResolveEndpointSpAcsAction extends ResolveEndpointBaseAction
 {
-    protected function getServiceType(ProfileContext $context)
+    protected function getServiceType(ProfileContext $context): string
     {
         return AssertionConsumerService::class;
     }

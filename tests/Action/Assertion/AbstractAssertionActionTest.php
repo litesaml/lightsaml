@@ -11,13 +11,13 @@ use Tests\BaseTestCase;
 
 class AbstractAssertionActionTest extends BaseTestCase
 {
-    public function test_constructs_with_logger()
+    public function test_constructs_with_logger(): void
     {
         $this->getAbstractAssertionActionMock([$this->getLoggerMock()]);
         $this->assertTrue(true);
     }
 
-    public function test_do_execute_called_with_assertion_context()
+    public function test_do_execute_called_with_assertion_context(): void
     {
         $action = $this->getAbstractAssertionActionMock([$this->getLoggerMock()]);
 
@@ -30,7 +30,7 @@ class AbstractAssertionActionTest extends BaseTestCase
         $action->execute($context);
     }
 
-    public function test_throws_context_exception_for_non_assertion_context()
+    public function test_throws_context_exception_for_non_assertion_context(): void
     {
         $action = $this->getAbstractAssertionActionMock([$this->getLoggerMock()]);
         $this->expectException(LightSamlContextException::class);
@@ -41,7 +41,7 @@ class AbstractAssertionActionTest extends BaseTestCase
     /**
      * @return MockObject|AbstractAssertionAction
      */
-    private function getAbstractAssertionActionMock(array $arguments)
+    private function getAbstractAssertionActionMock(array $arguments): \PHPUnit\Framework\MockObject\MockObject
     {
         return $this->getMockForAbstractClass(AbstractAssertionAction::class, $arguments);
     }

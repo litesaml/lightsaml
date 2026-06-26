@@ -34,7 +34,7 @@ class ACSUrlAction extends AbstractProfileAction
         ]);
 
         $endpoints = $this->endpointResolver->resolve($criteriaSet, $ownEntityDescriptor->getAllEndpoints());
-        if (empty($endpoints)) {
+        if ($endpoints === []) {
             $this->logger->debug(
                 'No ACS Service with HTTP POST binding found in own SP SSO Descriptor, skipping ACS URL',
                 LogHelper::getActionErrorContext($context, $this)

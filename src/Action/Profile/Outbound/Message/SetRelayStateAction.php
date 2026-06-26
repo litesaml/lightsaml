@@ -11,7 +11,7 @@ class SetRelayStateAction extends AbstractProfileAction
 {
     protected function doExecute(ProfileContext $context)
     {
-        if ($context->getRelayState()) {
+        if ($context->getRelayState() !== '' && $context->getRelayState() !== '0') {
             $this->logger->debug(
                 sprintf('RelayState from context set to outbound message: "%s"', $context->getRelayState()),
                 LogHelper::getActionContext($context, $this)

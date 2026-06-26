@@ -9,13 +9,13 @@ use Tests\BaseTestCase;
 
 class SaveRequestStateActionTest extends BaseTestCase
 {
-    public function test_constructs_with_logger_and_request_state_store()
+    public function test_constructs_with_logger_and_request_state_store(): void
     {
         new SaveRequestStateAction($this->getLoggerMock(), $this->getRequestStateStoreMock());
         $this->assertTrue(true);
     }
 
-    public function test_creates_request_state_with_outbound_message_id()
+    public function test_creates_request_state_with_outbound_message_id(): void
     {
         $action = new SaveRequestStateAction(
             $this->getLoggerMock(),
@@ -29,7 +29,7 @@ class SaveRequestStateActionTest extends BaseTestCase
         $requestStateStoreMock->expects($this->once())
             ->method('set')
             ->with($this->isInstanceOf(RequestState::class))
-            ->willReturnCallback(function (RequestState $requestState) use ($id) {
+            ->willReturnCallback(function (RequestState $requestState) use ($id): void {
                 $this->assertEquals($id, $requestState->getId());
             })
         ;

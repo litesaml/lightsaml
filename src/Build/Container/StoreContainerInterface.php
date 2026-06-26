@@ -8,18 +8,9 @@ use LightSaml\Store\Sso\SsoStateStoreInterface;
 
 interface StoreContainerInterface
 {
-    /**
-     * @return RequestStateStoreInterface
-     */
-    public function getRequestStateStore();
+    public function getRequestStateStore(): \LightSaml\Store\Request\RequestStateStoreInterface;
 
-    /**
-     * @return IdStoreInterface
-     */
-    public function getIdStateStore();
+    public function getIdStateStore(): \LightSaml\Store\Id\IdStoreInterface;
 
-    /**
-     * @return SsoStateStoreInterface
-     */
-    public function getSsoStateStore();
+    public function getSsoStateStore(): \LightSaml\Store\Sso\SsoStateStoreInterface;
 }

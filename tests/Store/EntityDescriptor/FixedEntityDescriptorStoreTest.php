@@ -9,7 +9,7 @@ use Tests\BaseTestCase;
 
 class FixedEntityDescriptorStoreTest extends BaseTestCase
 {
-    public function test_entity_descriptor_can_be_added()
+    public function test_entity_descriptor_can_be_added(): void
     {
         $store = new FixedEntityDescriptorStore();
         $store->add($expected = new EntityDescriptor($entityId = 'http://entity.com'));
@@ -18,7 +18,7 @@ class FixedEntityDescriptorStoreTest extends BaseTestCase
         $this->assertSame($expected, $store->get($entityId));
     }
 
-    public function test_entities_descriptor_can_be_added()
+    public function test_entities_descriptor_can_be_added(): void
     {
         $entitiesDescriptor = new EntitiesDescriptor();
         $entitiesDescriptor->addItem(new EntityDescriptor('http://some.com'));
@@ -32,7 +32,7 @@ class FixedEntityDescriptorStoreTest extends BaseTestCase
         $this->assertSame($expected, $store->get($entityId));
     }
 
-    public function test_all_returns_all_added()
+    public function test_all_returns_all_added(): void
     {
         $entitiesDescriptor = new EntitiesDescriptor();
         $entitiesDescriptor->addItem(new EntityDescriptor('http://some.com'));

@@ -21,18 +21,12 @@ abstract class AbstractXsdValidation extends BaseTestCase
         libxml_use_internal_errors(true);
     }
 
-    /**
-     * @return X509Certificate
-     */
-    protected function getX509Certificate()
+    protected function getX509Certificate(): \LightSaml\Credential\X509Certificate
     {
         return X509Certificate::fromFile(__DIR__ . '/../../resources/saml.crt');
     }
 
-    /**
-     * @param SamlMessage|EntityDescriptor|EntitiesDescriptor|Assertion $object
-     */
-    protected function sign($object)
+    protected function sign(\LightSaml\Model\Protocol\SamlMessage|\LightSaml\Model\Metadata\EntityDescriptor|\LightSaml\Model\Metadata\EntitiesDescriptor|\LightSaml\Model\Assertion\Assertion $object)
     {
         $object->setSignature(new SignatureWriter(
             $this->getX509Certificate(),
@@ -45,7 +39,7 @@ abstract class AbstractXsdValidation extends BaseTestCase
         $validator = new XsdValidator();
         $xml = $this->serialize($samlElement);
         $errors = $validator->validateProtocol($xml);
-        if ($errors) {
+        if ($errors !== []) {
             $this->fail("\n" . implode("\n", $errors) . "\n\n$xml\n\n");
         }
         $this->assertTrue(true);
@@ -56,7 +50,7 @@ abstract class AbstractXsdValidation extends BaseTestCase
         $validator = new XsdValidator();
         $xml = $this->serialize($samlElement);
         $errors = $validator->validateMetadata($xml);
-        if ($errors) {
+        if ($errors !== []) {
             $this->fail("\n" . implode("\n", $errors) . "\n\n$xml\n\n");
         }
         $this->assertTrue(true);

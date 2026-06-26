@@ -7,67 +7,44 @@ use LightSaml\Model\Assertion\EncryptedElement;
 
 class AssertionContext extends AbstractProfileContext
 {
-    /** @var Assertion|null */
-    private $assertion;
+    private ?\LightSaml\Model\Assertion\Assertion $assertion = null;
 
-    /** @var EncryptedElement|null */
-    private $encryptedAssertion;
+    private ?\LightSaml\Model\Assertion\EncryptedElement $encryptedAssertion = null;
 
-    /** @var string */
-    private $id;
+    private ?string $id = null;
 
-    /**
-     * @return string
-     */
-    public function getId()
+    public function getId(): string
     {
         return $this->id;
     }
 
-    /**
-     * @param string $id
-     *
-     * @return AssertionContext
-     */
-    public function setId($id)
+    public function setId(string $id): static
     {
         $this->id = $id;
 
         return $this;
     }
 
-    /**
-     * @return Assertion|null
-     */
-    public function getAssertion()
+    public function getAssertion(): ?\LightSaml\Model\Assertion\Assertion
     {
         return $this->assertion;
     }
 
-    /**
-     *
-     * @return AssertionContext
-     */
-    public function setAssertion(?Assertion $assertion = null)
+    
+    public function setAssertion(?Assertion $assertion = null): static
     {
         $this->assertion = $assertion;
 
         return $this;
     }
 
-    /**
-     * @return EncryptedElement|null
-     */
-    public function getEncryptedAssertion()
+    public function getEncryptedAssertion(): ?\LightSaml\Model\Assertion\EncryptedElement
     {
         return $this->encryptedAssertion;
     }
 
-    /**
-     *
-     * @return AssertionContext
-     */
-    public function setEncryptedAssertion(?EncryptedElement $encryptedAssertion = null)
+    
+    public function setEncryptedAssertion(?EncryptedElement $encryptedAssertion = null): static
     {
         $this->encryptedAssertion = $encryptedAssertion;
 

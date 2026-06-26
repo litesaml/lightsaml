@@ -36,156 +36,103 @@ class AuthnStatement extends AbstractStatement
      */
     protected $subjectLocality;
 
-    /**
-     * @return AuthnStatement
-     */
-    public function setAuthnContext(AuthnContext $authnContext)
+    public function setAuthnContext(AuthnContext $authnContext): static
     {
         $this->authnContext = $authnContext;
 
         return $this;
     }
 
-    /**
-     * @return AuthnContext
-     */
-    public function getAuthnContext()
+    public function getAuthnContext(): ?\LightSaml\Model\Assertion\AuthnContext
     {
         return $this->authnContext;
     }
 
-    /**
-     * @param int|string|DateTime $authnInstant
-     *
-     * @return AuthnStatement
-     */
-    public function setAuthnInstant($authnInstant)
+    public function setAuthnInstant(int|string|\DateTime $authnInstant): static
     {
         $this->authnInstant = Helper::getTimestampFromValue($authnInstant);
 
         return $this;
     }
 
-    /**
-     * @return int|null
-     */
-    public function getAuthnInstantTimestamp()
+    public function getAuthnInstantTimestamp(): ?int
     {
         return $this->authnInstant;
     }
 
-    /**
-     * @return string|null
-     */
-    public function getAuthnInstantString()
+    public function getAuthnInstantString(): ?string
     {
         if ($this->authnInstant) {
             return Helper::time2string($this->authnInstant);
         }
 
-        return;
+        return null;
     }
 
-    /**
-     * @return DateTime|null
-     */
-    public function getAuthnInstantDateTime()
+    public function getAuthnInstantDateTime(): ?\DateTime
     {
         if ($this->authnInstant) {
             return new DateTime('@' . $this->authnInstant);
         }
 
-        return;
+        return null;
     }
 
-    /**
-     * @param string|null $sessionIndex
-     *
-     * @return AuthnStatement
-     */
-    public function setSessionIndex($sessionIndex)
+    public function setSessionIndex(?string $sessionIndex): static
     {
         $this->sessionIndex = $sessionIndex;
 
         return $this;
     }
 
-    /**
-     * @return string|null
-     */
-    public function getSessionIndex()
+    public function getSessionIndex(): ?string
     {
         return $this->sessionIndex;
     }
 
-    /**
-     * @param int|string|DateTime $sessionNotOnOrAfter
-     *
-     * @return AuthnStatement
-     */
-    public function setSessionNotOnOrAfter($sessionNotOnOrAfter)
+    public function setSessionNotOnOrAfter(int|string|\DateTime $sessionNotOnOrAfter): static
     {
         $this->sessionNotOnOrAfter = Helper::getTimestampFromValue($sessionNotOnOrAfter);
 
         return $this;
     }
 
-    /**
-     * @return int|null
-     */
-    public function getSessionNotOnOrAfterTimestamp()
+    public function getSessionNotOnOrAfterTimestamp(): ?int
     {
         return $this->sessionNotOnOrAfter;
     }
 
-    /**
-     * @return string|null
-     */
-    public function getSessionNotOnOrAfterString()
+    public function getSessionNotOnOrAfterString(): ?string
     {
         if ($this->sessionNotOnOrAfter) {
             return Helper::time2string($this->sessionNotOnOrAfter);
         }
 
-        return;
+        return null;
     }
 
-    /**
-     * @return DateTime|null
-     */
-    public function getSessionNotOnOrAfterDateTime()
+    public function getSessionNotOnOrAfterDateTime(): ?\DateTime
     {
         if ($this->sessionNotOnOrAfter) {
             return new DateTime('@' . $this->sessionNotOnOrAfter);
         }
 
-        return;
+        return null;
     }
 
-    /**
-     * @param SubjectLocality $subjectLocality
-     *
-     * @return AuthnStatement
-     */
-    public function setSubjectLocality($subjectLocality)
+    public function setSubjectLocality(\LightSaml\Model\Assertion\SubjectLocality $subjectLocality): static
     {
         $this->subjectLocality = $subjectLocality;
 
         return $this;
     }
 
-    /**
-     * @return SubjectLocality
-     */
-    public function getSubjectLocality()
+    public function getSubjectLocality(): ?\LightSaml\Model\Assertion\SubjectLocality
     {
         return $this->subjectLocality;
     }
 
-    /**
-     * @return void
-     */
-    public function serialize(DOMNode $parent, SerializationContext $context)
+    public function serialize(DOMNode $parent, SerializationContext $context): void
     {
         $result = $this->createElement('AuthnStatement', SamlConstants::NS_ASSERTION, $parent, $context);
 
@@ -201,7 +148,7 @@ class AuthnStatement extends AbstractStatement
         );
     }
 
-    public function deserialize(DOMNode $node, DeserializationContext $context)
+    public function deserialize(DOMNode $node, DeserializationContext $context): void
     {
         $this->checkXmlNodeName($node, 'AuthnStatement', SamlConstants::NS_ASSERTION);
 

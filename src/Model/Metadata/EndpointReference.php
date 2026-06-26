@@ -8,26 +8,17 @@ class EndpointReference
     {
     }
 
-    /**
-     * @return EntityDescriptor
-     */
-    public function getEntityDescriptor()
+    public function getEntityDescriptor(): \LightSaml\Model\Metadata\EntityDescriptor
     {
         return $this->entityDescriptor;
     }
 
-    /**
-     * @return RoleDescriptor
-     */
-    public function getDescriptor()
+    public function getDescriptor(): \LightSaml\Model\Metadata\RoleDescriptor
     {
         return $this->descriptor;
     }
 
-    /**
-     * @return Endpoint
-     */
-    public function getEndpoint()
+    public function getEndpoint(): \LightSaml\Model\Metadata\Endpoint
     {
         return $this->endpoint;
     }

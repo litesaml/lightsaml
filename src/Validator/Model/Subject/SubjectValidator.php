@@ -17,10 +17,8 @@ class SubjectValidator implements SubjectValidatorInterface
 
     /**
      * @throws LightSamlValidationException
-     *
-     * @return void
      */
-    public function validateSubject(Subject $subject)
+    public function validateSubject(Subject $subject): void
     {
         if (
             false == $subject->getNameID()
@@ -29,7 +27,7 @@ class SubjectValidator implements SubjectValidatorInterface
             throw new LightSamlValidationException('Subject MUST contain either an identifier or a subject confirmation');
         }
 
-        if ($subject->getNameID()) {
+        if ($subject->getNameID() instanceof \LightSaml\Model\Assertion\NameID) {
             $this->nameIdValidator->validateNameId($subject->getNameID());
         }
 
@@ -49,10 +47,10 @@ class SubjectValidator implements SubjectValidatorInterface
         if (false == Helper::validateWellFormedUriString($subjectConfirmation->getMethod())) {
             throw new LightSamlValidationException('SubjectConfirmation element has Method attribute which is not a wellformed absolute uri.');
         }
-        if ($subjectConfirmation->getNameID()) {
+        if ($subjectConfirmation->getNameID() instanceof \LightSaml\Model\Assertion\NameID) {
             $this->nameIdValidator->validateNameId($subjectConfirmation->getNameID());
         }
-        if ($subjectConfirmation->getSubjectConfirmationData()) {
+        if ($subjectConfirmation->getSubjectConfirmationData() instanceof \LightSaml\Model\Assertion\SubjectConfirmationData) {
             $this->validateSubjectConfirmationData($subjectConfirmation->getSubjectConfirmationData());
         }
     }

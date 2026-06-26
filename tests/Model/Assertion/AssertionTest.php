@@ -12,7 +12,7 @@ use Tests\BaseTestCase;
 
 class AssertionTest extends BaseTestCase
 {
-    public static function equals_provider()
+    public static function equals_provider(): array
     {
         return [
             ['nameId', 'format', false, new Assertion()],
@@ -25,12 +25,12 @@ class AssertionTest extends BaseTestCase
     }
 
     #[DataProvider('equals_provider')]
-    public function test_equals($nameId, $format, $expectedValue, Assertion $assertion)
+    public function test_equals(string $nameId, string $format, bool $expectedValue, Assertion $assertion): void
     {
         $this->assertEquals($expectedValue, $assertion->equals($nameId, $format));
     }
 
-    public static function has_session_index_provider()
+    public static function has_session_index_provider(): array
     {
         return [
             ['1111', false, new Assertion()],
@@ -44,12 +44,12 @@ class AssertionTest extends BaseTestCase
     }
 
     #[DataProvider('has_session_index_provider')]
-    public function test_has_session_index($sessionIndex, $expectedValue, Assertion $assertion)
+    public function test_has_session_index(string $sessionIndex, bool $expectedValue, Assertion $assertion): void
     {
         $this->assertEquals($expectedValue, $assertion->hasSessionIndex($sessionIndex));
     }
 
-    public static function has_any_session_index_provider()
+    public static function has_any_session_index_provider(): array
     {
         return [
             [false, new Assertion()],
@@ -63,12 +63,12 @@ class AssertionTest extends BaseTestCase
     }
 
     #[DataProvider('has_any_session_index_provider')]
-    public function test_has_any_session_index($expectedValue, Assertion $assertion)
+    public function test_has_any_session_index(bool $expectedValue, Assertion $assertion): void
     {
         $this->assertEquals($expectedValue, $assertion->hasAnySessionIndex());
     }
 
-    public function test_get_all_attribute_statements()
+    public function test_get_all_attribute_statements(): void
     {
         $assertion = new Assertion();
         $assertion->addItem(new AuthnStatement());

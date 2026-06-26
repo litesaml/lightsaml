@@ -13,10 +13,7 @@ class DescriptorTypeCriteria implements CriteriaInterface
     {
     }
 
-    /**
-     * @return string
-     */
-    public function getDescriptorType()
+    public function getDescriptorType(): string
     {
         return $this->descriptorType;
     }

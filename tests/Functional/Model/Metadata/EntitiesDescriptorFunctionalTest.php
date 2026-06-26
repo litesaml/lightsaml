@@ -17,7 +17,7 @@ use Tests\Helper\OrganizationChecker;
 
 class EntitiesDescriptorFunctionalTest extends BaseTestCase
 {
-    public function test__deserialize_test_shib()
+    public function test__deserialize_test_shib(): void
     {
         $context = new DeserializationContext();
         $context->getDocument()->load(__DIR__ . '/../../../resources/testshib-providers.xml');
@@ -205,7 +205,7 @@ class EntitiesDescriptorFunctionalTest extends BaseTestCase
         //endregion
     }
 
-    public function test_deserialize_ukfederation_metadata()
+    public function test_deserialize_ukfederation_metadata(): void
     {
         $context = new DeserializationContext();
         $context->getDocument()->load(__DIR__ . '/../../../resources/ukfederation-metadata.xml');
@@ -215,7 +215,7 @@ class EntitiesDescriptorFunctionalTest extends BaseTestCase
         $this->assertCount(2935, $entitiesDescriptor->getAllEntityDescriptors());
     }
 
-    public function test_throws_on_entity_descriptor()
+    public function test_throws_on_entity_descriptor(): void
     {
         $this->expectExceptionMessage("Expected 'EntitiesDescriptor' xml node and 'urn:oasis:names:tc:SAML:2.0:metadata' namespace but got node 'EntityDescriptor' and namespace 'urn:oasis:names:tc:SAML:2.0:metadata'");
         $this->expectException(LightSamlXmlException::class);

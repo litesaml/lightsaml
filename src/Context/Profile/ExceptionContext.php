@@ -13,18 +13,12 @@ class ExceptionContext extends AbstractProfileContext
     {
     }
 
-    /**
-     * @return Exception
-     */
-    public function getException()
+    public function getException(): ?\Exception
     {
         return $this->exception;
     }
 
-    /**
-     * @return Exception|null
-     */
-    public function getLastException()
+    public function getLastException(): ?\Exception
     {
         if (null == $this->nextExceptionContext) {
             return $this->exception;
@@ -33,20 +27,14 @@ class ExceptionContext extends AbstractProfileContext
         return $this->nextExceptionContext->getException();
     }
 
-    /**
-     * @return ExceptionContext|null
-     */
-    public function getNextExceptionContext()
+    public function getNextExceptionContext(): ?\LightSaml\Context\Profile\ExceptionContext
     {
         return $this->nextExceptionContext;
     }
 
-    /**
-     * @return ExceptionContext
-     */
-    public function addException(Exception $exception)
+    public function addException(Exception $exception): \LightSaml\Context\Profile\ExceptionContext
     {
-        if ($this->exception) {
+        if ($this->exception instanceof \Exception) {
             if (null == $this->nextExceptionContext) {
                 $this->nextExceptionContext = new self($exception);
 

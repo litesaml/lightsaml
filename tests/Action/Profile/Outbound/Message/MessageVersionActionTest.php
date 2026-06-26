@@ -9,13 +9,13 @@ use Tests\BaseTestCase;
 
 class MessageVersionActionTest extends BaseTestCase
 {
-    public function test_constructs_with_logger_and_version()
+    public function test_constructs_with_logger_and_version(): void
     {
         new MessageVersionAction($this->getLoggerMock(), SamlConstants::VERSION_20);
         $this->assertTrue(true);
     }
 
-    public function test_sets_outbounding_message_version_to_value_from_constructor()
+    public function test_sets_outbounding_message_version_to_value_from_constructor(): void
     {
         $action = new MessageVersionAction($this->getLoggerMock(), $value = SamlConstants::VERSION_20);
 

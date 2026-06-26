@@ -27,158 +27,103 @@ class SubjectConfirmationData extends AbstractSamlModel
     /** @var string|null */
     protected $recipient;
 
-    /**
-     * @param string|null $address
-     *
-     * @return SubjectConfirmationData
-     */
-    public function setAddress($address)
+    public function setAddress(?string $address): static
     {
         $this->address = (string) $address;
 
         return $this;
     }
 
-    /**
-     * @return string|null
-     */
-    public function getAddress()
+    public function getAddress(): ?string
     {
         return $this->address;
     }
 
-    /**
-     * @param string|null $inResponseTo
-     *
-     * @return SubjectConfirmationData
-     */
-    public function setInResponseTo($inResponseTo)
+    public function setInResponseTo(?string $inResponseTo): static
     {
         $this->inResponseTo = (string) $inResponseTo;
 
         return $this;
     }
 
-    /**
-     * @return string|null
-     */
-    public function getInResponseTo()
+    public function getInResponseTo(): ?string
     {
         return $this->inResponseTo;
     }
 
-    /**
-     * @param int|string|DateTime $notBefore
-     *
-     * @return SubjectConfirmationData
-     */
-    public function setNotBefore($notBefore)
+    public function setNotBefore(int|string|\DateTime $notBefore): static
     {
         $this->notBefore = Helper::getTimestampFromValue($notBefore);
 
         return $this;
     }
 
-    /**
-     * @return int|null
-     */
-    public function getNotBeforeTimestamp()
+    public function getNotBeforeTimestamp(): ?int
     {
         return $this->notBefore;
     }
 
-    /**
-     * @return string|null
-     */
-    public function getNotBeforeString()
+    public function getNotBeforeString(): ?string
     {
         if ($this->notBefore) {
             return Helper::time2string($this->notBefore);
         }
 
-        return;
+        return null;
     }
 
-    /**
-     * @return DateTime|null
-     */
-    public function getNotBeforeDateTime()
+    public function getNotBeforeDateTime(): ?\DateTime
     {
         if ($this->notBefore) {
             return new DateTime('@' . $this->notBefore);
         }
 
-        return;
+        return null;
     }
 
-    /**
-     * @param int|string|DateTime $notOnOrAfter
-     *
-     * @return SubjectConfirmationData
-     */
-    public function setNotOnOrAfter($notOnOrAfter)
+    public function setNotOnOrAfter(int|string|\DateTime $notOnOrAfter): static
     {
         $this->notOnOrAfter = Helper::getTimestampFromValue($notOnOrAfter);
 
         return $this;
     }
 
-    /**
-     * @return int|null
-     */
-    public function getNotOnOrAfterTimestamp()
+    public function getNotOnOrAfterTimestamp(): ?int
     {
         return $this->notOnOrAfter;
     }
 
-    /**
-     * @return string|null
-     */
-    public function getNotOnOrAfterString()
+    public function getNotOnOrAfterString(): ?string
     {
         if ($this->notOnOrAfter) {
             return Helper::time2string($this->notOnOrAfter);
         }
 
-        return;
+        return null;
     }
 
-    /**
-     * @return DateTime|null
-     */
-    public function getNotOnOrAfterDateTime()
+    public function getNotOnOrAfterDateTime(): ?\DateTime
     {
         if ($this->notOnOrAfter) {
             return new DateTime('@' . $this->notOnOrAfter);
         }
 
-        return;
+        return null;
     }
 
-    /**
-     * @param string|null $recipient
-     *
-     * @return SubjectConfirmationData
-     */
-    public function setRecipient($recipient)
+    public function setRecipient(?string $recipient): static
     {
         $this->recipient = (string) $recipient;
 
         return $this;
     }
 
-    /**
-     * @return string|null
-     */
-    public function getRecipient()
+    public function getRecipient(): ?string
     {
         return $this->recipient;
     }
 
-    /**
-     * @return void
-     */
-    public function serialize(DOMNode $parent, SerializationContext $context)
+    public function serialize(DOMNode $parent, SerializationContext $context): void
     {
         $result = $this->createElement('SubjectConfirmationData', SamlConstants::NS_ASSERTION, $parent, $context);
 
@@ -188,7 +133,7 @@ class SubjectConfirmationData extends AbstractSamlModel
         );
     }
 
-    public function deserialize(DOMNode $node, DeserializationContext $context)
+    public function deserialize(DOMNode $node, DeserializationContext $context): void
     {
         $this->checkXmlNodeName($node, 'SubjectConfirmationData', SamlConstants::NS_ASSERTION);
 

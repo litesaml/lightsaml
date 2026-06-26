@@ -17,18 +17,12 @@ class MetadataCriteria implements TrustCriteriaInterface
     {
     }
 
-    /**
-     * @return string
-     */
-    public function getProtocol()
+    public function getProtocol(): string
     {
         return $this->protocol;
     }
 
-    /**
-     * @return string
-     */
-    public function getMetadataType()
+    public function getMetadataType(): string
     {
         return $this->metadataType;
     }

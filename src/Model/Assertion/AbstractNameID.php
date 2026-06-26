@@ -34,102 +34,67 @@ abstract class AbstractNameID extends AbstractSamlModel
     {
     }
 
-    /**
-     * @param string|null $format
-     *
-     * @return AbstractNameID
-     */
-    public function setFormat($format)
+    
+    public function setFormat(?string $format): \LightSaml\Model\Assertion\AbstractNameID
     {
         $this->format = (string) $format;
 
         return $this;
     }
 
-    /**
-     * @return string|null
-     */
-    public function getFormat()
+    public function getFormat(): ?string
     {
         return $this->format;
     }
 
-    /**
-     * @param string|null $nameQualifier
-     *
-     * @return AbstractNameID
-     */
-    public function setNameQualifier($nameQualifier)
+    
+    public function setNameQualifier(?string $nameQualifier): \LightSaml\Model\Assertion\AbstractNameID
     {
         $this->nameQualifier = (string) $nameQualifier;
 
         return $this;
     }
 
-    /**
-     * @return string|null
-     */
-    public function getNameQualifier()
+    public function getNameQualifier(): ?string
     {
         return $this->nameQualifier;
     }
 
-    /**
-     * @param string|null $spNameQualifier
-     *
-     * @return AbstractNameID
-     */
-    public function setSPNameQualifier($spNameQualifier)
+    
+    public function setSPNameQualifier(?string $spNameQualifier): \LightSaml\Model\Assertion\AbstractNameID
     {
         $this->spNameQualifier = (string) $spNameQualifier;
 
         return $this;
     }
 
-    /**
-     * @return string|null
-     */
-    public function getSPNameQualifier()
+    public function getSPNameQualifier(): ?string
     {
         return $this->spNameQualifier;
     }
 
-    /**
-     * @param string|null $spProvidedId
-     *
-     * @return AbstractNameID
-     */
-    public function setSPProvidedID($spProvidedId)
+    
+    public function setSPProvidedID(?string $spProvidedId): \LightSaml\Model\Assertion\AbstractNameID
     {
         $this->spProvidedId = (string) $spProvidedId;
 
         return $this;
     }
 
-    /**
-     * @return string|null
-     */
-    public function getSPProvidedID()
+    public function getSPProvidedID(): ?string
     {
         return $this->spProvidedId;
     }
 
-    /**
-     * @param string $value
-     *
-     * @return AbstractNameID
-     */
-    public function setValue($value)
+    
+    public function setValue(string $value): \LightSaml\Model\Assertion\AbstractNameID
     {
-        $this->value = (string) $value;
+        $this->value = $value;
 
         return $this;
     }
 
-    /**
-     * @return string
-     */
-    public function getValue()
+    public function getValue(): ?string
     {
         return $this->value;
     }
@@ -141,7 +106,7 @@ abstract class AbstractNameID extends AbstractSamlModel
         }
     }
 
-    public function serialize(DOMNode $parent, SerializationContext $context)
+    public function serialize(DOMNode $parent, SerializationContext $context): void
     {
         $this->prepareForXml();
         if (SamlConstants::NS_ASSERTION == $parent->namespaceURI) {
@@ -155,7 +120,7 @@ abstract class AbstractNameID extends AbstractSamlModel
         $result->nodeValue = $this->getValue();
     }
 
-    public function deserialize(DOMNode $node, DeserializationContext $context)
+    public function deserialize(DOMNode $node, DeserializationContext $context): void
     {
         $this->checkXmlNodeName($node, $this->getElementName(), SamlConstants::NS_ASSERTION);
 
@@ -163,8 +128,5 @@ abstract class AbstractNameID extends AbstractSamlModel
         $this->setValue($node->textContent);
     }
 
-    /**
-     * @return string
-     */
-    abstract protected function getElementName();
+    abstract protected function getElementName(): string;
 }

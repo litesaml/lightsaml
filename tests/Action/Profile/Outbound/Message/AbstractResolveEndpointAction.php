@@ -27,7 +27,7 @@ abstract class AbstractResolveEndpointAction extends BaseTestCase
     protected $logger;
 
     /** @var  EndpointResolverInterface|MockObject */
-    protected $endpointResolver;
+    protected \PHPUnit\Framework\MockObject\MockObject $endpointResolver;
 
     /**
      *
@@ -39,17 +39,10 @@ abstract class AbstractResolveEndpointAction extends BaseTestCase
         $this->action = $this->createAction($this->logger, $this->endpointResolver);
     }
 
-    /**
-     *
-     * @return ResolveEndpointBaseActionTest
-     */
+    
     abstract protected function createAction(LoggerInterface $logger, EndpointResolverInterface $endpointResolver);
 
-    /**
-     * @param bool     $shouldBeCalled
-     * @param callable $callback
-     */
-    protected function setEndpointResolver($shouldBeCalled, $callback)
+    protected function setEndpointResolver(bool $shouldBeCalled, ?callable $callback)
     {
         if ($shouldBeCalled) {
             $this->endpointResolver->expects($this->once())
@@ -61,19 +54,14 @@ abstract class AbstractResolveEndpointAction extends BaseTestCase
         }
     }
 
-    /**
-     * @param string $ownRole
-     * @param string $profileId
-     *
-     * @return ProfileContext
-     */
+    
     protected function createContext(
-        $ownRole = ProfileContext::ROLE_IDP,
+        string $ownRole = ProfileContext::ROLE_IDP,
         ?SamlMessage $inboundMessage = null,
         ?Endpoint $endpoint = null,
         ?EntityDescriptor $partyEntityDescriptor = null,
-        $profileId = Profiles::SSO_IDP_RECEIVE_AUTHN_REQUEST
-    ) {
+        string $profileId = Profiles::SSO_IDP_RECEIVE_AUTHN_REQUEST
+    ): \LightSaml\Context\Profile\ProfileContext {
         $context = $this->getProfileContext($profileId, $ownRole);
 
         if ($endpoint instanceof Endpoint) {
@@ -104,12 +92,9 @@ abstract class AbstractResolveEndpointAction extends BaseTestCase
         }
     }
 
-    /**
-     * @param string $value
-     */
-    protected function criteriaSetShouldHaveDescriptorTypeCriteria(CriteriaSet $criteriaSet, $value)
+    protected function criteriaSetShouldHaveDescriptorTypeCriteria(CriteriaSet $criteriaSet, string $value)
     {
-        if ($value) {
+        if ($value !== '' && $value !== '0') {
             $this->assertTrue($criteriaSet->has(DescriptorTypeCriteria::class));
             /** @var DescriptorTypeCriteria $criteria */
             $criteria = $criteriaSet->getSingle(DescriptorTypeCriteria::class);
@@ -119,12 +104,9 @@ abstract class AbstractResolveEndpointAction extends BaseTestCase
         }
     }
 
-    /**
-     * @param string $value
-     */
-    protected function criteriaSetShouldHaveServiceTypeCriteria(CriteriaSet $criteriaSet, $value)
+    protected function criteriaSetShouldHaveServiceTypeCriteria(CriteriaSet $criteriaSet, ?string $value)
     {
-        if ($value) {
+        if ($value !== null && $value !== '' && $value !== '0') {
             $this->assertTrue($criteriaSet->has(ServiceTypeCriteria::class));
             /** @var ServiceTypeCriteria $criteria */
             $criteria = $criteriaSet->getSingle(ServiceTypeCriteria::class);
@@ -134,12 +116,9 @@ abstract class AbstractResolveEndpointAction extends BaseTestCase
         }
     }
 
-    /**
-     * @param string $value
-     */
-    protected function criteriaSetShouldHaveIndexCriteria(CriteriaSet $criteriaSet, $value)
+    protected function criteriaSetShouldHaveIndexCriteria(CriteriaSet $criteriaSet, string $value)
     {
-        if ($value) {
+        if ($value !== '' && $value !== '0') {
             $this->assertTrue($criteriaSet->has(IndexCriteria::class));
             /** @var IndexCriteria $criteria */
             $criteria = $criteriaSet->getSingle(IndexCriteria::class);
@@ -149,12 +128,9 @@ abstract class AbstractResolveEndpointAction extends BaseTestCase
         }
     }
 
-    /**
-     * @param string $value
-     */
-    protected function criteriaSetShouldHaveLocationCriteria(CriteriaSet $criteriaSet, $value)
+    protected function criteriaSetShouldHaveLocationCriteria(CriteriaSet $criteriaSet, string $value)
     {
-        if ($value) {
+        if ($value !== '' && $value !== '0') {
             $this->assertTrue($criteriaSet->has(LocationCriteria::class));
             /** @var LocationCriteria $criteria */
             $criteria = $criteriaSet->getSingle(LocationCriteria::class);

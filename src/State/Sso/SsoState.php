@@ -7,65 +7,47 @@ use Serializable;
 
 class SsoState implements Serializable
 {
-    /** @var string */
-    private $localSessionId;
+    private ?string $localSessionId = null;
 
     private ParameterBag $parameters;
 
     /** @var SsoSessionState[] */
-    private $ssoSessions = [];
+    private array $ssoSessions = [];
 
     public function __construct()
     {
         $this->parameters = new ParameterBag();
     }
 
-    /**
-     * @return string
-     */
-    public function getLocalSessionId()
+    public function getLocalSessionId(): string
     {
         return $this->localSessionId;
     }
 
-    /**
-     * @param string $localSessionId
-     *
-     * @return SsoState
-     */
-    public function setLocalSessionId($localSessionId)
+    public function setLocalSessionId(string $localSessionId): static
     {
         $this->localSessionId = $localSessionId;
 
         return $this;
     }
 
-    /**
-     * @return ParameterBag
-     */
-    public function getParameters()
+    public function getParameters(): \LightSaml\Meta\ParameterBag
     {
         return $this->parameters;
     }
 
     /**
      * @deprecated Since 1.2, to be removed in 2.0. Use getParameters() instead
-     *
-     * @return array
      */
-    public function getOptions()
+    public function getOptions(): array
     {
         return $this->parameters->all();
     }
 
     /**
      * @deprecated Since 1.2, to be removed in 2.0. Use getParameters() instead
-     *
-     * @param string $name
-     *
-     * @return SsoState
      */
-    public function addOption($name, mixed $value)
+    public function addOption(string $name, mixed $value): static
     {
         $this->parameters->set($name, $value);
 
@@ -74,12 +56,8 @@ class SsoState implements Serializable
 
     /**
      * @deprecated Since 1.2, to be removed in 2.0. Use getParameters() instead
-     *
-     * @param string $name
-     *
-     * @return SsoState
      */
-    public function removeOption($name)
+    public function removeOption(string $name): static
     {
         $this->parameters->remove($name);
 
@@ -88,12 +66,8 @@ class SsoState implements Serializable
 
     /**
      * @deprecated Since 1.2, to be removed in 2.0. Use getParameters() instead
-     *
-     * @param string $name
-     *
-     * @return bool
      */
-    public function hasOption($name)
+    public function hasOption(string $name): bool
     {
         return $this->parameters->has($name);
     }
@@ -101,17 +75,15 @@ class SsoState implements Serializable
     /**
      * @return SsoSessionState[]
      */
-    public function getSsoSessions()
+    public function getSsoSessions(): array
     {
         return $this->ssoSessions;
     }
 
     /**
      * @param SsoSessionState[] $ssoSessions
-     *
-     * @return SsoState
      */
-    public function setSsoSessions(array $ssoSessions)
+    public function setSsoSessions(array $ssoSessions): static
     {
         $this->ssoSessions = [];
         foreach ($ssoSessions as $ssoSession) {
@@ -121,10 +93,7 @@ class SsoState implements Serializable
         return $this;
     }
 
-    /**
-     * @return SsoState
-     */
-    public function addSsoSession(SsoSessionState $ssoSessionState)
+    public function addSsoSession(SsoSessionState $ssoSessionState): static
     {
         $this->ssoSessions[] = $ssoSessionState;
 
@@ -135,7 +104,7 @@ class SsoState implements Serializable
      *
      * @return SsoSessionState[]
      */
-    public function filter($idpEntityId, $spEntityId, $nameId, $nameIdFormat, $sessionIndex)
+    public function filter($idpEntityId, $spEntityId, $nameId, $nameIdFormat, $sessionIndex): array
     {
         $result = [];
 
@@ -154,32 +123,22 @@ class SsoState implements Serializable
         return $result;
     }
 
-    /**
-     * @param callable $callback
-     *
-     * @return SsoState
-     */
-    public function modify($callback)
+    public function modify(callable $callback): static
     {
         $this->ssoSessions = array_values(array_filter($this->ssoSessions, $callback));
 
         return $this;
     }
 
-    /**
-     * @return string the string representation of the object or null
-     */
-    public function serialize()
+    public function serialize(): string
     {
         return serialize($this->__serialize());
     }
 
     /**
      * (PHP >= 8.1)
-     *
-     * @return array
      */
-    public function __serialize()
+    public function __serialize(): array
     {
         return [
             $this->localSessionId,
@@ -189,20 +148,12 @@ class SsoState implements Serializable
         ];
     }
 
-    /**
-     * @param string $serialized
-     *
-     * @return void
-     */
-    public function unserialize($serialized)
+    public function unserialize(string $serialized): void
     {
         $this->__unserialize(unserialize($serialized));
     }
 
-    /**
-     * @return void
-     */
-    public function __unserialize(array $data)
+    public function __unserialize(array $data): void
     {
         // add a few extra elements in the array to ensure that we have enough keys when unserializing
         // older data which does not include all properties.

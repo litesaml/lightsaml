@@ -4,8 +4,5 @@ namespace LightSaml\Action;
 
 interface DebugPrintTreeActionInterface
 {
-    /**
-     * @return array
-     */
-    public function debugPrintTree();
+    public function debugPrintTree(): array;
 }

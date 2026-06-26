@@ -20,10 +20,9 @@ class Attribute extends AbstractSamlModel
     protected $attributeValue;
 
     /**
-     * @param string|null     $name
      * @param string|string[] $value
      */
-    public function __construct(protected $name = null, $value = null)
+    public function __construct(protected ?string $name = null, string|array|null $value = null)
     {
         if ($value) {
             $this->attributeValue = is_array($value) ? $value : [$value];
@@ -31,11 +30,9 @@ class Attribute extends AbstractSamlModel
     }
 
     /**
-     * @param string $attributeValue
-     *
      * @return Attribute
      */
-    public function addAttributeValue($attributeValue)
+    public function addAttributeValue(string $attributeValue): static
     {
         if (false == is_array($this->attributeValue)) {
             $this->attributeValue = [];
@@ -50,7 +47,7 @@ class Attribute extends AbstractSamlModel
      *
      * @return Attribute
      */
-    public function setAttributeValue($attributeValue)
+    public function setAttributeValue(array|string $attributeValue): static
     {
         if (false == is_array($attributeValue)) {
             $attributeValue = [$attributeValue];
@@ -63,7 +60,7 @@ class Attribute extends AbstractSamlModel
     /**
      * @return string[]
      */
-    public function getAllAttributeValues()
+    public function getAllAttributeValues(): ?array
     {
         return $this->attributeValue;
     }
@@ -76,69 +73,51 @@ class Attribute extends AbstractSamlModel
     }
 
     /**
-     * @param string $friendlyName
-     *
      * @return Attribute
      */
-    public function setFriendlyName($friendlyName)
+    public function setFriendlyName(string $friendlyName): static
     {
         $this->friendlyName = $friendlyName;
 
         return $this;
     }
 
-    /**
-     * @return string
-     */
-    public function getFriendlyName()
+    public function getFriendlyName(): ?string
     {
         return $this->friendlyName;
     }
 
     /**
-     * @param string $name
-     *
      * @return Attribute
      */
-    public function setName($name)
+    public function setName(string $name): static
     {
         $this->name = $name;
 
         return $this;
     }
 
-    /**
-     * @return string
-     */
-    public function getName()
+    public function getName(): string
     {
         return $this->name;
     }
 
     /**
-     * @param string $nameFormat
-     *
      * @return Attribute
      */
-    public function setNameFormat($nameFormat)
+    public function setNameFormat(string $nameFormat): static
     {
         $this->nameFormat = $nameFormat;
 
         return $this;
     }
 
-    /**
-     * @return string
-     */
-    public function getNameFormat()
+    public function getNameFormat(): ?string
     {
         return $this->nameFormat;
     }
 
-    /**
-     * @return void
-     */
-    public function serialize(DOMNode $parent, SerializationContext $context)
+    public function serialize(DOMNode $parent, SerializationContext $context): void
     {
         $result = $this->createElement('Attribute', SamlConstants::NS_ASSERTION, $parent, $context);
 
@@ -147,7 +126,7 @@ class Attribute extends AbstractSamlModel
         $this->manyElementsToXml($this->getAllAttributeValues(), $result, $context, 'AttributeValue', SamlConstants::NS_ASSERTION);
     }
 
-    public function deserialize(DOMNode $node, DeserializationContext $context)
+    public function deserialize(DOMNode $node, DeserializationContext $context): void
     {
         $this->checkXmlNodeName($node, 'Attribute', SamlConstants::NS_ASSERTION);
 

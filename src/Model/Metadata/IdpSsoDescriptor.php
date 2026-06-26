@@ -19,30 +19,19 @@ class IdpSsoDescriptor extends SSODescriptor
     /** @var Attribute[]|null */
     protected $attributes;
 
-    /**
-     * @param bool|null $wantAuthnRequestsSigned
-     *
-     * @return IdpSsoDescriptor
-     */
-    public function setWantAuthnRequestsSigned($wantAuthnRequestsSigned)
+    public function setWantAuthnRequestsSigned(mixed $wantAuthnRequestsSigned): static
     {
         $this->wantAuthnRequestsSigned = filter_var($wantAuthnRequestsSigned, FILTER_VALIDATE_BOOLEAN, ['flags' => FILTER_NULL_ON_FAILURE]);
 
         return $this;
     }
 
-    /**
-     * @return bool|null
-     */
-    public function getWantAuthnRequestsSigned()
+    public function getWantAuthnRequestsSigned(): ?bool
     {
         return $this->wantAuthnRequestsSigned;
     }
 
-    /**
-     * @return IdpSsoDescriptor
-     */
-    public function addSingleSignOnService(SingleSignOnService $singleSignOnService)
+    public function addSingleSignOnService(SingleSignOnService $singleSignOnService): static
     {
         if (false == is_array($this->singleSignOnServices)) {
             $this->singleSignOnServices = [];
@@ -55,17 +44,15 @@ class IdpSsoDescriptor extends SSODescriptor
     /**
      * @return SingleSignOnService[]|null
      */
-    public function getAllSingleSignOnServices()
+    public function getAllSingleSignOnServices(): ?array
     {
         return $this->singleSignOnServices;
     }
 
     /**
-     * @param string $url
-     *
      * @return SingleSignOnService[]
      */
-    public function getAllSingleSignOnServicesByUrl($url)
+    public function getAllSingleSignOnServicesByUrl(string $url): array
     {
         $result = [];
         foreach ($this->getAllSingleSignOnServices() as $svc) {
@@ -78,11 +65,9 @@ class IdpSsoDescriptor extends SSODescriptor
     }
 
     /**
-     * @param string $binding
-     *
      * @return SingleSignOnService[]
      */
-    public function getAllSingleSignOnServicesByBinding($binding)
+    public function getAllSingleSignOnServicesByBinding(string $binding): array
     {
         $result = [];
         foreach ($this->getAllSingleSignOnServices() as $svc) {
@@ -94,12 +79,8 @@ class IdpSsoDescriptor extends SSODescriptor
         return $result;
     }
 
-    /**
-     * @param string|null $binding
-     *
-     * @return SingleSignOnService|null
-     */
-    public function getFirstSingleSignOnService($binding = null)
+    
+    public function getFirstSingleSignOnService(?string $binding = null): ?\LightSaml\Model\Metadata\SingleSignOnService
     {
         foreach ($this->getAllSingleSignOnServices() as $svc) {
             if (null == $binding || $svc->getBinding() == $binding) {
@@ -107,13 +88,10 @@ class IdpSsoDescriptor extends SSODescriptor
             }
         }
 
-        return;
+        return null;
     }
 
-    /**
-     * @return IdpSsoDescriptor
-     */
-    public function addAttribute(Attribute $attribute)
+    public function addAttribute(Attribute $attribute): static
     {
         if (false == is_array($this->attributes)) {
             $this->attributes = [];
@@ -126,12 +104,12 @@ class IdpSsoDescriptor extends SSODescriptor
     /**
      * @return Attribute[]|null
      */
-    public function getAllAttributes()
+    public function getAllAttributes(): ?array
     {
         return $this->attributes;
     }
 
-    public function serialize(DOMNode $parent, SerializationContext $context)
+    public function serialize(DOMNode $parent, SerializationContext $context): void
     {
         $result = $this->createElement('IDPSSODescriptor', SamlConstants::NS_METADATA, $parent, $context);
 
@@ -151,7 +129,7 @@ class IdpSsoDescriptor extends SSODescriptor
         }
     }
 
-    public function deserialize(DOMNode $node, DeserializationContext $context)
+    public function deserialize(DOMNode $node, DeserializationContext $context): void
     {
         $this->checkXmlNodeName($node, 'IDPSSODescriptor', SamlConstants::NS_METADATA);
 
