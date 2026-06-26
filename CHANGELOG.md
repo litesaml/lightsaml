@@ -4,6 +4,20 @@
 All notable changes to this project will be documented in this file.
 <!--- END HEADER -->
 
+## 4.7.0 (2026-06-26)
+
+### Features
+
+* Add RSA-PSS certificate and SAML signature support (#102)
+* Include AssertionConsumerServiceURL in outbound AuthnRequest (#103)
+* Return SamlMessage from binding receive() method (#105)
+
+### Bug Fixes
+
+* Bump dependencies to address security vulnerabilities (#101)
+* Use SHA256 as default signing algorithm instead of SHA1 (#104)
+* Use SignatureXmlReader instead of abstract Signature in RoleDescriptor deserialization (#106)
+
 ## 4.6.1 (2026-02-26)
 
 ### Bug Fixes
