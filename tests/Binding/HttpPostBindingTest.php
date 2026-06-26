@@ -8,18 +8,32 @@ use LightSaml\Binding\BindingFactory;
 use LightSaml\Binding\HttpPostBinding;
 use LightSaml\Context\Profile\MessageContext;
 use LightSaml\Error\LightSamlBindingException;
+use LightSaml\Error\LightSamlMissingFactoryException;
 use LightSaml\Model\Protocol\Response;
 use LightSaml\SamlConstants;
-use Symfony\Component\HttpFoundation\Request;
+use Nyholm\Psr7\Factory\Psr17Factory;
 use Tests\BaseTestCase;
 
 class HttpPostBindingTest extends BaseTestCase
 {
+    public function test_send_throws_when_factories_not_set()
+    {
+        $this->expectException(LightSamlMissingFactoryException::class);
+        $this->expectExceptionMessage('ResponseFactory and StreamFactory must be provided to use send()');
+
+        $binding = new HttpPostBinding();
+        $context = new MessageContext();
+        $context->setMessage(new Response());
+
+        $binding->send($context);
+    }
+
     public function test_receive_throws_when_no_message()
     {
         $this->expectExceptionMessage("Missing SAMLRequest or SAMLResponse parameter");
         $this->expectException(LightSamlBindingException::class);
-        $request = new Request();
+        $factory = new Psr17Factory();
+        $request = $factory->createServerRequest('POST', '/');
 
         $binding = new HttpPostBinding();
 
@@ -40,12 +54,13 @@ class HttpPostBindingTest extends BaseTestCase
 
         $this->assertEquals($expectedRelayState, $messageContext->getMessage()->getRelayState());
 
-        $bindingFactory = new BindingFactory();
+        $psr17 = new Psr17Factory();
+        $bindingFactory = new BindingFactory(null, $psr17, $psr17);
         $binding = $bindingFactory->create(SamlConstants::BINDING_SAML2_HTTP_POST);
 
         $httpResponse = $binding->send($messageContext);
 
-        $html = $httpResponse->getContent();
+        $html = (string) $httpResponse->getBody();
 
         $dom = new DOMDocument();
         $dom->loadHTML($html);

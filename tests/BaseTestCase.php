@@ -27,7 +27,6 @@ use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Psr\Log\LoggerInterface;
 use RobRichards\XMLSecLibs\XMLSecurityKey;
-use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 abstract class BaseTestCase extends TestCase
 {
@@ -202,14 +201,6 @@ abstract class BaseTestCase extends TestCase
     public function getX509CredentialMock()
     {
         return $this->getMockBuilder(X509CredentialInterface::class)->getMock();
-    }
-
-    /**
-     * @return MockObject|SessionInterface
-     */
-    public function getSessionMock()
-    {
-        return $this->getMockBuilder(SessionInterface::class)->getMock();
     }
 
     /**

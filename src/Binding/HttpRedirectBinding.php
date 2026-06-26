@@ -6,33 +6,42 @@ use Exception;
 use LightSaml\Context\Profile\Helper\MessageContextHelper;
 use LightSaml\Context\Profile\MessageContext;
 use LightSaml\Error\LightSamlBindingException;
+use LightSaml\Error\LightSamlMissingFactoryException;
 use LightSaml\Model\Protocol\AbstractRequest;
 use LightSaml\Model\Protocol\SamlMessage;
 use LightSaml\Model\XmlDSig\SignatureStringReader;
 use LightSaml\Model\XmlDSig\SignatureWriter;
 use LightSaml\SamlConstants;
+use Psr\Http\Message\ResponseFactoryInterface;
+use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\ServerRequestInterface;
 use RobRichards\XMLSecLibs\XMLSecurityKey;
-use Symfony\Component\HttpFoundation\RedirectResponse;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 
 class HttpRedirectBinding extends AbstractBinding
 {
+    public function __construct(private readonly ?ResponseFactoryInterface $responseFactory = null)
+    {
+    }
+
     /**
      * @param string|null $destination
      *
-     * @return Response
+     * @return ResponseInterface
      */
     public function send(MessageContext $context, $destination = null)
     {
+        if (null === $this->responseFactory) {
+            throw new LightSamlMissingFactoryException('ResponseFactory must be provided to use send()');
+        }
+
         $destination = $context->getMessage()->getDestination() ?: $destination;
 
         $url = $this->getRedirectURL($context, $destination);
 
-        return new RedirectResponse($url);
+        return $this->responseFactory->createResponse(302)->withHeader('Location', $url);
     }
 
-    public function receive(Request $request, MessageContext $context): SamlMessage
+    public function receive(ServerRequestInterface $request, MessageContext $context): SamlMessage
     {
         $data = $this->parseQuery($request);
 
@@ -218,7 +227,7 @@ class HttpRedirectBinding extends AbstractBinding
     /**
      * @return array
      */
-    protected function parseQuery(Request $request)
+    protected function parseQuery(ServerRequestInterface $request)
     {
         /*
          * Parse the query string. We need to do this ourself, so that we get access
@@ -226,7 +235,7 @@ class HttpRedirectBinding extends AbstractBinding
          * can urlencode to different values.
          */
         $sigQuery = $relayState = $sigAlg = '';
-        $data = $this->parseQueryString($request->server->get('QUERY_STRING'));
+        $data = $this->parseQueryString($request->getUri()->getQuery());
         $result = [];
         foreach ($data as $name => $value) {
             $result[$name] = urldecode($value);
