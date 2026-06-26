@@ -38,7 +38,7 @@ class SerializeOwnEntityAction extends AbstractProfileAction
         $contentType = 'text/xml';
         $acceptHeader = $context->getHttpRequest()->getHeaderLine('Accept');
         $acceptParts = array_map('trim', explode(',', $acceptHeader));
-        $acceptableTypes = array_map(fn($part) => trim(explode(';', $part)[0]), $acceptParts);
+        $acceptableTypes = array_map(fn ($part) => trim(explode(';', $part)[0]), $acceptParts);
         foreach ($this->supportedContextTypes as $supportedContentType) {
             if (in_array($supportedContentType, $acceptableTypes, true)) {
                 $contentType = $supportedContentType;

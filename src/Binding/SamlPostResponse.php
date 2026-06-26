@@ -11,7 +11,8 @@ class SamlPostResponse implements ResponseInterface
         private ResponseInterface $inner,
         private readonly ?string $destination,
         private readonly array $data
-    ) {}
+    ) {
+    }
 
     public function getData(): array
     {
