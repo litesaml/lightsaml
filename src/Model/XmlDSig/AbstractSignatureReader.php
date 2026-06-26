@@ -6,6 +6,7 @@ use InvalidArgumentException;
 use LightSaml\Credential\CredentialInterface;
 use LightSaml\Credential\KeyHelper;
 use LightSaml\Error\LightSamlSecurityException;
+use LightSaml\SamlConstants;
 use RobRichards\XMLSecLibs\XMLSecurityKey;
 
 abstract class AbstractSignatureReader extends Signature
@@ -86,6 +87,7 @@ abstract class AbstractSignatureReader extends Signature
             XMLSecurityKey::RSA_SHA256,
             XMLSecurityKey::RSA_SHA384,
             XMLSecurityKey::RSA_SHA512,
+            SamlConstants::RSA_PSS,
             ], true)
         ) {
             throw new LightSamlSecurityException(sprintf('Unsupported signing algorithm: "%s"', $algorithm));

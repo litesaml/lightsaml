@@ -26,6 +26,9 @@ class X509Certificate
     /** @var string */
     private $signatureAlgorithm;
 
+    /** @var string|null */
+    private $pssHashAlgorithm;
+
     /**
      * @param string $filename
      *
@@ -114,13 +117,14 @@ class X509Certificate
         $res = openssl_x509_read($this->toPem());
         $this->info = openssl_x509_parse($res);
         $this->signatureAlgorithm = null;
+        $this->pssHashAlgorithm = null;
         $signatureType = $this->info['signatureTypeSN'] ?? '';
         if ($signatureType && isset(self::$typeMap[$signatureType])) {
             $this->signatureAlgorithm = self::$typeMap[$signatureType];
         } else {
             openssl_x509_export($res, $out, false);
             if (preg_match('/^\s+Signature Algorithm:\s*(.*)\s*$/m', $out, $match)) {
-                switch ($match[1]) {
+                switch (rtrim($match[1])) {
                     case 'sha1WithRSAEncryption':
                     case 'sha1WithRSA':
                         $this->signatureAlgorithm = XMLSecurityKey::RSA_SHA1;
@@ -140,6 +144,19 @@ class X509Certificate
                     case 'md5WithRSAEncryption':
                     case 'md5WithRSA':
                         $this->signatureAlgorithm = SamlConstants::XMLDSIG_DIGEST_MD5;
+                        break;
+                    case 'rsassaPss':
+                        $hashAlgo = 'SHA256';
+                        if (preg_match('/^\s+Hash Algorithm:\s*(\S+)/m', $out, $hashMatch)) {
+                            $normalized = strtoupper(preg_replace('/[^a-zA-Z0-9]/', '', $hashMatch[1]));
+                            $hashAlgo = match ($normalized) {
+                                'SHA384', 'SHA2384' => 'SHA384',
+                                'SHA512', 'SHA2512' => 'SHA512',
+                                default => 'SHA256',
+                            };
+                        }
+                        $this->pssHashAlgorithm = $hashAlgo;
+                        $this->signatureAlgorithm = SamlConstants::RSA_PSS;
                         break;
                     default:
                 }
@@ -256,5 +273,10 @@ class X509Certificate
         }
 
         return $this->signatureAlgorithm;
+    }
+
+    public function getPssHashAlgorithm(): ?string
+    {
+        return $this->pssHashAlgorithm;
     }
 }

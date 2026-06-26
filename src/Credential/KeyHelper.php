@@ -4,6 +4,7 @@ namespace LightSaml\Credential;
 
 use InvalidArgumentException;
 use LightSaml\Error\LightSamlSecurityException;
+use LightSaml\SamlConstants;
 use RobRichards\XMLSecLibs\XMLSecurityKey;
 
 class KeyHelper
@@ -30,10 +31,20 @@ class KeyHelper
      */
     public static function createPublicKey(X509Certificate $certificate)
     {
-        if (null == $certificate->getSignatureAlgorithm()) {
+        $algo = $certificate->getSignatureAlgorithm();
+        if (null == $algo) {
             throw new LightSamlSecurityException('Unrecognized certificate signature algorithm');
         }
-        $key = new XMLSecurityKey($certificate->getSignatureAlgorithm(), ['type' => 'public']);
+
+        if ($algo === SamlConstants::RSA_PSS) {
+            $hashAlgo = $certificate->getPssHashAlgorithm() ?? 'SHA256';
+            $key = new RsaPssKey($hashAlgo);
+            $key->loadKey($certificate->toPem(), false, true);
+
+            return $key;
+        }
+
+        $key = new XMLSecurityKey($algo, ['type' => 'public']);
         $key->loadKey($certificate->toPem(), false, true);
 
         return $key;
@@ -64,6 +75,14 @@ class KeyHelper
         }
         if (false == isset($keyInfo['key'])) {
             throw new LightSamlSecurityException('Missing key in public key details.');
+        }
+
+        if ($algorithm === SamlConstants::RSA_PSS) {
+            $hashAlgo = $key instanceof RsaPssKey ? $key->getPssDigest() : 'SHA256';
+            $newKey = new RsaPssKey($hashAlgo);
+            $newKey->loadKey($keyInfo['key']);
+
+            return $newKey;
         }
 
         $newKey = new XMLSecurityKey($algorithm, ['type' => 'public']);

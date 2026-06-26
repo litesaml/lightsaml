@@ -3,3 +3,4 @@
 /.phpunit.result.cache
 /.idea/
 /.php-cs-fixer.cache
+/.claude/settings.local.json
