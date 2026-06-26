@@ -6,7 +6,7 @@ use LightSaml\Action\Profile\Outbound\Message\SendMessageAction;
 use LightSaml\Context\Profile\MessageContext;
 use LightSaml\Model\Metadata\SingleSignOnService;
 use LightSaml\SamlConstants;
-use Symfony\Component\HttpFoundation\Response;
+use Nyholm\Psr7\Factory\Psr17Factory;
 use Tests\BaseTestCase;
 
 class SendMessageActionTest extends BaseTestCase
@@ -35,10 +35,13 @@ class SendMessageActionTest extends BaseTestCase
             ->with($bindingType)
             ->willReturn($bindingMock = $this->getBindingMock());
 
+        $psr17 = new Psr17Factory();
+        $response = $psr17->createResponse(200);
+
         $bindingMock->expects($this->once())
             ->method('send')
             ->with($this->isInstanceOf(MessageContext::class))
-            ->willReturn($response = new Response());
+            ->willReturn($response);
 
         $loggerMock->expects($this->once())
             ->method('info')

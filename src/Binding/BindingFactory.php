@@ -6,14 +6,17 @@ use LightSaml\Error\LightSamlBindingException;
 use LightSaml\SamlConstants;
 use LogicException;
 use Psr\EventDispatcher\EventDispatcherInterface;
-use Symfony\Component\HttpFoundation\Request;
+use Psr\Http\Message\ResponseFactoryInterface;
+use Psr\Http\Message\ServerRequestInterface;
+use Psr\Http\Message\StreamFactoryInterface;
 
 class BindingFactory implements BindingFactoryInterface
 {
-    /**
-     */
-    public function __construct(protected ?EventDispatcherInterface $eventDispatcher = null)
-    {
+    public function __construct(
+        protected ?EventDispatcherInterface $eventDispatcher = null,
+        protected ?ResponseFactoryInterface $responseFactory = null,
+        protected ?StreamFactoryInterface $streamFactory = null,
+    ) {
     }
 
     /**
@@ -29,7 +32,7 @@ class BindingFactory implements BindingFactoryInterface
     /**
      * @return AbstractBinding
      */
-    public function getBindingByRequest(Request $request)
+    public function getBindingByRequest(ServerRequestInterface $request)
     {
         $bindingType = $this->detectBindingType($request);
 
@@ -49,11 +52,11 @@ class BindingFactory implements BindingFactoryInterface
         $result = null;
         switch ($bindingType) {
             case SamlConstants::BINDING_SAML2_HTTP_REDIRECT:
-                $result = new HttpRedirectBinding();
+                $result = new HttpRedirectBinding($this->responseFactory);
                 break;
 
             case SamlConstants::BINDING_SAML2_HTTP_POST:
-                $result = new HttpPostBinding();
+                $result = new HttpPostBinding($this->responseFactory, $this->streamFactory);
                 break;
 
             case SamlConstants::BINDING_SAML2_HTTP_ARTIFACT:
@@ -74,7 +77,7 @@ class BindingFactory implements BindingFactoryInterface
     /**
      * @return string|null
      */
-    public function detectBindingType(Request $request)
+    public function detectBindingType(ServerRequestInterface $request)
     {
         $requestMethod = trim(strtoupper($request->getMethod()));
         if ('GET' === $requestMethod) {
@@ -89,9 +92,9 @@ class BindingFactory implements BindingFactoryInterface
     /**
      * @return string|null
      */
-    protected function processGET(Request $request)
+    protected function processGET(ServerRequestInterface $request)
     {
-        $get = $request->query->all();
+        $get = $request->getQueryParams();
         if (array_key_exists('SAMLRequest', $get) || array_key_exists('SAMLResponse', $get)) {
             return SamlConstants::BINDING_SAML2_HTTP_REDIRECT;
         } elseif (array_key_exists('SAMLart', $get)) {
@@ -104,19 +107,19 @@ class BindingFactory implements BindingFactoryInterface
     /**
      * @return string|null
      */
-    protected function processPOST(Request $request)
+    protected function processPOST(ServerRequestInterface $request)
     {
-        $post = $request->request->all();
+        $post = (array) ($request->getParsedBody() ?? []);
         if (array_key_exists('SAMLRequest', $post) || array_key_exists('SAMLResponse', $post)) {
             return SamlConstants::BINDING_SAML2_HTTP_POST;
         } elseif (array_key_exists('SAMLart', $post)) {
             return SamlConstants::BINDING_SAML2_HTTP_ARTIFACT;
-        } elseif ($contentType = $request->headers->get('CONTENT_TYPE')) {
+        } elseif ($contentType = $request->getHeaderLine('content-type')) {
             // Remove charset
             if (false !== $pos = strpos($contentType, ';')) {
                 $contentType = substr($contentType, 0, $pos);
             }
-            if ('text/xml' === $contentType) {
+            if ('text/xml' === trim($contentType)) {
                 return SamlConstants::BINDING_SAML2_SOAP;
             }
         }

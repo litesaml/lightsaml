@@ -8,8 +8,8 @@ use LightSaml\Binding\HttpRedirectBinding;
 use LightSaml\Error\LightSamlBindingException;
 use LightSaml\SamlConstants;
 use LogicException;
+use Nyholm\Psr7\Factory\Psr17Factory;
 use Psr\EventDispatcher\EventDispatcherInterface;
-use Symfony\Component\HttpFoundation\Request;
 use Tests\BaseTestCase;
 
 class BindingFactoryTest extends BaseTestCase
@@ -99,22 +99,22 @@ class BindingFactoryTest extends BaseTestCase
 
     public function test__detect_none_get()
     {
-        $request = new Request();
-        $request->setMethod('GET');
+        $factory = new Psr17Factory();
+        $request = $factory->createServerRequest('GET', '/');
 
-        $factory = new BindingFactory();
+        $bindingFactory = new BindingFactory();
 
-        $this->assertNull($factory->detectBindingType($request));
+        $this->assertNull($bindingFactory->detectBindingType($request));
     }
 
     public function test__detect_none_post()
     {
-        $request = new Request();
-        $request->setMethod('POST');
+        $factory = new Psr17Factory();
+        $request = $factory->createServerRequest('POST', '/');
 
-        $factory = new BindingFactory();
+        $bindingFactory = new BindingFactory();
 
-        $this->assertNull($factory->detectBindingType($request));
+        $this->assertNull($bindingFactory->detectBindingType($request));
     }
 
     public function test__get_binding_by_request_http_redirect()
@@ -141,63 +141,33 @@ class BindingFactoryTest extends BaseTestCase
         $this->assertEquals($eventDispatcher, $binding->getEventDispatcher());
     }
 
-    /**
-     * @return Request
-     */
     private function createHttpPostRequest()
     {
-        $request = new Request();
-        $request->request->add(['SAMLRequest' => 'request']);
-        $request->setMethod('POST');
-
-        return $request;
+        $factory = new Psr17Factory();
+        return $factory->createServerRequest('POST', '/')->withParsedBody(['SAMLRequest' => 'request']);
     }
 
-    /**
-     * @return Request
-     */
     private function createHttpRedirectRequest()
     {
-        $request = new Request();
-        $request->query->add(['SAMLRequest' => 'request']);
-        $request->setMethod('GET');
-
-        return $request;
+        $factory = new Psr17Factory();
+        return $factory->createServerRequest('GET', '/')->withQueryParams(['SAMLRequest' => 'request']);
     }
 
-    /**
-     * @return Request
-     */
     private function createArtifactPostRequest()
     {
-        $request = new Request();
-        $request->request->add(['SAMLart' => 'request']);
-        $request->setMethod('POST');
-
-        return $request;
+        $factory = new Psr17Factory();
+        return $factory->createServerRequest('POST', '/')->withParsedBody(['SAMLart' => 'request']);
     }
 
-    /**
-     * @return Request
-     */
     private function createArtifactGetRequest()
     {
-        $request = new Request();
-        $request->query->add(['SAMLart' => 'request']);
-        $request->setMethod('GET');
-
-        return $request;
+        $factory = new Psr17Factory();
+        return $factory->createServerRequest('GET', '/')->withQueryParams(['SAMLart' => 'request']);
     }
 
-    /**
-     * @return Request
-     */
     private function createSoapRequest()
     {
-        $request = new Request();
-        $request->setMethod('POST');
-        $request->headers->add(['CONTENT_TYPE' => 'text/xml; charset=utf-8']);
-
-        return $request;
+        $factory = new Psr17Factory();
+        return $factory->createServerRequest('POST', '/')->withHeader('Content-Type', 'text/xml; charset=utf-8');
     }
 }

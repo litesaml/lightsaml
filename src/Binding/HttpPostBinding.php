@@ -5,12 +5,21 @@ namespace LightSaml\Binding;
 use LightSaml\Context\Profile\Helper\MessageContextHelper;
 use LightSaml\Context\Profile\MessageContext;
 use LightSaml\Error\LightSamlBindingException;
+use LightSaml\Error\LightSamlMissingFactoryException;
 use LightSaml\Model\Protocol\AbstractRequest;
 use LightSaml\Model\Protocol\SamlMessage;
-use Symfony\Component\HttpFoundation\Request;
+use Psr\Http\Message\ResponseFactoryInterface;
+use Psr\Http\Message\ServerRequestInterface;
+use Psr\Http\Message\StreamFactoryInterface;
 
 class HttpPostBinding extends AbstractBinding
 {
+    public function __construct(
+        private readonly ?ResponseFactoryInterface $responseFactory = null,
+        private readonly ?StreamFactoryInterface $streamFactory = null,
+    ) {
+    }
+
     /**
      * @param string|null $destination
      *
@@ -18,6 +27,10 @@ class HttpPostBinding extends AbstractBinding
      */
     public function send(MessageContext $context, $destination = null)
     {
+        if (null === $this->responseFactory || null === $this->streamFactory) {
+            throw new LightSamlMissingFactoryException('ResponseFactory and StreamFactory must be provided to use send()');
+        }
+
         $message = MessageContextHelper::asSamlMessage($context);
         $destination = $message->getDestination() ?: $destination;
 
@@ -36,15 +49,17 @@ class HttpPostBinding extends AbstractBinding
             $data['RelayState'] = $message->getRelayState();
         }
 
-        $result = new SamlPostResponse($destination, $data);
-        $result->renderContent();
+        $html = SamlPostResponse::buildHtml($destination, $data);
+        $inner = $this->responseFactory->createResponse(200)
+            ->withBody($this->streamFactory->createStream($html))
+            ->withHeader('Content-Type', 'text/html; charset=utf-8');
 
-        return $result;
+        return new SamlPostResponse($inner, $destination, $data);
     }
 
-    public function receive(Request $request, MessageContext $context): SamlMessage
+    public function receive(ServerRequestInterface $request, MessageContext $context): SamlMessage
     {
-        $post = $request->request->all();
+        $post = (array) ($request->getParsedBody() ?? []);
         if (array_key_exists('SAMLRequest', $post)) {
             $msg = $post['SAMLRequest'];
         } elseif (array_key_exists('SAMLResponse', $post)) {

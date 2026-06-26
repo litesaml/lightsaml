@@ -7,7 +7,7 @@ use LightSaml\Meta\TrustOptions\TrustOptions;
 use LightSaml\Model\Metadata\Endpoint;
 use LightSaml\Model\Metadata\EntityDescriptor;
 use LightSaml\Model\Protocol\SamlMessage;
-use Symfony\Component\HttpFoundation\Request;
+use Psr\Http\Message\ServerRequestInterface;
 
 class ProfileContext extends AbstractProfileContext
 {
@@ -127,7 +127,7 @@ class ProfileContext extends AbstractProfileContext
     }
 
     /**
-     * @return Request
+     * @return ServerRequestInterface
      */
     public function getHttpRequest()
     {

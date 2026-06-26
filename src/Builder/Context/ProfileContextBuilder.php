@@ -5,11 +5,11 @@ namespace LightSaml\Builder\Context;
 use LightSaml\Context\Profile\ProfileContext;
 use LightSaml\Error\LightSamlBuildException;
 use LightSaml\Provider\EntityDescriptor\EntityDescriptorProviderInterface;
-use Symfony\Component\HttpFoundation\Request;
+use Psr\Http\Message\ServerRequestInterface;
 
 class ProfileContextBuilder
 {
-    /** @var Request */
+    /** @var ServerRequestInterface */
     private $request;
 
     /** @var EntityDescriptorProviderInterface */
@@ -22,7 +22,7 @@ class ProfileContextBuilder
     private $profileRole;
 
     /**
-     * @return Request
+     * @return ServerRequestInterface
      */
     public function getRequest()
     {
@@ -32,7 +32,7 @@ class ProfileContextBuilder
     /**
      * @return ProfileContextBuilder
      */
-    public function setRequest(Request $request)
+    public function setRequest(ServerRequestInterface $request)
     {
         $this->request = $request;
 

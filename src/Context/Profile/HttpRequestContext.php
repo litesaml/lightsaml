@@ -2,15 +2,15 @@
 
 namespace LightSaml\Context\Profile;
 
-use Symfony\Component\HttpFoundation\Request;
+use Psr\Http\Message\ServerRequestInterface;
 
 class HttpRequestContext extends AbstractProfileContext
 {
-    /** @var Request */
+    /** @var ServerRequestInterface */
     private $request;
 
     /**
-     * @return Request|null
+     * @return ServerRequestInterface|null
      */
     public function getRequest()
     {
@@ -20,7 +20,7 @@ class HttpRequestContext extends AbstractProfileContext
     /**
      * @return HttpRequestContext
      */
-    public function setRequest(Request $request)
+    public function setRequest(ServerRequestInterface $request)
     {
         $this->request = $request;
 

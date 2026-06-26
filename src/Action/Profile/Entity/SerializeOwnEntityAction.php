@@ -6,12 +6,22 @@ use LightSaml\Action\Profile\AbstractProfileAction;
 use LightSaml\Context\Profile\ProfileContext;
 use LightSaml\Context\Profile\ProfileContexts;
 use LightSaml\Model\Context\SerializationContext;
-use Symfony\Component\HttpFoundation\Response;
+use Psr\Http\Message\ResponseFactoryInterface;
+use Psr\Http\Message\StreamFactoryInterface;
+use Psr\Log\LoggerInterface;
 
 class SerializeOwnEntityAction extends AbstractProfileAction
 {
     /** @var string[] */
     protected $supportedContextTypes = ['application/samlmetadata+xml', 'application/xml', 'text/xml'];
+
+    public function __construct(
+        LoggerInterface $logger,
+        private readonly ResponseFactoryInterface $responseFactory,
+        private readonly StreamFactoryInterface $streamFactory,
+    ) {
+        parent::__construct($logger);
+    }
 
     protected function doExecute(ProfileContext $context)
     {
@@ -25,18 +35,20 @@ class SerializeOwnEntityAction extends AbstractProfileAction
 
         $xml = $serializationContext->getDocument()->saveXML();
 
-        $response = new Response($xml);
-
         $contentType = 'text/xml';
-        $acceptableContentTypes = array_flip($context->getHttpRequest()->getAcceptableContentTypes());
+        $acceptHeader = $context->getHttpRequest()->getHeaderLine('Accept');
+        $acceptParts = array_map('trim', explode(',', $acceptHeader));
+        $acceptableTypes = array_map(fn ($part) => trim(explode(';', $part)[0]), $acceptParts);
         foreach ($this->supportedContextTypes as $supportedContentType) {
-            if (isset($acceptableContentTypes[$supportedContentType])) {
+            if (in_array($supportedContentType, $acceptableTypes, true)) {
                 $contentType = $supportedContentType;
                 break;
             }
         }
 
-        $response->headers->replace(['Content-Type' => $contentType]);
+        $response = $this->responseFactory->createResponse(200)
+            ->withBody($this->streamFactory->createStream($xml))
+            ->withHeader('Content-Type', $contentType);
 
         $context->getHttpResponseContext()->setResponse($response);
     }

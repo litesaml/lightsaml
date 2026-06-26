@@ -8,8 +8,8 @@ use LightSaml\Error\LightSamlBuildException;
 use LightSaml\Model\Metadata\EntityDescriptor;
 use LightSaml\Profile\Profiles;
 use LightSaml\Provider\EntityDescriptor\FixedEntityDescriptorProvider;
+use Nyholm\Psr7\Factory\Psr17Factory;
 use PHPUnit\Framework\Attributes\DataProvider;
-use Symfony\Component\HttpFoundation\Request;
 use Tests\BaseTestCase;
 
 class ProfileContextBuilderTest extends BaseTestCase
@@ -22,8 +22,9 @@ class ProfileContextBuilderTest extends BaseTestCase
 
     public static function getters_setters_provider()
     {
+        $factory = new Psr17Factory();
         return [
-            [new Request(), 'setRequest', 'getRequest'],
+            [$factory->createServerRequest('GET', '/'), 'setRequest', 'getRequest'],
             [new FixedEntityDescriptorProvider(new EntityDescriptor()), 'setOwnEntityDescriptorProvider', 'getOwnEntityDescriptorProvider'],
             [Profiles::METADATA, 'setProfileId', 'getProfileId'],
             [ProfileContext::ROLE_IDP, 'setProfileRole', 'getProfileRole'],
@@ -51,8 +52,9 @@ class ProfileContextBuilderTest extends BaseTestCase
     {
         $this->expectExceptionMessage("Own EntityDescriptor not set");
         $this->expectException(LightSamlBuildException::class);
+        $factory = new Psr17Factory();
         $builder = new ProfileContextBuilder();
-        $builder->setRequest(new Request());
+        $builder->setRequest($factory->createServerRequest('GET', '/'));
 
         $builder->build();
     }
@@ -61,8 +63,9 @@ class ProfileContextBuilderTest extends BaseTestCase
     {
         $this->expectExceptionMessage("ProfileID not set");
         $this->expectException(LightSamlBuildException::class);
+        $factory = new Psr17Factory();
         $builder = new ProfileContextBuilder();
-        $builder->setRequest(new Request());
+        $builder->setRequest($factory->createServerRequest('GET', '/'));
         $builder->setOwnEntityDescriptorProvider(new FixedEntityDescriptorProvider(new EntityDescriptor()));
 
         $builder->build();
@@ -72,11 +75,31 @@ class ProfileContextBuilderTest extends BaseTestCase
     {
         $this->expectExceptionMessage("Profile role not set");
         $this->expectException(LightSamlBuildException::class);
+        $factory = new Psr17Factory();
         $builder = new ProfileContextBuilder();
-        $builder->setRequest(new Request());
+        $builder->setRequest($factory->createServerRequest('GET', '/'));
         $builder->setOwnEntityDescriptorProvider(new FixedEntityDescriptorProvider(new EntityDescriptor()));
         $builder->setProfileId(Profiles::METADATA);
 
         $builder->build();
+    }
+
+    public function test_build_returns_profile_context_with_request_injected()
+    {
+        $factory = new Psr17Factory();
+        $request = $factory->createServerRequest('POST', 'https://sp.example.com/acs');
+
+        $builder = new ProfileContextBuilder();
+        $builder->setRequest($request);
+        $builder->setOwnEntityDescriptorProvider(new FixedEntityDescriptorProvider(new EntityDescriptor('http://sp.example.com')));
+        $builder->setProfileId(Profiles::METADATA);
+        $builder->setProfileRole(ProfileContext::ROLE_SP);
+
+        $context = $builder->build();
+
+        $this->assertInstanceOf(ProfileContext::class, $context);
+        $this->assertSame($request, $context->getHttpRequest());
+        $this->assertSame(Profiles::METADATA, $context->getProfileId());
+        $this->assertSame(ProfileContext::ROLE_SP, $context->getOwnRole());
     }
 }

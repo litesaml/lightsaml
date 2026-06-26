@@ -7,7 +7,7 @@ use LightSaml\Context\Profile\ProfileContext;
 use LightSaml\Error\LightSamlBindingException;
 use LightSaml\Profile\Profiles;
 use LightSaml\SamlConstants;
-use Symfony\Component\HttpFoundation\Request;
+use Nyholm\Psr7\Factory\Psr17Factory;
 use Tests\BaseTestCase;
 
 class ReceiveMessageActionTest extends BaseTestCase
@@ -26,7 +26,8 @@ class ReceiveMessageActionTest extends BaseTestCase
 
         $context = new ProfileContext(Profiles::SSO_SP_SEND_AUTHN_REQUEST, ProfileContext::ROLE_SP);
 
-        $context->getHttpRequestContext()->setRequest($request = new Request());
+        $psr17 = new Psr17Factory();
+        $context->getHttpRequestContext()->setRequest($request = $psr17->createServerRequest('GET', '/'));
         $bindingFactory->expects($this->once())
             ->method('detectBindingType')
             ->with($request)
@@ -45,7 +46,8 @@ class ReceiveMessageActionTest extends BaseTestCase
         $action = new ReceiveMessageAction($logger = $this->getLoggerMock(), $bindingFactory = $this->getBindingFactoryMock());
 
         $context = new ProfileContext(Profiles::SSO_SP_SEND_AUTHN_REQUEST, ProfileContext::ROLE_SP);
-        $context->getHttpRequestContext()->setRequest($request = new Request());
+        $psr17 = new Psr17Factory();
+        $context->getHttpRequestContext()->setRequest($request = $psr17->createServerRequest('GET', '/'));
 
         $binding = $this->getBindingMock();
 
