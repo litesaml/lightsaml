@@ -14,10 +14,10 @@ use LightSaml\Model\Protocol\AuthnRequest;
 use LightSaml\Model\XmlDSig\AbstractSignatureReader;
 use LightSaml\Model\XmlDSig\SignatureStringReader;
 use LightSaml\Model\XmlDSig\SignatureWriter;
+use Nyholm\Psr7\Factory\Psr17Factory;
 use PHPUnit\Framework\MockObject\MockObject;
 use Psr\EventDispatcher\EventDispatcherInterface;
-use Symfony\Component\HttpFoundation\RedirectResponse;
-use Symfony\Component\HttpFoundation\Request;
+use Psr\Http\Message\ResponseInterface;
 use Tests\BaseTestCase;
 
 class HttpRedirectBindingFunctionalTest extends BaseTestCase
@@ -31,7 +31,8 @@ class HttpRedirectBindingFunctionalTest extends BaseTestCase
         $request->setRelayState($expectedRelayState);
         $request->setDestination($expectedDestination);
 
-        $biding = new HttpRedirectBinding();
+        $psr17 = new Psr17Factory();
+        $biding = new HttpRedirectBinding($psr17);
 
         $eventDispatcherMock = $this->getEventDispatcherMock();
         $eventDispatcherMock->expects($this->once())
@@ -50,12 +51,12 @@ class HttpRedirectBindingFunctionalTest extends BaseTestCase
         $messageContext = new MessageContext();
         $messageContext->setMessage($request);
 
-        /** @var RedirectResponse $response */
+        /** @var ResponseInterface $response */
         $response = $biding->send($messageContext);
 
-        $this->assertInstanceOf(RedirectResponse::class, $response);
+        $this->assertSame(302, $response->getStatusCode());
 
-        $url = $response->getTargetUrl();
+        $url = $response->getHeaderLine('Location');
         $this->assertNotEmpty($url);
 
         $urlInfo = parse_url($url);
@@ -99,17 +100,18 @@ class HttpRedirectBindingFunctionalTest extends BaseTestCase
 
         $request = $this->getAuthnRequest();
 
-        $biding = new HttpRedirectBinding();
+        $psr17 = new Psr17Factory();
+        $biding = new HttpRedirectBinding($psr17);
 
         $messageContext = new MessageContext();
         $messageContext->setMessage($request);
 
-        /** @var RedirectResponse $response */
+        /** @var ResponseInterface $response */
         $response = $biding->send($messageContext, $expectedDestination);
 
-        $this->assertInstanceOf(RedirectResponse::class, $response);
+        $this->assertSame(302, $response->getStatusCode());
 
-        $url = $response->getTargetUrl();
+        $url = $response->getHeaderLine('Location');
         $this->assertNotEmpty($url);
 
         $urlInfo = parse_url($url);
@@ -121,7 +123,8 @@ class HttpRedirectBindingFunctionalTest extends BaseTestCase
     {
         $expectedRelayState = 'relayState';
 
-        $binding = new HttpRedirectBinding();
+        $psr17 = new Psr17Factory();
+        $binding = new HttpRedirectBinding($psr17);
 
         $eventDispatcherMock = $this->getEventDispatcherMock();
         $eventDispatcherMock->expects($this->once())
@@ -137,11 +140,12 @@ class HttpRedirectBindingFunctionalTest extends BaseTestCase
         $binding->setEventDispatcher($eventDispatcherMock);
         $this->assertSame($eventDispatcherMock, $binding->getEventDispatcher());
 
-        $request = new Request();
-        $request->server->add(['QUERY_STRING' => 'SAMLRequest=' . urlencode('RY/NCsIwEITvPkXI3TaptY3BKkIvBb2oePAiMUmxYBPtbsXHdxFEGBgY5tuf5frd39nLD9DFUHGZCL5eTZabEW9h75+jB2TUCFDxcQg6GuhAB9N70Gj1YbPb6iwR+jFEjDbeOWvqil+Us7ZYqHlbuEU7IxfXq8vnReZblSvfzowvlVOlKzk7/XbTHMIBRt8EQBOQIiHzqZCko8y0EKQzZzUd1QWDX+qG+ACdpu4fJjb2qaEPeLqafAA=')
-                            . '&RelayState=' . urlencode($expectedRelayState)
-                            . '&SigAlg=' . urlencode('http://www.w3.org/2000/09/xmldsig#rsa-sha1')
-                            . '&Signature=' . urlencode('SI4nZH+9tjLO24k2La/v5DJ/OfGWw/nKKc/Nh8ih/AN71HuIzFl30F3Va+pDOidRYgJ8dIB2Juf5DIQYggDz+AiR/NI9gkAIGKRYZ3bhBPzC0XVtTQ075Qxwa3HWimh2Lywj7WV0QANOptodnjp1aUf4SuSHfEYrcWTf5C0gOZhiXT7XIQH0wpL1BdLwaePlduVCfaaMq2iNadNFBHi2+d9+FrCHyxYdmR8r5CbNg1vNEHj1xYwWUMBEtvJIYAt116++ei78dQYKlv5Mz98pTB1bkjRtONh+w7Mdy1gGT+D/gDz1kl+kAfxIT6D2x54GFBKM01gAGRUrb0Z6j2Nn6Q==')]);
+        $rawQuery = 'SAMLRequest=' . urlencode('RY/NCsIwEITvPkXI3TaptY3BKkIvBb2oePAiMUmxYBPtbsXHdxFEGBgY5tuf5frd39nLD9DFUHGZCL5eTZabEW9h75+jB2TUCFDxcQg6GuhAB9N70Gj1YbPb6iwR+jFEjDbeOWvqil+Us7ZYqHlbuEU7IxfXq8vnReZblSvfzowvlVOlKzk7/XbTHMIBRt8EQBOQIiHzqZCko8y0EKQzZzUd1QWDX+qG+ACdpu4fJjb2qaEPeLqafAA=')
+            . '&RelayState=' . urlencode($expectedRelayState)
+            . '&SigAlg=' . urlencode('http://www.w3.org/2000/09/xmldsig#rsa-sha1')
+            . '&Signature=' . urlencode('SI4nZH+9tjLO24k2La/v5DJ/OfGWw/nKKc/Nh8ih/AN71HuIzFl30F3Va+pDOidRYgJ8dIB2Juf5DIQYggDz+AiR/NI9gkAIGKRYZ3bhBPzC0XVtTQ075Qxwa3HWimh2Lywj7WV0QANOptodnjp1aUf4SuSHfEYrcWTf5C0gOZhiXT7XIQH0wpL1BdLwaePlduVCfaaMq2iNadNFBHi2+d9+FrCHyxYdmR8r5CbNg1vNEHj1xYwWUMBEtvJIYAt116++ei78dQYKlv5Mz98pTB1bkjRtONh+w7Mdy1gGT+D/gDz1kl+kAfxIT6D2x54GFBKM01gAGRUrb0Z6j2Nn6Q==');
+
+        $request = $psr17->createServerRequest('GET', '/?' . $rawQuery);
 
         $messageContext = new MessageContext();
         $binding->receive($request, $messageContext);

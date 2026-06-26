@@ -2,37 +2,28 @@
 
 namespace LightSaml\Binding;
 
-use Symfony\Component\HttpFoundation\Response;
+use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\StreamInterface;
 
-class SamlPostResponse extends Response
+class SamlPostResponse implements ResponseInterface
 {
-    /**
-     * @param string $destination
-     * @param int    $status
-     * @param array  $headers
-     */
-    public function __construct(protected $destination, protected array $data, $status = 200, $headers = [])
-    {
-        parent::__construct('', $status, $headers);
-    }
+    public function __construct(
+        private ResponseInterface $inner,
+        private readonly ?string $destination,
+        private readonly array $data
+    ) {}
 
-    /**
-     * @return array
-     */
-    public function getData()
+    public function getData(): array
     {
         return $this->data;
     }
 
-    /**
-     * @return string
-     */
-    public function getDestination()
+    public function getDestination(): ?string
     {
         return $this->destination;
     }
 
-    public function renderContent()
+    public static function buildHtml(?string $destination, array $data): string
     {
         $content = <<<'EOT'
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
@@ -62,7 +53,7 @@ class SamlPostResponse extends Response
 </html>
 EOT;
         $fields = '';
-        foreach ($this->data as $name => $value) {
+        foreach ($data as $name => $value) {
             $fields .= sprintf(
                 '<input type="hidden" name="%s" value="%s" />',
                 htmlspecialchars($name),
@@ -70,8 +61,94 @@ EOT;
             );
         }
 
-        $content = sprintf($content, htmlspecialchars($this->destination ?? ''), $fields);
+        return sprintf($content, htmlspecialchars($destination ?? ''), $fields);
+    }
 
-        $this->setContent($content);
+    public function getStatusCode(): int
+    {
+        return $this->inner->getStatusCode();
+    }
+
+    public function withStatus(int $code, string $reasonPhrase = ''): static
+    {
+        $clone = clone $this;
+        $clone->inner = $this->inner->withStatus($code, $reasonPhrase);
+
+        return $clone;
+    }
+
+    public function getReasonPhrase(): string
+    {
+        return $this->inner->getReasonPhrase();
+    }
+
+    public function getProtocolVersion(): string
+    {
+        return $this->inner->getProtocolVersion();
+    }
+
+    public function withProtocolVersion(string $version): static
+    {
+        $clone = clone $this;
+        $clone->inner = $this->inner->withProtocolVersion($version);
+
+        return $clone;
+    }
+
+    public function getHeaders(): array
+    {
+        return $this->inner->getHeaders();
+    }
+
+    public function hasHeader(string $name): bool
+    {
+        return $this->inner->hasHeader($name);
+    }
+
+    public function getHeader(string $name): array
+    {
+        return $this->inner->getHeader($name);
+    }
+
+    public function getHeaderLine(string $name): string
+    {
+        return $this->inner->getHeaderLine($name);
+    }
+
+    public function withHeader(string $name, $value): static
+    {
+        $clone = clone $this;
+        $clone->inner = $this->inner->withHeader($name, $value);
+
+        return $clone;
+    }
+
+    public function withAddedHeader(string $name, $value): static
+    {
+        $clone = clone $this;
+        $clone->inner = $this->inner->withAddedHeader($name, $value);
+
+        return $clone;
+    }
+
+    public function withoutHeader(string $name): static
+    {
+        $clone = clone $this;
+        $clone->inner = $this->inner->withoutHeader($name);
+
+        return $clone;
+    }
+
+    public function getBody(): StreamInterface
+    {
+        return $this->inner->getBody();
+    }
+
+    public function withBody(StreamInterface $body): static
+    {
+        $clone = clone $this;
+        $clone->inner = $this->inner->withBody($body);
+
+        return $clone;
     }
 }

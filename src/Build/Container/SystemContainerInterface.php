@@ -4,21 +4,27 @@ namespace LightSaml\Build\Container;
 
 use LightSaml\Provider\TimeProvider\TimeProviderInterface;
 use Psr\EventDispatcher\EventDispatcherInterface;
+use Psr\Http\Message\ResponseFactoryInterface;
+use Psr\Http\Message\ServerRequestInterface;
+use Psr\Http\Message\StreamFactoryInterface;
 use Psr\Log\LoggerInterface;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 interface SystemContainerInterface
 {
     /**
-     * @return Request
+     * @return ServerRequestInterface
      */
     public function getRequest();
 
     /**
-     * @return SessionInterface
+     * @return ResponseFactoryInterface
      */
-    public function getSession();
+    public function getResponseFactory();
+
+    /**
+     * @return StreamFactoryInterface
+     */
+    public function getStreamFactory();
 
     /**
      * @return TimeProviderInterface

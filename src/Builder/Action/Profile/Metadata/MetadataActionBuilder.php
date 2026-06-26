@@ -12,6 +12,11 @@ class MetadataActionBuilder extends AbstractProfileActionBuilder
      */
     protected function doInitialize()
     {
-        $this->add(new SerializeOwnEntityAction($this->buildContainer->getSystemContainer()->getLogger()), 100);
+        $container = $this->buildContainer->getSystemContainer();
+        $this->add(new SerializeOwnEntityAction(
+            $container->getLogger(),
+            $container->getResponseFactory(),
+            $container->getStreamFactory()
+        ), 100);
     }
 }

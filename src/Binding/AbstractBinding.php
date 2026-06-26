@@ -7,8 +7,8 @@ use LightSaml\Event\MessageReceived;
 use LightSaml\Event\MessageSent;
 use LightSaml\Model\Protocol\SamlMessage;
 use Psr\EventDispatcher\EventDispatcherInterface;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
+use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\ServerRequestInterface;
 
 abstract class AbstractBinding
 {
@@ -56,9 +56,9 @@ abstract class AbstractBinding
     /**
      * @param string|null $destination
      *
-     * @return Response
+     * @return ResponseInterface
      */
     abstract public function send(MessageContext $context, $destination = null);
 
-    abstract public function receive(Request $request, MessageContext $context): SamlMessage;
+    abstract public function receive(ServerRequestInterface $request, MessageContext $context): SamlMessage;
 }

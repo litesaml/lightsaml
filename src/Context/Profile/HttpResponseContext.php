@@ -2,15 +2,15 @@
 
 namespace LightSaml\Context\Profile;
 
-use Symfony\Component\HttpFoundation\Response;
+use Psr\Http\Message\ResponseInterface;
 
 class HttpResponseContext extends AbstractProfileContext
 {
-    /** @var Response */
+    /** @var ResponseInterface */
     private $response;
 
     /**
-     * @return Response|null
+     * @return ResponseInterface|null
      */
     public function getResponse()
     {
@@ -20,7 +20,7 @@ class HttpResponseContext extends AbstractProfileContext
     /**
      * @return HttpResponseContext
      */
-    public function setResponse(Response $response)
+    public function setResponse(ResponseInterface $response)
     {
         $this->response = $response;
 

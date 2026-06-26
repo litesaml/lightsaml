@@ -16,8 +16,8 @@ use LightSaml\Model\Metadata\EntityDescriptor;
 use LightSaml\Model\Protocol\SamlMessage;
 use LightSaml\Profile\Profiles;
 use LightSaml\State\Sso\SsoSessionState;
+use Nyholm\Psr7\Factory\Psr17Factory;
 use PHPUnit\Framework\Attributes\DataProvider;
-use Symfony\Component\HttpFoundation\Request;
 use Tests\BaseTestCase;
 
 class ProfileContextTest extends BaseTestCase
@@ -69,8 +69,9 @@ class ProfileContextTest extends BaseTestCase
 
     public function test__get_http_request_returns_from_context()
     {
+        $factory = new Psr17Factory();
         $profileContext = new ProfileContext(Profiles::METADATA, ProfileContext::ROLE_IDP);
-        $profileContext->getHttpRequestContext()->setRequest($expectedValue = new Request());
+        $profileContext->getHttpRequestContext()->setRequest($expectedValue = $factory->createServerRequest('GET', '/'));
         $this->assertSame($expectedValue, $profileContext->getHttpRequest());
     }
 
