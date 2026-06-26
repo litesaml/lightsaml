@@ -5,6 +5,7 @@ namespace LightSaml\Binding;
 use LightSaml\Context\Profile\MessageContext;
 use LightSaml\Event\MessageReceived;
 use LightSaml\Event\MessageSent;
+use LightSaml\Model\Protocol\SamlMessage;
 use Psr\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -59,5 +60,5 @@ abstract class AbstractBinding
      */
     abstract public function send(MessageContext $context, $destination = null);
 
-    abstract public function receive(Request $request, MessageContext $context);
+    abstract public function receive(Request $request, MessageContext $context): SamlMessage;
 }

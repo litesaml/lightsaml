@@ -32,11 +32,13 @@ class HttpRedirectBinding extends AbstractBinding
         return new RedirectResponse($url);
     }
 
-    public function receive(Request $request, MessageContext $context)
+    public function receive(Request $request, MessageContext $context): SamlMessage
     {
         $data = $this->parseQuery($request);
 
         $this->processData($data, $context);
+
+        return $context->getMessage();
     }
 
     /**
