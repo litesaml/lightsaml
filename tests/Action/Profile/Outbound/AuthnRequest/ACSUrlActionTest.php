@@ -5,7 +5,6 @@ namespace Tests\Action\Profile\Outbound\AuthnRequest;
 use LightSaml\Action\Profile\Outbound\AuthnRequest\ACSUrlAction;
 use LightSaml\Context\Profile\ProfileContext;
 use LightSaml\Criteria\CriteriaSet;
-use LightSaml\Error\LightSamlContextException;
 use LightSaml\Model\Metadata\AssertionConsumerService;
 use LightSaml\Model\Metadata\EntityDescriptor;
 use LightSaml\Model\Metadata\SpSsoDescriptor;
@@ -63,10 +62,8 @@ class ACSUrlActionTest extends BaseTestCase
         $this->assertEquals($endpoint->getLocation(), $authnRequest->getAssertionConsumerServiceURL());
     }
 
-    public function test_throws_context_exception_if_no_own_acs_service()
+    public function test_skips_silently_if_no_own_acs_service()
     {
-        $this->expectExceptionMessage("Missing ACS Service with HTTP POST binding in own SP SSO Descriptor");
-        $this->expectException(LightSamlContextException::class);
         $action = new ACSUrlAction(
             $loggerMock = $this->getLoggerMock(),
             $endpointResolverMock = $this->getEndpointResolverMock()
@@ -74,6 +71,7 @@ class ACSUrlActionTest extends BaseTestCase
 
         $context = new ProfileContext(Profiles::SSO_SP_SEND_AUTHN_REQUEST, ProfileContext::ROLE_SP);
         $context->getOwnEntityContext()->setEntityDescriptor($entityDescriptorMock = $this->getEntityDescriptorMock());
+        $context->getOutboundContext()->setMessage($authnRequest = new AuthnRequest());
 
         $entityDescriptorMock->expects($this->once())
             ->method('getAllEndpoints')
@@ -84,9 +82,11 @@ class ACSUrlActionTest extends BaseTestCase
             ->willReturn([]);
 
         $loggerMock->expects($this->once())
-            ->method('error');
+            ->method('debug');
 
         $action->execute($context);
+
+        $this->assertNull($authnRequest->getAssertionConsumerServiceURL());
     }
 
     /**

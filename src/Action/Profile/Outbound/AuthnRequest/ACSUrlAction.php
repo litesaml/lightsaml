@@ -7,7 +7,6 @@ use LightSaml\Context\Profile\Helper\LogHelper;
 use LightSaml\Context\Profile\Helper\MessageContextHelper;
 use LightSaml\Context\Profile\ProfileContext;
 use LightSaml\Criteria\CriteriaSet;
-use LightSaml\Error\LightSamlContextException;
 use LightSaml\Model\Metadata\AssertionConsumerService;
 use LightSaml\Model\Metadata\SpSsoDescriptor;
 use LightSaml\Resolver\Endpoint\Criteria\BindingCriteria;
@@ -17,7 +16,6 @@ use LightSaml\Resolver\Endpoint\EndpointResolverInterface;
 use LightSaml\SamlConstants;
 use Psr\Log\LoggerInterface;
 
-// TODO ACSUrlAction not used in profile builder, has to be added
 class ACSUrlAction extends AbstractProfileAction
 {
     public function __construct(LoggerInterface $logger, private readonly EndpointResolverInterface $endpointResolver)
@@ -37,9 +35,12 @@ class ACSUrlAction extends AbstractProfileAction
 
         $endpoints = $this->endpointResolver->resolve($criteriaSet, $ownEntityDescriptor->getAllEndpoints());
         if (empty($endpoints)) {
-            $message = 'Missing ACS Service with HTTP POST binding in own SP SSO Descriptor';
-            $this->logger->error($message, LogHelper::getActionErrorContext($context, $this));
-            throw new LightSamlContextException($context, $message);
+            $this->logger->debug(
+                'No ACS Service with HTTP POST binding found in own SP SSO Descriptor, skipping ACS URL',
+                LogHelper::getActionErrorContext($context, $this)
+            );
+
+            return;
         }
 
         MessageContextHelper::asAuthnRequest($context->getOutboundContext())
