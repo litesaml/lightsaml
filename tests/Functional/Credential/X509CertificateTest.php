@@ -3,6 +3,7 @@
 namespace Tests\Functional\Credential;
 
 use LightSaml\Credential\X509Certificate;
+use LightSaml\Credential\RsaPssKey;
 use LightSaml\SamlConstants;
 use RobRichards\XMLSecLibs\XMLSecurityKey;
 use Tests\BaseTestCase;
@@ -44,6 +45,21 @@ class X509CertificateTest extends BaseTestCase
     {
         $certificate = X509Certificate::fromFile(__DIR__ . '/../../resources/saml-md5.crt');
         $this->assertEquals(SamlConstants::XMLDSIG_DIGEST_MD5, $certificate->getSignatureAlgorithm());
+    }
+
+    public function test_algorithm_pss()
+    {
+        $certificate = X509Certificate::fromFile(__DIR__ . '/../../resources/saml-pss.crt');
+        $this->assertEquals(SamlConstants::RSA_PSS, $certificate->getSignatureAlgorithm());
+        $this->assertEquals('SHA256', $certificate->getPssHashAlgorithm());
+    }
+
+    public function test_create_public_key_from_pss_certificate()
+    {
+        $certificate = X509Certificate::fromFile(__DIR__ . '/../../resources/saml-pss.crt');
+        $key = \LightSaml\Credential\KeyHelper::createPublicKey($certificate);
+        $this->assertInstanceOf(RsaPssKey::class, $key);
+        $this->assertEquals(SamlConstants::RSA_PSS, $key->type);
     }
 
     public function test_get_subject()

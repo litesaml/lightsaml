@@ -70,6 +70,8 @@ abstract class SamlConstants
 
     public const XMLDSIG_DIGEST_MD5 = 'http://www.w3.org/2001/04/xmldsig-more#md5';
 
+    public const RSA_PSS = 'http://www.w3.org/2007/05/xmldsig-more#rsa-pss';
+
     public const ATTRIBUTE_NAME_FORMAT_UNSPECIFIED = 'urn:oasis:names:tc:SAML:2.0:attrname-format:unspecified';
 
     /**
