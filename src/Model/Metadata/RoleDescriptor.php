@@ -10,6 +10,7 @@ use LightSaml\Model\AbstractSamlModel;
 use LightSaml\Model\Context\DeserializationContext;
 use LightSaml\Model\Context\SerializationContext;
 use LightSaml\Model\XmlDSig\Signature;
+use LightSaml\Model\XmlDSig\SignatureXmlReader;
 use LightSaml\SamlConstants;
 
 abstract class RoleDescriptor extends AbstractSamlModel
@@ -319,7 +320,7 @@ abstract class RoleDescriptor extends AbstractSamlModel
             $context,
             'Signature',
             'ds',
-            Signature::class,
+            SignatureXmlReader::class,
             'addSignature'
         );
         $this->manyElementsFromXml(
