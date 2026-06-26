@@ -8,7 +8,7 @@ certificates support, and message encapsulations to bindings. Covered with unit 
 
 ## Installation
 
-This package requires `php:^8.1`
+This package requires `php:^8.4`
 
 You can install it via composer:
 
