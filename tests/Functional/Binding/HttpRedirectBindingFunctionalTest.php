@@ -75,9 +75,9 @@ class HttpRedirectBindingFunctionalTest extends BaseTestCase
             $query['SAMLRequest']
         );
         $this->assertEquals($expectedRelayState, $query['RelayState']);
-        $this->assertEquals('http://www.w3.org/2000/09/xmldsig#rsa-sha1', $query['SigAlg']);
+        $this->assertEquals('http://www.w3.org/2001/04/xmldsig-more#rsa-sha256', $query['SigAlg']);
         $this->assertEquals(
-            'tm8dkiHro6oQkvleMAeAIWOLGKn116VVs/lRM+QpeR3YuKCjXcNFhI4xIunGYhfF+f2Li0GNdh6PqoyX3YVd7KVbm5hDTstJwx+PRYzMiBqwNMB5wCTtbZMiBiYbCT28ANU9ObWnYXbfKVNQJq/z8Uj2PFPXr+gVy30ttIXlHFKmGnYAwrlTEEYRDZ4clJ2tNEIxHZwwqHuPy1sd2xdWT8uKHJeRxTbvF2Vzw6ytzFeyQBIIPy/lk46czhi5a8uOb89y0XrDgSqHlwv2Vk/a5iWdYla235vWjAfuKSj6wD9Z0PnyNVPxlCl4B2bnRCWq1XBzYwsS12RYvd0vhO8DEA==',
+            'ACYzxh5RjdIT+qz5oDgksPLSqUhKok5HykqjvNencaoppaAmHvclM5Wp98B/6Pym2rqjxzqaUQalI5+1X5lSvpQLp4GxfBDMWftRjVg+LFd0LsgdAVRtpVfeLtbX3BDhKN7abpyETXLvYMNciKOt8v7aFLKRzNC/2jhGlctOMubC2LtEKcAK5eO2vbV7bdSsQLTQFS3949bQrfVr0Mr+7E2eytWW17U/sUt0W6WPeiB4TPQLfPtYN/tSn0982XHyS/Y8CNBrX1iMDg5/35DlWZR/2NNzCB1IJImqOx/TF9v1IGvOVlcTzPaCeoVBbdAAaRLlFdFqvawjsCd1uju83g==',
             $query['Signature']
         );
 

@@ -46,7 +46,7 @@ class SignatureStringReaderTest extends BaseTestCase
         $data = 'Some message data';
         $signature = base64_encode($privateKey->signData($data));
 
-        $reader = new SignatureStringReader($signature, $publicKey->type, $data);
+        $reader = new SignatureStringReader($signature, $privateKey->type, $data);
         $result = $reader->validate($publicKey);
         $this->assertTrue($result);
     }
