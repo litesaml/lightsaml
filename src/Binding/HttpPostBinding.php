@@ -42,7 +42,7 @@ class HttpPostBinding extends AbstractBinding
         return $result;
     }
 
-    public function receive(Request $request, MessageContext $context)
+    public function receive(Request $request, MessageContext $context): SamlMessage
     {
         $post = $request->request->all();
         if (array_key_exists('SAMLRequest', $post)) {
@@ -70,5 +70,7 @@ class HttpPostBinding extends AbstractBinding
         }
 
         $context->setMessage($result);
+
+        return $result;
     }
 }
