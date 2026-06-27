@@ -9,9 +9,6 @@ use Serializable;
 
 class ParameterBag implements IteratorAggregate, Countable, Serializable
 {
-    /**
-     * @param array $parameters An array of parameters
-     */
     public function __construct(protected array $parameters = [])
     {
     }
@@ -31,44 +28,26 @@ class ParameterBag implements IteratorAggregate, Countable, Serializable
         $this->parameters = $parameters;
     }
 
-    /**
-     * Adds parameters.
-     */
     public function add(array $parameters = []): void
     {
         $this->parameters = array_replace($this->parameters, $parameters);
     }
 
-    /**
-     * Returns a parameter by name.
-     */
     public function get(string $key, mixed $default = null): mixed
     {
         return array_key_exists($key, $this->parameters) ? $this->parameters[$key] : $default;
     }
 
-    /**
-     * Sets a parameter by name.
-     */
     public function set(string $key, mixed $value): void
     {
         $this->parameters[$key] = $value;
     }
 
-    /**
-     * Returns true if the parameter is defined.
-     *
-     *
-     * @return bool true if the parameter exists, false otherwise
-     */
     public function has(string $key): bool
     {
         return array_key_exists($key, $this->parameters);
     }
 
-    /**
-     * Removes a parameter.
-     */
     public function remove(string $key): void
     {
         unset($this->parameters[$key]);

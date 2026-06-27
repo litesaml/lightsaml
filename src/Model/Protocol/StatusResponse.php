@@ -12,7 +12,6 @@ abstract class StatusResponse extends SamlMessage
 
     protected ?Status $status = null;
 
-    
     public function setInResponseTo(string $inResponseTo): \LightSaml\Model\Protocol\StatusResponse
     {
         $this->inResponseTo = $inResponseTo;

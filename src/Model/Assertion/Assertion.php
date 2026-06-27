@@ -15,17 +15,11 @@ use LightSaml\SamlConstants;
 
 class Assertion extends AbstractSamlModel
 {
-    //region Attributes
-
     protected ?string $id = null;
 
     protected ?string $version = SamlConstants::VERSION_20;
 
     protected ?int $issueInstant = null;
-
-    //endregion
-
-    //region Elements
 
     protected ?Issuer $issuer = null;
 
@@ -38,12 +32,6 @@ class Assertion extends AbstractSamlModel
     /** @var AbstractStatement[]|AuthnStatement[]|AttributeStatement[] */
     protected array $items = [];
 
-    //endregion
-    /**
-     * Core 3.3.4 Processing rules.
-     *
-     *
-     */
     public function equals(string $nameId, ?string $format): bool
     {
         if (false == $this->getSubject()) {
@@ -90,7 +78,6 @@ class Assertion extends AbstractSamlModel
         return false;
     }
 
-    //region Getters & Setters
     public function setConditions(?Conditions $conditions = null): static
     {
         $this->conditions = $conditions;
@@ -263,7 +250,6 @@ class Assertion extends AbstractSamlModel
         return null;
     }
 
-    //endregion
     public function hasBearerSubject(): bool
     {
         return $this->getAllAuthnStatements() && $this->getSubject() && $this->getSubject()->getBearerConfirmations();

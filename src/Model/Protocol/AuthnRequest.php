@@ -11,8 +11,6 @@ use LightSaml\SamlConstants;
 
 class AuthnRequest extends AbstractRequest
 {
-    //region Attributes
-
     protected ?bool $forceAuthn = null;
 
     protected ?bool $isPassive = null;
@@ -26,10 +24,6 @@ class AuthnRequest extends AbstractRequest
     protected ?string $protocolBinding = null;
 
     protected ?string $providerName = null;
-
-    //endregion
-
-    //region Elements
 
     protected ?Conditions $conditions = null;
 
@@ -179,7 +173,6 @@ class AuthnRequest extends AbstractRequest
         return $this->assertionConsumerServiceIndex;
     }
 
-    //endregion
     public function serialize(DOMNode $parent, SerializationContext $context): void
     {
         $result = $this->createElement('AuthnRequest', SamlConstants::NS_PROTOCOL, $parent, $context);

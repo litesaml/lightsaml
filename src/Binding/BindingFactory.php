@@ -19,9 +19,6 @@ class BindingFactory implements BindingFactoryInterface
     ) {
     }
 
-    /**
-     * @return BindingFactoryInterface
-     */
     public function setEventDispatcher(?EventDispatcherInterface $eventDispatcher = null): static
     {
         $this->eventDispatcher = $eventDispatcher;
