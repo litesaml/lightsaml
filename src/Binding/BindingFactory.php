@@ -29,10 +29,7 @@ class BindingFactory implements BindingFactoryInterface
         return $this;
     }
 
-    /**
-     * @return AbstractBinding
-     */
-    public function getBindingByRequest(ServerRequestInterface $request): \LightSaml\Binding\HttpPostBinding|\LightSaml\Binding\HttpRedirectBinding
+    public function getBindingByRequest(ServerRequestInterface $request): AbstractBinding
     {
         $bindingType = $this->detectBindingType($request);
 
@@ -40,12 +37,10 @@ class BindingFactory implements BindingFactoryInterface
     }
 
     /**
-     *
      * @throws LogicException
      * @throws LightSamlBindingException
-     * @return AbstractBinding
      */
-    public function create(string $bindingType): \LightSaml\Binding\HttpPostBinding|\LightSaml\Binding\HttpRedirectBinding
+    public function create(string $bindingType): AbstractBinding
     {
         $result = null;
         switch ($bindingType) {
@@ -103,7 +98,7 @@ class BindingFactory implements BindingFactoryInterface
             return SamlConstants::BINDING_SAML2_HTTP_POST;
         } elseif (array_key_exists('SAMLart', $post)) {
             return SamlConstants::BINDING_SAML2_HTTP_ARTIFACT;
-        } elseif (($contentType = $request->getHeaderLine('content-type')) !== '' && ($contentType = $request->getHeaderLine('content-type')) !== '0') {
+        } elseif (($contentType = $request->getHeaderLine('content-type')) !== '') {
             // Remove charset
             if (false !== $pos = strpos($contentType, ';')) {
                 $contentType = substr($contentType, 0, $pos);

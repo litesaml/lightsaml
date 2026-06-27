@@ -43,7 +43,7 @@ class DestinationValidatorAuthnRequestActionTest extends BaseTestCase
     {
         $context = new ProfileContext(Profiles::SSO_IDP_RECEIVE_AUTHN_REQUEST, $ownRole);
         $context->getInboundContext()->setMessage(new AuthnRequest());
-        if ($destination !== '' && $destination !== '0') {
+        if ($destination !== '') {
             $context->getInboundMessage()->setDestination($destination);
         }
 

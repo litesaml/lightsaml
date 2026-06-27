@@ -2,7 +2,6 @@
 
 namespace LightSaml\Builder\Action;
 
-use InvalidArgumentException;
 use LightSaml\Action\ActionInterface;
 use LightSaml\Action\CompositeAction;
 
@@ -13,18 +12,15 @@ class CompositeActionBuilder implements ActionBuilderInterface
      */
     private array $actions = [];
 
-    /** @var int */
-    protected $increaseStep = 5;
+    protected int $increaseStep = 5;
 
     private int $biggestPriority = 0;
 
-    public function add(ActionInterface $action, int|bool $priority = false): static
+    public function add(ActionInterface $action, ?int $priority = null): static
     {
-        if (false === $priority) {
+        if (null === $priority) {
             ++$this->biggestPriority;
             $priority = $this->biggestPriority;
-        } elseif (false === is_int($priority)) {
-            throw new InvalidArgumentException('Expected integer value for priority');
         } elseif ($priority > $this->biggestPriority) {
             $this->biggestPriority = $priority;
         }

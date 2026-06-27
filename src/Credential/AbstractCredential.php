@@ -104,9 +104,6 @@ abstract class AbstractCredential implements CredentialInterface
         return $this;
     }
 
-    /**
-     * @param XMLSecurityKey|null $privateKey
-     */
     public function setPrivateKey(XMLSecurityKey $privateKey): \LightSaml\Credential\AbstractCredential
     {
         $this->privateKey = $privateKey;
@@ -114,9 +111,6 @@ abstract class AbstractCredential implements CredentialInterface
         return $this;
     }
 
-    /**
-     * @param XMLSecurityKey|null $publicKey
-     */
     public function setPublicKey(XMLSecurityKey $publicKey): \LightSaml\Credential\AbstractCredential
     {
         $this->publicKey = $publicKey;

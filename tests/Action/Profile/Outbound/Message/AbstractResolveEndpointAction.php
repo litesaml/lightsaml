@@ -94,7 +94,7 @@ abstract class AbstractResolveEndpointAction extends BaseTestCase
 
     protected function criteriaSetShouldHaveDescriptorTypeCriteria(CriteriaSet $criteriaSet, string $value)
     {
-        if ($value !== '' && $value !== '0') {
+        if ($value !== '') {
             $this->assertTrue($criteriaSet->has(DescriptorTypeCriteria::class));
             /** @var DescriptorTypeCriteria $criteria */
             $criteria = $criteriaSet->getSingle(DescriptorTypeCriteria::class);
@@ -106,7 +106,7 @@ abstract class AbstractResolveEndpointAction extends BaseTestCase
 
     protected function criteriaSetShouldHaveServiceTypeCriteria(CriteriaSet $criteriaSet, ?string $value)
     {
-        if ($value !== null && $value !== '' && $value !== '0') {
+        if ($value !== null && $value !== '') {
             $this->assertTrue($criteriaSet->has(ServiceTypeCriteria::class));
             /** @var ServiceTypeCriteria $criteria */
             $criteria = $criteriaSet->getSingle(ServiceTypeCriteria::class);
@@ -118,7 +118,7 @@ abstract class AbstractResolveEndpointAction extends BaseTestCase
 
     protected function criteriaSetShouldHaveIndexCriteria(CriteriaSet $criteriaSet, string $value)
     {
-        if ($value !== '' && $value !== '0') {
+        if ($value !== '') {
             $this->assertTrue($criteriaSet->has(IndexCriteria::class));
             /** @var IndexCriteria $criteria */
             $criteria = $criteriaSet->getSingle(IndexCriteria::class);
@@ -130,7 +130,7 @@ abstract class AbstractResolveEndpointAction extends BaseTestCase
 
     protected function criteriaSetShouldHaveLocationCriteria(CriteriaSet $criteriaSet, string $value)
     {
-        if ($value !== '' && $value !== '0') {
+        if ($value !== '') {
             $this->assertTrue($criteriaSet->has(LocationCriteria::class));
             /** @var LocationCriteria $criteria */
             $criteria = $criteriaSet->getSingle(LocationCriteria::class);

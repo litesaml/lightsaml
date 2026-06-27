@@ -77,10 +77,7 @@ class CriteriaSet
         return $result;
     }
 
-    /**
-     * @return CriteriaInterface|null
-     */
-    public function getSingle(string $class): ?object
+    public function getSingle(string $class): ?CriteriaInterface
     {
         foreach ($this->criterions as $criteria) {
             if ($criteria instanceof $class) {

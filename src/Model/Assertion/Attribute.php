@@ -29,9 +29,6 @@ class Attribute extends AbstractSamlModel
         }
     }
 
-    /**
-     * @return Attribute
-     */
     public function addAttributeValue(string $attributeValue): static
     {
         if (false == is_array($this->attributeValue)) {

@@ -9,15 +9,16 @@ use LightSaml\Context\Profile\ProfileContext;
 
 class SetRelayStateAction extends AbstractProfileAction
 {
-    protected function doExecute(ProfileContext $context)
+    protected function doExecute(ProfileContext $context): void
     {
-        if ($context->getRelayState() !== '' && $context->getRelayState() !== '0') {
+        $relayState = $context->getRelayState();
+        if ($relayState !== '') {
             $this->logger->debug(
-                sprintf('RelayState from context set to outbound message: "%s"', $context->getRelayState()),
+                sprintf('RelayState from context set to outbound message: "%s"', $relayState),
                 LogHelper::getActionContext($context, $this)
             );
             MessageContextHelper::asSamlMessage($context->getOutboundContext())
-                ->setRelayState($context->getRelayState());
+                ->setRelayState($relayState);
         }
     }
 }

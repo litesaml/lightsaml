@@ -16,31 +16,16 @@ class ParameterBag implements IteratorAggregate, Countable, Serializable
     {
     }
 
-    /**
-     * Returns the parameters.
-     *
-     * @return array An array of parameters
-     */
     public function all(): array
     {
         return $this->parameters;
     }
 
-    /**
-     * Returns the parameter keys.
-     *
-     * @return array An array of parameter keys
-     */
     public function keys(): array
     {
         return array_keys($this->parameters);
     }
 
-    /**
-     * Replaces the current parameters by a new set.
-     *
-     * @param array $parameters An array of parameters
-     */
     public function replace(array $parameters = []): void
     {
         $this->parameters = $parameters;

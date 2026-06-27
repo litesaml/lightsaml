@@ -2,7 +2,6 @@
 
 namespace Tests\Builder\Action;
 
-use InvalidArgumentException;
 use LightSaml\Action\ActionInterface;
 use LightSaml\Action\CompositeAction;
 use LightSaml\Builder\Action\CompositeActionBuilder;
@@ -13,16 +12,9 @@ use Tests\Mock\Action\FooAction;
 
 class CompositeActionBuilderTest extends BaseTestCase
 {
-    public function test__throws_on_priority_true(): void
-    {
-        $this->expectException(InvalidArgumentException::class);
-        $compositeBuilder = new CompositeActionBuilder();
-        $compositeBuilder->add(new FooAction(), true);
-    }
-
     public function test__throws_on_priority_string(): void
     {
-        $this->expectException(InvalidArgumentException::class);
+        $this->expectException(\TypeError::class);
         $compositeBuilder = new CompositeActionBuilder();
         $compositeBuilder->add(new FooAction(), "asc");
     }
