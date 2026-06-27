@@ -134,7 +134,9 @@ abstract class AbstractSamlModel implements SamlElementInterface
     /** @param array<int, string> $names */
     protected function attributesToXml(array $names, DOMNode $element): void
     {
-        assert($element instanceof DOMElement);
+        if (!$element instanceof DOMElement) {
+            throw new LightSamlXmlException(sprintf('Expected DOMElement, got %s', $element::class));
+        }
         foreach ($names as $name) {
             $this->singleAttributeToXml($name, $element);
         }
@@ -157,7 +159,9 @@ abstract class AbstractSamlModel implements SamlElementInterface
 
     protected function singleAttributeFromXml(DOMNode $node, string $attributeName): void
     {
-        assert($node instanceof DOMElement);
+        if (!$node instanceof DOMElement) {
+            throw new LightSamlXmlException(sprintf('Expected DOMElement, got %s', $node::class));
+        }
         $value = $node->getAttribute($attributeName);
         if ('' !== $value) {
             $setter = 'set' . $attributeName;
