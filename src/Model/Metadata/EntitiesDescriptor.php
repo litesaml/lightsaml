@@ -44,12 +44,13 @@ class EntitiesDescriptor extends Metadata
     }
 
     /**
-     *
      * @throws InvalidArgumentException
      */
-    public function setCacheDuration(string $cacheDuration): static
+    public function setCacheDuration(?string $cacheDuration): static
     {
-        Helper::validateDurationString($cacheDuration);
+        if ($cacheDuration !== null) {
+            Helper::validateDurationString($cacheDuration);
+        }
 
         $this->cacheDuration = $cacheDuration;
 

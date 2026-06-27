@@ -30,10 +30,6 @@ class SsoSessionStateTest extends BaseTestCase
         ];
     }
 
-    /**
-     *
-     * @param string $value
-     */
     #[DataProvider('property_getter_setter_provider')]
     public function test_property_getter_setter(string $property, string|\DateTime $value = 'some.value'): void
     {

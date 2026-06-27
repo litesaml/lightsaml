@@ -86,7 +86,6 @@ class CompositeTrustOptionsStoreTest extends BaseTestCase
     public function test_has_returns_true_on_first_true(): void
     {
         $expectedEntityId = 'id';
-        new TrustOptions();
         $composite = new CompositeTrustOptionsStore();
 
         $composite->add($this->getTrustOptionsStoreMock());

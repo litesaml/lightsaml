@@ -103,7 +103,7 @@ abstract class AbstractSamlModel implements SamlElementInterface
 
         foreach ($context->getXpath()->query($query, $node) as $xml) {
             /* @var \DOMElement $xml */
-            if ($class !== null && $class !== '' && $class !== '0') {
+            if ($class !== null && $class !== '') {
                 /** @var SamlElementInterface $object */
                 $object = new $class();
                 if (false == $object instanceof SamlElementInterface) {
@@ -180,7 +180,7 @@ abstract class AbstractSamlModel implements SamlElementInterface
      */
     protected function oneElementFromXml(DOMElement $node, DeserializationContext $context, string $elementName, ?string $class, string $namespacePrefix)
     {
-        $query = $namespacePrefix !== '' && $namespacePrefix !== '0' ? sprintf('./%s:%s', $namespacePrefix, $elementName) : sprintf('./%s', $elementName);
+        $query = $namespacePrefix !== '' ? sprintf('./%s:%s', $namespacePrefix, $elementName) : sprintf('./%s', $elementName);
         $arr = $context->getXpath()->query($query, $node);
         $value = $arr->length > 0 ? $arr->item(0) : null;
 
@@ -190,7 +190,7 @@ abstract class AbstractSamlModel implements SamlElementInterface
                 throw new LogicException(sprintf("Unable to find setter for element '%s' in class '%s'", $elementName, static::class));
             }
 
-            if ($class !== null && $class !== '' && $class !== '0') {
+            if ($class !== null && $class !== '') {
                 /** @var AbstractSamlModel $object */
                 $object = new $class();
                 if (false == $object instanceof SamlElementInterface) {

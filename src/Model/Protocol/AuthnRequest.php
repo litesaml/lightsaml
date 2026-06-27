@@ -67,7 +67,7 @@ class AuthnRequest extends AbstractRequest
         return $this->protocolBinding;
     }
 
-    public function setNameIDPolicy(NameIDPolicy $nameIDPolicy): static
+    public function setNameIDPolicy(?NameIDPolicy $nameIDPolicy): static
     {
         $this->nameIDPolicy = $nameIDPolicy;
 

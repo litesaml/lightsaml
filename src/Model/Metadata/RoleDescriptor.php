@@ -40,9 +40,11 @@ abstract class RoleDescriptor extends AbstractSamlModel
     /**
      * @throws InvalidArgumentException
      */
-    public function setCacheDuration(string $cacheDuration): \LightSaml\Model\Metadata\RoleDescriptor
+    public function setCacheDuration(?string $cacheDuration): \LightSaml\Model\Metadata\RoleDescriptor
     {
-        Helper::validateDurationString($cacheDuration);
+        if ($cacheDuration !== null) {
+            Helper::validateDurationString($cacheDuration);
+        }
 
         $this->cacheDuration = $cacheDuration;
 

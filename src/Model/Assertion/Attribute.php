@@ -41,8 +41,6 @@ class Attribute extends AbstractSamlModel
 
     /**
      * @param string[]|string $attributeValue
-     *
-     * @return Attribute
      */
     public function setAttributeValue(array|string $attributeValue): static
     {
@@ -69,9 +67,6 @@ class Attribute extends AbstractSamlModel
         return array_shift($arr);
     }
 
-    /**
-     * @return Attribute
-     */
     public function setFriendlyName(string $friendlyName): static
     {
         $this->friendlyName = $friendlyName;
@@ -84,9 +79,6 @@ class Attribute extends AbstractSamlModel
         return $this->friendlyName;
     }
 
-    /**
-     * @return Attribute
-     */
     public function setName(string $name): static
     {
         $this->name = $name;
@@ -99,9 +91,6 @@ class Attribute extends AbstractSamlModel
         return $this->name;
     }
 
-    /**
-     * @return Attribute
-     */
     public function setNameFormat(string $nameFormat): static
     {
         $this->nameFormat = $nameFormat;
