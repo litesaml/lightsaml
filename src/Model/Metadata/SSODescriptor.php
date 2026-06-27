@@ -15,7 +15,7 @@ abstract class SSODescriptor extends RoleDescriptor
     /** @var string[]|null */
     protected ?array $nameIDFormats = null;
 
-    public function addSingleLogoutService(SingleLogoutService $singleLogoutService): \LightSaml\Model\Metadata\SSODescriptor
+    public function addSingleLogoutService(SingleLogoutService $singleLogoutService): SSODescriptor
     {
         $this->singleLogoutServices[] = $singleLogoutService;
 
@@ -45,8 +45,7 @@ abstract class SSODescriptor extends RoleDescriptor
         return $result;
     }
 
-    
-    public function getFirstSingleLogoutService(?string $binding = null): ?\LightSaml\Model\Metadata\SingleLogoutService
+    public function getFirstSingleLogoutService(?string $binding = null): ?SingleLogoutService
     {
         foreach ($this->getAllSingleLogoutServices() as $svc) {
             if (null == $binding || $binding == $svc->getBinding()) {
@@ -57,8 +56,7 @@ abstract class SSODescriptor extends RoleDescriptor
         return null;
     }
 
-    
-    public function addNameIDFormat(string $nameIDFormat): \LightSaml\Model\Metadata\SSODescriptor
+    public function addNameIDFormat(string $nameIDFormat): SSODescriptor
     {
         $this->nameIDFormats[] = $nameIDFormat;
 
@@ -73,7 +71,6 @@ abstract class SSODescriptor extends RoleDescriptor
         return $this->nameIDFormats;
     }
 
-    
     public function hasNameIDFormat(string $nameIdFormat): bool
     {
         if ($this->nameIDFormats) {

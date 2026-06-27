@@ -21,8 +21,7 @@ abstract class AbstractNameID extends AbstractSamlModel
     {
     }
 
-    
-    public function setFormat(?string $format): \LightSaml\Model\Assertion\AbstractNameID
+    public function setFormat(?string $format): AbstractNameID
     {
         $this->format = (string) $format;
 
@@ -34,8 +33,7 @@ abstract class AbstractNameID extends AbstractSamlModel
         return $this->format;
     }
 
-    
-    public function setNameQualifier(?string $nameQualifier): \LightSaml\Model\Assertion\AbstractNameID
+    public function setNameQualifier(?string $nameQualifier): AbstractNameID
     {
         $this->nameQualifier = (string) $nameQualifier;
 
@@ -47,8 +45,7 @@ abstract class AbstractNameID extends AbstractSamlModel
         return $this->nameQualifier;
     }
 
-    
-    public function setSPNameQualifier(?string $spNameQualifier): \LightSaml\Model\Assertion\AbstractNameID
+    public function setSPNameQualifier(?string $spNameQualifier): AbstractNameID
     {
         $this->spNameQualifier = (string) $spNameQualifier;
 
@@ -60,8 +57,7 @@ abstract class AbstractNameID extends AbstractSamlModel
         return $this->spNameQualifier;
     }
 
-    
-    public function setSPProvidedID(?string $spProvidedId): \LightSaml\Model\Assertion\AbstractNameID
+    public function setSPProvidedID(?string $spProvidedId): AbstractNameID
     {
         $this->spProvidedId = (string) $spProvidedId;
 
@@ -73,8 +69,7 @@ abstract class AbstractNameID extends AbstractSamlModel
         return $this->spProvidedId;
     }
 
-    
-    public function setValue(string $value): \LightSaml\Model\Assertion\AbstractNameID
+    public function setValue(string $value): AbstractNameID
     {
         $this->value = $value;
 

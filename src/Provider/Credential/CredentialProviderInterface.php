@@ -6,5 +6,5 @@ use LightSaml\Credential\CredentialInterface;
 
 interface CredentialProviderInterface
 {
-    public function get(): \LightSaml\Credential\CredentialInterface;
+    public function get(): CredentialInterface;
 }

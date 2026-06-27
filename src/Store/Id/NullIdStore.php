@@ -6,7 +6,6 @@ use DateTime;
 
 class NullIdStore implements IdStoreInterface
 {
-    
     public function set(string $entityId, string $id, DateTime $expiryTime): void
     {
     }

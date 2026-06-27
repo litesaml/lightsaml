@@ -6,6 +6,7 @@ use DateTime;
 use LightSaml\Meta\ParameterBag;
 use LightSaml\State\Sso\SsoSessionState;
 use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\Group;
 use Tests\BaseTestCase;
 
 class SsoSessionStateTest extends BaseTestCase
@@ -31,7 +32,7 @@ class SsoSessionStateTest extends BaseTestCase
     }
 
     #[DataProvider('property_getter_setter_provider')]
-    public function test_property_getter_setter(string $property, string|\DateTime $value = 'some.value'): void
+    public function test_property_getter_setter(string $property, string|DateTime $value = 'some.value'): void
     {
         $state = new SsoSessionState();
         $setter = sprintf('set%s', $property);
@@ -68,7 +69,7 @@ class SsoSessionStateTest extends BaseTestCase
         $this->assertEquals($state->getSessionInstant(), $otherState->getSessionInstant());
     }
 
-    #[\PHPUnit\Framework\Attributes\Group('deprecated')]
+    #[Group('deprecated')]
     public function test_add_option(): void
     {
         $state = new SsoSessionState();
@@ -85,7 +86,7 @@ class SsoSessionStateTest extends BaseTestCase
         $this->assertEquals($values, $state->getOptions());
     }
 
-    #[\PHPUnit\Framework\Attributes\Group('deprecated')]
+    #[Group('deprecated')]
     public function test_remove_option(): void
     {
         $state = new SsoSessionState();
@@ -98,7 +99,7 @@ class SsoSessionStateTest extends BaseTestCase
         $this->assertEquals(['b' => 'bbbbb'], $state->getOptions());
     }
 
-    #[\PHPUnit\Framework\Attributes\Group('deprecated')]
+    #[Group('deprecated')]
     public function test_has_option(): void
     {
         $state = new SsoSessionState();

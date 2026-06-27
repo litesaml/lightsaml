@@ -7,5 +7,5 @@ use LightSaml\Model\XmlDSig\SignatureWriter;
 
 interface SignatureResolverInterface
 {
-    public function getSignature(AbstractProfileContext $context): ?\LightSaml\Model\XmlDSig\SignatureWriter;
+    public function getSignature(AbstractProfileContext $context): ?SignatureWriter;
 }

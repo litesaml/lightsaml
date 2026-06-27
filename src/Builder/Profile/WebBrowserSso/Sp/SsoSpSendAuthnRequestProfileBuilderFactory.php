@@ -10,7 +10,7 @@ class SsoSpSendAuthnRequestProfileBuilderFactory
     {
     }
 
-    public function get(string $idpEntityId): \LightSaml\Builder\Profile\WebBrowserSso\Sp\SsoSpSendAuthnRequestProfileBuilder
+    public function get(string $idpEntityId): SsoSpSendAuthnRequestProfileBuilder
     {
         return new SsoSpSendAuthnRequestProfileBuilder($this->buildContainer, $idpEntityId);
     }

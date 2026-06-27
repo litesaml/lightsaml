@@ -8,12 +8,12 @@ class RequestStateContext extends AbstractProfileContext
 {
     protected RequestState $requestState;
 
-    public function getRequestState(): \LightSaml\State\Request\RequestState
+    public function getRequestState(): RequestState
     {
         return $this->requestState;
     }
 
-    public function setRequestState(\LightSaml\State\Request\RequestState $requestState): static
+    public function setRequestState(RequestState $requestState): static
     {
         $this->requestState = $requestState;
 

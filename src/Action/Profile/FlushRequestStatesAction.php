@@ -28,7 +28,7 @@ class FlushRequestStatesAction extends AbstractProfileAction
         }
     }
 
-    protected function flush(?\LightSaml\Context\ContextInterface $requestStateContext = null)
+    protected function flush(?ContextInterface $requestStateContext = null)
     {
         if (
             $requestStateContext instanceof RequestStateContext

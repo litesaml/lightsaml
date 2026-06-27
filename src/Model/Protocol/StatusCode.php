@@ -33,7 +33,7 @@ class StatusCode extends AbstractSamlModel
         return $this;
     }
 
-    public function getStatusCode(): ?\LightSaml\Model\Protocol\StatusCode
+    public function getStatusCode(): ?StatusCode
     {
         return $this->statusCode;
     }

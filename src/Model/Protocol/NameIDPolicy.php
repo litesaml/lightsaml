@@ -16,7 +16,6 @@ class NameIDPolicy extends AbstractSamlModel
     {
     }
 
-    
     public function setAllowCreate(string|bool|null $allowCreate): static
     {
         if (null === $allowCreate) {
@@ -44,7 +43,6 @@ class NameIDPolicy extends AbstractSamlModel
         return $this->allowCreate ? 'true' : 'false';
     }
 
-    
     public function setFormat(?string $format): static
     {
         $this->format = (string) $format;
@@ -57,7 +55,6 @@ class NameIDPolicy extends AbstractSamlModel
         return $this->format;
     }
 
-    
     public function setSPNameQualifier(?string $spNameQualifier): static
     {
         $this->spNameQualifier = $spNameQualifier;

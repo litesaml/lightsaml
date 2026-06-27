@@ -5,6 +5,7 @@ namespace LightSaml\Resolver\Credential;
 use InvalidArgumentException;
 use LightSaml\Credential\CredentialInterface;
 use LightSaml\Criteria\CriteriaSet;
+use RobRichards\XMLSecLibs\XMLSecurityKey;
 
 class CredentialResolverQuery extends CriteriaSet
 {
@@ -22,7 +23,7 @@ class CredentialResolverQuery extends CriteriaSet
         return $this;
     }
 
-    public function firstCredential(): ?\LightSaml\Credential\CredentialInterface
+    public function firstCredential(): ?CredentialInterface
     {
         return reset($this->arrCredentials) ?: null;
     }
@@ -44,7 +45,7 @@ class CredentialResolverQuery extends CriteriaSet
         foreach ($this->arrCredentials as $credential) {
             if ($credential instanceof CredentialInterface) {
                 $publicKey = $credential->getPublicKey();
-                if ($publicKey instanceof \RobRichards\XMLSecLibs\XMLSecurityKey) {
+                if ($publicKey instanceof XMLSecurityKey) {
                     $result[] = $credential;
                 }
             } else {
@@ -64,7 +65,7 @@ class CredentialResolverQuery extends CriteriaSet
         foreach ($this->arrCredentials as $credential) {
             if ($credential instanceof CredentialInterface) {
                 $privateKey = $credential->getPrivateKey();
-                if ($privateKey instanceof \RobRichards\XMLSecLibs\XMLSecurityKey) {
+                if ($privateKey instanceof XMLSecurityKey) {
                     $result[] = $credential;
                 }
             } else {

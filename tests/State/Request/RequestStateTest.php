@@ -4,6 +4,7 @@ namespace Tests\State\Request;
 
 use LightSaml\Meta\ParameterBag;
 use LightSaml\State\Request\RequestState;
+use PHPUnit\Framework\Attributes\Group;
 use Tests\BaseTestCase;
 
 class RequestStateTest extends BaseTestCase
@@ -20,7 +21,7 @@ class RequestStateTest extends BaseTestCase
         $this->assertTrue(true);
     }
 
-    #[\PHPUnit\Framework\Attributes\Group('deprecated')]
+    #[Group('deprecated')]
     public function test_can_be_constructed_wit_id_and_nonce_argument(): void
     {
         new RequestState('id', 'nonce');

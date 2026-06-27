@@ -48,9 +48,8 @@ class KeyDescriptor extends AbstractSamlModel
     }
 
     /**
-     * @return X509Certificate
      */
-    public function getCertificate(): ?\LightSaml\Credential\X509Certificate
+    public function getCertificate(): ?X509Certificate
     {
         return $this->certificate;
     }

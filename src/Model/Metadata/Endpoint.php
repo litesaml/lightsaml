@@ -15,8 +15,7 @@ abstract class Endpoint extends AbstractSamlModel
     {
     }
 
-    
-    public function setBinding(string $binding): \LightSaml\Model\Metadata\Endpoint
+    public function setBinding(string $binding): Endpoint
     {
         $this->binding = $binding;
 
@@ -28,8 +27,7 @@ abstract class Endpoint extends AbstractSamlModel
         return $this->binding;
     }
 
-    
-    public function setLocation(string $location): \LightSaml\Model\Metadata\Endpoint
+    public function setLocation(string $location): Endpoint
     {
         $this->location = $location;
 
@@ -41,8 +39,7 @@ abstract class Endpoint extends AbstractSamlModel
         return $this->location;
     }
 
-    
-    public function setResponseLocation(?string $responseLocation): \LightSaml\Model\Metadata\Endpoint
+    public function setResponseLocation(?string $responseLocation): Endpoint
     {
         $this->responseLocation = $responseLocation ?: null;
 

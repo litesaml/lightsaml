@@ -9,7 +9,7 @@ use LightSaml\Credential\X509Credential;
 
 class X509FileCredentialStore implements CredentialStoreInterface
 {
-    private ?\LightSaml\Credential\X509Credential $credential = null;
+    private ?X509Credential $credential = null;
 
     public function __construct(private readonly string $entityId, private readonly string $certificatePath, private readonly string $keyPath, private readonly string $password)
     {

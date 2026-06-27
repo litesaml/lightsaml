@@ -27,8 +27,7 @@ class CredentialContextSet
         return $this->contexts;
     }
 
-    
-    public function get(string $class): ?\LightSaml\Credential\Context\CredentialContextInterface
+    public function get(string $class): ?CredentialContextInterface
     {
         foreach ($this->contexts as $context) {
             if ($context::class == $class || is_subclass_of($context, $class)) {

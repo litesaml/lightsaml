@@ -32,7 +32,7 @@ class CredentialFactory
         string $ownEntityId,
         CredentialStoreInterface $ownCredentialStore,
         ?array $extraCredentials = null
-    ): \LightSaml\Store\Credential\CompositeCredentialStore {
+    ): CompositeCredentialStore {
         return $this->build(
             $idpEntityDescriptorStore,
             $spEntityDescriptorStore,
@@ -50,7 +50,7 @@ class CredentialFactory
         EntityDescriptorStoreInterface $spEntityDescriptorStore,
         array $ownCredentials,
         ?array $extraCredentials = null
-    ): \LightSaml\Store\Credential\CompositeCredentialStore {
+    ): CompositeCredentialStore {
         if ($ownCredentials === []) {
             throw new LightSamlBuildException('There are no own credentials');
         }

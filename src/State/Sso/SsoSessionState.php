@@ -92,43 +92,43 @@ class SsoSessionState implements Serializable
         return $this;
     }
 
-    public function getFirstAuthOn(): ?\DateTime
+    public function getFirstAuthOn(): ?DateTime
     {
         return $this->firstAuthOn;
     }
 
-    public function setFirstAuthOn(\DateTime $firstAuthOn): static
+    public function setFirstAuthOn(DateTime $firstAuthOn): static
     {
         $this->firstAuthOn = $firstAuthOn;
 
         return $this;
     }
 
-    public function getLastAuthOn(): ?\DateTime
+    public function getLastAuthOn(): ?DateTime
     {
         return $this->lastAuthOn;
     }
 
-    public function setLastAuthOn(\DateTime $lastAuthOn): static
+    public function setLastAuthOn(DateTime $lastAuthOn): static
     {
         $this->lastAuthOn = $lastAuthOn;
 
         return $this;
     }
 
-    public function getSessionInstant(): ?\DateTime
+    public function getSessionInstant(): ?DateTime
     {
         return $this->sessionInstant;
     }
 
-    public function setSessionInstant(\DateTime $sessionInstant): static
+    public function setSessionInstant(DateTime $sessionInstant): static
     {
         $this->sessionInstant = $sessionInstant;
 
         return $this;
     }
 
-    public function getParameters(): \LightSaml\Meta\ParameterBag
+    public function getParameters(): ParameterBag
     {
         return $this->parameters;
     }
@@ -172,6 +172,7 @@ class SsoSessionState implements Serializable
     /**
      *
      * @return string Other party id
+     *
      * @throws LightSamlException If $partyId does not match sp or idp entity id
      */
     public function getOtherPartyId(string $partyId): string

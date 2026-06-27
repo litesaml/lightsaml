@@ -31,7 +31,7 @@ class SsoState implements Serializable
         return $this;
     }
 
-    public function getParameters(): \LightSaml\Meta\ParameterBag
+    public function getParameters(): ParameterBag
     {
         return $this->parameters;
     }

@@ -20,7 +20,7 @@ abstract class EncryptedElementWriter extends EncryptedElement
     {
     }
 
-    public function encrypt(AbstractSamlModel $object, XMLSecurityKey $key): \LightSaml\Model\Context\SerializationContext
+    public function encrypt(AbstractSamlModel $object, XMLSecurityKey $key): SerializationContext
     {
         $oldKey = $key;
         $key = new XMLSecurityKey($this->keyTransportEncryption, ['type' => 'public']);
@@ -63,7 +63,7 @@ abstract class EncryptedElementWriter extends EncryptedElement
         return $serializationContext;
     }
 
-    abstract protected function createRootElement(DOMNode $parent, SerializationContext $context): \DOMElement;
+    abstract protected function createRootElement(DOMNode $parent, SerializationContext $context): DOMElement;
 
     public function serialize(DOMNode $parent, SerializationContext $context): void
     {

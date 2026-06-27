@@ -9,8 +9,7 @@ use LightSaml\Resolver\Endpoint\Criteria\ServiceTypeCriteria;
 
 class DestinationValidatorAuthnRequestAction extends AbstractDestinationValidatorAction
 {
-    
-    protected function getCriteriaSet(ProfileContext $context, string $location): \LightSaml\Criteria\CriteriaSet
+    protected function getCriteriaSet(ProfileContext $context, string $location): CriteriaSet
     {
         $result = parent::getCriteriaSet($context, $location);
 

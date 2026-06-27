@@ -43,8 +43,7 @@ abstract class AbstractDestinationValidatorAction extends AbstractProfileAction
         throw new LightSamlContextException($context, $message);
     }
 
-    
-    protected function getCriteriaSet(ProfileContext $context, string $location): \LightSaml\Criteria\CriteriaSet
+    protected function getCriteriaSet(ProfileContext $context, string $location): CriteriaSet
     {
         return new CriteriaSet([
             new DescriptorTypeCriteria(

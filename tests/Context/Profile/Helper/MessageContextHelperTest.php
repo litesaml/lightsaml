@@ -107,7 +107,7 @@ class MessageContextHelperTest extends BaseTestCase
     /**
      * @return MockObject|SamlMessage
      */
-    private function getMessageMock(): \PHPUnit\Framework\MockObject\MockObject
+    private function getMessageMock(): MockObject
     {
         return $this->getMockForAbstractClass(SamlMessage::class);
     }

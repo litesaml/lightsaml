@@ -7,6 +7,5 @@ use LightSaml\Model\XmlDSig\AbstractSignatureReader;
 
 interface SignatureValidatorInterface
 {
-    
-    public function validate(AbstractSignatureReader $signature, string $issuer, string $metadataType): ?\LightSaml\Credential\CredentialInterface;
+    public function validate(AbstractSignatureReader $signature, string $issuer, string $metadataType): ?CredentialInterface;
 }

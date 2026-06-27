@@ -4,17 +4,17 @@ namespace LightSaml\Build\Container;
 
 interface BuildContainerInterface
 {
-    public function getSystemContainer(): \LightSaml\Build\Container\SystemContainerInterface;
+    public function getSystemContainer(): SystemContainerInterface;
 
-    public function getPartyContainer(): \LightSaml\Build\Container\PartyContainerInterface;
+    public function getPartyContainer(): PartyContainerInterface;
 
-    public function getStoreContainer(): \LightSaml\Build\Container\StoreContainerInterface;
+    public function getStoreContainer(): StoreContainerInterface;
 
-    public function getProviderContainer(): \LightSaml\Build\Container\ProviderContainerInterface;
+    public function getProviderContainer(): ProviderContainerInterface;
 
-    public function getCredentialContainer(): \LightSaml\Build\Container\CredentialContainerInterface;
+    public function getCredentialContainer(): CredentialContainerInterface;
 
-    public function getServiceContainer(): \LightSaml\Build\Container\ServiceContainerInterface;
+    public function getServiceContainer(): ServiceContainerInterface;
 
-    public function getOwnContainer(): \LightSaml\Build\Container\OwnContainerInterface;
+    public function getOwnContainer(): OwnContainerInterface;
 }

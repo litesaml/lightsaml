@@ -9,12 +9,13 @@ use LightSaml\Context\ContextInterface;
 use PHPUnit\Framework\MockObject\MockObject;
 use Tests\BaseTestCase;
 use Tests\Mock\Action\FooAction;
+use TypeError;
 
 class CompositeActionBuilderTest extends BaseTestCase
 {
     public function test__throws_on_priority_string(): void
     {
-        $this->expectException(\TypeError::class);
+        $this->expectException(TypeError::class);
         $compositeBuilder = new CompositeActionBuilder();
         $compositeBuilder->add(new FooAction(), "asc");
     }
@@ -60,7 +61,7 @@ class CompositeActionBuilderTest extends BaseTestCase
     /**
      * @return MockObject|ActionInterface
      */
-    private function getActionMock(int $expectedOrder, int &$order): \PHPUnit\Framework\MockObject\MockObject
+    private function getActionMock(int $expectedOrder, int &$order): MockObject
     {
         $action = $this->getMockBuilder(ActionInterface::class)->getMock();
         $action->expects($this->once())

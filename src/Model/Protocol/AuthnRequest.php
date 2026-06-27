@@ -38,7 +38,7 @@ class AuthnRequest extends AbstractRequest
         return $this;
     }
 
-    public function getSubject(): ?\LightSaml\Model\Assertion\Subject
+    public function getSubject(): ?Subject
     {
         return $this->subject;
     }
@@ -74,7 +74,7 @@ class AuthnRequest extends AbstractRequest
         return $this;
     }
 
-    public function getNameIDPolicy(): ?\LightSaml\Model\Protocol\NameIDPolicy
+    public function getNameIDPolicy(): ?NameIDPolicy
     {
         return $this->nameIDPolicy;
     }
@@ -121,14 +121,14 @@ class AuthnRequest extends AbstractRequest
         return $this->forceAuthn ? 'true' : 'false';
     }
 
-    public function setConditions(?\LightSaml\Model\Assertion\Conditions $conditions): static
+    public function setConditions(?Conditions $conditions): static
     {
         $this->conditions = $conditions;
 
         return $this;
     }
 
-    public function getConditions(): ?\LightSaml\Model\Assertion\Conditions
+    public function getConditions(): ?Conditions
     {
         return $this->conditions;
     }

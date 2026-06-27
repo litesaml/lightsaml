@@ -11,7 +11,6 @@ use LightSaml\Error\LightSamlXmlException;
 use LightSaml\Helper;
 use LightSaml\Model\AbstractSamlModel;
 use LightSaml\Model\Assertion\Issuer;
-use LightSaml\Model\Assertion\NameID;
 use LightSaml\Model\Context\DeserializationContext;
 use LightSaml\Model\Context\SerializationContext;
 use LightSaml\Model\SamlElementInterface;
@@ -43,7 +42,7 @@ abstract class SamlMessage extends AbstractSamlModel
      *
      * @throws Exception
      */
-    public static function fromXML(string $xml, DeserializationContext $context): \LightSaml\Model\Protocol\AuthnRequest|\LightSaml\Model\Protocol\LogoutRequest|\LightSaml\Model\Protocol\LogoutResponse|\LightSaml\Model\Protocol\Response|\LightSaml\Model\Protocol\SamlMessage
+    public static function fromXML(string $xml, DeserializationContext $context): AuthnRequest|LogoutRequest|LogoutResponse|Response|SamlMessage
     {
         if (false == is_string($xml)) {
             throw new InvalidArgumentException('Expecting string');
@@ -91,8 +90,7 @@ abstract class SamlMessage extends AbstractSamlModel
         return $result;
     }
 
-    
-    public function setID(string $id): \LightSaml\Model\Protocol\SamlMessage
+    public function setID(string $id): SamlMessage
     {
         $this->id = $id;
 
@@ -104,8 +102,7 @@ abstract class SamlMessage extends AbstractSamlModel
         return $this->id;
     }
 
-    
-    public function setIssueInstant(int|string|\DateTime $issueInstant): \LightSaml\Model\Protocol\SamlMessage
+    public function setIssueInstant(int|string|DateTime $issueInstant): SamlMessage
     {
         $this->issueInstant = Helper::getTimestampFromValue($issueInstant);
 
@@ -126,7 +123,7 @@ abstract class SamlMessage extends AbstractSamlModel
         return null;
     }
 
-    public function getIssueInstantDateTime(): ?\DateTime
+    public function getIssueInstantDateTime(): ?DateTime
     {
         if ($this->issueInstant) {
             return new DateTime('@' . $this->issueInstant);
@@ -135,8 +132,7 @@ abstract class SamlMessage extends AbstractSamlModel
         return null;
     }
 
-    
-    public function setVersion(string $version): \LightSaml\Model\Protocol\SamlMessage
+    public function setVersion(string $version): SamlMessage
     {
         $this->version = $version;
 
@@ -148,8 +144,7 @@ abstract class SamlMessage extends AbstractSamlModel
         return $this->version;
     }
 
-    
-    public function setDestination(?string $destination): \LightSaml\Model\Protocol\SamlMessage
+    public function setDestination(?string $destination): SamlMessage
     {
         $this->destination = $destination;
 
@@ -161,20 +156,19 @@ abstract class SamlMessage extends AbstractSamlModel
         return $this->destination;
     }
 
-    public function setIssuer(?Issuer $issuer = null): \LightSaml\Model\Protocol\SamlMessage
+    public function setIssuer(?Issuer $issuer = null): SamlMessage
     {
         $this->issuer = $issuer;
 
         return $this;
     }
 
-    public function getIssuer(): ?\LightSaml\Model\Assertion\Issuer
+    public function getIssuer(): ?Issuer
     {
         return $this->issuer;
     }
 
-    
-    public function setConsent(?string $consent): \LightSaml\Model\Protocol\StatusResponse
+    public function setConsent(?string $consent): StatusResponse
     {
         $this->consent = $consent;
 
@@ -186,20 +180,19 @@ abstract class SamlMessage extends AbstractSamlModel
         return $this->consent;
     }
 
-    public function setSignature(?Signature $signature = null): \LightSaml\Model\Protocol\SamlMessage
+    public function setSignature(?Signature $signature = null): SamlMessage
     {
         $this->signature = $signature;
 
         return $this;
     }
 
-    public function getSignature(): ?\LightSaml\Model\XmlDSig\Signature
+    public function getSignature(): ?Signature
     {
         return $this->signature;
     }
 
-    
-    public function setRelayState(?string $relayState): \LightSaml\Model\Protocol\SamlMessage
+    public function setRelayState(?string $relayState): SamlMessage
     {
         $this->relayState = $relayState;
 

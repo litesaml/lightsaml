@@ -9,9 +9,9 @@ class EntityContext extends AbstractProfileContext
 {
     private ?string $entityId = null;
 
-    private ?\LightSaml\Model\Metadata\EntityDescriptor $entityDescriptor = null;
+    private ?EntityDescriptor $entityDescriptor = null;
 
-    private ?\LightSaml\Meta\TrustOptions\TrustOptions $trustOptions = null;
+    private ?TrustOptions $trustOptions = null;
 
     public function getEntityId(): ?string
     {
@@ -26,9 +26,8 @@ class EntityContext extends AbstractProfileContext
     }
 
     /**
-     * @return EntityDescriptor
      */
-    public function getEntityDescriptor(): ?\LightSaml\Model\Metadata\EntityDescriptor
+    public function getEntityDescriptor(): ?EntityDescriptor
     {
         return $this->entityDescriptor;
     }
@@ -41,9 +40,8 @@ class EntityContext extends AbstractProfileContext
     }
 
     /**
-     * @return TrustOptions
      */
-    public function getTrustOptions(): ?\LightSaml\Meta\TrustOptions\TrustOptions
+    public function getTrustOptions(): ?TrustOptions
     {
         return $this->trustOptions;
     }

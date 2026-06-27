@@ -24,7 +24,7 @@ class SsoSpReceiveResponseProfileBuilder extends AbstractProfileBuilder
     /**
      * @return ActionBuilderInterface
      */
-    protected function getActionBuilder(): \LightSaml\Builder\Action\Profile\SingleSignOn\Sp\SsoSpReceiveResponseActionBuilder
+    protected function getActionBuilder(): SsoSpReceiveResponseActionBuilder
     {
         return new SsoSpReceiveResponseActionBuilder(
             $this->container,

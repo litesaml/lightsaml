@@ -17,6 +17,7 @@ use LightSaml\Model\Context\DeserializationContext;
 use LightSaml\Resolver\Credential\CredentialResolverInterface;
 use LightSaml\SamlConstants;
 use Psr\Log\LoggerInterface;
+use RobRichards\XMLSecLibs\XMLSecurityKey;
 
 class DecryptAssertionsAction extends AbstractProfileAction
 {
@@ -60,7 +61,7 @@ class DecryptAssertionsAction extends AbstractProfileAction
                 return sprintf(
                     "Entity: '%s'; PK X509 Thumb: '%s'",
                     $credential->getEntityId(),
-                    $credential->getPublicKey() instanceof \RobRichards\XMLSecLibs\XMLSecurityKey ? $credential->getPublicKey()->getX509Thumbprint() : ''
+                    $credential->getPublicKey() instanceof XMLSecurityKey ? $credential->getPublicKey()->getX509Thumbprint() : ''
                 );
             }, $privateKeys),
         ]));

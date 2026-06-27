@@ -73,7 +73,7 @@ class RepeatedIdValidatorAction extends AbstractAssertionAction
      * @throws LogicException
      * @throws LightSamlValidationException
      */
-    protected function getIdExpiryTime(AssertionContext $context): \DateTime
+    protected function getIdExpiryTime(AssertionContext $context): DateTime
     {
         /** @var DateTime $result */
         $result = null;

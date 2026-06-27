@@ -19,11 +19,11 @@ interface CredentialInterface
      */
     public function getKeyNames(): array;
 
-    public function getPublicKey(): ?\RobRichards\XMLSecLibs\XMLSecurityKey;
+    public function getPublicKey(): ?XMLSecurityKey;
 
-    public function getPrivateKey(): ?\RobRichards\XMLSecLibs\XMLSecurityKey;
+    public function getPrivateKey(): ?XMLSecurityKey;
 
     public function getSecretKey(): ?string;
 
-    public function getCredentialContext(): \LightSaml\Credential\Context\CredentialContextSet;
+    public function getCredentialContext(): CredentialContextSet;
 }

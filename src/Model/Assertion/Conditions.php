@@ -47,7 +47,7 @@ class Conditions extends AbstractSamlModel
         return $result;
     }
 
-    public function getFirstAudienceRestriction(): ?\LightSaml\Model\Assertion\AudienceRestriction
+    public function getFirstAudienceRestriction(): ?AudienceRestriction
     {
         foreach ($this->items as $item) {
             if ($item instanceof AudienceRestriction) {
@@ -73,7 +73,7 @@ class Conditions extends AbstractSamlModel
         return $result;
     }
 
-    public function getFirstOneTimeUse(): ?\LightSaml\Model\Assertion\OneTimeUse
+    public function getFirstOneTimeUse(): ?OneTimeUse
     {
         foreach ($this->items as $item) {
             if ($item instanceof OneTimeUse) {
@@ -99,7 +99,7 @@ class Conditions extends AbstractSamlModel
         return $result;
     }
 
-    public function getFirstProxyRestriction(): ?\LightSaml\Model\Assertion\ProxyRestriction
+    public function getFirstProxyRestriction(): ?ProxyRestriction
     {
         foreach ($this->items as $item) {
             if ($item instanceof ProxyRestriction) {
@@ -110,7 +110,7 @@ class Conditions extends AbstractSamlModel
         return null;
     }
 
-    public function setNotBefore(int|string|\DateTime $notBefore): static
+    public function setNotBefore(int|string|DateTime $notBefore): static
     {
         $this->notBefore = Helper::getTimestampFromValue($notBefore);
 
@@ -131,7 +131,7 @@ class Conditions extends AbstractSamlModel
         return null;
     }
 
-    public function getNotBeforeDateTime(): ?\DateTime
+    public function getNotBeforeDateTime(): ?DateTime
     {
         if ($this->notBefore) {
             return new DateTime('@' . $this->notBefore);
@@ -140,7 +140,7 @@ class Conditions extends AbstractSamlModel
         return null;
     }
 
-    public function setNotOnOrAfter(int|string|\DateTime $notOnOrAfter): static
+    public function setNotOnOrAfter(int|string|DateTime $notOnOrAfter): static
     {
         $this->notOnOrAfter = Helper::getTimestampFromValue($notOnOrAfter);
 
@@ -161,7 +161,7 @@ class Conditions extends AbstractSamlModel
         return null;
     }
 
-    public function getNotOnOrAfterDateTime(): ?\DateTime
+    public function getNotOnOrAfterDateTime(): ?DateTime
     {
         if ($this->notOnOrAfter) {
             return new DateTime('@' . $this->notOnOrAfter);

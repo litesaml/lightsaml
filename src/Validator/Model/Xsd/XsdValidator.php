@@ -34,7 +34,7 @@ class XsdValidator
         try {
             $errorBag = Schema::validate($xml, $schema);
 
-            return array_map(function (Error $error): \LightSaml\Validator\Model\Xsd\XsdError {
+            return array_map(function (Error $error): XsdError {
                 $level = match ($error->level) {
                     LIBXML_ERR_FATAL => XsdError::FATAL,
                     LIBXML_ERR_ERROR => XsdError::ERROR,

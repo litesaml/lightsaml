@@ -87,7 +87,7 @@ class InResponseToValidatorActionTest extends BaseTestCase
     /**
      * @return MockObject|StatusResponse
      */
-    private function getStatusResponseMock(?string $inResponseTo = null): \PHPUnit\Framework\MockObject\MockObject
+    private function getStatusResponseMock(?string $inResponseTo = null): MockObject
     {
         $result = $this->getMockForAbstractClass(StatusResponse::class);
         if ($inResponseTo) {

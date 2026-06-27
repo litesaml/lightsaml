@@ -12,7 +12,7 @@ use LightSaml\Model\Protocol\SamlMessage;
 
 class MessageContext extends AbstractProfileContext
 {
-    private ?\LightSaml\Model\Protocol\SamlMessage $message = null;
+    private ?SamlMessage $message = null;
 
     private ?string $bindingType = null;
 
@@ -28,7 +28,7 @@ class MessageContext extends AbstractProfileContext
         return $this;
     }
 
-    public function getMessage(): ?\LightSaml\Model\Protocol\SamlMessage
+    public function getMessage(): ?SamlMessage
     {
         return $this->message;
     }
@@ -40,7 +40,7 @@ class MessageContext extends AbstractProfileContext
         return $this;
     }
 
-    public function asAuthnRequest(): ?\LightSaml\Model\Protocol\AuthnRequest
+    public function asAuthnRequest(): ?AuthnRequest
     {
         if ($this->message instanceof AuthnRequest) {
             return $this->message;
@@ -49,7 +49,7 @@ class MessageContext extends AbstractProfileContext
         return null;
     }
 
-    public function asLogoutRequest(): ?\LightSaml\Model\Protocol\LogoutRequest
+    public function asLogoutRequest(): ?LogoutRequest
     {
         if ($this->message instanceof LogoutRequest) {
             return $this->message;
@@ -58,7 +58,7 @@ class MessageContext extends AbstractProfileContext
         return null;
     }
 
-    public function asResponse(): ?\LightSaml\Model\Protocol\Response
+    public function asResponse(): ?Response
     {
         if ($this->message instanceof Response) {
             return $this->message;
@@ -67,7 +67,7 @@ class MessageContext extends AbstractProfileContext
         return null;
     }
 
-    public function asLogoutResponse(): ?\LightSaml\Model\Protocol\LogoutResponse
+    public function asLogoutResponse(): ?LogoutResponse
     {
         if ($this->message instanceof LogoutResponse) {
             return $this->message;
@@ -76,12 +76,12 @@ class MessageContext extends AbstractProfileContext
         return null;
     }
 
-    public function getSerializationContext(): \LightSaml\Model\Context\SerializationContext
+    public function getSerializationContext(): SerializationContext
     {
         return $this->getSubContext(ProfileContexts::SERIALIZATION, SerializationContext::class);
     }
 
-    public function getDeserializationContext(): \LightSaml\Model\Context\DeserializationContext
+    public function getDeserializationContext(): DeserializationContext
     {
         return $this->getSubContext(ProfileContexts::DESERIALIZATION, DeserializationContext::class);
     }

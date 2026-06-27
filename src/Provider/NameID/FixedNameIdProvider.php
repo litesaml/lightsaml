@@ -18,7 +18,7 @@ class FixedNameIdProvider implements NameIdProviderInterface
         return $this;
     }
 
-    public function getNameID(AbstractProfileContext $context): ?\LightSaml\Model\Assertion\NameID
+    public function getNameID(AbstractProfileContext $context): ?NameID
     {
         return $this->nameId;
     }

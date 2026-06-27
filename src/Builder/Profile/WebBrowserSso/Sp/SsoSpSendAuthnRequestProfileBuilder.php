@@ -22,7 +22,7 @@ class SsoSpSendAuthnRequestProfileBuilder extends AbstractProfileBuilder
         parent::__construct($buildContainer);
     }
 
-    public function buildContext(): \LightSaml\Context\Profile\ProfileContext
+    public function buildContext(): ProfileContext
     {
         $result = parent::buildContext();
 
@@ -51,12 +51,12 @@ class SsoSpSendAuthnRequestProfileBuilder extends AbstractProfileBuilder
         return ProfileContext::ROLE_SP;
     }
 
-    protected function getActionBuilder(): \LightSaml\Builder\Action\ActionBuilderInterface
+    protected function getActionBuilder(): ActionBuilderInterface
     {
         return new SsoSpSendAuthnRequestActionBuilder($this->container);
     }
 
-    private function getTrustOptions(EntityDescriptor $idpEd): \LightSaml\Meta\TrustOptions\TrustOptions
+    private function getTrustOptions(EntityDescriptor $idpEd): TrustOptions
     {
         $trustOptions = $this->container->getPartyContainer()->getTrustOptionsStore()->get($this->idpEntityId) ?: new TrustOptions();
 

@@ -46,7 +46,7 @@ class CredentialContextSetTest extends BaseTestCase
     /**
      * @return MockObject|MetadataCredentialContext
      */
-    private function getMetadataContextMock(): \PHPUnit\Framework\MockObject\MockObject
+    private function getMetadataContextMock(): MockObject
     {
         return $this->getMockBuilder(MetadataCredentialContext::class)
             ->disableOriginalConstructor()

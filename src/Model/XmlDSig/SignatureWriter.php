@@ -26,7 +26,7 @@ class SignatureWriter extends Signature
         return $writer;
     }
 
-    public static function createByKeyAndCertificate(X509Certificate $certificate, XMLSecurityKey $xmlSecurityKey): \LightSaml\Model\XmlDSig\SignatureWriter
+    public static function createByKeyAndCertificate(X509Certificate $certificate, XMLSecurityKey $xmlSecurityKey): SignatureWriter
     {
         $signingOptions = new SigningOptions($xmlSecurityKey, $certificate);
 
@@ -42,7 +42,6 @@ class SignatureWriter extends Signature
         return $this->digestAlgorithm;
     }
 
-    
     public function setDigestAlgorithm(string $digestAlgorithm): static
     {
         $this->digestAlgorithm = $digestAlgorithm;
@@ -50,7 +49,7 @@ class SignatureWriter extends Signature
         return $this;
     }
 
-    public function getSigningOptions(): ?\LightSaml\Meta\SigningOptions
+    public function getSigningOptions(): ?SigningOptions
     {
         return $this->signingOptions;
     }
@@ -67,7 +66,6 @@ class SignatureWriter extends Signature
         return $this->canonicalMethod;
     }
 
-    
     public function setCanonicalMethod(string $canonicalMethod): static
     {
         $this->canonicalMethod = $canonicalMethod;
@@ -82,7 +80,7 @@ class SignatureWriter extends Signature
         return $this;
     }
 
-    public function getXmlSecurityKey(): ?\RobRichards\XMLSecLibs\XMLSecurityKey
+    public function getXmlSecurityKey(): ?XMLSecurityKey
     {
         return $this->xmlSecurityKey;
     }
@@ -94,7 +92,7 @@ class SignatureWriter extends Signature
         return $this;
     }
 
-    public function getCertificate(): ?\LightSaml\Credential\X509Certificate
+    public function getCertificate(): ?X509Certificate
     {
         return $this->certificate;
     }

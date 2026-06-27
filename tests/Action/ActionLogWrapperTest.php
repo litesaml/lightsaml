@@ -41,7 +41,7 @@ class ActionLogWrapperTest extends BaseTestCase
     /**
      * @return MockObject|ActionInterface
      */
-    private function getActionMock(): \PHPUnit\Framework\MockObject\MockObject
+    private function getActionMock(): MockObject
     {
         return $this->getMockBuilder(ActionInterface::class)->getMock();
     }
@@ -49,7 +49,7 @@ class ActionLogWrapperTest extends BaseTestCase
     /**
      * @return MockObject|ContextInterface
      */
-    private function getContextMock(): \PHPUnit\Framework\MockObject\MockObject
+    private function getContextMock(): MockObject
     {
         return $this->getMockBuilder(ContextInterface::class)->getMock();
     }

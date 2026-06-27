@@ -22,7 +22,7 @@ class OwnSignatureResolver implements SignatureResolverInterface
     {
     }
 
-    public function getSignature(AbstractProfileContext $context): \LightSaml\Model\XmlDSig\SignatureWriter
+    public function getSignature(AbstractProfileContext $context): SignatureWriter
     {
         $credential = $this->getSigningCredential($context);
         if (null == $credential) {
@@ -33,7 +33,7 @@ class OwnSignatureResolver implements SignatureResolverInterface
         return new SignatureWriter($credential->getCertificate(), $credential->getPrivateKey(), $trustOptions->getSignatureDigestAlgorithm());
     }
 
-    private function getSigningCredential(AbstractProfileContext $context): ?\LightSaml\Credential\X509CredentialInterface
+    private function getSigningCredential(AbstractProfileContext $context): ?X509CredentialInterface
     {
         $profileContext = $context->getProfileContext();
 
@@ -44,10 +44,10 @@ class OwnSignatureResolver implements SignatureResolverInterface
             ->add(new EntityIdCriteria($entityDescriptor->getEntityID()))
             ->add(new UsageCriteria(UsageType::SIGNING))
             ->add(new X509CredentialCriteria())
-            ->addIf(ProfileContext::ROLE_IDP === $profileContext->getOwnRole(), function (): \LightSaml\Credential\Criteria\MetadataCriteria {
+            ->addIf(ProfileContext::ROLE_IDP === $profileContext->getOwnRole(), function (): MetadataCriteria {
                 return new MetadataCriteria(MetadataCriteria::TYPE_IDP, SamlConstants::VERSION_20);
             })
-            ->addIf(ProfileContext::ROLE_SP === $profileContext->getOwnRole(), function (): \LightSaml\Credential\Criteria\MetadataCriteria {
+            ->addIf(ProfileContext::ROLE_SP === $profileContext->getOwnRole(), function (): MetadataCriteria {
                 return new MetadataCriteria(MetadataCriteria::TYPE_SP, SamlConstants::VERSION_20);
             })
         ;

@@ -63,7 +63,7 @@ class WrappedActionTest extends BaseTestCase
     /**
      * @return MockObject|ContextInterface
      */
-    private function getContextMock(): \PHPUnit\Framework\MockObject\MockObject
+    private function getContextMock(): MockObject
     {
         return $this->getMockBuilder(ContextInterface::class)->getMock();
     }

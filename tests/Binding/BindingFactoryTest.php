@@ -10,6 +10,8 @@ use LightSaml\SamlConstants;
 use LogicException;
 use Nyholm\Psr7\Factory\Psr17Factory;
 use Psr\EventDispatcher\EventDispatcherInterface;
+use Psr\Http\Message\MessageInterface;
+use Psr\Http\Message\ServerRequestInterface;
 use Tests\BaseTestCase;
 
 class BindingFactoryTest extends BaseTestCase
@@ -141,31 +143,31 @@ class BindingFactoryTest extends BaseTestCase
         $this->assertEquals($eventDispatcher, $binding->getEventDispatcher());
     }
 
-    private function createHttpPostRequest(): \Psr\Http\Message\ServerRequestInterface
+    private function createHttpPostRequest(): ServerRequestInterface
     {
         $factory = new Psr17Factory();
         return $factory->createServerRequest('POST', '/')->withParsedBody(['SAMLRequest' => 'request']);
     }
 
-    private function createHttpRedirectRequest(): \Psr\Http\Message\ServerRequestInterface
+    private function createHttpRedirectRequest(): ServerRequestInterface
     {
         $factory = new Psr17Factory();
         return $factory->createServerRequest('GET', '/')->withQueryParams(['SAMLRequest' => 'request']);
     }
 
-    private function createArtifactPostRequest(): \Psr\Http\Message\ServerRequestInterface
+    private function createArtifactPostRequest(): ServerRequestInterface
     {
         $factory = new Psr17Factory();
         return $factory->createServerRequest('POST', '/')->withParsedBody(['SAMLart' => 'request']);
     }
 
-    private function createArtifactGetRequest(): \Psr\Http\Message\ServerRequestInterface
+    private function createArtifactGetRequest(): ServerRequestInterface
     {
         $factory = new Psr17Factory();
         return $factory->createServerRequest('GET', '/')->withQueryParams(['SAMLart' => 'request']);
     }
 
-    private function createSoapRequest(): \Psr\Http\Message\MessageInterface
+    private function createSoapRequest(): MessageInterface
     {
         $factory = new Psr17Factory();
         return $factory->createServerRequest('POST', '/')->withHeader('Content-Type', 'text/xml; charset=utf-8');

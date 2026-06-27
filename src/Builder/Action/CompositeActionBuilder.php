@@ -33,7 +33,7 @@ class CompositeActionBuilder implements ActionBuilderInterface
         return $this;
     }
 
-    public function build(): \LightSaml\Action\CompositeAction
+    public function build(): CompositeAction
     {
         $actions = $this->actions;
         ksort($actions);

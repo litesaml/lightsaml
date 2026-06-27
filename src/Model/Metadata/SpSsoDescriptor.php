@@ -67,8 +67,7 @@ class SpSsoDescriptor extends SSODescriptor
         return $result;
     }
 
-    
-    public function getAssertionConsumerServicesByIndex(int $index): ?\LightSaml\Model\Metadata\AssertionConsumerService
+    public function getAssertionConsumerServicesByIndex(int $index): ?AssertionConsumerService
     {
         foreach ($this->getAllAssertionConsumerServices() as $svc) {
             if ($svc->getIndex() == $index) {
@@ -79,8 +78,7 @@ class SpSsoDescriptor extends SSODescriptor
         return null;
     }
 
-    
-    public function getFirstAssertionConsumerService(?string $binding = null): ?\LightSaml\Model\Metadata\AssertionConsumerService
+    public function getFirstAssertionConsumerService(?string $binding = null): ?AssertionConsumerService
     {
         foreach ($this->getAllAssertionConsumerServices() as $svc) {
             if (null == $binding || $svc->getBinding() == $binding) {

@@ -26,8 +26,7 @@ class CompositeTrustOptionsStore implements TrustOptionsStoreInterface
         return $this;
     }
 
-    
-    public function get(string $entityId): ?\LightSaml\Meta\TrustOptions\TrustOptions
+    public function get(string $entityId): ?TrustOptions
     {
         foreach ($this->children as $store) {
             $result = $store->get($entityId);

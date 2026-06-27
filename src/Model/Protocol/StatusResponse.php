@@ -12,7 +12,7 @@ abstract class StatusResponse extends SamlMessage
 
     protected ?Status $status = null;
 
-    public function setInResponseTo(string $inResponseTo): \LightSaml\Model\Protocol\StatusResponse
+    public function setInResponseTo(string $inResponseTo): StatusResponse
     {
         $this->inResponseTo = $inResponseTo;
 
@@ -24,14 +24,14 @@ abstract class StatusResponse extends SamlMessage
         return $this->inResponseTo;
     }
 
-    public function setStatus(Status $status): \LightSaml\Model\Protocol\StatusResponse
+    public function setStatus(Status $status): StatusResponse
     {
         $this->status = $status;
 
         return $this;
     }
 
-    public function getStatus(): ?\LightSaml\Model\Protocol\Status
+    public function getStatus(): ?Status
     {
         return $this->status;
     }

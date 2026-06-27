@@ -13,8 +13,7 @@ abstract class AbstractRequestStateArrayStore implements RequestStateStoreInterf
         $this->setArray($arr);
     }
 
-
-    public function get(?string $id): ?\LightSaml\State\Request\RequestState
+    public function get(?string $id): ?RequestState
     {
         $result = null;
         $arr = $this->getArray();
@@ -32,7 +31,6 @@ abstract class AbstractRequestStateArrayStore implements RequestStateStoreInterf
         return null;
     }
 
-    
     public function remove(string $id): bool
     {
         $arr = $this->getArray();

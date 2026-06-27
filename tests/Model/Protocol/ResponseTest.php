@@ -201,7 +201,7 @@ EOT;
         $this->assertEquals($expectedXml, $xml);
     }
 
-    private function getResponseObject(): \LightSaml\Model\Protocol\Response
+    private function getResponseObject(): Response
     {
         $response = new Response();
         $response->setId('response-id')

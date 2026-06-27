@@ -13,7 +13,6 @@ class FixedSessionInfoProvider implements SessionInfoProviderInterface
     {
     }
 
-    
     public function setAuthnInstant(int $authnInstant): static
     {
         $this->authnInstant = intval($authnInstant);
@@ -21,7 +20,6 @@ class FixedSessionInfoProvider implements SessionInfoProviderInterface
         return $this;
     }
 
-    
     public function setSessionIndex(string $sessionIndex): static
     {
         $this->sessionIndex = $sessionIndex;
@@ -29,7 +27,6 @@ class FixedSessionInfoProvider implements SessionInfoProviderInterface
         return $this;
     }
 
-    
     public function setAuthnContextClassRef(string $authnContextClassRef): static
     {
         $this->authnContextClassRef = $authnContextClassRef;

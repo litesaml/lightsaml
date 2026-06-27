@@ -6,9 +6,9 @@ use Psr\Http\Message\ServerRequestInterface;
 
 class HttpRequestContext extends AbstractProfileContext
 {
-    private ?\Psr\Http\Message\ServerRequestInterface $request = null;
+    private ?ServerRequestInterface $request = null;
 
-    public function getRequest(): ?\Psr\Http\Message\ServerRequestInterface
+    public function getRequest(): ?ServerRequestInterface
     {
         return $this->request;
     }

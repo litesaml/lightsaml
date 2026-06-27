@@ -7,6 +7,7 @@ use LightSaml\Meta\TrustOptions\TrustOptions;
 use LightSaml\Model\Metadata\Endpoint;
 use LightSaml\Model\Metadata\EntityDescriptor;
 use LightSaml\Model\Protocol\SamlMessage;
+use LightSaml\State\Sso\SsoSessionState;
 use Psr\Http\Message\ServerRequestInterface;
 
 class ProfileContext extends AbstractProfileContext
@@ -43,117 +44,117 @@ class ProfileContext extends AbstractProfileContext
         return $this;
     }
 
-    public function getInboundContext(): \LightSaml\Context\Profile\MessageContext
+    public function getInboundContext(): MessageContext
     {
         return $this->getSubContext(ProfileContexts::INBOUND_MESSAGE, MessageContext::class);
     }
 
-    public function getOutboundContext(): \LightSaml\Context\Profile\MessageContext
+    public function getOutboundContext(): MessageContext
     {
         return $this->getSubContext(ProfileContexts::OUTBOUND_MESSAGE, MessageContext::class);
     }
 
-    public function getHttpRequestContext(): \LightSaml\Context\Profile\HttpRequestContext
+    public function getHttpRequestContext(): HttpRequestContext
     {
         return $this->getSubContext(ProfileContexts::HTTP_REQUEST, HttpRequestContext::class);
     }
 
-    public function getHttpResponseContext(): \LightSaml\Context\Profile\HttpResponseContext
+    public function getHttpResponseContext(): HttpResponseContext
     {
         return $this->getSubContext(ProfileContexts::HTTP_RESPONSE, HttpResponseContext::class);
     }
 
-    public function getOwnEntityContext(): \LightSaml\Context\Profile\EntityContext
+    public function getOwnEntityContext(): EntityContext
     {
         return $this->getSubContext(ProfileContexts::OWN_ENTITY, EntityContext::class);
     }
 
-    public function getPartyEntityContext(): \LightSaml\Context\Profile\EntityContext
+    public function getPartyEntityContext(): EntityContext
     {
         return $this->getSubContext(ProfileContexts::PARTY_ENTITY, EntityContext::class);
     }
 
-    public function getEndpointContext(): \LightSaml\Context\Profile\EndpointContext
+    public function getEndpointContext(): EndpointContext
     {
         return $this->getSubContext(ProfileContexts::ENDPOINT, EndpointContext::class);
     }
 
-    public function getLogoutContext(): \LightSaml\Context\Profile\LogoutContext
+    public function getLogoutContext(): LogoutContext
     {
         return $this->getSubContext(ProfileContexts::LOGOUT, LogoutContext::class);
     }
 
-    public function getHttpRequest(): \Psr\Http\Message\ServerRequestInterface
+    public function getHttpRequest(): ServerRequestInterface
     {
         $httpRequestContext = $this->getHttpRequestContext();
-        if (!$httpRequestContext->getRequest() instanceof \Psr\Http\Message\ServerRequestInterface) {
+        if (!$httpRequestContext->getRequest() instanceof ServerRequestInterface) {
             throw new LightSamlContextException($this, 'Missing Request in HTTP request context');
         }
 
         return $httpRequestContext->getRequest();
     }
 
-    public function getInboundMessage(): \LightSaml\Model\Protocol\SamlMessage
+    public function getInboundMessage(): SamlMessage
     {
         $inboundContext = $this->getInboundContext();
-        if (!$inboundContext->getMessage() instanceof \LightSaml\Model\Protocol\SamlMessage) {
+        if (!$inboundContext->getMessage() instanceof SamlMessage) {
             throw new LightSamlContextException($this, 'Missing message in inbound context');
         }
 
         return $inboundContext->getMessage();
     }
 
-    public function getOutboundMessage(): \LightSaml\Model\Protocol\SamlMessage
+    public function getOutboundMessage(): SamlMessage
     {
         $outboundContext = $this->getOutboundContext();
-        if (!$outboundContext->getMessage() instanceof \LightSaml\Model\Protocol\SamlMessage) {
+        if (!$outboundContext->getMessage() instanceof SamlMessage) {
             throw new LightSamlContextException($this, 'Missing message in outbound context');
         }
 
         return $outboundContext->getMessage();
     }
 
-    public function getEndpoint(): \LightSaml\Model\Metadata\Endpoint
+    public function getEndpoint(): Endpoint
     {
         $endpointContext = $this->getEndpointContext();
-        if (!$endpointContext->getEndpoint() instanceof \LightSaml\Model\Metadata\Endpoint) {
+        if (!$endpointContext->getEndpoint() instanceof Endpoint) {
             throw new LightSamlContextException($this, 'Missing Endpoint in endpoint context');
         }
 
         return $endpointContext->getEndpoint();
     }
 
-    public function getOwnEntityDescriptor(): \LightSaml\Model\Metadata\EntityDescriptor
+    public function getOwnEntityDescriptor(): EntityDescriptor
     {
         $ownEntityContext = $this->getOwnEntityContext();
-        if (!$ownEntityContext->getEntityDescriptor() instanceof \LightSaml\Model\Metadata\EntityDescriptor) {
+        if (!$ownEntityContext->getEntityDescriptor() instanceof EntityDescriptor) {
             throw new LightSamlContextException($this, 'Missing EntityDescriptor in own entity context');
         }
 
         return $ownEntityContext->getEntityDescriptor();
     }
 
-    public function getPartyEntityDescriptor(): \LightSaml\Model\Metadata\EntityDescriptor
+    public function getPartyEntityDescriptor(): EntityDescriptor
     {
         $partyEntityContext = $this->getPartyEntityContext();
-        if (!$partyEntityContext->getEntityDescriptor() instanceof \LightSaml\Model\Metadata\EntityDescriptor) {
+        if (!$partyEntityContext->getEntityDescriptor() instanceof EntityDescriptor) {
             throw new LightSamlContextException($this, 'Missing EntityDescriptor in party entity context');
         }
 
         return $partyEntityContext->getEntityDescriptor();
     }
 
-    public function getTrustOptions(): \LightSaml\Meta\TrustOptions\TrustOptions
+    public function getTrustOptions(): TrustOptions
     {
         $partyEntityContext = $this->getPartyEntityContext();
-        if (!$partyEntityContext->getTrustOptions() instanceof \LightSaml\Meta\TrustOptions\TrustOptions) {
+        if (!$partyEntityContext->getTrustOptions() instanceof TrustOptions) {
             throw new LightSamlContextException($this, 'Missing TrustOptions in party entity context');
         }
 
         return $partyEntityContext->getTrustOptions();
     }
 
-    public function getLogoutSsoSessionState(): ?\LightSaml\State\Sso\SsoSessionState
+    public function getLogoutSsoSessionState(): ?SsoSessionState
     {
         $logoutContext = $this->getLogoutContext();
         if (null == $logoutContext->getSsoSessionState()) {

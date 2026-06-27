@@ -54,7 +54,7 @@ class HelperTest extends BaseTestCase
      * @param string $value
      */
     #[DataProvider('string2TimestampProvider')]
-    public function test__get_timestamp_from_value_with_string(int|string|\DateTime $value, int $timestamp): void
+    public function test__get_timestamp_from_value_with_string(int|string|DateTime $value, int $timestamp): void
     {
         $this->assertEquals($timestamp, Helper::getTimestampFromValue($value));
     }

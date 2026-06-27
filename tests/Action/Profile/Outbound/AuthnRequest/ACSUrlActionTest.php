@@ -92,7 +92,7 @@ class ACSUrlActionTest extends BaseTestCase
     /**
      * @return MockObject|EntityDescriptor
      */
-    private function getEntityDescriptorMock(): \PHPUnit\Framework\MockObject\MockObject
+    private function getEntityDescriptorMock(): MockObject
     {
         return $this->getMockBuilder(EntityDescriptor::class)->getMock();
     }

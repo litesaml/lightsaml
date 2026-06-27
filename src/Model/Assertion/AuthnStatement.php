@@ -28,12 +28,12 @@ class AuthnStatement extends AbstractStatement
         return $this;
     }
 
-    public function getAuthnContext(): ?\LightSaml\Model\Assertion\AuthnContext
+    public function getAuthnContext(): ?AuthnContext
     {
         return $this->authnContext;
     }
 
-    public function setAuthnInstant(int|string|\DateTime $authnInstant): static
+    public function setAuthnInstant(int|string|DateTime $authnInstant): static
     {
         $this->authnInstant = Helper::getTimestampFromValue($authnInstant);
 
@@ -54,7 +54,7 @@ class AuthnStatement extends AbstractStatement
         return null;
     }
 
-    public function getAuthnInstantDateTime(): ?\DateTime
+    public function getAuthnInstantDateTime(): ?DateTime
     {
         if ($this->authnInstant) {
             return new DateTime('@' . $this->authnInstant);
@@ -75,7 +75,7 @@ class AuthnStatement extends AbstractStatement
         return $this->sessionIndex;
     }
 
-    public function setSessionNotOnOrAfter(int|string|\DateTime $sessionNotOnOrAfter): static
+    public function setSessionNotOnOrAfter(int|string|DateTime $sessionNotOnOrAfter): static
     {
         $this->sessionNotOnOrAfter = Helper::getTimestampFromValue($sessionNotOnOrAfter);
 
@@ -96,7 +96,7 @@ class AuthnStatement extends AbstractStatement
         return null;
     }
 
-    public function getSessionNotOnOrAfterDateTime(): ?\DateTime
+    public function getSessionNotOnOrAfterDateTime(): ?DateTime
     {
         if ($this->sessionNotOnOrAfter) {
             return new DateTime('@' . $this->sessionNotOnOrAfter);
@@ -105,14 +105,14 @@ class AuthnStatement extends AbstractStatement
         return null;
     }
 
-    public function setSubjectLocality(\LightSaml\Model\Assertion\SubjectLocality $subjectLocality): static
+    public function setSubjectLocality(SubjectLocality $subjectLocality): static
     {
         $this->subjectLocality = $subjectLocality;
 
         return $this;
     }
 
-    public function getSubjectLocality(): ?\LightSaml\Model\Assertion\SubjectLocality
+    public function getSubjectLocality(): ?SubjectLocality
     {
         return $this->subjectLocality;
     }

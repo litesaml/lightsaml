@@ -15,7 +15,6 @@ class Subject extends AbstractSamlModel
     /** @var SubjectConfirmation[] */
     protected array $subjectConfirmation = [];
 
-    
     public function setNameID(?NameID $nameId = null): static
     {
         $this->nameId = $nameId;
@@ -23,7 +22,7 @@ class Subject extends AbstractSamlModel
         return $this;
     }
 
-    public function getNameID(): ?\LightSaml\Model\Assertion\NameID
+    public function getNameID(): ?NameID
     {
         return $this->nameId;
     }
@@ -43,7 +42,7 @@ class Subject extends AbstractSamlModel
         return $this->subjectConfirmation;
     }
 
-    public function getFirstSubjectConfirmation(): ?\LightSaml\Model\Assertion\SubjectConfirmation
+    public function getFirstSubjectConfirmation(): ?SubjectConfirmation
     {
         if (is_array($this->subjectConfirmation) && isset($this->subjectConfirmation[0])) {
             return $this->subjectConfirmation[0];

@@ -7,13 +7,13 @@ use LightSaml\Provider\EntitiesDescriptor\EntitiesDescriptorProviderInterface;
 
 class EntitiesDescriptorEntityProvider implements EntityDescriptorProviderInterface
 {
-    private ?\LightSaml\Model\Metadata\EntityDescriptor $entityDescriptor = null;
+    private ?EntityDescriptor $entityDescriptor = null;
 
     public function __construct(private readonly EntitiesDescriptorProviderInterface $entitiesDescriptorProvider, private readonly string $entityId)
     {
     }
 
-    public function get(): \LightSaml\Model\Metadata\EntityDescriptor
+    public function get(): EntityDescriptor
     {
         if (null == $this->entityDescriptor) {
             $this->entityDescriptor = $this->entitiesDescriptorProvider->get()->getByEntityId($this->entityId);

@@ -27,7 +27,6 @@ class AttributeStatement extends AbstractStatement
         return $this->attributes;
     }
 
-    
     public function getFirstAttributeByName(string $name): ?Attribute
     {
         if (is_array($this->getAllAttributes())) {

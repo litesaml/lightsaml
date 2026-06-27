@@ -74,7 +74,6 @@ abstract class SamlConstants
 
     public const ATTRIBUTE_NAME_FORMAT_UNSPECIFIED = 'urn:oasis:names:tc:SAML:2.0:attrname-format:unspecified';
 
-    
     public static function isProtocolValid(string $value): bool
     {
         static $arr = [
@@ -88,7 +87,6 @@ abstract class SamlConstants
         return in_array($value, $arr, true);
     }
 
-    
     public static function isNsValid(string $value): bool
     {
         static $arr = [
@@ -101,7 +99,6 @@ abstract class SamlConstants
         return in_array($value, $arr, true);
     }
 
-    
     public static function isNameIdFormatValid(mixed $value): bool
     {
         static $arr = [
@@ -120,7 +117,6 @@ abstract class SamlConstants
         return in_array($value, $arr, true);
     }
 
-    
     public static function isBindingValid(string $value): bool
     {
         static $arr = [
@@ -138,7 +134,6 @@ abstract class SamlConstants
         return in_array($value, $arr, true);
     }
 
-    
     public static function isStatusValid(string $value): bool
     {
         static $arr = [
@@ -156,7 +151,6 @@ abstract class SamlConstants
         return in_array($value, $arr, true);
     }
 
-    
     public static function isConfirmationMethodValid(string $value): bool
     {
         static $arr = [
@@ -168,7 +162,6 @@ abstract class SamlConstants
         return in_array($value, $arr, true);
     }
 
-    
     public static function isAuthnContextValid(string $value): bool
     {
         static $arr = [
@@ -181,7 +174,6 @@ abstract class SamlConstants
         return in_array($value, $arr, true);
     }
 
-    
     public static function isLogoutReasonValid(string $value): bool
     {
         static $arr = [

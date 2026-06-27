@@ -133,7 +133,7 @@ class DecryptAssertionsActionTest extends BaseTestCase
     /**
      * @return MockObject|CredentialInterface
      */
-    private function getCredentialMock(): \PHPUnit\Framework\MockObject\MockObject
+    private function getCredentialMock(): MockObject
     {
         return $this->getMockBuilder(CredentialInterface::class)->getMock();
     }
@@ -141,7 +141,7 @@ class DecryptAssertionsActionTest extends BaseTestCase
     /**
      * @return MockObject|EncryptedAssertionReader
      */
-    private function getEncryptedAssertionReaderMock(): \PHPUnit\Framework\MockObject\MockObject
+    private function getEncryptedAssertionReaderMock(): MockObject
     {
         return $this->getMockBuilder(EncryptedAssertionReader::class)->getMock();
     }

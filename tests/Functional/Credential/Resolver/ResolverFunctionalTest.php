@@ -143,7 +143,7 @@ class ResolverFunctionalTest extends BaseTestCase
         $this->assertNotNull($credential->getPrivateKey());
     }
 
-    private function getResolver(): \LightSaml\Resolver\Credential\CredentialResolverInterface
+    private function getResolver(): CredentialResolverInterface
     {
         $provider = new FixedEntityDescriptorStore();
         $provider->add(EntityDescriptor::load(__DIR__ . '/../../../resources/idp2-ed.xml'));

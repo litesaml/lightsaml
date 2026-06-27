@@ -16,7 +16,7 @@ use LogicException;
 
 class SimpleEntityDescriptorBuilder implements EntityDescriptorProviderInterface
 {
-    private ?\LightSaml\Model\Metadata\EntityDescriptor $entityDescriptor = null;
+    private ?EntityDescriptor $entityDescriptor = null;
 
     /**
      * @param string[]      $acsBindings
@@ -27,9 +27,9 @@ class SimpleEntityDescriptorBuilder implements EntityDescriptorProviderInterface
     {
     }
 
-    public function get(): \LightSaml\Model\Metadata\EntityDescriptor
+    public function get(): EntityDescriptor
     {
-        if (!$this->entityDescriptor instanceof \LightSaml\Model\Metadata\EntityDescriptor) {
+        if (!$this->entityDescriptor instanceof EntityDescriptor) {
             $this->entityDescriptor = $this->getEntityDescriptor();
             if (false === $this->entityDescriptor instanceof EntityDescriptor) {
                 throw new LogicException('Expected EntityDescriptor');
@@ -39,25 +39,25 @@ class SimpleEntityDescriptorBuilder implements EntityDescriptorProviderInterface
         return $this->entityDescriptor;
     }
 
-    protected function getEntityDescriptor(): \LightSaml\Model\Metadata\EntityDescriptor
+    protected function getEntityDescriptor(): EntityDescriptor
     {
         $entityDescriptor = new EntityDescriptor();
         $entityDescriptor->setEntityID($this->entityId);
 
         $spSsoDescriptor = $this->getSpSsoDescriptor();
-        if ($spSsoDescriptor instanceof \LightSaml\Model\Metadata\SpSsoDescriptor) {
+        if ($spSsoDescriptor instanceof SpSsoDescriptor) {
             $entityDescriptor->addItem($spSsoDescriptor);
         }
 
         $idpSsoDescriptor = $this->getIdpSsoDescriptor();
-        if ($idpSsoDescriptor instanceof \LightSaml\Model\Metadata\IdpSsoDescriptor) {
+        if ($idpSsoDescriptor instanceof IdpSsoDescriptor) {
             $entityDescriptor->addItem($idpSsoDescriptor);
         }
 
         return $entityDescriptor;
     }
 
-    protected function getSpSsoDescriptor(): ?\LightSaml\Model\Metadata\SpSsoDescriptor
+    protected function getSpSsoDescriptor(): ?SpSsoDescriptor
     {
         if (null === $this->acsUrl) {
             return null;
@@ -77,9 +77,8 @@ class SimpleEntityDescriptorBuilder implements EntityDescriptorProviderInterface
     }
 
     /**
-     * @return IdpSsoDescriptor
      */
-    protected function getIdpSsoDescriptor(): ?\LightSaml\Model\Metadata\IdpSsoDescriptor
+    protected function getIdpSsoDescriptor(): ?IdpSsoDescriptor
     {
         if (null === $this->ssoUrl) {
             return null;

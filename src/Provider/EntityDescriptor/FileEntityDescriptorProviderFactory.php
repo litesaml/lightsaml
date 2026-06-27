@@ -6,12 +6,12 @@ use LightSaml\Provider\EntitiesDescriptor\FileEntitiesDescriptorProvider;
 
 class FileEntityDescriptorProviderFactory
 {
-    public static function fromEntityDescriptorFile(string $filename): \LightSaml\Provider\EntityDescriptor\FileEntityDescriptorProvider
+    public static function fromEntityDescriptorFile(string $filename): FileEntityDescriptorProvider
     {
         return new FileEntityDescriptorProvider($filename);
     }
 
-    public static function fromEntitiesDescriptorFile(string $filename, string $entityId): \LightSaml\Provider\EntityDescriptor\EntitiesDescriptorEntityProvider
+    public static function fromEntitiesDescriptorFile(string $filename, string $entityId): EntitiesDescriptorEntityProvider
     {
         return new EntitiesDescriptorEntityProvider(
             new FileEntitiesDescriptorProvider($filename),

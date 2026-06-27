@@ -56,7 +56,7 @@ class AbstractCredentialTest extends BaseTestCase
     /**
      * @return MockObject|AbstractCredential
      */
-    private function getAbstractCredentialMock(): \PHPUnit\Framework\MockObject\MockObject
+    private function getAbstractCredentialMock(): MockObject
     {
         return $this->getMockForAbstractClass(AbstractCredential::class);
     }

@@ -27,8 +27,7 @@ class EntitiesDescriptor extends Metadata
     /** @var EntitiesDescriptor[]|EntityDescriptor[] */
     protected array $items = [];
 
-    
-    public static function load(string $filename): \LightSaml\Model\Metadata\EntitiesDescriptor
+    public static function load(string $filename): EntitiesDescriptor
     {
         return self::loadXml(file_get_contents($filename));
     }
@@ -93,7 +92,7 @@ class EntitiesDescriptor extends Metadata
         return $this;
     }
 
-    public function getSignature(): ?\LightSaml\Model\XmlDSig\Signature
+    public function getSignature(): ?Signature
     {
         return $this->signature;
     }
@@ -101,7 +100,7 @@ class EntitiesDescriptor extends Metadata
     /**
      * @throws InvalidArgumentException
      */
-    public function setValidUntil(int|string|\DateTime $validUntil): static
+    public function setValidUntil(int|string|DateTime $validUntil): static
     {
         $value = Helper::getTimestampFromValue($validUntil);
         if ($value < 0) {
@@ -126,7 +125,7 @@ class EntitiesDescriptor extends Metadata
         return $this->validUntil;
     }
 
-    public function getValidUntilDateTime(): ?\DateTime
+    public function getValidUntilDateTime(): ?DateTime
     {
         if ($this->validUntil) {
             return new DateTime('@' . $this->validUntil);
@@ -201,8 +200,7 @@ class EntitiesDescriptor extends Metadata
         return $result;
     }
 
-    
-    public function getByEntityId(string $entityId): ?\LightSaml\Model\Metadata\EntityDescriptor
+    public function getByEntityId(string $entityId): ?EntityDescriptor
     {
         foreach ($this->getAllEntityDescriptors() as $entityDescriptor) {
             if ($entityDescriptor->getEntityID() == $entityId) {

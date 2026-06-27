@@ -5,6 +5,7 @@ use Rector\Config\RectorConfig;
 use Rector\Php74\Rector\Closure\ClosureToArrowFunctionRector;
 use Rector\Php74\Rector\Property\RestoreDefaultNullToNullableTypePropertyRector;
 use Rector\Php81\Rector\FuncCall\NullToStrictStringFuncCallArgRector;
+use Rector\Php81\Rector\Property\ReadOnlyPropertyRector;
 use Rector\PHPUnit\PHPUnit100\Rector\Class_\StaticDataProviderClassMethodRector;
 use Rector\PHPUnit\Set\PHPUnitSetList;
 use Rector\Set\ValueObject\LevelSetList;
@@ -34,7 +35,7 @@ return RectorConfig::configure()
         RestoreDefaultNullToNullableTypePropertyRector::class,
         NullToStrictStringFuncCallArgRector::class,
         ClosureToArrowFunctionRector::class,
-        \Rector\Php81\Rector\Property\ReadOnlyPropertyRector::class => [
+        ReadOnlyPropertyRector::class => [
             __DIR__ . '/src/State/Sso/SsoState.php',
         ],
     ]);

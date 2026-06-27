@@ -45,7 +45,7 @@ class AbstractProfileActionTest extends BaseTestCase
     /**
      * @return MockObject|AbstractProfileAction
      */
-    private function getAbstractProfileActionMock($loggerMock): \PHPUnit\Framework\MockObject\MockObject
+    private function getAbstractProfileActionMock($loggerMock): MockObject
     {
         return $this->getMockForAbstractClass(AbstractProfileAction::class, [$loggerMock]);
     }
@@ -53,7 +53,7 @@ class AbstractProfileActionTest extends BaseTestCase
     /**
      * @return MockObject|ContextInterface
      */
-    private function getContextMock(): \PHPUnit\Framework\MockObject\MockObject
+    private function getContextMock(): MockObject
     {
         return $this->getMockBuilder(ContextInterface::class)->getMock();
     }

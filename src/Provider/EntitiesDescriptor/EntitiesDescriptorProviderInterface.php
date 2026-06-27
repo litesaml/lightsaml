@@ -6,5 +6,5 @@ use LightSaml\Model\Metadata\EntitiesDescriptor;
 
 interface EntitiesDescriptorProviderInterface
 {
-    public function get(): \LightSaml\Model\Metadata\EntitiesDescriptor;
+    public function get(): EntitiesDescriptor;
 }

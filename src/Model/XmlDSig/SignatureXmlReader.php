@@ -41,7 +41,7 @@ class SignatureXmlReader extends AbstractSignatureReader
         $this->signature = $signature;
     }
 
-    public function getSignature(): \RobRichards\XMLSecLibs\XMLSecurityDSig
+    public function getSignature(): XMLSecurityDSig
     {
         return $this->signature;
     }

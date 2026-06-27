@@ -160,7 +160,7 @@ class SubjectValidatorTest extends BaseTestCase
     /**
      * @return MockObject|NameIdValidatorInterface
      */
-    public function getNameIdValidatorMock(): \PHPUnit\Framework\MockObject\MockObject
+    public function getNameIdValidatorMock(): MockObject
     {
         return $this->getMockBuilder(NameIdValidatorInterface::class)->getMock();
     }

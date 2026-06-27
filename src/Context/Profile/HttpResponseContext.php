@@ -6,9 +6,9 @@ use Psr\Http\Message\ResponseInterface;
 
 class HttpResponseContext extends AbstractProfileContext
 {
-    private ?\Psr\Http\Message\ResponseInterface $response = null;
+    private ?ResponseInterface $response = null;
 
-    public function getResponse(): ?\Psr\Http\Message\ResponseInterface
+    public function getResponse(): ?ResponseInterface
     {
         return $this->response;
     }

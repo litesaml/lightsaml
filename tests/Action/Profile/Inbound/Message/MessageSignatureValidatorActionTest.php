@@ -139,7 +139,7 @@ class MessageSignatureValidatorActionTest extends BaseTestCase
     /**
      * @return MockObject|SignatureValidatorInterface
      */
-    private function getSignatureValidatorMock(): \PHPUnit\Framework\MockObject\MockObject
+    private function getSignatureValidatorMock(): MockObject
     {
         return $this->getMockBuilder(SignatureValidatorInterface::class)->getMock();
     }
@@ -147,7 +147,7 @@ class MessageSignatureValidatorActionTest extends BaseTestCase
     /**
      * @return MockObject|CredentialInterface
      */
-    private function getCredentialMock(): \PHPUnit\Framework\MockObject\MockObject
+    private function getCredentialMock(): MockObject
     {
         return $this->getMockBuilder(CredentialInterface::class)->getMock();
     }

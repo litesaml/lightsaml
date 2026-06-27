@@ -97,7 +97,7 @@ class AssertionActionTest extends BaseTestCase
     /**
      * @return MockObject|ActionInterface
      */
-    private function getActionMock(): \PHPUnit\Framework\MockObject\MockObject
+    private function getActionMock(): MockObject
     {
         return $this->getMockBuilder(ActionInterface::class)->getMock();
     }

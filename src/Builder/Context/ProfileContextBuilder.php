@@ -9,18 +9,17 @@ use Psr\Http\Message\ServerRequestInterface;
 
 class ProfileContextBuilder
 {
-    private ?\Psr\Http\Message\ServerRequestInterface $request = null;
+    private ?ServerRequestInterface $request = null;
 
-    private ?\LightSaml\Provider\EntityDescriptor\EntityDescriptorProviderInterface $ownEntityDescriptorProvider = null;
+    private ?EntityDescriptorProviderInterface $ownEntityDescriptorProvider = null;
 
     private ?string $profileId = null;
 
     private ?string $profileRole = null;
 
     /**
-     * @return ServerRequestInterface
      */
-    public function getRequest(): ?\Psr\Http\Message\ServerRequestInterface
+    public function getRequest(): ?ServerRequestInterface
     {
         return $this->request;
     }
@@ -33,9 +32,8 @@ class ProfileContextBuilder
     }
 
     /**
-     * @return EntityDescriptorProviderInterface
      */
-    public function getOwnEntityDescriptorProvider(): ?\LightSaml\Provider\EntityDescriptor\EntityDescriptorProviderInterface
+    public function getOwnEntityDescriptorProvider(): ?EntityDescriptorProviderInterface
     {
         return $this->ownEntityDescriptorProvider;
     }
@@ -71,12 +69,12 @@ class ProfileContextBuilder
         return $this;
     }
 
-    public function build(): \LightSaml\Context\Profile\ProfileContext
+    public function build(): ProfileContext
     {
-        if (!$this->request instanceof \Psr\Http\Message\ServerRequestInterface) {
+        if (!$this->request instanceof ServerRequestInterface) {
             throw new LightSamlBuildException('HTTP Request not set');
         }
-        if (!$this->ownEntityDescriptorProvider instanceof \LightSaml\Provider\EntityDescriptor\EntityDescriptorProviderInterface) {
+        if (!$this->ownEntityDescriptorProvider instanceof EntityDescriptorProviderInterface) {
             throw new LightSamlBuildException('Own EntityDescriptor not set');
         }
         if (null === $this->profileId) {

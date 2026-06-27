@@ -8,19 +8,16 @@ use LightSaml\Context\Profile\ProfileContext;
 
 abstract class LogHelper
 {
-    
     public static function getActionContext(ContextInterface $context, ActionInterface $action, ?array $extraData = null): array
     {
         return self::getContext($context, $action, $extraData, false);
     }
 
-    
     public static function getActionErrorContext(ContextInterface $context, ActionInterface $action, ?array $extraData = null): array
     {
         return self::getContext($context, $action, $extraData, true);
     }
 
-    
     private static function getContext(ContextInterface $context, ?ActionInterface $action = null, ?array $extraData = null, bool $logWholeContext = false): array
     {
         $topContext = $context->getTopParent();

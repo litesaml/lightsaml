@@ -20,7 +20,7 @@ class CredentialResolverFactory
     {
     }
 
-    public function build(): \LightSaml\Resolver\Credential\CredentialResolverInterface
+    public function build(): CredentialResolverInterface
     {
         return (new CompositeFilterResolver())
             ->add(new EntityIdResolver($this->credentialStore))

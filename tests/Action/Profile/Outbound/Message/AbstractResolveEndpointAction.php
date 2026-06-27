@@ -27,7 +27,7 @@ abstract class AbstractResolveEndpointAction extends BaseTestCase
     protected $logger;
 
     /** @var  EndpointResolverInterface|MockObject */
-    protected \PHPUnit\Framework\MockObject\MockObject $endpointResolver;
+    protected MockObject $endpointResolver;
 
     /**
      *
@@ -39,7 +39,6 @@ abstract class AbstractResolveEndpointAction extends BaseTestCase
         $this->action = $this->createAction($this->logger, $this->endpointResolver);
     }
 
-    
     abstract protected function createAction(LoggerInterface $logger, EndpointResolverInterface $endpointResolver);
 
     protected function setEndpointResolver(bool $shouldBeCalled, ?callable $callback)
@@ -54,14 +53,13 @@ abstract class AbstractResolveEndpointAction extends BaseTestCase
         }
     }
 
-    
     protected function createContext(
         string $ownRole = ProfileContext::ROLE_IDP,
         ?SamlMessage $inboundMessage = null,
         ?Endpoint $endpoint = null,
         ?EntityDescriptor $partyEntityDescriptor = null,
         string $profileId = Profiles::SSO_IDP_RECEIVE_AUTHN_REQUEST
-    ): \LightSaml\Context\Profile\ProfileContext {
+    ): ProfileContext {
         $context = $this->getProfileContext($profileId, $ownRole);
 
         if ($endpoint instanceof Endpoint) {

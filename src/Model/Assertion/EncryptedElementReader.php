@@ -24,12 +24,12 @@ class EncryptedElementReader extends EncryptedElement
 
     protected XMLSecurityKey $symmetricKeyInfo;
 
-    public function getSymmetricKey(): \RobRichards\XMLSecLibs\XMLSecurityKey
+    public function getSymmetricKey(): XMLSecurityKey
     {
         return $this->symmetricKey;
     }
 
-    public function getSymmetricKeyInfo(): \RobRichards\XMLSecLibs\XMLSecurityKey
+    public function getSymmetricKeyInfo(): XMLSecurityKey
     {
         return $this->symmetricKeyInfo;
     }
@@ -70,7 +70,7 @@ class EncryptedElementReader extends EncryptedElement
      * @throws LightSamlXmlException
      * @throws LightSamlSecurityException
      */
-    public function decryptMulti(array $inputKeys): \DOMElement
+    public function decryptMulti(array $inputKeys): DOMElement
     {
         /** @var LogicException $lastException */
         $lastException = null;
@@ -102,7 +102,7 @@ class EncryptedElementReader extends EncryptedElement
      * @throws LightSamlXmlException
      * @throws LightSamlSecurityException
      */
-    public function decrypt(XMLSecurityKey $inputKey): \DOMElement
+    public function decrypt(XMLSecurityKey $inputKey): DOMElement
     {
         $this->symmetricKey = $this->loadSymmetricKey();
         $this->symmetricKeyInfo = $this->loadSymmetricKeyInfo($this->symmetricKey);
@@ -118,8 +118,7 @@ class EncryptedElementReader extends EncryptedElement
         return $this->buildXmlElement($decrypted);
     }
 
-    
-    protected function buildXmlElement(string $decrypted): \DOMElement
+    protected function buildXmlElement(string $decrypted): DOMElement
     {
         /*
          * This is a workaround for the case where only a subset of the XML
@@ -190,7 +189,7 @@ class EncryptedElementReader extends EncryptedElement
     /**
      * @throws LightSamlXmlException
      */
-    protected function loadSymmetricKey(): \RobRichards\XMLSecLibs\XMLSecurityKey
+    protected function loadSymmetricKey(): XMLSecurityKey
     {
         $symmetricKey = $this->xmlEnc->locateKey();
         if (false == $symmetricKey) {
@@ -203,7 +202,7 @@ class EncryptedElementReader extends EncryptedElement
     /**
      * @throws LightSamlXmlException
      */
-    protected function loadSymmetricKeyInfo(XMLSecurityKey $symmetricKey): \RobRichards\XMLSecLibs\XMLSecurityKey
+    protected function loadSymmetricKeyInfo(XMLSecurityKey $symmetricKey): XMLSecurityKey
     {
         $symmetricKeyInfo = $this->xmlEnc->locateKeyInfo($symmetricKey);
         if (false == $symmetricKeyInfo) {

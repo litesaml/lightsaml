@@ -17,7 +17,6 @@ class ProxyRestriction extends AbstractCondition
     {
     }
 
-    
     public function addAudience(string $audience): static
     {
         if (false == is_array($this->audience)) {
@@ -36,7 +35,6 @@ class ProxyRestriction extends AbstractCondition
         return $this->audience;
     }
 
-    
     public function setCount(?int $count): static
     {
         $this->count = null !== $count ? intval($count) : null;

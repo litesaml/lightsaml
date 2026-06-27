@@ -6,5 +6,5 @@ use LightSaml\Store\Credential\CredentialStoreInterface;
 
 interface CredentialContainerInterface
 {
-    public function getCredentialStore(): \LightSaml\Store\Credential\CredentialStoreInterface;
+    public function getCredentialStore(): CredentialStoreInterface;
 }

@@ -243,7 +243,7 @@ EOT;
     /**
      * @return MockObject|AbstractContext
      */
-    private function getContextMock(): \PHPUnit\Framework\MockObject\MockObject
+    private function getContextMock(): MockObject
     {
         return $this->getMockForAbstractClass(AbstractContext::class);
     }

@@ -7,9 +7,9 @@ use LightSaml\Model\Assertion\EncryptedElement;
 
 class AssertionContext extends AbstractProfileContext
 {
-    private ?\LightSaml\Model\Assertion\Assertion $assertion = null;
+    private ?Assertion $assertion = null;
 
-    private ?\LightSaml\Model\Assertion\EncryptedElement $encryptedAssertion = null;
+    private ?EncryptedElement $encryptedAssertion = null;
 
     private ?string $id = null;
 
@@ -25,12 +25,11 @@ class AssertionContext extends AbstractProfileContext
         return $this;
     }
 
-    public function getAssertion(): ?\LightSaml\Model\Assertion\Assertion
+    public function getAssertion(): ?Assertion
     {
         return $this->assertion;
     }
 
-    
     public function setAssertion(?Assertion $assertion = null): static
     {
         $this->assertion = $assertion;
@@ -38,12 +37,11 @@ class AssertionContext extends AbstractProfileContext
         return $this;
     }
 
-    public function getEncryptedAssertion(): ?\LightSaml\Model\Assertion\EncryptedElement
+    public function getEncryptedAssertion(): ?EncryptedElement
     {
         return $this->encryptedAssertion;
     }
 
-    
     public function setEncryptedAssertion(?EncryptedElement $encryptedAssertion = null): static
     {
         $this->encryptedAssertion = $encryptedAssertion;

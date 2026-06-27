@@ -10,6 +10,7 @@ use LightSaml\Profile\Profiles;
 use LightSaml\Provider\EntityDescriptor\FixedEntityDescriptorProvider;
 use Nyholm\Psr7\Factory\Psr17Factory;
 use PHPUnit\Framework\Attributes\DataProvider;
+use Psr\Http\Message\ServerRequestInterface;
 use Tests\BaseTestCase;
 
 class ProfileContextBuilderTest extends BaseTestCase
@@ -32,7 +33,7 @@ class ProfileContextBuilderTest extends BaseTestCase
     }
 
     #[DataProvider('getters_setters_provider')]
-    public function test_getters_setters(\Psr\Http\Message\ServerRequestInterface|\LightSaml\Provider\EntityDescriptor\FixedEntityDescriptorProvider|string $value, string $setter, string $getter): void
+    public function test_getters_setters(ServerRequestInterface|FixedEntityDescriptorProvider|string $value, string $setter, string $getter): void
     {
         $builder = new ProfileContextBuilder();
         $builder->{$setter}($value);

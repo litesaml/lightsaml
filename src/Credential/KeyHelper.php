@@ -14,7 +14,7 @@ class KeyHelper
      * @param string $passphrase Passphrase for the private key
      * @param bool   $isFile     true if $key is a filename of the key
      */
-    public static function createPrivateKey(string $key, ?string $passphrase, bool $isFile = false, string $type = XMLSecurityKey::RSA_SHA256): \RobRichards\XMLSecLibs\XMLSecurityKey
+    public static function createPrivateKey(string $key, ?string $passphrase, bool $isFile = false, string $type = XMLSecurityKey::RSA_SHA256): XMLSecurityKey
     {
         $result = new XMLSecurityKey($type, ['type' => 'private']);
         $result->passphrase = $passphrase;
@@ -23,7 +23,7 @@ class KeyHelper
         return $result;
     }
 
-    public static function createPublicKey(X509Certificate $certificate): \LightSaml\Credential\RsaPssKey|\RobRichards\XMLSecLibs\XMLSecurityKey
+    public static function createPublicKey(X509Certificate $certificate): RsaPssKey|XMLSecurityKey
     {
         $algo = $certificate->getSignatureAlgorithm();
         if (null == $algo) {
@@ -49,7 +49,7 @@ class KeyHelper
      * @throws LightSamlSecurityException
      * @throws InvalidArgumentException
      */
-    public static function castKey(XMLSecurityKey $key, string $algorithm): \RobRichards\XMLSecLibs\XMLSecurityKey|\LightSaml\Credential\RsaPssKey
+    public static function castKey(XMLSecurityKey $key, string $algorithm): XMLSecurityKey|RsaPssKey
     {
         if (false == is_string($algorithm)) {
             throw new InvalidArgumentException('Algorithm must be string');

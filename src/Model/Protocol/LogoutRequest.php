@@ -27,12 +27,12 @@ class LogoutRequest extends AbstractRequest
         return $this;
     }
 
-    public function getNameID(): \LightSaml\Model\Assertion\NameID
+    public function getNameID(): NameID
     {
         return $this->nameID;
     }
 
-    public function setNotOnOrAfter(int|string|\DateTime $notOnOrAfter): static
+    public function setNotOnOrAfter(int|string|DateTime $notOnOrAfter): static
     {
         $this->notOnOrAfter = Helper::getTimestampFromValue($notOnOrAfter);
 
@@ -53,7 +53,7 @@ class LogoutRequest extends AbstractRequest
         return null;
     }
 
-    public function getNotOnOrAfterDateTime(): ?\DateTime
+    public function getNotOnOrAfterDateTime(): ?DateTime
     {
         if ($this->notOnOrAfter) {
             return new DateTime('@' . $this->notOnOrAfter);

@@ -195,7 +195,7 @@ class ResolvePartyEntityIdActionTest extends BaseTestCase
     /**
      * @return MockObject|TrustOptionsStoreInterface
      */
-    private function getTrustOptionsStore(): \PHPUnit\Framework\MockObject\MockObject
+    private function getTrustOptionsStore(): MockObject
     {
         return $this->getMockBuilder(TrustOptionsStoreInterface::class)->getMock();
     }

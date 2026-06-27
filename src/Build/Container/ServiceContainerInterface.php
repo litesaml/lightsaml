@@ -15,23 +15,23 @@ use LightSaml\Validator\Model\Signature\SignatureValidatorInterface;
 
 interface ServiceContainerInterface
 {
-    public function getAssertionValidator(): \LightSaml\Validator\Model\Assertion\AssertionValidatorInterface;
+    public function getAssertionValidator(): AssertionValidatorInterface;
 
-    public function getAssertionTimeValidator(): \LightSaml\Validator\Model\Assertion\AssertionTimeValidator;
+    public function getAssertionTimeValidator(): AssertionTimeValidator;
 
-    public function getSignatureResolver(): \LightSaml\Resolver\Signature\SignatureResolverInterface;
+    public function getSignatureResolver(): SignatureResolverInterface;
 
-    public function getEndpointResolver(): \LightSaml\Resolver\Endpoint\EndpointResolverInterface;
+    public function getEndpointResolver(): EndpointResolverInterface;
 
-    public function getNameIdValidator(): \LightSaml\Validator\Model\NameId\NameIdValidatorInterface;
+    public function getNameIdValidator(): NameIdValidatorInterface;
 
-    public function getBindingFactory(): \LightSaml\Binding\BindingFactoryInterface;
+    public function getBindingFactory(): BindingFactoryInterface;
 
-    public function getSignatureValidator(): \LightSaml\Validator\Model\Signature\SignatureValidatorInterface;
+    public function getSignatureValidator(): SignatureValidatorInterface;
 
-    public function getCredentialResolver(): \LightSaml\Resolver\Credential\CredentialResolverInterface;
+    public function getCredentialResolver(): CredentialResolverInterface;
 
     public function getLogoutSessionResolver(): LogoutSessionResolverInterface;
 
-    public function getSessionProcessor(): \LightSaml\Resolver\Session\SessionProcessorInterface;
+    public function getSessionProcessor(): SessionProcessorInterface;
 }

@@ -22,7 +22,7 @@ class ResolveEndpointSloActionTest extends AbstractResolveEndpointAction
      *
      * @return ResolveEndpointBaseAction
      */
-    protected function createAction(LoggerInterface $logger, EndpointResolverInterface $endpointResolver): \LightSaml\Action\Profile\Outbound\Message\ResolveEndpointSloAction
+    protected function createAction(LoggerInterface $logger, EndpointResolverInterface $endpointResolver): ResolveEndpointSloAction
     {
         return new ResolveEndpointSloAction($logger, $endpointResolver);
     }

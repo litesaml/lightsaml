@@ -41,7 +41,7 @@ class ResolvePartyEntityIdAction extends AbstractProfileAction
             return;
         }
 
-        $entityId = $partyContext->getEntityDescriptor() instanceof \LightSaml\Model\Metadata\EntityDescriptor ? $partyContext->getEntityDescriptor()->getEntityID() : null;
+        $entityId = $partyContext->getEntityDescriptor() instanceof EntityDescriptor ? $partyContext->getEntityDescriptor()->getEntityID() : null;
         $entityId = $entityId ?: $partyContext->getEntityId();
         if (null == $entityId) {
             $message = 'EntityID is not set in the party context';
@@ -68,21 +68,20 @@ class ResolvePartyEntityIdAction extends AbstractProfileAction
 
         if (null == $partyContext->getTrustOptions()) {
             $trustOptions = $this->trustOptionsProvider->get($partyContext->getEntityDescriptor()->getEntityID());
-            if (!$trustOptions instanceof \LightSaml\Meta\TrustOptions\TrustOptions) {
+            if (!$trustOptions instanceof TrustOptions) {
                 $trustOptions = new TrustOptions();
             }
             $partyContext->setTrustOptions($trustOptions);
         }
     }
 
-    
     protected function getPartyEntityDescriptor(
         ProfileContext $context,
         EntityDescriptorStoreInterface $entityDescriptorProvider,
         string $entityId
-    ): \LightSaml\Model\Metadata\EntityDescriptor {
+    ): EntityDescriptor {
         $partyEntityDescriptor = $entityDescriptorProvider->get($entityId);
-        if (!$partyEntityDescriptor instanceof \LightSaml\Model\Metadata\EntityDescriptor) {
+        if (!$partyEntityDescriptor instanceof EntityDescriptor) {
             $message = sprintf("Unknown issuer '%s'", $entityId);
             $this->logger->emergency($message, LogHelper::getActionErrorContext($context, $this));
             throw new LightSamlContextException($context, $message);

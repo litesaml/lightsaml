@@ -8,15 +8,14 @@ use LightSaml\Model\Metadata\EntityDescriptor;
 
 class FileEntityDescriptorStore implements EntityDescriptorStoreInterface
 {
-    /** @var EntityDescriptor|EntitiesDescriptor */
+    /**  */
     private \LightSaml\Model\Metadata\EntityDescriptor|\LightSaml\Model\Metadata\EntitiesDescriptor|null $object = null;
 
     public function __construct(private string $filename)
     {
     }
 
-    
-    public function get(string $entityId): ?\LightSaml\Model\Metadata\EntityDescriptor
+    public function get(string $entityId): ?EntityDescriptor
     {
         if (null == $this->object) {
             $this->load();
@@ -33,7 +32,6 @@ class FileEntityDescriptorStore implements EntityDescriptorStoreInterface
         }
     }
 
-    
     public function has(string $entityId): bool
     {
         return null != $this->get($entityId);

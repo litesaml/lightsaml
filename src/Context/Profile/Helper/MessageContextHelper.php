@@ -14,17 +14,17 @@ use LightSaml\Model\Protocol\StatusResponse;
 
 abstract class MessageContextHelper
 {
-    public static function asSamlMessage(MessageContext $context): \LightSaml\Model\Protocol\SamlMessage
+    public static function asSamlMessage(MessageContext $context): SamlMessage
     {
         $message = $context->getMessage();
-        if ($message instanceof \LightSaml\Model\Protocol\SamlMessage) {
+        if ($message instanceof SamlMessage) {
             return $message;
         }
 
         throw new LightSamlContextException($context, 'Missing SamlMessage');
     }
 
-    public static function asAuthnRequest(MessageContext $context): \LightSaml\Model\Protocol\AuthnRequest
+    public static function asAuthnRequest(MessageContext $context): AuthnRequest
     {
         $message = $context->getMessage();
         if ($message instanceof AuthnRequest) {
@@ -34,7 +34,7 @@ abstract class MessageContextHelper
         throw new LightSamlContextException($context, 'Expected AuthnRequest');
     }
 
-    public static function asAbstractRequest(MessageContext $context): \LightSaml\Model\Protocol\AbstractRequest
+    public static function asAbstractRequest(MessageContext $context): AbstractRequest
     {
         $message = $context->getMessage();
         if ($message instanceof AbstractRequest) {
@@ -44,7 +44,7 @@ abstract class MessageContextHelper
         throw new LightSamlContextException($context, 'Expected AbstractRequest');
     }
 
-    public static function asResponse(MessageContext $context): \LightSaml\Model\Protocol\Response
+    public static function asResponse(MessageContext $context): Response
     {
         $message = $context->getMessage();
         if ($message instanceof Response) {
@@ -54,7 +54,7 @@ abstract class MessageContextHelper
         throw new LightSamlContextException($context, 'Expected Response');
     }
 
-    public static function asStatusResponse(MessageContext $context): \LightSaml\Model\Protocol\StatusResponse
+    public static function asStatusResponse(MessageContext $context): StatusResponse
     {
         $message = $context->getMessage();
         if ($message instanceof StatusResponse) {
@@ -64,7 +64,7 @@ abstract class MessageContextHelper
         throw new LightSamlContextException($context, 'Expected StatusResponse');
     }
 
-    public static function asLogoutRequest(MessageContext $context): \LightSaml\Model\Protocol\LogoutRequest
+    public static function asLogoutRequest(MessageContext $context): LogoutRequest
     {
         $message = $context->getMessage();
         if ($message instanceof LogoutRequest) {
@@ -74,7 +74,7 @@ abstract class MessageContextHelper
         throw new LightSamlContextException($context, 'Expected LogoutRequest');
     }
 
-    public static function asLogoutResponse(MessageContext $context): \LightSaml\Model\Protocol\LogoutResponse
+    public static function asLogoutResponse(MessageContext $context): LogoutResponse
     {
         $message = $context->getMessage();
         if ($message instanceof LogoutResponse) {

@@ -14,5 +14,5 @@ interface CredentialResolverInterface
      */
     public function resolve(CriteriaSet $criteriaSet, array $arrCredentials = []): array;
 
-    public function query(): \LightSaml\Resolver\Credential\CredentialResolverQuery;
+    public function query(): CredentialResolverQuery;
 }

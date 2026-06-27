@@ -47,7 +47,7 @@ class SpSsoStateActionTest extends BaseTestCase
     /**
      * @return MockObject|SessionProcessorInterface
      */
-    private function getSessionProcessorMock(): \PHPUnit\Framework\MockObject\MockObject
+    private function getSessionProcessorMock(): MockObject
     {
         return $this->getMockBuilder(SessionProcessorInterface::class)->getMock();
     }

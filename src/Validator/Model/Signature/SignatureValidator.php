@@ -19,8 +19,7 @@ class SignatureValidator implements SignatureValidatorInterface
     {
     }
 
-    
-    public function validate(AbstractSignatureReader $signature, string $issuer, string $metadataType): ?\LightSaml\Credential\CredentialInterface
+    public function validate(AbstractSignatureReader $signature, string $issuer, string $metadataType): ?CredentialInterface
     {
         $query = $this->credentialResolver->query();
         $query

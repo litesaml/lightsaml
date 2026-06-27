@@ -23,7 +23,7 @@ class MetadataProfileBuilder extends AbstractProfileBuilder
     /**
      * @return ActionBuilderInterface
      */
-    protected function getActionBuilder(): \LightSaml\Builder\Action\Profile\Metadata\MetadataActionBuilder
+    protected function getActionBuilder(): MetadataActionBuilder
     {
         return new MetadataActionBuilder($this->container);
     }

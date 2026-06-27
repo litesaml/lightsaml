@@ -31,8 +31,7 @@ class EntityDescriptor extends Metadata
     /** @var ContactPerson[]|null */
     protected ?array $contactPersons = null;
 
-    
-    public static function load(string $filename): \LightSaml\Model\Metadata\EntityDescriptor
+    public static function load(string $filename): EntityDescriptor
     {
         return self::loadXml(file_get_contents($filename));
     }
@@ -70,7 +69,7 @@ class EntityDescriptor extends Metadata
         return $this->contactPersons;
     }
 
-    public function getFirstContactPerson(): ?\LightSaml\Model\Metadata\ContactPerson
+    public function getFirstContactPerson(): ?ContactPerson
     {
         if (is_array($this->contactPersons) && isset($this->contactPersons[0])) {
             return $this->contactPersons[0];
@@ -97,7 +96,7 @@ class EntityDescriptor extends Metadata
         return $this->organizations;
     }
 
-    public function getFirstOrganization(): ?\LightSaml\Model\Metadata\Organization
+    public function getFirstOrganization(): ?Organization
     {
         if (is_array($this->organizations) && isset($this->organizations[0])) {
             return $this->organizations[0];
@@ -150,7 +149,7 @@ class EntityDescriptor extends Metadata
     /**
      * @throws InvalidArgumentException
      */
-    public function addItem(\LightSaml\Model\Metadata\IdpSsoDescriptor|\LightSaml\Model\Metadata\SpSsoDescriptor $item): static
+    public function addItem(IdpSsoDescriptor|SpSsoDescriptor $item): static
     {
         if (
             false == $item instanceof IdpSsoDescriptor
@@ -206,7 +205,7 @@ class EntityDescriptor extends Metadata
         return $result;
     }
 
-    public function getFirstIdpSsoDescriptor(): ?\LightSaml\Model\Metadata\IdpSsoDescriptor
+    public function getFirstIdpSsoDescriptor(): ?IdpSsoDescriptor
     {
         foreach ($this->getAllItems() as $item) {
             if ($item instanceof IdpSsoDescriptor) {
@@ -217,7 +216,7 @@ class EntityDescriptor extends Metadata
         return null;
     }
 
-    public function getFirstSpSsoDescriptor(): ?\LightSaml\Model\Metadata\SpSsoDescriptor
+    public function getFirstSpSsoDescriptor(): ?SpSsoDescriptor
     {
         foreach ($this->getAllItems() as $item) {
             if ($item instanceof SpSsoDescriptor) {
@@ -235,12 +234,12 @@ class EntityDescriptor extends Metadata
         return $this;
     }
 
-    public function getSignature(): ?\LightSaml\Model\XmlDSig\Signature
+    public function getSignature(): ?Signature
     {
         return $this->signature;
     }
 
-    public function setValidUntil(int|string|\DateTime $validUntil): static
+    public function setValidUntil(int|string|DateTime $validUntil): static
     {
         $this->validUntil = Helper::getTimestampFromValue($validUntil);
 
@@ -261,7 +260,7 @@ class EntityDescriptor extends Metadata
         return null;
     }
 
-    public function getValidUntilDateTime(): ?\DateTime
+    public function getValidUntilDateTime(): ?DateTime
     {
         if ($this->validUntil) {
             return new DateTime('@' . $this->validUntil);

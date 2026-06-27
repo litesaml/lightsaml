@@ -14,9 +14,9 @@ abstract class AbstractCredential implements CredentialInterface
     /** @var string[] */
     private array $keyNames = [];
 
-    private ?\RobRichards\XMLSecLibs\XMLSecurityKey $publicKey = null;
+    private ?XMLSecurityKey $publicKey = null;
 
-    private ?\RobRichards\XMLSecLibs\XMLSecurityKey $privateKey = null;
+    private ?XMLSecurityKey $privateKey = null;
 
     private ?string $secretKey = null;
 
@@ -48,12 +48,12 @@ abstract class AbstractCredential implements CredentialInterface
         return $this->keyNames;
     }
 
-    public function getPublicKey(): ?\RobRichards\XMLSecLibs\XMLSecurityKey
+    public function getPublicKey(): ?XMLSecurityKey
     {
         return $this->publicKey;
     }
 
-    public function getPrivateKey(): ?\RobRichards\XMLSecLibs\XMLSecurityKey
+    public function getPrivateKey(): ?XMLSecurityKey
     {
         return $this->privateKey;
     }
@@ -63,20 +63,19 @@ abstract class AbstractCredential implements CredentialInterface
         return $this->secretKey;
     }
 
-    public function getCredentialContext(): \LightSaml\Credential\Context\CredentialContextSet
+    public function getCredentialContext(): CredentialContextSet
     {
         return $this->credentialContext;
     }
 
-    public function setCredentialContext(CredentialContextSet $credentialContext): \LightSaml\Credential\AbstractCredential
+    public function setCredentialContext(CredentialContextSet $credentialContext): AbstractCredential
     {
         $this->credentialContext = $credentialContext;
 
         return $this;
     }
 
-    
-    public function setEntityId(string $entityId): \LightSaml\Credential\AbstractCredential
+    public function setEntityId(string $entityId): AbstractCredential
     {
         $this->entityId = $entityId;
 
@@ -86,15 +85,14 @@ abstract class AbstractCredential implements CredentialInterface
     /**
      * @param string[] $keyNames
      */
-    public function setKeyNames(array $keyNames): \LightSaml\Credential\AbstractCredential
+    public function setKeyNames(array $keyNames): AbstractCredential
     {
         $this->keyNames = $keyNames;
 
         return $this;
     }
 
-    
-    public function addKeyName(string $keyName): \LightSaml\Credential\AbstractCredential
+    public function addKeyName(string $keyName): AbstractCredential
     {
         $keyName = trim($keyName);
         if ($keyName !== '' && $keyName !== '0') {
@@ -104,30 +102,28 @@ abstract class AbstractCredential implements CredentialInterface
         return $this;
     }
 
-    public function setPrivateKey(XMLSecurityKey $privateKey): \LightSaml\Credential\AbstractCredential
+    public function setPrivateKey(XMLSecurityKey $privateKey): AbstractCredential
     {
         $this->privateKey = $privateKey;
 
         return $this;
     }
 
-    public function setPublicKey(XMLSecurityKey $publicKey): \LightSaml\Credential\AbstractCredential
+    public function setPublicKey(XMLSecurityKey $publicKey): AbstractCredential
     {
         $this->publicKey = $publicKey;
 
         return $this;
     }
 
-    
-    public function setSecretKey(?string $secretKey): \LightSaml\Credential\AbstractCredential
+    public function setSecretKey(?string $secretKey): AbstractCredential
     {
         $this->secretKey = $secretKey;
 
         return $this;
     }
 
-    
-    public function setUsageType(string $usageType): \LightSaml\Credential\AbstractCredential
+    public function setUsageType(string $usageType): AbstractCredential
     {
         $this->usageType = $usageType;
 

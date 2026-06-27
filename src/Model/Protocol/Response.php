@@ -27,7 +27,7 @@ class Response extends StatusResponse
         return $this->assertions;
     }
 
-    public function getFirstAssertion(): ?\LightSaml\Model\Assertion\Assertion
+    public function getFirstAssertion(): ?Assertion
     {
         if (is_array($this->assertions) && isset($this->assertions[0])) {
             return $this->assertions[0];
@@ -44,7 +44,7 @@ class Response extends StatusResponse
         return $this->encryptedAssertions;
     }
 
-    public function getFirstEncryptedAssertion(): ?\LightSaml\Model\Assertion\EncryptedElement
+    public function getFirstEncryptedAssertion(): ?EncryptedElement
     {
         if (is_array($this->encryptedAssertions) && isset($this->encryptedAssertions[0])) {
             return $this->encryptedAssertions[0];

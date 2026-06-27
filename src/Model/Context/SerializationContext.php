@@ -20,7 +20,7 @@ class SerializationContext
         $this->document = $document;
     }
 
-    public function getDocument(): \DOMDocument
+    public function getDocument(): DOMDocument
     {
         return $this->document;
     }

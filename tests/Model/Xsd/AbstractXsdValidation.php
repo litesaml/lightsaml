@@ -21,12 +21,12 @@ abstract class AbstractXsdValidation extends BaseTestCase
         libxml_use_internal_errors(true);
     }
 
-    protected function getX509Certificate(): \LightSaml\Credential\X509Certificate
+    protected function getX509Certificate(): X509Certificate
     {
         return X509Certificate::fromFile(__DIR__ . '/../../resources/saml.crt');
     }
 
-    protected function sign(\LightSaml\Model\Protocol\SamlMessage|\LightSaml\Model\Metadata\EntityDescriptor|\LightSaml\Model\Metadata\EntitiesDescriptor|\LightSaml\Model\Assertion\Assertion $object)
+    protected function sign(SamlMessage|EntityDescriptor|EntitiesDescriptor|Assertion $object)
     {
         $object->setSignature(new SignatureWriter(
             $this->getX509Certificate(),

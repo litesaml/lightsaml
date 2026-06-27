@@ -8,33 +8,32 @@ use Stringable;
 
 abstract class AbstractContext implements ContextInterface, Stringable
 {
-    private ?\LightSaml\Context\ContextInterface $parent = null;
+    private ?ContextInterface $parent = null;
 
     /** @var ContextInterface[] */
     private array $subContexts = [];
 
-    public function getParent(): ?\LightSaml\Context\ContextInterface
+    public function getParent(): ?ContextInterface
     {
         return $this->parent;
     }
 
-    public function getTopParent(): \LightSaml\Context\ContextInterface
+    public function getTopParent(): ContextInterface
     {
-        if ($this->getParent() instanceof \LightSaml\Context\ContextInterface) {
+        if ($this->getParent() instanceof ContextInterface) {
             return $this->getParent()->getTopParent();
         }
 
         return $this;
     }
 
-    public function setParent(?ContextInterface $parent = null): \LightSaml\Context\ContextInterface
+    public function setParent(?ContextInterface $parent = null): ContextInterface
     {
         $this->parent = $parent;
 
         return $this;
     }
 
-    
     public function getSubContext(string $name, ?string $class = null): object|null
     {
         if (isset($this->subContexts[$name])) {
@@ -51,7 +50,6 @@ abstract class AbstractContext implements ContextInterface, Stringable
         return null;
     }
 
-    
     public function getSubContextByClass(string $class, bool $autoCreate): object|null
     {
         return $this->getSubContext($class, $autoCreate ? $class : null);
@@ -61,7 +59,7 @@ abstract class AbstractContext implements ContextInterface, Stringable
      * @param object|ContextInterface $subContext
      *
      */
-    public function addSubContext(string $name, $subContext): \LightSaml\Context\AbstractContext
+    public function addSubContext(string $name, $subContext): AbstractContext
     {
         if (false === is_object($subContext)) {
             throw new InvalidArgumentException('Expected object or ContextInterface');
@@ -84,12 +82,11 @@ abstract class AbstractContext implements ContextInterface, Stringable
         return $this;
     }
 
-    
-    public function removeSubContext(string $name): \LightSaml\Context\ContextInterface
+    public function removeSubContext(string $name): ContextInterface
     {
         $subContext = $this->getSubContext($name, false);
 
-        if ($subContext instanceof \LightSaml\Context\ContextInterface) {
+        if ($subContext instanceof ContextInterface) {
             $subContext->setParent(null);
             unset($this->subContexts[$name]);
         }
@@ -97,13 +94,12 @@ abstract class AbstractContext implements ContextInterface, Stringable
         return $this;
     }
 
-    
     public function containsSubContext(string $name): bool
     {
         return isset($this->subContexts[$name]);
     }
 
-    public function clearSubContexts(): \LightSaml\Context\ContextInterface
+    public function clearSubContexts(): ContextInterface
     {
         foreach ($this->subContexts as $subContext) {
             $subContext->setParent(null);
@@ -118,7 +114,6 @@ abstract class AbstractContext implements ContextInterface, Stringable
         return new ArrayIterator($this->subContexts);
     }
 
-    
     public function debugPrintTree(string $ownName = 'root'): array
     {
         $result = [
@@ -145,8 +140,7 @@ abstract class AbstractContext implements ContextInterface, Stringable
         return (string) json_encode($this->debugPrintTree(), JSON_PRETTY_PRINT);
     }
 
-    
-    public function getPath(string|array $path): ?\LightSaml\Context\ContextInterface
+    public function getPath(string|array $path): ?ContextInterface
     {
         if (is_string($path)) {
             $path = explode('/', $path);
@@ -166,7 +160,6 @@ abstract class AbstractContext implements ContextInterface, Stringable
             return $subContext->getPath($path);
         }
     }
-
 
     protected function createSubContext(string $class): object
     {

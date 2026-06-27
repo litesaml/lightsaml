@@ -31,7 +31,7 @@ class ResolveEndpointSpAcsActionTest extends AbstractResolveEndpointAction
      *
      * @return ResolveEndpointBaseAction
      */
-    protected function createAction(LoggerInterface $logger, EndpointResolverInterface $endpointResolver): \LightSaml\Action\Profile\Outbound\Message\ResolveEndpointSpAcsAction
+    protected function createAction(LoggerInterface $logger, EndpointResolverInterface $endpointResolver): ResolveEndpointSpAcsAction
     {
         return new ResolveEndpointSpAcsAction($logger, $endpointResolver);
     }

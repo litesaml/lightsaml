@@ -107,7 +107,7 @@ class CompositeTrustOptionsStoreTest extends BaseTestCase
     /**
      * @return MockObject|TrustOptionsStoreInterface
      */
-    private function getTrustOptionsStoreMock(): \PHPUnit\Framework\MockObject\MockObject
+    private function getTrustOptionsStoreMock(): MockObject
     {
         return $this->getMockBuilder(TrustOptionsStoreInterface::class)->getMock();
     }

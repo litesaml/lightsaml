@@ -9,6 +9,7 @@ use LightSaml\Model\Assertion\Attribute;
 use LightSaml\Model\Assertion\AttributeStatement;
 use LightSaml\Model\Assertion\AuthnContext;
 use LightSaml\Model\Assertion\AuthnStatement;
+use LightSaml\Model\Assertion\SubjectLocality;
 
 class StatementValidator implements StatementValidatorInterface
 {
@@ -34,7 +35,7 @@ class StatementValidator implements StatementValidatorInterface
         if (null !== $statement->getSessionIndex() && trim($statement->getSessionIndex()) === '') {
             throw new LightSamlValidationException('SessionIndex attribute of AuthnStatement must contain at least one non-whitespace character');
         }
-        if ($statement->getSubjectLocality() instanceof \LightSaml\Model\Assertion\SubjectLocality) {
+        if ($statement->getSubjectLocality() instanceof SubjectLocality) {
             if (null !== $statement->getSubjectLocality()->getAddress() && trim($statement->getSubjectLocality()->getAddress()) === '') {
                 throw new LightSamlValidationException('Address attribute of SubjectLocality must contain at least one non-whitespace character');
             }

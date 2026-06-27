@@ -7,9 +7,9 @@ use LightSaml\Store\TrustOptions\TrustOptionsStoreInterface;
 
 interface PartyContainerInterface
 {
-    public function getIdpEntityDescriptorStore(): \LightSaml\Store\EntityDescriptor\EntityDescriptorStoreInterface;
+    public function getIdpEntityDescriptorStore(): EntityDescriptorStoreInterface;
 
-    public function getSpEntityDescriptorStore(): \LightSaml\Store\EntityDescriptor\EntityDescriptorStoreInterface;
+    public function getSpEntityDescriptorStore(): EntityDescriptorStoreInterface;
 
-    public function getTrustOptionsStore(): \LightSaml\Store\TrustOptions\TrustOptionsStoreInterface;
+    public function getTrustOptionsStore(): TrustOptionsStoreInterface;
 }

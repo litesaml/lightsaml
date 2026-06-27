@@ -16,8 +16,7 @@ class StaticTrustOptionsStore implements TrustOptionsStoreInterface
         return $this;
     }
 
-    
-    public function get(string $entityId): ?\LightSaml\Meta\TrustOptions\TrustOptions
+    public function get(string $entityId): ?TrustOptions
     {
         return $this->options[$entityId] ?? null;
     }

@@ -8,5 +8,5 @@ interface TimeProviderInterface
 {
     public function getTimestamp(): int;
 
-    public function getDateTime(): \DateTime;
+    public function getDateTime(): DateTime;
 }

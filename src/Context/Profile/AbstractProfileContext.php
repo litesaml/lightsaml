@@ -7,7 +7,7 @@ use LightSaml\Error\LightSamlContextException;
 
 abstract class AbstractProfileContext extends AbstractContext
 {
-    public function getProfileContext(): \LightSaml\Context\Profile\ProfileContext
+    public function getProfileContext(): ProfileContext
     {
         $result = $this;
         while ($result && false == $result instanceof ProfileContext) {

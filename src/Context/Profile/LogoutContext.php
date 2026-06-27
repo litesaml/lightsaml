@@ -10,7 +10,7 @@ class LogoutContext extends AbstractProfileContext
 
     protected bool $allSsoSessionsTerminated = false;
 
-    public function getSsoSessionState(): ?\LightSaml\State\Sso\SsoSessionState
+    public function getSsoSessionState(): ?SsoSessionState
     {
         return $this->ssoSessionState;
     }

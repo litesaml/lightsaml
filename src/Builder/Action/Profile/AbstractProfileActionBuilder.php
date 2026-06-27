@@ -3,6 +3,7 @@
 namespace LightSaml\Builder\Action\Profile;
 
 use LightSaml\Action\ActionInterface;
+use LightSaml\Action\CompositeAction;
 use LightSaml\Build\Container\BuildContainerInterface;
 use LightSaml\Builder\Action\CompositeActionBuilder;
 use LightSaml\Error\LightSamlBuildException;
@@ -31,7 +32,7 @@ abstract class AbstractProfileActionBuilder extends CompositeActionBuilder
     /**
      * @return ActionInterface
      */
-    public function build(): \LightSaml\Action\CompositeAction
+    public function build(): CompositeAction
     {
         if (false === $this->initialized) {
             $this->init();

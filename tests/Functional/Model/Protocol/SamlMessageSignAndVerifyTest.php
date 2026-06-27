@@ -118,12 +118,12 @@ class SamlMessageSignAndVerifyTest extends BaseTestCase
         $this->assertTrue($ok);
     }
 
-    private function getCertificate(): \LightSaml\Credential\X509Certificate
+    private function getCertificate(): X509Certificate
     {
         return X509Certificate::fromFile(__DIR__ . '/../../../resources/web_saml.crt');
     }
 
-    private function getPrivateKey(): \RobRichards\XMLSecLibs\XMLSecurityKey
+    private function getPrivateKey(): XMLSecurityKey
     {
         return KeyHelper::createPrivateKey(__DIR__ . '/../../../resources/web_saml.key', null, true);
     }

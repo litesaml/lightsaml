@@ -41,7 +41,7 @@ class DispatchEventActionTest extends BaseTestCase
     /**
      * @return MockObject|ContextInterface
      */
-    private function getContextMock(): \PHPUnit\Framework\MockObject\MockObject
+    private function getContextMock(): MockObject
     {
         return $this->getMockBuilder(ContextInterface::class)->getMock();
     }
@@ -49,7 +49,7 @@ class DispatchEventActionTest extends BaseTestCase
     /**
      * @return MockObject|EventDispatcherInterface
      */
-    private function getEventDispatcherMock(): \PHPUnit\Framework\MockObject\MockObject
+    private function getEventDispatcherMock(): MockObject
     {
         return $this->getMockBuilder(EventDispatcherInterface::class)->getMock();
     }

@@ -6,6 +6,7 @@ use LightSaml\Meta\ParameterBag;
 use LightSaml\State\Sso\SsoSessionState;
 use LightSaml\State\Sso\SsoState;
 use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\Group;
 use Tests\BaseTestCase;
 
 class SsoStateTest extends BaseTestCase
@@ -23,7 +24,6 @@ class SsoStateTest extends BaseTestCase
         ];
     }
 
-    
     #[DataProvider('property_getter_setter_provider')]
     public function test_property_getter_setter(string $property, string $value = 'some.value'): void
     {
@@ -137,7 +137,7 @@ class SsoStateTest extends BaseTestCase
         $this->assertSame($allSessions[6], $arr[2]);
     }
 
-    #[\PHPUnit\Framework\Attributes\Group('deprecated')]
+    #[Group('deprecated')]
     public function test_serialize_deserialize(): void
     {
         $arrIdp = [
@@ -170,7 +170,7 @@ class SsoStateTest extends BaseTestCase
         }
     }
 
-    #[\PHPUnit\Framework\Attributes\Group('deprecated')]
+    #[Group('deprecated')]
     public function test_options(): void
     {
         $state = new SsoState();
@@ -239,8 +239,7 @@ class SsoStateTest extends BaseTestCase
         $this->assertEquals($session2->getIdpEntityId(), $sessions[0]->getIdpEntityId());
     }
 
-    
-    private function buildAllStateCombinations(array $arrIdp, array $arrSp): \LightSaml\State\Sso\SsoState
+    private function buildAllStateCombinations(array $arrIdp, array $arrSp): SsoState
     {
         $state = new SsoState();
 

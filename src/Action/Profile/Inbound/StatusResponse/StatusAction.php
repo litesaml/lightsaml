@@ -8,6 +8,7 @@ use LightSaml\Context\Profile\Helper\MessageContextHelper;
 use LightSaml\Context\Profile\ProfileContext;
 use LightSaml\Error\LightSamlAuthenticationException;
 use LightSaml\Error\LightSamlContextException;
+use LightSaml\Model\Protocol\StatusCode;
 
 /**
  * Throws LightSamlAuthenticationException if status of inbound message is not successful.
@@ -30,7 +31,7 @@ class StatusAction extends AbstractProfileAction
 
         $status = $statusResponse->getStatus()->getStatusCode()->getValue();
         $status .= "\n" . $statusResponse->getStatus()->getStatusMessage();
-        if ($statusResponse->getStatus()->getStatusCode()->getStatusCode() instanceof \LightSaml\Model\Protocol\StatusCode) {
+        if ($statusResponse->getStatus()->getStatusCode()->getStatusCode() instanceof StatusCode) {
             $status .= "\n" . $statusResponse->getStatus()->getStatusCode()->getStatusCode()->getValue();
         }
 

@@ -25,7 +25,7 @@ class TimeProviderMock implements TimeProviderInterface
         return $this->value->getTimestamp();
     }
 
-    public function getDateTime(): \DateTime
+    public function getDateTime(): DateTime
     {
         return $this->value;
     }

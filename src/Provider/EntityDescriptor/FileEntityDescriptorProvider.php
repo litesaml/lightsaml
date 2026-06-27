@@ -7,13 +7,13 @@ use LightSaml\Model\Metadata\EntityDescriptor;
 
 class FileEntityDescriptorProvider implements EntityDescriptorProviderInterface
 {
-    private ?\LightSaml\Model\Metadata\EntityDescriptor $entityDescriptor = null;
+    private ?EntityDescriptor $entityDescriptor = null;
 
     public function __construct(private readonly string $filename)
     {
     }
 
-    public function get(): \LightSaml\Model\Metadata\EntityDescriptor
+    public function get(): EntityDescriptor
     {
         if (null == $this->entityDescriptor) {
             $this->entityDescriptor = new EntityDescriptor();

@@ -16,7 +16,7 @@ class LightSamlAuthenticationException extends LightSamlValidationException
     /**
      * @return Response
      */
-    public function getResponse(): \LightSaml\Model\Protocol\StatusResponse
+    public function getResponse(): StatusResponse
     {
         return $this->response;
     }

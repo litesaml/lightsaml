@@ -12,6 +12,7 @@ use LightSaml\Model\Protocol\AuthnRequest;
 use LightSaml\Model\Protocol\Response;
 use LightSaml\Resolver\Endpoint\EndpointResolverInterface;
 use LightSaml\SamlConstants;
+use PHPUnit\Framework\MockObject\MockObject;
 use Psr\Log\LoggerInterface;
 
 class ResolveEndpointBaseActionTest extends AbstractResolveEndpointAction
@@ -105,7 +106,7 @@ class ResolveEndpointBaseActionTest extends AbstractResolveEndpointAction
      *
      * @return ResolveEndpointBaseAction
      */
-    protected function createAction(LoggerInterface $logger, EndpointResolverInterface $endpointResolver): \PHPUnit\Framework\MockObject\MockObject
+    protected function createAction(LoggerInterface $logger, EndpointResolverInterface $endpointResolver): MockObject
     {
         $mock = $this->getMockForAbstractClass(ResolveEndpointBaseAction::class, [$logger, $endpointResolver]);
         $mock->method('getServiceType')->willReturn(SingleSignOnService::class);

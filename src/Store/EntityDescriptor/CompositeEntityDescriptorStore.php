@@ -26,8 +26,7 @@ class CompositeEntityDescriptorStore implements EntityDescriptorStoreInterface
         return $this;
     }
 
-    
-    public function get(string $entityId): ?\LightSaml\Model\Metadata\EntityDescriptor
+    public function get(string $entityId): ?EntityDescriptor
     {
         foreach ($this->children as $store) {
             $result = $store->get($entityId);

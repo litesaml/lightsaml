@@ -40,7 +40,7 @@ abstract class RoleDescriptor extends AbstractSamlModel
     /**
      * @throws InvalidArgumentException
      */
-    public function setCacheDuration(?string $cacheDuration): \LightSaml\Model\Metadata\RoleDescriptor
+    public function setCacheDuration(?string $cacheDuration): RoleDescriptor
     {
         if ($cacheDuration !== null) {
             Helper::validateDurationString($cacheDuration);
@@ -56,7 +56,7 @@ abstract class RoleDescriptor extends AbstractSamlModel
         return $this->cacheDuration;
     }
 
-    public function addContactPerson(ContactPerson $contactPerson): \LightSaml\Model\Metadata\RoleDescriptor
+    public function addContactPerson(ContactPerson $contactPerson): RoleDescriptor
     {
         if (false == is_array($this->contactPersons)) {
             $this->contactPersons = [];
@@ -74,8 +74,7 @@ abstract class RoleDescriptor extends AbstractSamlModel
         return $this->contactPersons;
     }
 
-    
-    public function setErrorURL(?string $errorURL): \LightSaml\Model\Metadata\RoleDescriptor
+    public function setErrorURL(?string $errorURL): RoleDescriptor
     {
         $this->errorURL = (string) $errorURL;
 
@@ -87,8 +86,7 @@ abstract class RoleDescriptor extends AbstractSamlModel
         return $this->errorURL;
     }
 
-    
-    public function setID(?string $id): \LightSaml\Model\Metadata\RoleDescriptor
+    public function setID(?string $id): RoleDescriptor
     {
         $this->id = (string) $id;
 
@@ -100,7 +98,7 @@ abstract class RoleDescriptor extends AbstractSamlModel
         return $this->id;
     }
 
-    public function addKeyDescriptor(KeyDescriptor $keyDescriptor): \LightSaml\Model\Metadata\RoleDescriptor
+    public function addKeyDescriptor(KeyDescriptor $keyDescriptor): RoleDescriptor
     {
         if (false == is_array($this->keyDescriptors)) {
             $this->keyDescriptors = [];
@@ -136,7 +134,7 @@ abstract class RoleDescriptor extends AbstractSamlModel
         return $result;
     }
 
-    public function getFirstKeyDescriptor(?string $use = null): ?\LightSaml\Model\Metadata\KeyDescriptor
+    public function getFirstKeyDescriptor(?string $use = null): ?KeyDescriptor
     {
         if ($this->getAllKeyDescriptors()) {
             foreach ($this->getAllKeyDescriptors() as $kd) {
@@ -149,7 +147,7 @@ abstract class RoleDescriptor extends AbstractSamlModel
         return null;
     }
 
-    public function addOrganization(Organization $organization): \LightSaml\Model\Metadata\RoleDescriptor
+    public function addOrganization(Organization $organization): RoleDescriptor
     {
         if (false == is_array($this->organizations)) {
             $this->organizations = [];
@@ -167,8 +165,7 @@ abstract class RoleDescriptor extends AbstractSamlModel
         return $this->organizations;
     }
 
-    
-    public function setProtocolSupportEnumeration(string $protocolSupportEnumeration): \LightSaml\Model\Metadata\RoleDescriptor
+    public function setProtocolSupportEnumeration(string $protocolSupportEnumeration): RoleDescriptor
     {
         $this->protocolSupportEnumeration = $protocolSupportEnumeration;
 
@@ -180,7 +177,7 @@ abstract class RoleDescriptor extends AbstractSamlModel
         return $this->protocolSupportEnumeration;
     }
 
-    public function addSignature(Signature $signature): \LightSaml\Model\Metadata\RoleDescriptor
+    public function addSignature(Signature $signature): RoleDescriptor
     {
         if (false == is_array($this->signatures)) {
             $this->signatures = [];
@@ -198,7 +195,7 @@ abstract class RoleDescriptor extends AbstractSamlModel
         return $this->signatures;
     }
 
-    public function setValidUntil(int|string|\DateTime $validUntil): \LightSaml\Model\Metadata\RoleDescriptor
+    public function setValidUntil(int|string|DateTime $validUntil): RoleDescriptor
     {
         $this->validUntil = Helper::getTimestampFromValue($validUntil);
 
@@ -219,7 +216,7 @@ abstract class RoleDescriptor extends AbstractSamlModel
         return $this->validUntil;
     }
 
-    public function getValidUntilDateTime(): ?\DateTime
+    public function getValidUntilDateTime(): ?DateTime
     {
         if ($this->validUntil) {
             return new DateTime('@' . $this->validUntil);

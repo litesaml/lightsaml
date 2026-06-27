@@ -58,7 +58,7 @@ class SessionProcessor implements SessionProcessorInterface
         }
     }
 
-    protected function createSession(SsoState $ssoState, Assertion $assertion, DateTime $now, string $ownEntityId, string $partyEntityId): \LightSaml\State\Sso\SsoSessionState
+    protected function createSession(SsoState $ssoState, Assertion $assertion, DateTime $now, string $ownEntityId, string $partyEntityId): SsoSessionState
     {
         $ssoSession = new SsoSessionState();
         $ssoSession->setIdpEntityId($partyEntityId)

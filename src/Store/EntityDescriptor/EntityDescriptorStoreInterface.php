@@ -6,10 +6,8 @@ use LightSaml\Model\Metadata\EntityDescriptor;
 
 interface EntityDescriptorStoreInterface
 {
-    
-    public function get(string $entityId): ?\LightSaml\Model\Metadata\EntityDescriptor;
+    public function get(string $entityId): ?EntityDescriptor;
 
-    
     public function has(string $entityId): bool;
 
     /**

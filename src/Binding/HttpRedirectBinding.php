@@ -23,9 +23,9 @@ class HttpRedirectBinding extends AbstractBinding
     {
     }
 
-    public function send(MessageContext $context, ?string $destination = null): \Psr\Http\Message\ResponseInterface
+    public function send(MessageContext $context, ?string $destination = null): ResponseInterface
     {
-        if (!$this->responseFactory instanceof \Psr\Http\Message\ResponseFactoryInterface) {
+        if (!$this->responseFactory instanceof ResponseFactoryInterface) {
             throw new LightSamlMissingFactoryException('ResponseFactory must be provided to use send()');
         }
 
@@ -122,7 +122,6 @@ class HttpRedirectBinding extends AbstractBinding
         }
     }
 
-    
     protected function getRedirectURL(MessageContext $context, ?string $destination): string
     {
         $message = MessageContextHelper::asSamlMessage($context);
@@ -179,7 +178,6 @@ class HttpRedirectBinding extends AbstractBinding
         }
     }
 
-    
     protected function getDestinationUrl(string $msg, SamlMessage $message, ?string $destination): string
     {
         $destination = $message->getDestination() ?: $destination;

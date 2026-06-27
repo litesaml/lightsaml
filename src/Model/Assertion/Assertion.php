@@ -85,7 +85,7 @@ class Assertion extends AbstractSamlModel
         return $this;
     }
 
-    public function getConditions(): ?\LightSaml\Model\Assertion\Conditions
+    public function getConditions(): ?Conditions
     {
         return $this->conditions;
     }
@@ -105,7 +105,7 @@ class Assertion extends AbstractSamlModel
     /**
      * @throws InvalidArgumentException
      */
-    public function setIssueInstant(int|string|\DateTime $issueInstant): static
+    public function setIssueInstant(int|string|DateTime $issueInstant): static
     {
         $this->issueInstant = Helper::getTimestampFromValue($issueInstant);
 
@@ -126,7 +126,7 @@ class Assertion extends AbstractSamlModel
         return null;
     }
 
-    public function getIssueInstantDateTime(): ?\DateTime
+    public function getIssueInstantDateTime(): ?DateTime
     {
         if ($this->issueInstant) {
             return new DateTime('@' . $this->issueInstant);
@@ -135,7 +135,6 @@ class Assertion extends AbstractSamlModel
         return null;
     }
 
-    
     public function setIssuer(?Issuer $issuer = null): static
     {
         $this->issuer = $issuer;
@@ -143,12 +142,11 @@ class Assertion extends AbstractSamlModel
         return $this;
     }
 
-    public function getIssuer(): ?\LightSaml\Model\Assertion\Issuer
+    public function getIssuer(): ?Issuer
     {
         return $this->issuer;
     }
 
-    
     public function setSignature(?Signature $signature = null): static
     {
         $this->signature = $signature;
@@ -156,7 +154,7 @@ class Assertion extends AbstractSamlModel
         return $this;
     }
 
-    public function getSignature(): ?\LightSaml\Model\XmlDSig\Signature
+    public function getSignature(): ?Signature
     {
         return $this->signature;
     }
@@ -168,7 +166,7 @@ class Assertion extends AbstractSamlModel
         return $this;
     }
 
-    public function getSubject(): ?\LightSaml\Model\Assertion\Subject
+    public function getSubject(): ?Subject
     {
         return $this->subject;
     }
@@ -228,7 +226,7 @@ class Assertion extends AbstractSamlModel
         return $result;
     }
 
-    public function getFirstAttributeStatement(): ?\LightSaml\Model\Assertion\AttributeStatement
+    public function getFirstAttributeStatement(): ?AttributeStatement
     {
         foreach ($this->items as $item) {
             if ($item instanceof AttributeStatement) {
@@ -239,7 +237,7 @@ class Assertion extends AbstractSamlModel
         return null;
     }
 
-    public function getFirstAuthnStatement(): ?\LightSaml\Model\Assertion\AuthnStatement
+    public function getFirstAuthnStatement(): ?AuthnStatement
     {
         foreach ($this->items as $item) {
             if ($item instanceof AuthnStatement) {

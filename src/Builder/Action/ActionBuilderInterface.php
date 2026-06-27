@@ -6,5 +6,5 @@ use LightSaml\Action\ActionInterface;
 
 interface ActionBuilderInterface
 {
-    public function build(): \LightSaml\Action\ActionInterface;
+    public function build(): ActionInterface;
 }

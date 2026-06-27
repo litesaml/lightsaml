@@ -8,7 +8,7 @@ class SsoStateFixedStore implements SsoStateStoreInterface
 {
     protected ?SsoState $ssoState = null;
 
-    public function get(): \LightSaml\State\Sso\SsoState
+    public function get(): SsoState
     {
         if (null == $this->ssoState) {
             $this->ssoState = new SsoState();

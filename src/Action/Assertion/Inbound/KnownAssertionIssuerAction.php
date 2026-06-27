@@ -6,6 +6,7 @@ use LightSaml\Action\Assertion\AbstractAssertionAction;
 use LightSaml\Context\Profile\AssertionContext;
 use LightSaml\Context\Profile\Helper\LogHelper;
 use LightSaml\Error\LightSamlContextException;
+use LightSaml\Model\Assertion\Issuer;
 use LightSaml\Store\EntityDescriptor\EntityDescriptorStoreInterface;
 use Psr\Log\LoggerInterface;
 
@@ -18,7 +19,7 @@ class KnownAssertionIssuerAction extends AbstractAssertionAction
 
     protected function doExecute(AssertionContext $context): void
     {
-        if (!$context->getAssertion()->getIssuer() instanceof \LightSaml\Model\Assertion\Issuer) {
+        if (!$context->getAssertion()->getIssuer() instanceof Issuer) {
             $message = 'Assertion element must have an issuer element';
             $this->logger->error($message, LogHelper::getActionErrorContext($context, $this));
             throw new LightSamlContextException($context, $message);

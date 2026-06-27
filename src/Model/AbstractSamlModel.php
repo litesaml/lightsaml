@@ -13,8 +13,7 @@ use LogicException;
 
 abstract class AbstractSamlModel implements SamlElementInterface
 {
-    
-    protected function createElement(string $name, ?string $namespace, DOMNode $parent, SerializationContext $context): \DOMElement
+    protected function createElement(string $name, ?string $namespace, DOMNode $parent, SerializationContext $context): DOMElement
     {
         if ($namespace) {
             $result = $context->getDocument()->createElementNS($namespace, $name);
@@ -121,6 +120,7 @@ abstract class AbstractSamlModel implements SamlElementInterface
     /**
      *
      * @throws LogicException
+     *
      * @return bool True if property value is not empty and attribute was set to the element
      */
     protected function singleAttributeToXml(string $name, DOMElement $element): bool

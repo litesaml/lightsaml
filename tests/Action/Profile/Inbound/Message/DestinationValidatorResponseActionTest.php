@@ -38,8 +38,7 @@ class DestinationValidatorResponseActionTest extends BaseTestCase
         $action->execute($context);
     }
 
-    
-    private function buildContext(string $ownRole, string $destination): \LightSaml\Context\Profile\ProfileContext
+    private function buildContext(string $ownRole, string $destination): ProfileContext
     {
         $context = new ProfileContext(Profiles::SSO_IDP_RECEIVE_AUTHN_REQUEST, $ownRole);
         $context->getInboundContext()->setMessage(new AuthnRequest());

@@ -17,7 +17,6 @@ class RequestState implements Serializable
         }
     }
 
-    
     public function setId(string $id): static
     {
         $this->id = $id;
@@ -30,7 +29,7 @@ class RequestState implements Serializable
         return $this->id;
     }
 
-    public function getParameters(): \LightSaml\Meta\ParameterBag
+    public function getParameters(): ParameterBag
     {
         return $this->parameters;
     }

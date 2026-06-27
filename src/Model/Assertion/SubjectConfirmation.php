@@ -37,7 +37,7 @@ class SubjectConfirmation extends AbstractSamlModel
         return $this;
     }
 
-    public function getEncryptedId(): ?\LightSaml\Model\Assertion\EncryptedElement
+    public function getEncryptedId(): ?EncryptedElement
     {
         return $this->encryptedId;
     }
@@ -49,7 +49,7 @@ class SubjectConfirmation extends AbstractSamlModel
         return $this;
     }
 
-    public function getNameID(): ?\LightSaml\Model\Assertion\NameID
+    public function getNameID(): ?NameID
     {
         return $this->nameId;
     }
@@ -61,7 +61,7 @@ class SubjectConfirmation extends AbstractSamlModel
         return $this;
     }
 
-    public function getSubjectConfirmationData(): ?\LightSaml\Model\Assertion\SubjectConfirmationData
+    public function getSubjectConfirmationData(): ?SubjectConfirmationData
     {
         return $this->subjectConfirmationData;
     }

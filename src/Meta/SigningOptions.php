@@ -22,14 +22,12 @@ class SigningOptions
     }
 
     /**
-     * @return X509Certificate
      */
-    public function getCertificate(): ?\LightSaml\Credential\X509Certificate
+    public function getCertificate(): ?X509Certificate
     {
         return $this->certificate;
     }
 
-    
     public function setCertificate(?X509Certificate $certificate = null): static
     {
         $this->certificate = $certificate;
@@ -38,14 +36,12 @@ class SigningOptions
     }
 
     /**
-     * @return XMLSecurityKey
      */
-    public function getPrivateKey(): ?\RobRichards\XMLSecLibs\XMLSecurityKey
+    public function getPrivateKey(): ?XMLSecurityKey
     {
         return $this->privateKey;
     }
 
-    
     public function setPrivateKey(?XMLSecurityKey $privateKey = null): static
     {
         $this->privateKey = $privateKey;
@@ -53,7 +49,7 @@ class SigningOptions
         return $this;
     }
 
-    public function getCertificateOptions(): \LightSaml\Meta\ParameterBag
+    public function getCertificateOptions(): ParameterBag
     {
         return $this->certificateOptions;
     }

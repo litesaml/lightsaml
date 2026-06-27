@@ -78,8 +78,7 @@ class IdpSsoDescriptor extends SSODescriptor
         return $result;
     }
 
-    
-    public function getFirstSingleSignOnService(?string $binding = null): ?\LightSaml\Model\Metadata\SingleSignOnService
+    public function getFirstSingleSignOnService(?string $binding = null): ?SingleSignOnService
     {
         foreach ($this->getAllSingleSignOnServices() as $svc) {
             if (null == $binding || $svc->getBinding() == $binding) {

@@ -2,8 +2,10 @@
 
 namespace Tests\Criteria;
 
+use LightSaml\Criteria\CriteriaInterface;
 use LightSaml\Criteria\CriteriaSet;
 use LightSaml\Resolver\Endpoint\Criteria\IndexCriteria;
+use PHPUnit\Framework\MockObject\MockObject;
 use Tests\BaseTestCase;
 
 class CriteriaSetTest extends BaseTestCase
@@ -39,11 +41,11 @@ class CriteriaSetTest extends BaseTestCase
     {
         $criteriaSet = new CriteriaSet();
 
-        $criteriaSet->addIf(false, function (): \PHPUnit\Framework\MockObject\MockObject|\LightSaml\Criteria\CriteriaInterface {
+        $criteriaSet->addIf(false, function (): MockObject|CriteriaInterface {
             return $this->getCriteriaMock();
 
         });
-        $criteriaSet->addIf(true, function (): \PHPUnit\Framework\MockObject\MockObject|\LightSaml\Criteria\CriteriaInterface {
+        $criteriaSet->addIf(true, function (): MockObject|CriteriaInterface {
             return $this->getCriteriaMock();
 
         });

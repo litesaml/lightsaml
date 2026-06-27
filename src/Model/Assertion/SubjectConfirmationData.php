@@ -46,7 +46,7 @@ class SubjectConfirmationData extends AbstractSamlModel
         return $this->inResponseTo;
     }
 
-    public function setNotBefore(int|string|\DateTime $notBefore): static
+    public function setNotBefore(int|string|DateTime $notBefore): static
     {
         $this->notBefore = Helper::getTimestampFromValue($notBefore);
 
@@ -67,7 +67,7 @@ class SubjectConfirmationData extends AbstractSamlModel
         return null;
     }
 
-    public function getNotBeforeDateTime(): ?\DateTime
+    public function getNotBeforeDateTime(): ?DateTime
     {
         if ($this->notBefore) {
             return new DateTime('@' . $this->notBefore);
@@ -76,7 +76,7 @@ class SubjectConfirmationData extends AbstractSamlModel
         return null;
     }
 
-    public function setNotOnOrAfter(int|string|\DateTime $notOnOrAfter): static
+    public function setNotOnOrAfter(int|string|DateTime $notOnOrAfter): static
     {
         $this->notOnOrAfter = Helper::getTimestampFromValue($notOnOrAfter);
 
@@ -97,7 +97,7 @@ class SubjectConfirmationData extends AbstractSamlModel
         return null;
     }
 
-    public function getNotOnOrAfterDateTime(): ?\DateTime
+    public function getNotOnOrAfterDateTime(): ?DateTime
     {
         if ($this->notOnOrAfter) {
             return new DateTime('@' . $this->notOnOrAfter);

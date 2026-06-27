@@ -14,14 +14,14 @@ abstract class AbstractBinding
 {
     protected ?EventDispatcherInterface $eventDispatcher = null;
 
-    public function setEventDispatcher(?EventDispatcherInterface $eventDispatcher = null): \LightSaml\Binding\AbstractBinding
+    public function setEventDispatcher(?EventDispatcherInterface $eventDispatcher = null): AbstractBinding
     {
         $this->eventDispatcher = $eventDispatcher;
 
         return $this;
     }
 
-    public function getEventDispatcher(): ?\Psr\EventDispatcher\EventDispatcherInterface
+    public function getEventDispatcher(): ?EventDispatcherInterface
     {
         return $this->eventDispatcher;
     }
@@ -40,8 +40,7 @@ abstract class AbstractBinding
         }
     }
 
-    
-    abstract public function send(MessageContext $context, ?string $destination = null): \Psr\Http\Message\ResponseInterface;
+    abstract public function send(MessageContext $context, ?string $destination = null): ResponseInterface;
 
     abstract public function receive(ServerRequestInterface $request, MessageContext $context): SamlMessage;
 }

@@ -31,7 +31,7 @@ class ResolveEndpointIdpSsoActionTest extends AbstractResolveEndpointAction
      *
      * @return ResolveEndpointBaseAction
      */
-    protected function createAction(LoggerInterface $logger, EndpointResolverInterface $endpointResolver): \LightSaml\Action\Profile\Outbound\Message\ResolveEndpointIdpSsoAction
+    protected function createAction(LoggerInterface $logger, EndpointResolverInterface $endpointResolver): ResolveEndpointIdpSsoAction
     {
         return new ResolveEndpointIdpSsoAction($logger, $endpointResolver);
     }

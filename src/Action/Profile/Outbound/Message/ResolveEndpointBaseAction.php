@@ -7,6 +7,7 @@ use LightSaml\Context\Profile\Helper\LogHelper;
 use LightSaml\Context\Profile\ProfileContext;
 use LightSaml\Criteria\CriteriaSet;
 use LightSaml\Error\LightSamlContextException;
+use LightSaml\Model\Metadata\Endpoint;
 use LightSaml\Model\Metadata\EndpointReference;
 use LightSaml\Model\Metadata\IdpSsoDescriptor;
 use LightSaml\Model\Metadata\SpSsoDescriptor;
@@ -32,7 +33,7 @@ abstract class ResolveEndpointBaseAction extends AbstractProfileAction
 
     protected function doExecute(ProfileContext $context)
     {
-        if ($context->getEndpointContext()->getEndpoint() instanceof \LightSaml\Model\Metadata\Endpoint) {
+        if ($context->getEndpointContext()->getEndpoint() instanceof Endpoint) {
             $this->logger->debug(
                 sprintf(
                     'Endpoint already set with location "%s" and binding "%s"',
@@ -88,7 +89,7 @@ abstract class ResolveEndpointBaseAction extends AbstractProfileAction
         $context->getEndpointContext()->setEndpoint($endpointReference->getEndpoint());
     }
 
-    protected function getCriteriaSet(ProfileContext $context): \LightSaml\Criteria\CriteriaSet
+    protected function getCriteriaSet(ProfileContext $context): CriteriaSet
     {
         $criteriaSet = new CriteriaSet();
 

@@ -10,7 +10,7 @@ class FixedEntityDescriptorProvider implements EntityDescriptorProviderInterface
     {
     }
 
-    public function get(): \LightSaml\Model\Metadata\EntityDescriptor
+    public function get(): EntityDescriptor
     {
         return $this->entityDescriptor;
     }

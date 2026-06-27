@@ -8,6 +8,7 @@ use LightSaml\Context\Profile\Helper\LogHelper;
 use LightSaml\Context\Profile\ProfileContexts;
 use LightSaml\Context\Profile\RequestStateContext;
 use LightSaml\Error\LightSamlContextException;
+use LightSaml\Model\Assertion\Subject;
 use LightSaml\State\Request\RequestState;
 use LightSaml\Store\Request\RequestStateStoreInterface;
 use Psr\Log\LoggerInterface;
@@ -21,7 +22,7 @@ class InResponseToValidatorAction extends AbstractAssertionAction
 
     protected function doExecute(AssertionContext $context)
     {
-        if (!$context->getAssertion()->getSubject() instanceof \LightSaml\Model\Assertion\Subject) {
+        if (!$context->getAssertion()->getSubject() instanceof Subject) {
             return;
         }
 
@@ -42,8 +43,7 @@ class InResponseToValidatorAction extends AbstractAssertionAction
         }
     }
 
-    
-    protected function validateInResponseTo(string $inResponseTo, AssertionContext $context): \LightSaml\State\Request\RequestState
+    protected function validateInResponseTo(string $inResponseTo, AssertionContext $context): RequestState
     {
         $requestState = $this->requestStore->get($inResponseTo);
         if (null == $requestState) {
