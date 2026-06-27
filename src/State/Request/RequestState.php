@@ -3,9 +3,8 @@
 namespace LightSaml\State\Request;
 
 use LightSaml\Meta\ParameterBag;
-use Serializable;
 
-class RequestState implements Serializable
+class RequestState
 {
     private ParameterBag $parameters;
 
@@ -52,34 +51,11 @@ class RequestState implements Serializable
         return $this->parameters->get('nonce');
     }
 
-    /**
-     * (PHP 5 &gt;= 5.1.0)<br/>
-     * String representation of object.
-     *
-     * @see http://php.net/manual/en/serializable.serialize.php
-     *
-     */
-    public function serialize(): string
-    {
-        return serialize($this->__serialize());
-    }
-
-    /**
-     * (PHP >= 8.1)
-     */
     public function __serialize(): array
     {
         $nonce = $this->parameters->get('nonce');
 
         return [$this->id, $nonce, $this->parameters->__serialize()];
-    }
-
-    /**
-     * @param string $serialized The string representation of the object
-     */
-    public function unserialize(string $serialized): void
-    {
-        $this->__unserialize(unserialize($serialized));
     }
 
     public function __unserialize(array $serialized): void
