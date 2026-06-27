@@ -6,15 +6,9 @@
 Lite Saml Implements basic SAML 2.0 data model classes, serialization/deserialization to/from xml with XML security and
 certificates support, and message encapsulations to bindings. Covered with unit tests.
 
-## Installation
+## Looking for a higher-level API?
 
-This package requires `php:^8.4`
-
-You can install it via composer:
-
-```bash
-composer require litesaml/lightsaml
-```
+If you want to integrate SAML without dealing with the low-level data model, use the [litesaml/saml](https://github.com/litesaml/saml) wrapper — it provides ready-to-use `ServiceProviderWrapper` and `IdentityProviderWrapper` built on top of this package.
 
 ## Documentation
 
