@@ -4,6 +4,25 @@
 All notable changes to this project will be documented in this file.
 <!--- END HEADER -->
 
+## 5.0.0 (2026-06-27)
+
+### Breaking Changes
+
+* Remove Pimple bridge and unused implementations (#107)
+* Replace symfony/http-foundation with PSR-7 interfaces (#109)
+* Bump minimum PHP requirement to 8.4
+* Add strong typing to method parameters and return values (#110)
+* Remove deprecated Serializable interface from state classes (#111)
+* Enforce strict typing and reach PHPStan level 6 zero errors (#112)
+
+### Continuous Integrations
+
+* Modernize CI workflows
+
+### Documentation
+
+* Recommend litesaml/saml wrapper for high-level usage
+
 ## 4.7.0 (2026-06-26)
 
 ### Features
