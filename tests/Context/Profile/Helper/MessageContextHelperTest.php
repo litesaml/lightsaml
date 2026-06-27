@@ -4,11 +4,11 @@ namespace Tests\Context\Profile\Helper;
 
 use DOMNode;
 use Exception;
+use LightSaml\Context\Model\DeserializationContext;
+use LightSaml\Context\Model\SerializationContext;
 use LightSaml\Context\Profile\Helper\MessageContextHelper;
 use LightSaml\Context\Profile\MessageContext;
 use LightSaml\Error\LightSamlContextException;
-use LightSaml\Context\Model\DeserializationContext;
-use LightSaml\Context\Model\SerializationContext;
 use LightSaml\Model\Protocol\AbstractRequest;
 use LightSaml\Model\Protocol\AuthnRequest;
 use LightSaml\Model\Protocol\LogoutRequest;

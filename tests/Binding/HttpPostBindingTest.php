@@ -3,6 +3,7 @@
 namespace Tests\Binding;
 
 use DOMDocument;
+use DOMElement;
 use DOMXPath;
 use LightSaml\Binding\BindingFactory;
 use LightSaml\Binding\HttpPostBinding;
@@ -69,7 +70,7 @@ class HttpPostBindingTest extends BaseTestCase
 
         $this->assertEquals(1, $relayStateInput->count());
         $node = $relayStateInput->item(0);
-        assert($node instanceof \DOMElement);
+        assert($node instanceof DOMElement);
         $actualRelayState = $node->getAttribute('value');
         $this->assertEquals($expectedRelayState, $actualRelayState);
     }

@@ -15,7 +15,6 @@ use LightSaml\SamlConstants;
 use Psr\Http\Message\ResponseFactoryInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
-use RobRichards\XMLSecLibs\XMLSecurityKey;
 
 class HttpRedirectBinding extends AbstractBinding
 {
@@ -68,6 +67,7 @@ class HttpRedirectBinding extends AbstractBinding
 
     /**
      * @param array<string, string> $data
+     *
      * @throws LightSamlBindingException
      */
     protected function getMessageStringFromData(array $data): string

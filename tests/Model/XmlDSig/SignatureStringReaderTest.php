@@ -2,10 +2,10 @@
 
 namespace Tests\Model\XmlDSig;
 
-use LightSaml\Credential\KeyHelper;
-use LightSaml\Credential\X509Certificate;
 use LightSaml\Context\Model\DeserializationContext;
 use LightSaml\Context\Model\SerializationContext;
+use LightSaml\Credential\KeyHelper;
+use LightSaml\Credential\X509Certificate;
 use LightSaml\Model\XmlDSig\AbstractSignatureReader;
 use LightSaml\Model\XmlDSig\SignatureStringReader;
 use LogicException;

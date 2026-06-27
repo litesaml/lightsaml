@@ -2,11 +2,11 @@
 
 namespace Tests\Functional\Model\Protocol;
 
+use LightSaml\Context\Model\DeserializationContext;
+use LightSaml\Context\Model\SerializationContext;
 use LightSaml\Credential\KeyHelper;
 use LightSaml\Credential\X509Certificate;
 use LightSaml\Model\Assertion\Issuer;
-use LightSaml\Context\Model\DeserializationContext;
-use LightSaml\Context\Model\SerializationContext;
 use LightSaml\Model\Protocol\AuthnRequest;
 use LightSaml\Model\XmlDSig\SignatureWriter;
 use LightSaml\Model\XmlDSig\SignatureXmlReader;

@@ -4,10 +4,10 @@ namespace LightSaml\Model\Metadata;
 
 use DOMElement;
 use DOMNode;
-use LightSaml\Error\LightSamlXmlException;
-use LightSaml\Model\AbstractSamlModel;
 use LightSaml\Context\Model\DeserializationContext;
 use LightSaml\Context\Model\SerializationContext;
+use LightSaml\Error\LightSamlXmlException;
+use LightSaml\Model\AbstractSamlModel;
 use LightSaml\SamlConstants;
 
 class Organization extends AbstractSamlModel

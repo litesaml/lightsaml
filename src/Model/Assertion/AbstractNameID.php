@@ -3,10 +3,10 @@
 namespace LightSaml\Model\Assertion;
 
 use DOMNode;
-use LightSaml\Error\LightSamlModelException;
-use LightSaml\Model\AbstractSamlModel;
 use LightSaml\Context\Model\DeserializationContext;
 use LightSaml\Context\Model\SerializationContext;
+use LightSaml\Error\LightSamlModelException;
+use LightSaml\Model\AbstractSamlModel;
 use LightSaml\SamlConstants;
 
 abstract class AbstractNameID extends AbstractSamlModel

@@ -36,15 +36,14 @@ class CredentialResolverQuery extends CriteriaSet
     }
 
     /**
-     * @return XMLSecurityKey[]
+     * @return CredentialInterface[]
      */
     public function getPublicKeys(): array
     {
         $result = [];
         foreach ($this->arrCredentials as $credential) {
-            $publicKey = $credential->getPublicKey();
-            if ($publicKey instanceof XMLSecurityKey) {
-                $result[] = $publicKey;
+            if ($credential->getPublicKey() instanceof XMLSecurityKey) {
+                $result[] = $credential;
             }
         }
 
@@ -52,15 +51,14 @@ class CredentialResolverQuery extends CriteriaSet
     }
 
     /**
-     * @return XMLSecurityKey[]
+     * @return CredentialInterface[]
      */
     public function getPrivateKeys(): array
     {
         $result = [];
         foreach ($this->arrCredentials as $credential) {
-            $privateKey = $credential->getPrivateKey();
-            if ($privateKey instanceof XMLSecurityKey) {
-                $result[] = $privateKey;
+            if ($credential->getPrivateKey() instanceof XMLSecurityKey) {
+                $result[] = $credential;
             }
         }
 

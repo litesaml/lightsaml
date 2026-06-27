@@ -3,11 +3,11 @@
 namespace Tests\Functional\Model\Assertion;
 
 use LightSaml\ClaimTypes;
+use LightSaml\Context\Model\DeserializationContext;
 use LightSaml\Credential\KeyHelper;
 use LightSaml\Credential\X509Certificate;
 use LightSaml\Credential\X509Credential;
 use LightSaml\Model\Assertion\EncryptedAssertionReader;
-use LightSaml\Context\Model\DeserializationContext;
 use LightSaml\Model\Protocol\Response;
 use Tests\BaseTestCase;
 

@@ -3,8 +3,8 @@
 namespace LightSaml\Action\Profile\Entity;
 
 use LightSaml\Action\Profile\AbstractProfileAction;
-use LightSaml\Context\Profile\ProfileContext;
 use LightSaml\Context\Model\SerializationContext;
+use LightSaml\Context\Profile\ProfileContext;
 use Psr\Http\Message\ResponseFactoryInterface;
 use Psr\Http\Message\StreamFactoryInterface;
 use Psr\Log\LoggerInterface;

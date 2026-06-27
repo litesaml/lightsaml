@@ -6,7 +6,6 @@ use Exception;
 use LightSaml\Action\ActionInterface;
 use LightSaml\Action\CatchableErrorAction;
 use LightSaml\Context\AbstractContext;
-use LightSaml\Context\ContextInterface;
 use LightSaml\Context\Profile\ExceptionContext;
 use LightSaml\Context\Profile\ProfileContexts;
 use PHPUnit\Framework\MockObject\MockObject;

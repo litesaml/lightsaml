@@ -4,9 +4,9 @@ namespace Tests\Action\Profile\Outbound\Message;
 
 use DOMNode;
 use LightSaml\Action\Profile\Outbound\Message\SignMessageAction;
-use LightSaml\Meta\TrustOptions\TrustOptions;
 use LightSaml\Context\Model\DeserializationContext;
 use LightSaml\Context\Model\SerializationContext;
+use LightSaml\Meta\TrustOptions\TrustOptions;
 use LightSaml\Model\Protocol\AuthnRequest;
 use LightSaml\Model\Protocol\Response;
 use LightSaml\Model\Protocol\SamlMessage;

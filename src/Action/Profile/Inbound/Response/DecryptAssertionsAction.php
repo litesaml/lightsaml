@@ -3,6 +3,7 @@
 namespace LightSaml\Action\Profile\Inbound\Response;
 
 use LightSaml\Action\Profile\AbstractProfileAction;
+use LightSaml\Context\Model\DeserializationContext;
 use LightSaml\Context\Profile\Helper\LogHelper;
 use LightSaml\Context\Profile\Helper\MessageContextHelper;
 use LightSaml\Context\Profile\ProfileContext;
@@ -13,7 +14,6 @@ use LightSaml\Credential\Criteria\UsageCriteria;
 use LightSaml\Credential\UsageType;
 use LightSaml\Error\LightSamlContextException;
 use LightSaml\Model\Assertion\EncryptedAssertionReader;
-use LightSaml\Context\Model\DeserializationContext;
 use LightSaml\Resolver\Credential\CredentialResolverInterface;
 use LightSaml\SamlConstants;
 use Psr\Log\LoggerInterface;

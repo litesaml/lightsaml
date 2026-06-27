@@ -60,7 +60,9 @@ class CriteriaSet
 
     /**
      * @template T of CriteriaInterface
+     *
      * @param class-string<T> $class
+     *
      * @return T[]
      */
     public function get(string $class): array
@@ -77,7 +79,9 @@ class CriteriaSet
 
     /**
      * @template T of CriteriaInterface
+     *
      * @param class-string<T> $class
+     *
      * @return T|null
      */
     public function getSingle(string $class): ?CriteriaInterface

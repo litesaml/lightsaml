@@ -2,7 +2,6 @@
 
 namespace Tests\Action\Profile\Outbound\Message;
 
-use LightSaml\Action\Profile\Outbound\Message\ResolveEndpointBaseAction;
 use LightSaml\Action\Profile\Outbound\Message\ResolveEndpointSloAction;
 use LightSaml\Context\Profile\ProfileContext;
 use LightSaml\Criteria\CriteriaSet;

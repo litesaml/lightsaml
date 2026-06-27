@@ -3,10 +3,10 @@
 namespace LightSaml\Model\Protocol;
 
 use DOMNode;
-use LightSaml\Model\Assertion\Conditions;
-use LightSaml\Model\Assertion\Subject;
 use LightSaml\Context\Model\DeserializationContext;
 use LightSaml\Context\Model\SerializationContext;
+use LightSaml\Model\Assertion\Conditions;
+use LightSaml\Model\Assertion\Subject;
 use LightSaml\SamlConstants;
 
 class AuthnRequest extends AbstractRequest

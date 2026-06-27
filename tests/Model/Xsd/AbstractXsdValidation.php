@@ -2,10 +2,10 @@
 
 namespace Tests\Model\Xsd;
 
+use LightSaml\Context\Model\SerializationContext;
 use LightSaml\Credential\KeyHelper;
 use LightSaml\Credential\X509Certificate;
 use LightSaml\Model\Assertion\Assertion;
-use LightSaml\Context\Model\SerializationContext;
 use LightSaml\Model\Metadata\EntitiesDescriptor;
 use LightSaml\Model\Metadata\EntityDescriptor;
 use LightSaml\Model\Protocol\SamlMessage;

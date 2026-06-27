@@ -2,7 +2,6 @@
 
 namespace LightSaml\Builder\Action\Profile;
 
-use LightSaml\Action\ActionInterface;
 use LightSaml\Action\CompositeAction;
 use LightSaml\Build\Container\BuildContainerInterface;
 use LightSaml\Builder\Action\CompositeActionBuilder;

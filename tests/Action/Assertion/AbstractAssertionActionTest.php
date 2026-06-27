@@ -40,6 +40,7 @@ class AbstractAssertionActionTest extends BaseTestCase
 
     /**
      * @param array<mixed> $arguments
+     *
      * @return AbstractAssertionAction&MockObject
      */
     private function getAbstractAssertionActionMock(array $arguments): MockObject

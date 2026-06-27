@@ -4,10 +4,9 @@ namespace LightSaml\Model\Metadata;
 
 use DateTime;
 use DOMNode;
-use InvalidArgumentException;
-use LightSaml\Helper;
 use LightSaml\Context\Model\DeserializationContext;
 use LightSaml\Context\Model\SerializationContext;
+use LightSaml\Helper;
 use LightSaml\Model\XmlDSig\Signature;
 use LightSaml\Model\XmlDSig\SignatureXmlReader;
 use LightSaml\SamlConstants;

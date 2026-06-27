@@ -2,8 +2,8 @@
 
 namespace Tests\Functional\Model\Metadata;
 
-use LightSaml\Error\LightSamlXmlException;
 use LightSaml\Context\Model\DeserializationContext;
+use LightSaml\Error\LightSamlXmlException;
 use LightSaml\Model\Metadata\AssertionConsumerService;
 use LightSaml\Model\Metadata\EntityDescriptor;
 use LightSaml\Model\Metadata\IdpSsoDescriptor;

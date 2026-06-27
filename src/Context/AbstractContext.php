@@ -35,7 +35,9 @@ abstract class AbstractContext implements ContextInterface, Stringable
 
     /**
      * @template T of ContextInterface
+     *
      * @param class-string<T>|null $class
+     *
      * @return ($class is null ? ?ContextInterface : T)
      */
     public function getSubContext(string $name, ?string $class = null): ?ContextInterface
@@ -56,7 +58,9 @@ abstract class AbstractContext implements ContextInterface, Stringable
 
     /**
      * @template T of ContextInterface
+     *
      * @param class-string<T> $class
+     *
      * @return ($autoCreate is true ? T : ?T)
      */
     public function getSubContextByClass(string $class, bool $autoCreate): ?ContextInterface

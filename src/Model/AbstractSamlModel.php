@@ -6,9 +6,9 @@ use DOMComment;
 use DOMDocument;
 use DOMElement;
 use DOMNode;
-use LightSaml\Error\LightSamlXmlException;
 use LightSaml\Context\Model\DeserializationContext;
 use LightSaml\Context\Model\SerializationContext;
+use LightSaml\Error\LightSamlXmlException;
 use LogicException;
 
 abstract class AbstractSamlModel implements SamlElementInterface
@@ -59,6 +59,7 @@ abstract class AbstractSamlModel implements SamlElementInterface
 
     /**
      * @param array<int, mixed>|null $value
+     *
      * @throws LogicException
      */
     protected function manyElementsToXml(?array $value, DOMNode $node, SerializationContext $context, ?string $nodeName = null, ?string $namespaceUri = null): void

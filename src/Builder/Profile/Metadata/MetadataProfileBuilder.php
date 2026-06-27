@@ -2,7 +2,6 @@
 
 namespace LightSaml\Builder\Profile\Metadata;
 
-use LightSaml\Builder\Action\ActionBuilderInterface;
 use LightSaml\Builder\Action\Profile\Metadata\MetadataActionBuilder;
 use LightSaml\Builder\Profile\AbstractProfileBuilder;
 use LightSaml\Context\Profile\ProfileContext;

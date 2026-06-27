@@ -5,9 +5,9 @@ namespace LightSaml\Model\Metadata;
 use DOMComment;
 use DOMNode;
 use Exception;
+use LightSaml\Context\Model\DeserializationContext;
 use LightSaml\Error\LightSamlXmlException;
 use LightSaml\Model\AbstractSamlModel;
-use LightSaml\Context\Model\DeserializationContext;
 use LightSaml\SamlConstants;
 
 abstract class Metadata extends AbstractSamlModel

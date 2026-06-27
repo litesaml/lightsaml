@@ -4,10 +4,10 @@ namespace LightSaml\Model\Assertion;
 
 use DateTime;
 use DOMNode;
-use LightSaml\Helper;
-use LightSaml\Model\AbstractSamlModel;
 use LightSaml\Context\Model\DeserializationContext;
 use LightSaml\Context\Model\SerializationContext;
+use LightSaml\Helper;
+use LightSaml\Model\AbstractSamlModel;
 use LightSaml\SamlConstants;
 
 class Conditions extends AbstractSamlModel

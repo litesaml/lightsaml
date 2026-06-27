@@ -4,12 +4,12 @@ namespace Tests\Functional\Binding;
 
 use DOMDocument;
 use LightSaml\Binding\HttpRedirectBinding;
+use LightSaml\Context\Model\DeserializationContext;
 use LightSaml\Context\Profile\MessageContext;
 use LightSaml\Credential\KeyHelper;
 use LightSaml\Credential\X509Certificate;
 use LightSaml\Event\MessageReceived;
 use LightSaml\Event\MessageSent;
-use LightSaml\Context\Model\DeserializationContext;
 use LightSaml\Model\Protocol\AuthnRequest;
 use LightSaml\Model\XmlDSig\AbstractSignatureReader;
 use LightSaml\Model\XmlDSig\SignatureStringReader;

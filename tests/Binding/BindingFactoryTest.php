@@ -10,7 +10,6 @@ use LightSaml\SamlConstants;
 use LogicException;
 use Nyholm\Psr7\Factory\Psr17Factory;
 use Psr\EventDispatcher\EventDispatcherInterface;
-use Psr\Http\Message\MessageInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Tests\BaseTestCase;
 
