@@ -21,7 +21,6 @@ class UsageFilterResolver extends AbstractQueryableResolver
 
         $result = [];
         foreach ($criteriaSet->get(UsageCriteria::class) as $criteria) {
-            /* @var UsageCriteria $criteria */
             foreach ($arrCredentials as $credential) {
                 if (false == $credential->getUsageType() || $criteria->getUsage() == $credential->getUsageType()) {
                     $result[] = $credential;

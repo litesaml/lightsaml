@@ -27,10 +27,6 @@ class ResolveEndpointSpAcsActionTest extends AbstractResolveEndpointAction
         $this->action->execute($context);
     }
 
-    /**
-     *
-     * @return ResolveEndpointBaseAction
-     */
     protected function createAction(LoggerInterface $logger, EndpointResolverInterface $endpointResolver): ResolveEndpointSpAcsAction
     {
         return new ResolveEndpointSpAcsAction($logger, $endpointResolver);

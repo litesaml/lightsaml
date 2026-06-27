@@ -4,8 +4,8 @@ namespace LightSaml\Model\Protocol;
 
 use DOMNode;
 use LightSaml\Model\AbstractSamlModel;
-use LightSaml\Model\Context\DeserializationContext;
-use LightSaml\Model\Context\SerializationContext;
+use LightSaml\Context\Model\DeserializationContext;
+use LightSaml\Context\Model\SerializationContext;
 use LightSaml\SamlConstants;
 
 class NameIDPolicy extends AbstractSamlModel
@@ -20,8 +20,8 @@ class NameIDPolicy extends AbstractSamlModel
     {
         if (null === $allowCreate) {
             $this->allowCreate = null;
-        } elseif (is_string($allowCreate) || is_int($allowCreate)) {
-            $this->allowCreate = 0 == strcasecmp($allowCreate, 'true') || true === $allowCreate || 1 == $allowCreate;
+        } elseif (is_string($allowCreate)) {
+            $this->allowCreate = 0 == strcasecmp($allowCreate, 'true');
         } else {
             $this->allowCreate = $allowCreate;
         }

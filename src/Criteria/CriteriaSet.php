@@ -7,6 +7,7 @@ class CriteriaSet
     /** @var CriteriaInterface[] */
     protected array $criterions = [];
 
+    /** @param CriteriaInterface[] $criterions */
     public function __construct(array $criterions = [])
     {
         foreach ($criterions as $criterion) {
@@ -57,7 +58,11 @@ class CriteriaSet
         return $this->criterions;
     }
 
-    /** @return CriteriaInterface[] */
+    /**
+     * @template T of CriteriaInterface
+     * @param class-string<T> $class
+     * @return T[]
+     */
     public function get(string $class): array
     {
         $result = [];
@@ -70,6 +75,11 @@ class CriteriaSet
         return $result;
     }
 
+    /**
+     * @template T of CriteriaInterface
+     * @param class-string<T> $class
+     * @return T|null
+     */
     public function getSingle(string $class): ?CriteriaInterface
     {
         foreach ($this->criterions as $criteria) {

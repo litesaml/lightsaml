@@ -7,7 +7,7 @@ use Tests\BaseTestCase;
 
 class KeyDescriptorChecker
 {
-    public static function checkCertificateCN(BaseTestCase $test, $use, $cn, ?KeyDescriptor $kd = null): void
+    public static function checkCertificateCN(BaseTestCase $test, ?string $use, string $cn, ?KeyDescriptor $kd = null): void
     {
         $test->assertNotNull($kd);
         $test->assertEquals($use, $kd->getUse());

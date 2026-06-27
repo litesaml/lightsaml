@@ -17,7 +17,7 @@ abstract class WrappedAction implements ActionInterface
         $this->afterAction($context);
     }
 
-    abstract protected function beforeAction(ContextInterface $context);
+    abstract protected function beforeAction(ContextInterface $context): void;
 
-    abstract protected function afterAction(ContextInterface $context);
+    abstract protected function afterAction(ContextInterface $context): void;
 }

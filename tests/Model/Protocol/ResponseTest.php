@@ -18,7 +18,7 @@ use LightSaml\Model\Assertion\NameID;
 use LightSaml\Model\Assertion\Subject;
 use LightSaml\Model\Assertion\SubjectConfirmation;
 use LightSaml\Model\Assertion\SubjectConfirmationData;
-use LightSaml\Model\Context\SerializationContext;
+use LightSaml\Context\Model\SerializationContext;
 use LightSaml\Model\Protocol\Response;
 use LightSaml\Model\XmlDSig\SignatureWriter;
 use LightSaml\SamlConstants;

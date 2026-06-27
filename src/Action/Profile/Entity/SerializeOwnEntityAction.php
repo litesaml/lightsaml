@@ -4,8 +4,7 @@ namespace LightSaml\Action\Profile\Entity;
 
 use LightSaml\Action\Profile\AbstractProfileAction;
 use LightSaml\Context\Profile\ProfileContext;
-use LightSaml\Context\Profile\ProfileContexts;
-use LightSaml\Model\Context\SerializationContext;
+use LightSaml\Context\Model\SerializationContext;
 use Psr\Http\Message\ResponseFactoryInterface;
 use Psr\Http\Message\StreamFactoryInterface;
 use Psr\Log\LoggerInterface;
@@ -23,12 +22,11 @@ class SerializeOwnEntityAction extends AbstractProfileAction
         parent::__construct($logger);
     }
 
-    protected function doExecute(ProfileContext $context)
+    protected function doExecute(ProfileContext $context): void
     {
         $ownEntityDescriptor = $context->getOwnEntityDescriptor();
 
-        /** @var SerializationContext $serializationContext */
-        $serializationContext = $context->getSubContext(ProfileContexts::SERIALIZATION, SerializationContext::class);
+        $serializationContext = new SerializationContext();
         $serializationContext->getDocument()->formatOutput = true;
 
         $ownEntityDescriptor->serialize($serializationContext->getDocument(), $serializationContext);

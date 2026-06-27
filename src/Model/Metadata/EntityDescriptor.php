@@ -6,8 +6,8 @@ use DateTime;
 use DOMNode;
 use InvalidArgumentException;
 use LightSaml\Helper;
-use LightSaml\Model\Context\DeserializationContext;
-use LightSaml\Model\Context\SerializationContext;
+use LightSaml\Context\Model\DeserializationContext;
+use LightSaml\Context\Model\SerializationContext;
 use LightSaml\Model\XmlDSig\Signature;
 use LightSaml\Model\XmlDSig\SignatureXmlReader;
 use LightSaml\SamlConstants;
@@ -46,6 +46,7 @@ class EntityDescriptor extends Metadata
         return $ed;
     }
 
+    /** @param IdpSsoDescriptor[]|SpSsoDescriptor[] $items */
     public function __construct(protected ?string $entityID = null, array $items = [])
     {
         $this->items = $items;
@@ -106,7 +107,6 @@ class EntityDescriptor extends Metadata
     }
 
     /**
-     * @throws InvalidArgumentException
      */
     public function setCacheDuration(string $cacheDuration): static
     {
@@ -147,21 +147,9 @@ class EntityDescriptor extends Metadata
     }
 
     /**
-     * @throws InvalidArgumentException
      */
     public function addItem(IdpSsoDescriptor|SpSsoDescriptor $item): static
     {
-        if (
-            false == $item instanceof IdpSsoDescriptor
-            && false == $item instanceof SpSsoDescriptor
-        ) {
-            throw new InvalidArgumentException('EntityDescriptor item must be IdpSsoDescriptor or SpSsoDescriptor');
-        }
-
-        if (false == is_array($this->items)) {
-            $this->items = [];
-        }
-
         $this->items[] = $item;
 
         return $this;

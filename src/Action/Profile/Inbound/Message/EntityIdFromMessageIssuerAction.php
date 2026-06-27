@@ -9,7 +9,7 @@ use LightSaml\Error\LightSamlContextException;
 
 class EntityIdFromMessageIssuerAction extends AbstractProfileAction
 {
-    protected function doExecute(ProfileContext $context)
+    protected function doExecute(ProfileContext $context): void
     {
         $message = MessageContextHelper::asSamlMessage($context->getInboundContext());
         if (null == $message->getIssuer()) {

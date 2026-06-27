@@ -45,7 +45,7 @@ class SpSsoStateActionTest extends BaseTestCase
     }
 
     /**
-     * @return MockObject|SessionProcessorInterface
+     * @return SessionProcessorInterface&MockObject
      */
     private function getSessionProcessorMock(): MockObject
     {

@@ -68,7 +68,9 @@ class HttpPostBindingTest extends BaseTestCase
         $relayStateInput = $xpath->query('//input[@name="RelayState"]');
 
         $this->assertEquals(1, $relayStateInput->count());
-        $actualRelayState = $relayStateInput->item(0)->getAttribute('value');
+        $node = $relayStateInput->item(0);
+        assert($node instanceof \DOMElement);
+        $actualRelayState = $node->getAttribute('value');
         $this->assertEquals($expectedRelayState, $actualRelayState);
     }
 }

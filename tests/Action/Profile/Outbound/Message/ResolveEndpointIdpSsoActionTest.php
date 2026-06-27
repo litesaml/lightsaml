@@ -27,10 +27,6 @@ class ResolveEndpointIdpSsoActionTest extends AbstractResolveEndpointAction
         $this->action->execute($context);
     }
 
-    /**
-     *
-     * @return ResolveEndpointBaseAction
-     */
     protected function createAction(LoggerInterface $logger, EndpointResolverInterface $endpointResolver): ResolveEndpointIdpSsoAction
     {
         return new ResolveEndpointIdpSsoAction($logger, $endpointResolver);

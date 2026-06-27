@@ -2,7 +2,7 @@
 
 namespace Tests\Functional\Model\Protocol;
 
-use LightSaml\Model\Context\DeserializationContext;
+use LightSaml\Context\Model\DeserializationContext;
 use LightSaml\Model\Protocol\AuthnRequest;
 use LightSaml\Model\Protocol\LogoutRequest;
 use LightSaml\Model\Protocol\LogoutResponse;
@@ -13,6 +13,7 @@ use Tests\BaseTestCase;
 
 class SamlMessageDeserializationTest extends BaseTestCase
 {
+    /** @return array<array{string, class-string}> */
     public static function deserialize_provider(): array
     {
         return [

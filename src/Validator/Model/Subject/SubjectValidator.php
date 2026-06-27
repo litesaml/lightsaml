@@ -40,7 +40,7 @@ class SubjectValidator implements SubjectValidatorInterface
     /**
      * @throws LightSamlValidationException
      */
-    protected function validateSubjectConfirmation(SubjectConfirmation $subjectConfirmation)
+    protected function validateSubjectConfirmation(SubjectConfirmation $subjectConfirmation): void
     {
         if (null === $subjectConfirmation->getMethod() || trim($subjectConfirmation->getMethod()) === '') {
             throw new LightSamlValidationException('Method attribute of SubjectConfirmation MUST contain at least one non-whitespace character');
@@ -56,7 +56,7 @@ class SubjectValidator implements SubjectValidatorInterface
         }
     }
 
-    protected function validateSubjectConfirmationData(SubjectConfirmationData $subjectConfirmationData)
+    protected function validateSubjectConfirmationData(SubjectConfirmationData $subjectConfirmationData): void
     {
         if ($subjectConfirmationData->getRecipient() && false == Helper::validateWellFormedUriString($subjectConfirmationData->getRecipient())) {
             throw new LightSamlValidationException('Recipient of SubjectConfirmationData must be a wellformed absolute URI.');

@@ -7,8 +7,8 @@ use DOMDocument;
 use DOMElement;
 use DOMNode;
 use LightSaml\Error\LightSamlXmlException;
-use LightSaml\Model\Context\DeserializationContext;
-use LightSaml\Model\Context\SerializationContext;
+use LightSaml\Context\Model\DeserializationContext;
+use LightSaml\Context\Model\SerializationContext;
 use LogicException;
 
 abstract class AbstractSamlModel implements SamlElementInterface
@@ -49,10 +49,8 @@ abstract class AbstractSamlModel implements SamlElementInterface
         }
     }
 
-    /**
-     * @param array|string[] $names
-     */
-    protected function singleElementsToXml(array $names, DOMNode $parent, SerializationContext $context, ?string $namespace = null)
+    /** @param array<int, string> $names */
+    protected function singleElementsToXml(array $names, DOMNode $parent, SerializationContext $context, ?string $namespace = null): void
     {
         foreach ($names as $name) {
             $this->oneElementToXml($name, $parent, $context, $namespace);
@@ -60,17 +58,13 @@ abstract class AbstractSamlModel implements SamlElementInterface
     }
 
     /**
-     *
+     * @param array<int, mixed>|null $value
      * @throws LogicException
      */
-    protected function manyElementsToXml(?array $value, DOMNode $node, SerializationContext $context, ?string $nodeName = null, ?string $namespaceUri = null)
+    protected function manyElementsToXml(?array $value, DOMNode $node, SerializationContext $context, ?string $nodeName = null, ?string $namespaceUri = null): void
     {
-        if (false == $value) {
+        if (!$value) {
             return;
-        }
-
-        if (false == is_array($value)) {
-            throw new LogicException('value must be array or null');
         }
 
         foreach ($value as $object) {
@@ -93,19 +87,16 @@ abstract class AbstractSamlModel implements SamlElementInterface
     }
 
     /**
-     *
      * @throws LogicException
      */
-    protected function manyElementsFromXml(DOMElement $node, DeserializationContext $context, string $nodeName, ?string $namespacePrefix, ?string $class, string $methodName)
+    protected function manyElementsFromXml(DOMNode $node, DeserializationContext $context, string $nodeName, ?string $namespacePrefix, ?string $class, string $methodName): void
     {
         $query = $namespacePrefix ? sprintf('%s:%s', $namespacePrefix, $nodeName) : $nodeName;
 
         foreach ($context->getXpath()->query($query, $node) as $xml) {
-            /* @var \DOMElement $xml */
             if ($class !== null && $class !== '') {
-                /** @var SamlElementInterface $object */
                 $object = new $class();
-                if (false == $object instanceof SamlElementInterface) {
+                if (!$object instanceof SamlElementInterface) {
                     throw new LogicException(sprintf("Node '%s' class '%s' must implement SamlElementInterface", $nodeName, $class));
                 }
                 $object->deserialize($xml, $context);
@@ -139,17 +130,16 @@ abstract class AbstractSamlModel implements SamlElementInterface
         return false;
     }
 
-    /**
-     * @param array|string[] $names
-     */
-    protected function attributesToXml(array $names, DOMElement $element)
+    /** @param array<int, string> $names */
+    protected function attributesToXml(array $names, DOMNode $element): void
     {
+        assert($element instanceof DOMElement);
         foreach ($names as $name) {
             $this->singleAttributeToXml($name, $element);
         }
     }
 
-    protected function checkXmlNodeName(DOMNode &$node, string $expectedName, string $expectedNamespaceUri)
+    protected function checkXmlNodeName(DOMNode &$node, string $expectedName, string $expectedNamespaceUri): void
     {
         if ($node instanceof DOMDocument) {
             $node = $node->firstChild;
@@ -164,8 +154,9 @@ abstract class AbstractSamlModel implements SamlElementInterface
         }
     }
 
-    protected function singleAttributeFromXml(DOMElement $node, string $attributeName)
+    protected function singleAttributeFromXml(DOMNode $node, string $attributeName): void
     {
+        assert($node instanceof DOMElement);
         $value = $node->getAttribute($attributeName);
         if ('' !== $value) {
             $setter = 'set' . $attributeName;
@@ -178,7 +169,7 @@ abstract class AbstractSamlModel implements SamlElementInterface
     /**
      * @throws LogicException
      */
-    protected function oneElementFromXml(DOMElement $node, DeserializationContext $context, string $elementName, ?string $class, string $namespacePrefix)
+    protected function oneElementFromXml(DOMNode $node, DeserializationContext $context, string $elementName, ?string $class, string $namespacePrefix): void
     {
         $query = $namespacePrefix !== '' ? sprintf('./%s:%s', $namespacePrefix, $elementName) : sprintf('./%s', $elementName);
         $arr = $context->getXpath()->query($query, $node);
@@ -186,14 +177,13 @@ abstract class AbstractSamlModel implements SamlElementInterface
 
         if ($value) {
             $setter = 'set' . $elementName;
-            if (false == method_exists($this, $setter)) {
+            if (!method_exists($this, $setter)) {
                 throw new LogicException(sprintf("Unable to find setter for element '%s' in class '%s'", $elementName, static::class));
             }
 
             if ($class !== null && $class !== '') {
-                /** @var AbstractSamlModel $object */
                 $object = new $class();
-                if (false == $object instanceof SamlElementInterface) {
+                if (!$object instanceof SamlElementInterface) {
                     throw new LogicException(sprintf("Specified class '%s' for element '%s' must implement SamlElementInterface", $class, $elementName));
                 }
 
@@ -206,17 +196,16 @@ abstract class AbstractSamlModel implements SamlElementInterface
         }
     }
 
-    /**
-     * @param array $options elementName=>class
-     */
-    protected function singleElementsFromXml(DOMElement $node, DeserializationContext $context, array $options)
+    /** @param array<string, array{string, class-string|null}> $options elementName => [namespacePrefix, class] */
+    protected function singleElementsFromXml(DOMNode $node, DeserializationContext $context, array $options): void
     {
         foreach ($options as $elementName => $info) {
             $this->oneElementFromXml($node, $context, $elementName, $info[1], $info[0]);
         }
     }
 
-    protected function attributesFromXml(DOMElement $node, array $attributeNames)
+    /** @param array<int, string> $attributeNames */
+    protected function attributesFromXml(DOMNode $node, array $attributeNames): void
     {
         foreach ($attributeNames as $attributeName) {
             $this->singleAttributeFromXml($node, $attributeName);

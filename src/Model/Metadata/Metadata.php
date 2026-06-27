@@ -5,13 +5,10 @@ namespace LightSaml\Model\Metadata;
 use DOMComment;
 use DOMNode;
 use Exception;
-use InvalidArgumentException;
 use LightSaml\Error\LightSamlXmlException;
 use LightSaml\Model\AbstractSamlModel;
-use LightSaml\Model\Context\DeserializationContext;
-use LightSaml\Model\SamlElementInterface;
+use LightSaml\Context\Model\DeserializationContext;
 use LightSaml\SamlConstants;
-use LogicException;
 
 abstract class Metadata extends AbstractSamlModel
 {
@@ -30,10 +27,6 @@ abstract class Metadata extends AbstractSamlModel
      */
     public static function fromXML(string $xml, DeserializationContext $context): EntityDescriptor|EntitiesDescriptor
     {
-        if (false == is_string($xml)) {
-            throw new InvalidArgumentException('Expecting string');
-        }
-
         $context->getDocument()->loadXML($xml);
 
         $node = $context->getDocument()->firstChild;
@@ -55,17 +48,13 @@ abstract class Metadata extends AbstractSamlModel
 
         $rootElementName = $node->localName;
 
-        if (array_key_exists($rootElementName, $map)) {
-            $class = $map[$rootElementName];
-            if ($class !== '0') {
-                /** @var SamlElementInterface $result */
-                $result = new $class();
-            } else {
-                throw new LogicException('Deserialization of %s root element is not implemented');
-            }
-        } else {
+        if (!array_key_exists($rootElementName, $map)) {
             throw new LightSamlXmlException(sprintf("Unknown SAML metadata '%s'", $rootElementName));
         }
+
+        $class = $map[$rootElementName];
+        /** @var EntityDescriptor|EntitiesDescriptor $result */
+        $result = new $class();
 
         $result->deserialize($node, $context);
 

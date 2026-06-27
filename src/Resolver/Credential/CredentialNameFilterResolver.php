@@ -21,7 +21,6 @@ class CredentialNameFilterResolver extends AbstractQueryableResolver
 
         $result = [];
         foreach ($criteriaSet->get(CredentialNameCriteria::class) as $criteria) {
-            /* @var CredentialNameCriteria $criteria */
             foreach ($arrCredentials as $credential) {
                 $arrCredentialNames = $credential->getKeyNames();
                 $criteriaName = $criteria->getName();

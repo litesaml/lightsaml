@@ -62,7 +62,7 @@ class CatchableErrorActionTest extends BaseTestCase
     }
 
     /**
-     * @return MockObject|ActionInterface
+     * @return ActionInterface&MockObject
      */
     private function getActionMock(): MockObject
     {
@@ -70,7 +70,7 @@ class CatchableErrorActionTest extends BaseTestCase
     }
 
     /**
-     * @return MockObject|ContextInterface
+     * @return AbstractContext&MockObject
      */
     private function getContextMock(): MockObject
     {

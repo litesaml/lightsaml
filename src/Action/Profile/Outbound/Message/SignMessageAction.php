@@ -24,7 +24,7 @@ class SignMessageAction extends AbstractProfileAction
         parent::__construct($logger);
     }
 
-    protected function doExecute(ProfileContext $context)
+    protected function doExecute(ProfileContext $context): void
     {
         $shouldSign = $this->shouldSignMessage($context);
         if ($shouldSign) {

@@ -4,8 +4,8 @@ namespace LightSaml\Model\XmlDSig;
 
 use DOMNode;
 use LightSaml\Error\LightSamlSecurityException;
-use LightSaml\Model\Context\DeserializationContext;
-use LightSaml\Model\Context\SerializationContext;
+use LightSaml\Context\Model\DeserializationContext;
+use LightSaml\Context\Model\SerializationContext;
 use LogicException;
 use RobRichards\XMLSecLibs\XMLSecurityKey;
 

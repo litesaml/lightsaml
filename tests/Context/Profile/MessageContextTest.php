@@ -13,6 +13,7 @@ use Tests\BaseTestCase;
 
 class MessageContextTest extends BaseTestCase
 {
+    /** @return array<array<mixed>> */
     public static function message_as_concrete_type_provider(): array
     {
         return [

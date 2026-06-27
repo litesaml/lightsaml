@@ -3,7 +3,7 @@
 namespace Tests\Functional\Model\Metadata;
 
 use LightSaml\Error\LightSamlXmlException;
-use LightSaml\Model\Context\DeserializationContext;
+use LightSaml\Context\Model\DeserializationContext;
 use LightSaml\Model\Metadata\ContactPerson;
 use LightSaml\Model\Metadata\EntitiesDescriptor;
 use LightSaml\SamlConstants;

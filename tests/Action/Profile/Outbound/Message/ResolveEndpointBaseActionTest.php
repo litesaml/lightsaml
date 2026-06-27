@@ -102,12 +102,9 @@ class ResolveEndpointBaseActionTest extends AbstractResolveEndpointAction
         $this->action->execute($context);
     }
 
-    /**
-     *
-     * @return ResolveEndpointBaseAction
-     */
-    protected function createAction(LoggerInterface $logger, EndpointResolverInterface $endpointResolver): MockObject
+    protected function createAction(LoggerInterface $logger, EndpointResolverInterface $endpointResolver): ResolveEndpointBaseAction
     {
+        /** @var ResolveEndpointBaseAction&MockObject $mock */
         $mock = $this->getMockForAbstractClass(ResolveEndpointBaseAction::class, [$logger, $endpointResolver]);
         $mock->method('getServiceType')->willReturn(SingleSignOnService::class);
 

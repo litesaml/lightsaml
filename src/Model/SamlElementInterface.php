@@ -3,8 +3,8 @@
 namespace LightSaml\Model;
 
 use DOMNode;
-use LightSaml\Model\Context\DeserializationContext;
-use LightSaml\Model\Context\SerializationContext;
+use LightSaml\Context\Model\DeserializationContext;
+use LightSaml\Context\Model\SerializationContext;
 
 interface SamlElementInterface
 {

@@ -17,7 +17,7 @@ class AssertionAction extends AbstractProfileAction implements DebugPrintTreeAct
         parent::__construct($logger);
     }
 
-    protected function doExecute(ProfileContext $context)
+    protected function doExecute(ProfileContext $context): void
     {
         $response = MessageContextHelper::asResponse($context->getInboundContext());
 
@@ -34,6 +34,7 @@ class AssertionAction extends AbstractProfileAction implements DebugPrintTreeAct
         }
     }
 
+    /** @return array<string, array<mixed>> */
     public function debugPrintTree(int $depth = 0): array
     {
         $arr = [];

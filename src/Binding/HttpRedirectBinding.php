@@ -48,7 +48,8 @@ class HttpRedirectBinding extends AbstractBinding
     /**
      * @throws Exception
      */
-    protected function processData(array $data, MessageContext $context)
+    /** @param array<string, string> $data */
+    protected function processData(array $data, MessageContext $context): void
     {
         $msg = $this->getMessageStringFromData($data);
         $encoding = $this->getEncodingFromData($data);
@@ -66,6 +67,7 @@ class HttpRedirectBinding extends AbstractBinding
     }
 
     /**
+     * @param array<string, string> $data
      * @throws LightSamlBindingException
      */
     protected function getMessageStringFromData(array $data): string
@@ -79,6 +81,7 @@ class HttpRedirectBinding extends AbstractBinding
         }
     }
 
+    /** @param array<string, string> $data */
     protected function getEncodingFromData(array $data): string
     {
         if (array_key_exists('SAMLEncoding', $data)) {
@@ -103,14 +106,16 @@ class HttpRedirectBinding extends AbstractBinding
         };
     }
 
-    protected function loadRelayState(SamlMessage $message, array $data)
+    /** @param array<string, string> $data */
+    protected function loadRelayState(SamlMessage $message, array $data): void
     {
         if (array_key_exists('RelayState', $data)) {
             $message->setRelayState($data['RelayState']);
         }
     }
 
-    protected function loadSignature(SamlMessage $message, array $data)
+    /** @param array<string, string> $data */
+    protected function loadSignature(SamlMessage $message, array $data): void
     {
         if (array_key_exists('Signature', $data)) {
             if (false == array_key_exists('SigAlg', $data)) {
@@ -159,16 +164,15 @@ class HttpRedirectBinding extends AbstractBinding
         return $msg . urlencode($xml);
     }
 
-    protected function addRelayStateToUrl(string &$msg, SamlMessage $message)
+    protected function addRelayStateToUrl(string &$msg, SamlMessage $message): void
     {
         if (null !== $message->getRelayState()) {
             $msg .= '&RelayState=' . urlencode($message->getRelayState());
         }
     }
 
-    protected function addSignatureToUrl(string &$msg, ?SignatureWriter $signature = null)
+    protected function addSignatureToUrl(string &$msg, ?SignatureWriter $signature = null): void
     {
-        /** @var $key XMLSecurityKey */
         $key = $signature instanceof SignatureWriter ? $signature->getXmlSecurityKey() : null;
 
         if (null != $key) {
@@ -190,6 +194,7 @@ class HttpRedirectBinding extends AbstractBinding
         return $destination;
     }
 
+    /** @return array<string, string> */
     protected function parseQuery(ServerRequestInterface $request): array
     {
         /*
@@ -220,6 +225,7 @@ class HttpRedirectBinding extends AbstractBinding
         return $result;
     }
 
+    /** @return array<string, string> */
     protected function parseQueryString(string $queryString): array
     {
         $result = [];

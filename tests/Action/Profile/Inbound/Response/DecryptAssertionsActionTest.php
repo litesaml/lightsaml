@@ -29,6 +29,7 @@ class DecryptAssertionsActionTest extends BaseTestCase
         $this->assertTrue(true);
     }
 
+    /** @return array<array{string, string}> */
     public static function resolves_credentials_for_own_entity_id_party_role_and_encryption_usage_provider(): array
     {
         return [
@@ -131,7 +132,7 @@ class DecryptAssertionsActionTest extends BaseTestCase
     }
 
     /**
-     * @return MockObject|CredentialInterface
+     * @return CredentialInterface&MockObject
      */
     private function getCredentialMock(): MockObject
     {
@@ -139,7 +140,7 @@ class DecryptAssertionsActionTest extends BaseTestCase
     }
 
     /**
-     * @return MockObject|EncryptedAssertionReader
+     * @return EncryptedAssertionReader&MockObject
      */
     private function getEncryptedAssertionReaderMock(): MockObject
     {

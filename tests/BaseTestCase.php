@@ -30,17 +30,17 @@ use RobRichards\XMLSecLibs\XMLSecurityKey;
 
 abstract class BaseTestCase extends TestCase
 {
-    public function getLoggerMock(): MockObject|LoggerInterface
+    public function getLoggerMock(): LoggerInterface&MockObject
     {
         return $this->getMockBuilder(LoggerInterface::class)->getMock();
     }
 
-    public function getTimeProviderMock(): MockObject|TimeProviderInterface
+    public function getTimeProviderMock(): TimeProviderInterface&MockObject
     {
         return $this->getMockBuilder(TimeProviderInterface::class)->getMock();
     }
 
-    public function getEndpointReferenceMock(Endpoint $endpoint): MockObject|EndpointReference
+    public function getEndpointReferenceMock(Endpoint $endpoint): EndpointReference&MockObject
     {
         $endpointReferenceMock = $this->getMockBuilder(EndpointReference::class)->disableOriginalConstructor()->getMock();
 
@@ -51,7 +51,7 @@ abstract class BaseTestCase extends TestCase
         return $endpointReferenceMock;
     }
 
-    public function getEndpointResolverMock(): MockObject|EndpointResolverInterface
+    public function getEndpointResolverMock(): EndpointResolverInterface&MockObject
     {
         return $this->getMockBuilder(EndpointResolverInterface::class)->getMock();
     }
@@ -64,49 +64,47 @@ abstract class BaseTestCase extends TestCase
     public function getAssertionContext(Assertion $assertion): AssertionContext
     {
         $context = new AssertionContext();
-
-        if ($assertion) {
-            $context->setAssertion($assertion);
-        }
+        $context->setAssertion($assertion);
 
         return $context;
     }
 
-    public function getRequestStateStoreMock(): MockObject|RequestStateStoreInterface
+    public function getRequestStateStoreMock(): RequestStateStoreInterface&MockObject
     {
         return $this->getMockBuilder(RequestStateStoreInterface::class)->getMock();
     }
 
-    public function getBindingFactoryMock(): MockObject|BindingFactoryInterface
+    public function getBindingFactoryMock(): BindingFactoryInterface&MockObject
     {
         return $this->getMockBuilder(BindingFactoryInterface::class)->getMock();
     }
 
-    public function getBindingMock(): MockObject|AbstractBinding
+    public function getBindingMock(): AbstractBinding&MockObject
     {
         return $this->getMockForAbstractClass(AbstractBinding::class);
     }
 
-    public function getSignatureResolverMock(): MockObject|SignatureResolverInterface
+    public function getSignatureResolverMock(): SignatureResolverInterface&MockObject
     {
         return $this->getMockBuilder(SignatureResolverInterface::class)->getMock();
     }
 
-    public function getX509CertificateMock(): MockObject|X509Certificate
+    public function getX509CertificateMock(): X509Certificate&MockObject
     {
         return $this->getMockBuilder(X509Certificate::class)->getMock();
     }
 
-    public function getAssertionValidatorMock(): MockObject|AssertionValidatorInterface
+    public function getAssertionValidatorMock(): AssertionValidatorInterface&MockObject
     {
         return $this->getMockBuilder(AssertionValidatorInterface::class)->getMock();
     }
 
-    public function getEntityDescriptorStoreMock(): MockObject|EntityDescriptorStoreInterface
+    public function getEntityDescriptorStoreMock(): EntityDescriptorStoreInterface&MockObject
     {
         return $this->getMockBuilder(EntityDescriptorStoreInterface::class)->getMock();
     }
 
+    /** @param class-string $class */
     public function assertCriteria(CriteriaSet $criteriaSet, string $class, ?string $getter, ?string $value): void
     {
         $this->assertTrue($criteriaSet->has($class));
@@ -116,32 +114,32 @@ abstract class BaseTestCase extends TestCase
         }
     }
 
-    public function getIdStoreMock(): MockObject|IdStoreInterface
+    public function getIdStoreMock(): IdStoreInterface&MockObject
     {
         return $this->getMockBuilder(IdStoreInterface::class)->getMock();
     }
 
-    public function getAssertionTimeValidatorMock(): MockObject|AssertionTimeValidatorInterface
+    public function getAssertionTimeValidatorMock(): AssertionTimeValidatorInterface&MockObject
     {
         return $this->getMockBuilder(AssertionTimeValidatorInterface::class)->getMock();
     }
 
-    public function getCriteriaMock(): MockObject|CriteriaInterface
+    public function getCriteriaMock(): CriteriaInterface&MockObject
     {
         return $this->getMockBuilder(CriteriaInterface::class)->getMock();
     }
 
-    public function getCredentialResolverMock(): MockObject|CredentialResolverInterface
+    public function getCredentialResolverMock(): CredentialResolverInterface&MockObject
     {
         return $this->getMockBuilder(CredentialResolverInterface::class)->getMock();
     }
 
-    public function getX509CredentialMock(): MockObject|X509CredentialInterface
+    public function getX509CredentialMock(): X509CredentialInterface&MockObject
     {
         return $this->getMockBuilder(X509CredentialInterface::class)->getMock();
     }
 
-    public function getXmlSecurityKeyMock(): MockObject|XMLSecurityKey
+    public function getXmlSecurityKeyMock(): XMLSecurityKey&MockObject
     {
         return $this->getMockBuilder(XMLSecurityKey::class)
             ->disableOriginalConstructor()

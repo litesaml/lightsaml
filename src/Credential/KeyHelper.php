@@ -51,10 +51,6 @@ class KeyHelper
      */
     public static function castKey(XMLSecurityKey $key, string $algorithm): XMLSecurityKey|RsaPssKey
     {
-        if (false == is_string($algorithm)) {
-            throw new InvalidArgumentException('Algorithm must be string');
-        }
-
         // do nothing if algorithm is already the type of the key
         if ($key->type === $algorithm) {
             return $key;

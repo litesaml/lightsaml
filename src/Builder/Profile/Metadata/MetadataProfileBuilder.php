@@ -20,9 +20,6 @@ class MetadataProfileBuilder extends AbstractProfileBuilder
         return ProfileContext::ROLE_NONE;
     }
 
-    /**
-     * @return ActionBuilderInterface
-     */
     protected function getActionBuilder(): MetadataActionBuilder
     {
         return new MetadataActionBuilder($this->container);

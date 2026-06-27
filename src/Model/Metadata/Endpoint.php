@@ -4,8 +4,8 @@ namespace LightSaml\Model\Metadata;
 
 use DOMNode;
 use LightSaml\Model\AbstractSamlModel;
-use LightSaml\Model\Context\DeserializationContext;
-use LightSaml\Model\Context\SerializationContext;
+use LightSaml\Context\Model\DeserializationContext;
+use LightSaml\Context\Model\SerializationContext;
 
 abstract class Endpoint extends AbstractSamlModel
 {
@@ -15,7 +15,7 @@ abstract class Endpoint extends AbstractSamlModel
     {
     }
 
-    public function setBinding(string $binding): Endpoint
+    public function setBinding(string $binding): static
     {
         $this->binding = $binding;
 
@@ -27,7 +27,7 @@ abstract class Endpoint extends AbstractSamlModel
         return $this->binding;
     }
 
-    public function setLocation(string $location): Endpoint
+    public function setLocation(string $location): static
     {
         $this->location = $location;
 
@@ -39,7 +39,7 @@ abstract class Endpoint extends AbstractSamlModel
         return $this->location;
     }
 
-    public function setResponseLocation(?string $responseLocation): Endpoint
+    public function setResponseLocation(?string $responseLocation): static
     {
         $this->responseLocation = $responseLocation ?: null;
 

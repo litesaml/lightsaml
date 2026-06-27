@@ -29,9 +29,6 @@ abstract class AbstractProfileActionBuilder extends CompositeActionBuilder
 
     abstract protected function doInitialize(): void;
 
-    /**
-     * @return ActionInterface
-     */
     public function build(): CompositeAction
     {
         if (false === $this->initialized) {

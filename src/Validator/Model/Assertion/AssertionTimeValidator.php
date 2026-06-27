@@ -23,7 +23,7 @@ class AssertionTimeValidator implements AssertionTimeValidatorInterface
         $this->validateSubject($assertion, $now, $allowedSecondsSkew);
     }
 
-    protected function validateConditions(Assertion $assertion, int $now, int $allowedSecondsSkew)
+    protected function validateConditions(Assertion $assertion, int $now, int $allowedSecondsSkew): void
     {
         if (false == $assertion->getConditions()) {
             return;
@@ -38,7 +38,7 @@ class AssertionTimeValidator implements AssertionTimeValidatorInterface
         }
     }
 
-    protected function validateAuthnStatements(Assertion $assertion, int $now, int $allowedSecondsSkew)
+    protected function validateAuthnStatements(Assertion $assertion, int $now, int $allowedSecondsSkew): void
     {
         if (false == $assertion->getAllAuthnStatements()) {
             return;
@@ -52,7 +52,7 @@ class AssertionTimeValidator implements AssertionTimeValidatorInterface
         }
     }
 
-    protected function validateSubject(Assertion $assertion, int $now, int $allowedSecondsSkew)
+    protected function validateSubject(Assertion $assertion, int $now, int $allowedSecondsSkew): void
     {
         if (false == $assertion->getSubject()) {
             return;

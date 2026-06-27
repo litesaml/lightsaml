@@ -10,9 +10,6 @@ class ActionLogWrapper implements ActionWrapperInterface
     {
     }
 
-    /**
-     * @return ActionInterface
-     */
     public function wrap(ActionInterface $action): LoggableAction
     {
         return new LoggableAction($action, $this->logger);

@@ -39,7 +39,7 @@ class DispatchEventActionTest extends BaseTestCase
     }
 
     /**
-     * @return MockObject|ContextInterface
+     * @return ContextInterface&MockObject
      */
     private function getContextMock(): MockObject
     {
@@ -47,7 +47,7 @@ class DispatchEventActionTest extends BaseTestCase
     }
 
     /**
-     * @return MockObject|EventDispatcherInterface
+     * @return EventDispatcherInterface&MockObject
      */
     private function getEventDispatcherMock(): MockObject
     {

@@ -13,6 +13,7 @@ use LightSaml\Resolver\Endpoint\Criteria\DescriptorTypeCriteria;
 use LightSaml\Resolver\Endpoint\Criteria\IndexCriteria;
 use LightSaml\Resolver\Endpoint\Criteria\LocationCriteria;
 use LightSaml\Resolver\Endpoint\Criteria\ServiceTypeCriteria;
+use LightSaml\Action\Profile\Outbound\Message\ResolveEndpointBaseAction;
 use LightSaml\Resolver\Endpoint\EndpointResolverInterface;
 use PHPUnit\Framework\MockObject\MockObject;
 use Psr\Log\LoggerInterface;
@@ -20,13 +21,12 @@ use Tests\BaseTestCase;
 
 abstract class AbstractResolveEndpointAction extends BaseTestCase
 {
-    /** @var ResolveEndpointBaseActionTest|MockObject */
-    protected $action;
+    protected ResolveEndpointBaseAction $action;
 
-    /** @var LoggerInterface|MockObject */
-    protected $logger;
+    /** @var LoggerInterface&MockObject */
+    protected MockObject $logger;
 
-    /** @var  EndpointResolverInterface|MockObject */
+    /** @var EndpointResolverInterface&MockObject */
     protected MockObject $endpointResolver;
 
     /**
@@ -39,9 +39,9 @@ abstract class AbstractResolveEndpointAction extends BaseTestCase
         $this->action = $this->createAction($this->logger, $this->endpointResolver);
     }
 
-    abstract protected function createAction(LoggerInterface $logger, EndpointResolverInterface $endpointResolver);
+    abstract protected function createAction(LoggerInterface $logger, EndpointResolverInterface $endpointResolver): ResolveEndpointBaseAction;
 
-    protected function setEndpointResolver(bool $shouldBeCalled, ?callable $callback)
+    protected function setEndpointResolver(bool $shouldBeCalled, ?callable $callback): void
     {
         if ($shouldBeCalled) {
             $this->endpointResolver->expects($this->once())
@@ -78,7 +78,8 @@ abstract class AbstractResolveEndpointAction extends BaseTestCase
         return $context;
     }
 
-    protected function criteriaSetShouldHaveBindingCriteria(CriteriaSet $criteriaSet, array $bindings)
+    /** @param string[] $bindings */
+    protected function criteriaSetShouldHaveBindingCriteria(CriteriaSet $criteriaSet, array $bindings): void
     {
         if ($bindings === []) {
             $this->assertFalse($criteriaSet->has(BindingCriteria::class));
@@ -90,7 +91,7 @@ abstract class AbstractResolveEndpointAction extends BaseTestCase
         }
     }
 
-    protected function criteriaSetShouldHaveDescriptorTypeCriteria(CriteriaSet $criteriaSet, string $value)
+    protected function criteriaSetShouldHaveDescriptorTypeCriteria(CriteriaSet $criteriaSet, string $value): void
     {
         if ($value !== '') {
             $this->assertTrue($criteriaSet->has(DescriptorTypeCriteria::class));
@@ -110,19 +111,18 @@ abstract class AbstractResolveEndpointAction extends BaseTestCase
         $this->assertEquals($value, $criteria->getServiceType());
     }
 
-    protected function criteriaSetShouldHaveIndexCriteria(CriteriaSet $criteriaSet, string $value)
+    protected function criteriaSetShouldHaveIndexCriteria(CriteriaSet $criteriaSet, int|string $value): void
     {
-        if ($value !== '') {
+        if ($value !== '' && $value !== 0) {
             $this->assertTrue($criteriaSet->has(IndexCriteria::class));
-            /** @var IndexCriteria $criteria */
             $criteria = $criteriaSet->getSingle(IndexCriteria::class);
-            $this->assertEquals($value, $criteria->getIndex());
+            $this->assertEquals((string) $value, $criteria->getIndex());
         } else {
             $this->assertFalse($criteriaSet->has(IndexCriteria::class));
         }
     }
 
-    protected function criteriaSetShouldHaveLocationCriteria(CriteriaSet $criteriaSet, string $value)
+    protected function criteriaSetShouldHaveLocationCriteria(CriteriaSet $criteriaSet, string $value): void
     {
         if ($value !== '') {
             $this->assertTrue($criteriaSet->has(LocationCriteria::class));

@@ -7,8 +7,8 @@ use InvalidArgumentException;
 use LightSaml\Credential\X509Certificate;
 use LightSaml\Error\LightSamlXmlException;
 use LightSaml\Model\AbstractSamlModel;
-use LightSaml\Model\Context\DeserializationContext;
-use LightSaml\Model\Context\SerializationContext;
+use LightSaml\Context\Model\DeserializationContext;
+use LightSaml\Context\Model\SerializationContext;
 use LightSaml\SamlConstants;
 
 class KeyDescriptor extends AbstractSamlModel
@@ -78,7 +78,7 @@ class KeyDescriptor extends AbstractSamlModel
             throw new LightSamlXmlException('Missing X509Certificate node');
         }
 
-        /** @var $x509CertificateNode \DOMElement */
+        /** @var \DOMElement $x509CertificateNode */
         $x509CertificateNode = $list->item(0);
         $certificateData = trim($x509CertificateNode->textContent);
         if (false == $certificateData) {

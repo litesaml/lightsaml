@@ -188,10 +188,7 @@ class HttpPostBindingFunctionalTest extends BaseTestCase
         return $authnRequest;
     }
 
-    /**
-     * @return MockObject|EventDispatcherInterface
-     */
-    private function getEventDispatcherMock(): MockObject
+    private function getEventDispatcherMock(): EventDispatcherInterface&MockObject
     {
         return $this->getMockBuilder(EventDispatcherInterface::class)->getMock();
     }

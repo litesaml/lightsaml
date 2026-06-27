@@ -9,6 +9,7 @@ class BindingCriteria implements CriteriaInterface
     /** @var int[] Binding => Preference */
     protected array $bindings = [];
 
+    /** @param string[] $bindings */
     public function __construct(array $bindings)
     {
         foreach ($bindings as $binding) {
@@ -37,7 +38,7 @@ class BindingCriteria implements CriteriaInterface
      *
      * @return int|null Preference of a binding or null if not preferred
      */
-    public function getPreference($binding): ?int
+    public function getPreference(string $binding): ?int
     {
         return $this->bindings[$binding] ?? null;
     }

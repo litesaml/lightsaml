@@ -10,7 +10,7 @@ use LightSaml\Error\LightSamlContextException;
 
 class HasAssertionsValidatorAction extends AbstractProfileAction
 {
-    protected function doExecute(ProfileContext $context)
+    protected function doExecute(ProfileContext $context): void
     {
         $response = MessageContextHelper::asResponse($context->getInboundContext());
 

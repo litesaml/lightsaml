@@ -135,6 +135,7 @@ class SsoSessionState
     /**
      * @deprecated Since 1.2, will be removed in 2.0. Use getParameters() instead
      */
+    /** @return array<string, mixed> */
     public function getOptions(): array
     {
         return $this->parameters->all();
@@ -201,6 +202,7 @@ class SsoSessionState
         ];
     }
 
+    /** @param array<mixed> $data */
     public function __unserialize(array $data): void
     {
         // add a few extra elements in the array to ensure that we have enough keys when unserializing

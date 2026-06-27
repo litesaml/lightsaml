@@ -21,9 +21,6 @@ class SsoSpReceiveResponseProfileBuilder extends AbstractProfileBuilder
         return ProfileContext::ROLE_SP;
     }
 
-    /**
-     * @return ActionBuilderInterface
-     */
     protected function getActionBuilder(): SsoSpReceiveResponseActionBuilder
     {
         return new SsoSpReceiveResponseActionBuilder(

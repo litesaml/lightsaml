@@ -72,6 +72,7 @@ class OwnSignatureResolverTest extends BaseTestCase
         $this->assertSame($privateKey, $signatureWriter->getXmlSecurityKey());
     }
 
+    /** @return array<array{string, string}> */
     public static function _provider(): array
     {
         return [

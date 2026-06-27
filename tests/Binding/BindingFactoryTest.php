@@ -167,9 +167,12 @@ class BindingFactoryTest extends BaseTestCase
         return $factory->createServerRequest('GET', '/')->withQueryParams(['SAMLart' => 'request']);
     }
 
-    private function createSoapRequest(): MessageInterface
+    private function createSoapRequest(): ServerRequestInterface
     {
         $factory = new Psr17Factory();
-        return $factory->createServerRequest('POST', '/')->withHeader('Content-Type', 'text/xml; charset=utf-8');
+        $request = $factory->createServerRequest('POST', '/')->withHeader('Content-Type', 'text/xml; charset=utf-8');
+        assert($request instanceof ServerRequestInterface);
+
+        return $request;
     }
 }

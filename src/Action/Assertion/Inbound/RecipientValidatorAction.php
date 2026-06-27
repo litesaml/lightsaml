@@ -30,14 +30,14 @@ class RecipientValidatorAction extends AbstractAssertionAction
         }
     }
 
-    protected function validateBearerAssertion(AssertionContext $context)
+    protected function validateBearerAssertion(AssertionContext $context): void
     {
         foreach ($context->getAssertion()->getSubject()->getBearerConfirmations() as $subjectConfirmation) {
             $this->validateSubjectConfirmation($context, $subjectConfirmation);
         }
     }
 
-    protected function validateSubjectConfirmation(AssertionContext $context, SubjectConfirmation $subjectConfirmation)
+    protected function validateSubjectConfirmation(AssertionContext $context, SubjectConfirmation $subjectConfirmation): void
     {
         $recipient = $subjectConfirmation->getSubjectConfirmationData()->getRecipient();
         if (null == $recipient) {

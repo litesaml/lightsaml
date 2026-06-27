@@ -11,6 +11,7 @@ class XsdError implements Stringable
     public const ERROR = 'Error';
     public const FATAL = 'Fatal';
 
+    /** @var array<int, string> */
     private static array $levelMap = [
         LIBXML_ERR_WARNING => self::WARNING,
         LIBXML_ERR_ERROR => self::ERROR,
@@ -24,10 +25,10 @@ class XsdError implements Stringable
     {
         return new self(
             self::$levelMap[$error->level] ?? 'Unknown',
-            $error->code,
+            (string) $error->code,
             $error->message,
-            $error->line,
-            $error->column
+            (string) $error->line,
+            (string) $error->column
         );
     }
 

@@ -7,7 +7,7 @@ use LightSaml\Credential\KeyHelper;
 use LightSaml\Credential\X509Certificate;
 use LightSaml\Credential\X509Credential;
 use LightSaml\Model\Assertion\EncryptedAssertionReader;
-use LightSaml\Model\Context\DeserializationContext;
+use LightSaml\Context\Model\DeserializationContext;
 use LightSaml\Model\Protocol\Response;
 use Tests\BaseTestCase;
 
@@ -48,7 +48,7 @@ EOT;
 
         /** @var EncryptedAssertionReader $reader */
         $reader = $response->getFirstEncryptedAssertion();
-        $assertion = $reader->decryptMultiAssertion([$credential], $decryptDeserializeContext);
+        $assertion = $reader->decryptMultiAssertion([$credential->getPrivateKey()], $decryptDeserializeContext);
 
         $this->assertEquals('_c9cbe081e1b1294c9ea31d98f4a473a081466502a0', $assertion->getId());
         $this->assertEquals('https://lightsaml.local/idp', $assertion->getIssuer()->getValue());

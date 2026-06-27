@@ -5,8 +5,8 @@ namespace Tests\Action\Profile\Outbound\Message;
 use DOMNode;
 use LightSaml\Action\Profile\Outbound\Message\SignMessageAction;
 use LightSaml\Meta\TrustOptions\TrustOptions;
-use LightSaml\Model\Context\DeserializationContext;
-use LightSaml\Model\Context\SerializationContext;
+use LightSaml\Context\Model\DeserializationContext;
+use LightSaml\Context\Model\SerializationContext;
 use LightSaml\Model\Protocol\AuthnRequest;
 use LightSaml\Model\Protocol\Response;
 use LightSaml\Model\Protocol\SamlMessage;
@@ -23,6 +23,7 @@ class SignMessageActionTest extends BaseTestCase
         $this->assertTrue(true);
     }
 
+    /** @return array<array{string, SamlMessage}> */
     public static function supports_message_provider(): array
     {
         return [
@@ -46,6 +47,7 @@ class SignMessageActionTest extends BaseTestCase
         $this->assertTrue(true);
     }
 
+    /** @return array<array{SamlMessage}> */
     public static function does_not_support_message_provider(): array
     {
         return [

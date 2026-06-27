@@ -64,6 +64,7 @@ class AbstractDestinationValidatorActionTest extends BaseTestCase
         $action->execute($context);
     }
 
+    /** @return array<array{string, class-string}> */
     public static function makes_descriptor_type_criteria_for_own_role_provider(): array
     {
         return [

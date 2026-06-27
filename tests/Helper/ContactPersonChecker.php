@@ -9,12 +9,12 @@ class ContactPersonChecker
 {
     public static function check(
         BaseTestCase $test,
-        $type,
-        $company,
-        $givenName,
-        $surName,
-        $email,
-        $phone,
+        string $type,
+        ?string $company,
+        ?string $givenName,
+        ?string $surName,
+        ?string $email,
+        ?string $phone,
         ?ContactPerson $contact = null
     ): void {
         $test->assertNotNull($contact);

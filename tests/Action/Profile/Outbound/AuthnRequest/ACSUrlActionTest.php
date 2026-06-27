@@ -90,7 +90,7 @@ class ACSUrlActionTest extends BaseTestCase
     }
 
     /**
-     * @return MockObject|EntityDescriptor
+     * @return EntityDescriptor&MockObject
      */
     private function getEntityDescriptorMock(): MockObject
     {

@@ -3,8 +3,8 @@
 namespace LightSaml\Model\Protocol;
 
 use DOMNode;
-use LightSaml\Model\Context\DeserializationContext;
-use LightSaml\Model\Context\SerializationContext;
+use LightSaml\Context\Model\DeserializationContext;
+use LightSaml\Context\Model\SerializationContext;
 
 abstract class StatusResponse extends SamlMessage
 {
@@ -12,7 +12,7 @@ abstract class StatusResponse extends SamlMessage
 
     protected ?Status $status = null;
 
-    public function setInResponseTo(string $inResponseTo): StatusResponse
+    public function setInResponseTo(string $inResponseTo): static
     {
         $this->inResponseTo = $inResponseTo;
 
@@ -24,7 +24,7 @@ abstract class StatusResponse extends SamlMessage
         return $this->inResponseTo;
     }
 
-    public function setStatus(Status $status): StatusResponse
+    public function setStatus(Status $status): static
     {
         $this->status = $status;
 

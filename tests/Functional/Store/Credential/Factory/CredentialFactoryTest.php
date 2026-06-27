@@ -49,6 +49,7 @@ class CredentialFactoryTest extends BaseTestCase
         $this->assertEquals(['CN' => 'accounts.accesscontrol.windows.net'], $credentials[0]->getCertificate()->getSubject());
         $this->assertEquals(UsageType::SIGNING, $credentials[0]->getUsageType());
 
+        /** @var X509Credential[] $credentials */
         $credentials = $store->getByEntityId('https://mt.evo.team/simplesaml/module.php/saml/sp/metadata.php/default-sp');
         $this->assertCount(2, $credentials);
         $this->assertEquals('https://mt.evo.team/simplesaml/module.php/saml/sp/metadata.php/default-sp', $credentials[0]->getEntityId());

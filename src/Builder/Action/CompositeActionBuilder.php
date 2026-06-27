@@ -9,6 +9,8 @@ class CompositeActionBuilder implements ActionBuilderInterface
 {
     /**
      * int priority => ActionInterface[].
+     *
+     * @var array<int, ActionInterface[]>
      */
     private array $actions = [];
 

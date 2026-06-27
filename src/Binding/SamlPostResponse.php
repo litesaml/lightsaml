@@ -7,6 +7,7 @@ use Psr\Http\Message\StreamInterface;
 
 class SamlPostResponse implements ResponseInterface
 {
+    /** @param array<string, string> $data */
     public function __construct(
         private ResponseInterface $inner,
         private readonly ?string $destination,
@@ -14,6 +15,7 @@ class SamlPostResponse implements ResponseInterface
     ) {
     }
 
+    /** @return array<string, string> */
     public function getData(): array
     {
         return $this->data;
@@ -24,6 +26,7 @@ class SamlPostResponse implements ResponseInterface
         return $this->destination;
     }
 
+    /** @param array<string, string> $data */
     public static function buildHtml(?string $destination, array $data): string
     {
         $content = <<<'EOT'

@@ -4,8 +4,8 @@ namespace LightSaml\Model\Metadata;
 
 use DOMNode;
 use LightSaml\Model\Assertion\Attribute;
-use LightSaml\Model\Context\DeserializationContext;
-use LightSaml\Model\Context\SerializationContext;
+use LightSaml\Context\Model\DeserializationContext;
+use LightSaml\Context\Model\SerializationContext;
 use LightSaml\SamlConstants;
 
 class IdpSsoDescriptor extends SSODescriptor

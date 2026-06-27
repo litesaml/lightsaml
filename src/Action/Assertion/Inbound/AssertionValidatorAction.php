@@ -14,7 +14,7 @@ class AssertionValidatorAction extends AbstractAssertionAction
         parent::__construct($logger);
     }
 
-    protected function doExecute(AssertionContext $context)
+    protected function doExecute(AssertionContext $context): void
     {
         $this->assertionValidator->validateAssertion($context->getAssertion());
     }

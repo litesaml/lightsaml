@@ -2,7 +2,7 @@
 
 namespace LightSaml\Provider\EntityDescriptor;
 
-use LightSaml\Model\Context\DeserializationContext;
+use LightSaml\Context\Model\DeserializationContext;
 use LightSaml\Model\Metadata\EntityDescriptor;
 
 class FileEntityDescriptorProvider implements EntityDescriptorProviderInterface

@@ -10,8 +10,8 @@ use InvalidArgumentException;
 use LightSaml\Credential\CredentialInterface;
 use LightSaml\Error\LightSamlSecurityException;
 use LightSaml\Error\LightSamlXmlException;
-use LightSaml\Model\Context\DeserializationContext;
-use LightSaml\Model\Context\SerializationContext;
+use LightSaml\Context\Model\DeserializationContext;
+use LightSaml\Context\Model\SerializationContext;
 use LogicException;
 use RobRichards\XMLSecLibs\XMLSecEnc;
 use RobRichards\XMLSecLibs\XMLSecurityKey;
@@ -72,7 +72,6 @@ class EncryptedElementReader extends EncryptedElement
      */
     public function decryptMulti(array $inputKeys): DOMElement
     {
-        /** @var LogicException $lastException */
         $lastException = null;
 
         foreach ($inputKeys as $key) {
@@ -161,9 +160,8 @@ class EncryptedElementReader extends EncryptedElement
     /**
      * @throws Exception
      */
-    protected function decryptSymmetricKey(XMLSecurityKey $inputKey)
+    protected function decryptSymmetricKey(XMLSecurityKey $inputKey): void
     {
-        /** @var XMLSecEnc $encKey */
         $encKey = $this->symmetricKeyInfo->encryptedCtx;
         $this->symmetricKeyInfo->key = $inputKey->key;
 
@@ -174,10 +172,9 @@ class EncryptedElementReader extends EncryptedElement
             throw new LightSamlSecurityException(sprintf("Unknown key size for encryption algorithm: '%s'", $this->symmetricKey->type));
         }
 
-        /** @var string $key */
         $key = $encKey->decryptKey($this->symmetricKeyInfo);
-        if (false == is_string($key)) {
-            throw new LogicException('Expected string');
+        if (!is_string($key)) {
+            throw new LogicException('Expected string from decryptKey');
         }
         if (strlen($key) != $keySize) {
             throw new LightSamlSecurityException(sprintf("Unexpected key size of '%s' bits for encryption algorithm '%s', expected '%s' bits size", strlen($key) * 8, $this->symmetricKey->type, $keySize));

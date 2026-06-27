@@ -6,7 +6,7 @@ use DateTime;
 use LightSaml\Model\Assertion\Conditions;
 use LightSaml\Model\Assertion\Issuer;
 use LightSaml\Model\Assertion\Subject;
-use LightSaml\Model\Context\SerializationContext;
+use LightSaml\Context\Model\SerializationContext;
 use LightSaml\Model\Protocol\AuthnRequest;
 use LightSaml\Model\Protocol\NameIDPolicy;
 use LightSaml\SamlConstants;

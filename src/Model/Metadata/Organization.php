@@ -6,8 +6,8 @@ use DOMElement;
 use DOMNode;
 use LightSaml\Error\LightSamlXmlException;
 use LightSaml\Model\AbstractSamlModel;
-use LightSaml\Model\Context\DeserializationContext;
-use LightSaml\Model\Context\SerializationContext;
+use LightSaml\Context\Model\DeserializationContext;
+use LightSaml\Context\Model\SerializationContext;
 use LightSaml\SamlConstants;
 
 class Organization extends AbstractSamlModel
@@ -18,7 +18,7 @@ class Organization extends AbstractSamlModel
 
     protected string $organizationURL;
 
-    protected $lang = 'en-US';
+    protected string $lang = 'en-US';
 
     public function getLang(): string
     {

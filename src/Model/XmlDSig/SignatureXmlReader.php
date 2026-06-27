@@ -2,14 +2,14 @@
 
 namespace LightSaml\Model\XmlDSig;
 
-use DOMDocument;
+use DOMElement;
 use DOMNode;
 use DOMXPath;
 use Exception;
 use LightSaml\Error\LightSamlSecurityException;
 use LightSaml\Error\LightSamlXmlException;
-use LightSaml\Model\Context\DeserializationContext;
-use LightSaml\Model\Context\SerializationContext;
+use LightSaml\Context\Model\DeserializationContext;
+use LightSaml\Context\Model\SerializationContext;
 use LightSaml\SamlConstants;
 use LogicException;
 use RobRichards\XMLSecLibs\XMLSecEnc;
@@ -75,20 +75,16 @@ class SignatureXmlReader extends AbstractSignatureReader
      */
     public function getAlgorithm(): string
     {
-        $xpath = new DOMXPath(
-            $this->signature->sigNode instanceof DOMDocument
-            ? $this->signature->sigNode
-            : $this->signature->sigNode->ownerDocument
-        );
+        $sigNode = $this->signature->sigNode;
+        $xpath = new DOMXPath($sigNode->ownerDocument);
         $xpath->registerNamespace('ds', XMLSecurityDSig::XMLDSIGNS);
 
-        $list = $xpath->query('./ds:SignedInfo/ds:SignatureMethod', $this->signature->sigNode);
+        $list = $xpath->query('./ds:SignedInfo/ds:SignatureMethod', $sigNode);
         if (!$list || 0 == $list->length) {
             throw new LightSamlXmlException('Missing SignatureMethod element');
         }
-        /** @var $sigMethod \DOMElement */
         $sigMethod = $list->item(0);
-        if (!$sigMethod->hasAttribute('Algorithm')) {
+        if (!$sigMethod instanceof DOMElement || !$sigMethod->hasAttribute('Algorithm')) {
             throw new LightSamlXmlException('Missing Algorithm-attribute on SignatureMethod element.');
         }
 

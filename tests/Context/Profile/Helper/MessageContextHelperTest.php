@@ -7,8 +7,8 @@ use Exception;
 use LightSaml\Context\Profile\Helper\MessageContextHelper;
 use LightSaml\Context\Profile\MessageContext;
 use LightSaml\Error\LightSamlContextException;
-use LightSaml\Model\Context\DeserializationContext;
-use LightSaml\Model\Context\SerializationContext;
+use LightSaml\Context\Model\DeserializationContext;
+use LightSaml\Context\Model\SerializationContext;
 use LightSaml\Model\Protocol\AbstractRequest;
 use LightSaml\Model\Protocol\AuthnRequest;
 use LightSaml\Model\Protocol\LogoutRequest;
@@ -22,6 +22,7 @@ use Tests\BaseTestCase;
 
 class MessageContextHelperTest extends BaseTestCase
 {
+    /** @return array<array<mixed>> */
     public static function helperProvider(): array
     {
         $samlMessage = new class () extends SamlMessage {};
@@ -105,7 +106,7 @@ class MessageContextHelperTest extends BaseTestCase
     }
 
     /**
-     * @return MockObject|SamlMessage
+     * @return SamlMessage&MockObject
      */
     private function getMessageMock(): MockObject
     {

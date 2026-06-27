@@ -37,6 +37,7 @@ class ProfileContextTest extends BaseTestCase
         $this->assertEquals($expected, $profileContext->getRelayState());
     }
 
+    /** @return array<array{string, class-string}> */
     public static function subContextCreationProvider(): array
     {
         return [

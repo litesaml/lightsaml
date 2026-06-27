@@ -5,7 +5,7 @@ namespace Tests\Model\Protocol;
 use DateTime;
 use LightSaml\Model\Assertion\Issuer;
 use LightSaml\Model\Assertion\NameID;
-use LightSaml\Model\Context\SerializationContext;
+use LightSaml\Context\Model\SerializationContext;
 use LightSaml\Model\Protocol\LogoutRequest;
 use LightSaml\SamlConstants;
 use Tests\BaseTestCase;

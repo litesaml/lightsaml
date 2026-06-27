@@ -17,10 +17,6 @@ abstract class AbstractRequestStateArrayStore implements RequestStateStoreInterf
     {
         $result = null;
         $arr = $this->getArray();
-        if (false == is_array($arr)) {
-            $arr = [];
-            $this->setArray($arr);
-        }
         if (isset($arr[$id])) {
             $result = $arr[$id];
         }
@@ -46,7 +42,9 @@ abstract class AbstractRequestStateArrayStore implements RequestStateStoreInterf
         $this->setArray([]);
     }
 
+    /** @return array<string, RequestState> */
     abstract protected function getArray(): array;
 
-    abstract protected function setArray(array $arr);
+    /** @param array<string, RequestState> $arr */
+    abstract protected function setArray(array $arr): void;
 }

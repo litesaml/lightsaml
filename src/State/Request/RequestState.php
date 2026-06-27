@@ -58,6 +58,7 @@ class RequestState
         return [$this->id, $nonce, $this->parameters->__serialize()];
     }
 
+    /** @param array<mixed> $serialized */
     public function __unserialize(array $serialized): void
     {
         $nonce = null;

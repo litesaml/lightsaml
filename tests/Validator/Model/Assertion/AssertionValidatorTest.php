@@ -436,26 +436,17 @@ class AssertionValidatorTest extends BaseTestCase
         $validator->validateAssertion($assertion);
     }
 
-    /**
-     * @return MockObject|NameIdValidatorInterface
-     */
-    private function getNameIdValidatorMock(): MockObject
+    private function getNameIdValidatorMock(): NameIdValidatorInterface&MockObject
     {
         return $this->getMockBuilder(NameIdValidatorInterface::class)->getMock();
     }
 
-    /**
-     * @return MockObject|StatementValidatorInterface
-     */
-    private function getStatementValidatorMock(): MockObject
+    private function getStatementValidatorMock(): StatementValidatorInterface&MockObject
     {
         return $this->getMockBuilder(StatementValidatorInterface::class)->getMock();
     }
 
-    /**
-     * @return MockObject|SubjectValidatorInterface
-     */
-    private function getSubjectValidatorMock(): MockObject
+    private function getSubjectValidatorMock(): SubjectValidatorInterface&MockObject
     {
         return $this->getMockBuilder(SubjectValidatorInterface::class)->getMock();
     }
