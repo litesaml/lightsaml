@@ -48,7 +48,7 @@ class ResolveEndpointBaseActionTest extends AbstractResolveEndpointAction
                 [SamlConstants::BINDING_SAML2_HTTP_POST, SamlConstants::BINDING_SAML2_HTTP_REDIRECT]
             );
             $this->criteriaSetShouldHaveDescriptorTypeCriteria($criteriaSet, SpSsoDescriptor::class);
-            $this->criteriaSetShouldHaveServiceTypeCriteria($criteriaSet, null);
+            $this->criteriaSetShouldHaveServiceTypeCriteria($criteriaSet, SingleSignOnService::class);
 
             return [$this->getEndpointReferenceMock($endpoint = new SingleSignOnService())];
         });
@@ -107,9 +107,9 @@ class ResolveEndpointBaseActionTest extends AbstractResolveEndpointAction
      */
     protected function createAction(LoggerInterface $logger, EndpointResolverInterface $endpointResolver): \PHPUnit\Framework\MockObject\MockObject
     {
-        return $this->getMockForAbstractClass(
-            ResolveEndpointBaseAction::class,
-            [$logger, $endpointResolver]
-        );
+        $mock = $this->getMockForAbstractClass(ResolveEndpointBaseAction::class, [$logger, $endpointResolver]);
+        $mock->method('getServiceType')->willReturn(SingleSignOnService::class);
+
+        return $mock;
     }
 }

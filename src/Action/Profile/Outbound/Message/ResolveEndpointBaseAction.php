@@ -102,10 +102,7 @@ abstract class ResolveEndpointBaseAction extends AbstractProfileAction
             $criteriaSet->add(new DescriptorTypeCriteria($descriptorType));
         }
 
-        $serviceType = $this->getServiceType($context);
-        if ($serviceType) {
-            $criteriaSet->add(new ServiceTypeCriteria($serviceType));
-        }
+        $criteriaSet->add(new ServiceTypeCriteria($this->getServiceType($context)));
 
         return $criteriaSet;
     }
@@ -128,8 +125,5 @@ abstract class ResolveEndpointBaseAction extends AbstractProfileAction
             : IdpSsoDescriptor::class;
     }
 
-    protected function getServiceType(ProfileContext $context): ?string
-    {
-        return null;
-    }
+    abstract protected function getServiceType(ProfileContext $context): string;
 }

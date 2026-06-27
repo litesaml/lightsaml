@@ -104,16 +104,12 @@ abstract class AbstractResolveEndpointAction extends BaseTestCase
         }
     }
 
-    protected function criteriaSetShouldHaveServiceTypeCriteria(CriteriaSet $criteriaSet, ?string $value)
+    protected function criteriaSetShouldHaveServiceTypeCriteria(CriteriaSet $criteriaSet, string $value): void
     {
-        if ($value !== null && $value !== '') {
-            $this->assertTrue($criteriaSet->has(ServiceTypeCriteria::class));
-            /** @var ServiceTypeCriteria $criteria */
-            $criteria = $criteriaSet->getSingle(ServiceTypeCriteria::class);
-            $this->assertEquals($value, $criteria->getServiceType());
-        } else {
-            $this->assertFalse($criteriaSet->has(ServiceTypeCriteria::class));
-        }
+        $this->assertTrue($criteriaSet->has(ServiceTypeCriteria::class));
+        /** @var ServiceTypeCriteria $criteria */
+        $criteria = $criteriaSet->getSingle(ServiceTypeCriteria::class);
+        $this->assertEquals($value, $criteria->getServiceType());
     }
 
     protected function criteriaSetShouldHaveIndexCriteria(CriteriaSet $criteriaSet, string $value)
