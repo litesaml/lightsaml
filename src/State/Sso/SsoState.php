@@ -3,9 +3,8 @@
 namespace LightSaml\State\Sso;
 
 use LightSaml\Meta\ParameterBag;
-use Serializable;
 
-class SsoState implements Serializable
+class SsoState
 {
     private ?string $localSessionId = null;
 
@@ -130,14 +129,6 @@ class SsoState implements Serializable
         return $this;
     }
 
-    public function serialize(): string
-    {
-        return serialize($this->__serialize());
-    }
-
-    /**
-     * (PHP >= 8.1)
-     */
     public function __serialize(): array
     {
         return [
@@ -146,11 +137,6 @@ class SsoState implements Serializable
             [],
             $this->parameters,
         ];
-    }
-
-    public function unserialize(string $serialized): void
-    {
-        $this->__unserialize(unserialize($serialized));
     }
 
     public function __unserialize(array $data): void
