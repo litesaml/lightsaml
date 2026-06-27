@@ -11,14 +11,14 @@ use Tests\BaseTestCase;
 
 class SerializeOwnEntityActionTest extends BaseTestCase
 {
-    public function test_constructs_with_logger()
+    public function test_constructs_with_logger(): void
     {
         $factory = new Psr17Factory();
         new SerializeOwnEntityAction($this->getLoggerMock(), $factory, $factory);
         $this->assertTrue(true);
     }
 
-    public function test_creates_http_response_with_serialized_own_entity()
+    public function test_creates_http_response_with_serialized_own_entity(): void
     {
         $loggerMock = $this->getLoggerMock();
 
@@ -46,7 +46,7 @@ EOT;
         $this->assertEquals($expectedContent, trim(str_replace("\r", '', (string) $response->getBody())));
     }
 
-    public function test_defaults_to_text_xml_when_accept_header_is_empty()
+    public function test_defaults_to_text_xml_when_accept_header_is_empty(): void
     {
         $psr17 = new Psr17Factory();
         $action = new SerializeOwnEntityAction($this->getLoggerMock(), $psr17, $psr17);
@@ -60,7 +60,7 @@ EOT;
         $this->assertSame('text/xml', $context->getHttpResponseContext()->getResponse()->getHeaderLine('Content-Type'));
     }
 
-    public function test_defaults_to_text_xml_when_accept_header_has_no_supported_type()
+    public function test_defaults_to_text_xml_when_accept_header_has_no_supported_type(): void
     {
         $psr17 = new Psr17Factory();
         $action = new SerializeOwnEntityAction($this->getLoggerMock(), $psr17, $psr17);
@@ -76,7 +76,7 @@ EOT;
         $this->assertSame('text/xml', $context->getHttpResponseContext()->getResponse()->getHeaderLine('Content-Type'));
     }
 
-    public function test_content_type_priority_follows_supported_types_order_not_accept_order()
+    public function test_content_type_priority_follows_supported_types_order_not_accept_order(): void
     {
         $psr17 = new Psr17Factory();
         $action = new SerializeOwnEntityAction($this->getLoggerMock(), $psr17, $psr17);
@@ -94,7 +94,7 @@ EOT;
         $this->assertSame('application/samlmetadata+xml', $context->getHttpResponseContext()->getResponse()->getHeaderLine('Content-Type'));
     }
 
-    public function test_strips_quality_parameter_from_accept_header()
+    public function test_strips_quality_parameter_from_accept_header(): void
     {
         $psr17 = new Psr17Factory();
         $action = new SerializeOwnEntityAction($this->getLoggerMock(), $psr17, $psr17);

@@ -21,13 +21,13 @@ use Tests\BaseTestCase;
 
 class RecipientValidatorActionTest extends BaseTestCase
 {
-    public function test_constructs_with_logger()
+    public function test_constructs_with_logger(): void
     {
         new RecipientValidatorAction($this->getLoggerMock(), $this->getEndpointResolverMock());
         $this->assertTrue(true);
     }
 
-    public function test_does_nothing_when_assertion_has_bearer_subject_but_no_authn_statement()
+    public function test_does_nothing_when_assertion_has_bearer_subject_but_no_authn_statement(): void
     {
         $action = new RecipientValidatorAction($loggerMock = $this->getLoggerMock(), $this->getEndpointResolverMock());
 
@@ -40,7 +40,7 @@ class RecipientValidatorActionTest extends BaseTestCase
         $this->assertTrue(true);
     }
 
-    public function test_does_nothing_when_assertion_has_authn_statement_but_no_bearer_subject()
+    public function test_does_nothing_when_assertion_has_authn_statement_but_no_bearer_subject(): void
     {
         $action = new RecipientValidatorAction($loggerMock = $this->getLoggerMock(), $this->getEndpointResolverMock());
 
@@ -52,7 +52,7 @@ class RecipientValidatorActionTest extends BaseTestCase
         $this->assertTrue(true);
     }
 
-    public function test_throws_context_exception_when_bearer_confirmation_has_no_recipient()
+    public function test_throws_context_exception_when_bearer_confirmation_has_no_recipient(): void
     {
         $action = new RecipientValidatorAction($loggerMock = $this->getLoggerMock(), $this->getEndpointResolverMock());
 
@@ -72,7 +72,7 @@ class RecipientValidatorActionTest extends BaseTestCase
         $action->execute($assertionContext);
     }
 
-    public function test_throws_context_exception_when_recipient_does_not_match_any_own_acs_service_location()
+    public function test_throws_context_exception_when_recipient_does_not_match_any_own_acs_service_location(): void
     {
         $this->expectExceptionMessage("Recipient 'http://recipient.com' does not match SP descriptor");
         $this->expectException(LightSamlContextException::class);
@@ -94,7 +94,7 @@ class RecipientValidatorActionTest extends BaseTestCase
         $endpointResolver->expects($this->once())
             ->method('resolve')
             ->with($this->isInstanceOf(CriteriaSet::class), $this->isType('array'))
-            ->willReturnCallback(function (CriteriaSet $criteriaSet) use ($recipient) {
+            ->willReturnCallback(function (CriteriaSet $criteriaSet) use ($recipient): array {
                 $this->assertCriteria($criteriaSet, DescriptorTypeCriteria::class, 'getDescriptorType', SpSsoDescriptor::class);
                 $this->assertCriteria($criteriaSet, ServiceTypeCriteria::class, 'getServiceType', AssertionConsumerService::class);
                 $this->assertCriteria($criteriaSet, LocationCriteria::class, 'getLocation', $recipient);
@@ -109,7 +109,7 @@ class RecipientValidatorActionTest extends BaseTestCase
         $action->execute($assertionContext);
     }
 
-    public function test_does_nothing_if_recipient_matches_own_acs_service_location()
+    public function test_does_nothing_if_recipient_matches_own_acs_service_location(): void
     {
         $action = new RecipientValidatorAction(
             $loggerMock = $this->getLoggerMock(),
@@ -128,7 +128,7 @@ class RecipientValidatorActionTest extends BaseTestCase
 
         $endpointResolver->expects($this->once())
             ->method('resolve')
-            ->willReturnCallback(function () {
+            ->willReturnCallback(function (): array {
                 return [$this->getEndpointReferenceMock(new AssertionConsumerService())];
             });
 

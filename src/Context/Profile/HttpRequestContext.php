@@ -6,21 +6,14 @@ use Psr\Http\Message\ServerRequestInterface;
 
 class HttpRequestContext extends AbstractProfileContext
 {
-    /** @var ServerRequestInterface */
-    private $request;
+    private ?ServerRequestInterface $request = null;
 
-    /**
-     * @return ServerRequestInterface|null
-     */
-    public function getRequest()
+    public function getRequest(): ?ServerRequestInterface
     {
         return $this->request;
     }
 
-    /**
-     * @return HttpRequestContext
-     */
-    public function setRequest(ServerRequestInterface $request)
+    public function setRequest(ServerRequestInterface $request): static
     {
         $this->request = $request;
 

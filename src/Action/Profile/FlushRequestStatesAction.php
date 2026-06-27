@@ -18,10 +18,7 @@ class FlushRequestStatesAction extends AbstractProfileAction
         parent::__construct($logger);
     }
 
-    /**
-     * @return void
-     */
-    protected function doExecute(ProfileContext $context)
+    protected function doExecute(ProfileContext $context): void
     {
         $this->flush($context->getInboundContext()->getSubContext(ProfileContexts::REQUEST_STATE, null));
         foreach ($context as $child) {
@@ -31,10 +28,7 @@ class FlushRequestStatesAction extends AbstractProfileAction
         }
     }
 
-    /**
-     * @param ContextInterface|null $requestStateContext
-     */
-    protected function flush($requestStateContext = null)
+    protected function flush(?ContextInterface $requestStateContext = null)
     {
         if (
             $requestStateContext instanceof RequestStateContext

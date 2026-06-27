@@ -7,7 +7,7 @@ use Tests\BaseTestCase;
 
 class FixedSessionInfoProviderTest extends BaseTestCase
 {
-    public function test_returns_given_values()
+    public function test_returns_given_values(): void
     {
         $provider = new FixedSessionInfoProvider(
             $authnInstant = 123123123,

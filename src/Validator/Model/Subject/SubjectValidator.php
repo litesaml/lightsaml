@@ -4,6 +4,7 @@ namespace LightSaml\Validator\Model\Subject;
 
 use LightSaml\Error\LightSamlValidationException;
 use LightSaml\Helper;
+use LightSaml\Model\Assertion\NameID;
 use LightSaml\Model\Assertion\Subject;
 use LightSaml\Model\Assertion\SubjectConfirmation;
 use LightSaml\Model\Assertion\SubjectConfirmationData;
@@ -17,10 +18,8 @@ class SubjectValidator implements SubjectValidatorInterface
 
     /**
      * @throws LightSamlValidationException
-     *
-     * @return void
      */
-    public function validateSubject(Subject $subject)
+    public function validateSubject(Subject $subject): void
     {
         if (
             false == $subject->getNameID()
@@ -29,7 +28,7 @@ class SubjectValidator implements SubjectValidatorInterface
             throw new LightSamlValidationException('Subject MUST contain either an identifier or a subject confirmation');
         }
 
-        if ($subject->getNameID()) {
+        if ($subject->getNameID() instanceof NameID) {
             $this->nameIdValidator->validateNameId($subject->getNameID());
         }
 
@@ -43,16 +42,16 @@ class SubjectValidator implements SubjectValidatorInterface
      */
     protected function validateSubjectConfirmation(SubjectConfirmation $subjectConfirmation)
     {
-        if (false == Helper::validateRequiredString($subjectConfirmation->getMethod())) {
+        if (null === $subjectConfirmation->getMethod() || trim($subjectConfirmation->getMethod()) === '') {
             throw new LightSamlValidationException('Method attribute of SubjectConfirmation MUST contain at least one non-whitespace character');
         }
         if (false == Helper::validateWellFormedUriString($subjectConfirmation->getMethod())) {
             throw new LightSamlValidationException('SubjectConfirmation element has Method attribute which is not a wellformed absolute uri.');
         }
-        if ($subjectConfirmation->getNameID()) {
+        if ($subjectConfirmation->getNameID() instanceof NameID) {
             $this->nameIdValidator->validateNameId($subjectConfirmation->getNameID());
         }
-        if ($subjectConfirmation->getSubjectConfirmationData()) {
+        if ($subjectConfirmation->getSubjectConfirmationData() instanceof SubjectConfirmationData) {
             $this->validateSubjectConfirmationData($subjectConfirmation->getSubjectConfirmationData());
         }
     }

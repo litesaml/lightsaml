@@ -22,7 +22,7 @@ class SsoSpSendAuthnRequestProfileBuilder extends AbstractProfileBuilder
         parent::__construct($buildContainer);
     }
 
-    public function buildContext()
+    public function buildContext(): ProfileContext
     {
         $result = parent::buildContext();
 
@@ -41,34 +41,22 @@ class SsoSpSendAuthnRequestProfileBuilder extends AbstractProfileBuilder
         return $result;
     }
 
-    /**
-     * @return string
-     */
-    protected function getProfileId()
+    protected function getProfileId(): string
     {
         return Profiles::SSO_SP_SEND_AUTHN_REQUEST;
     }
 
-    /**
-     * @return string
-     */
-    protected function getProfileRole()
+    protected function getProfileRole(): string
     {
         return ProfileContext::ROLE_SP;
     }
 
-    /**
-     * @return ActionBuilderInterface
-     */
-    protected function getActionBuilder()
+    protected function getActionBuilder(): ActionBuilderInterface
     {
         return new SsoSpSendAuthnRequestActionBuilder($this->container);
     }
 
-    /**
-     * @return TrustOptions
-     */
-    private function getTrustOptions(EntityDescriptor $idpEd)
+    private function getTrustOptions(EntityDescriptor $idpEd): TrustOptions
     {
         $trustOptions = $this->container->getPartyContainer()->getTrustOptionsStore()->get($this->idpEntityId) ?: new TrustOptions();
 

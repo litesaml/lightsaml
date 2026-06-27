@@ -13,12 +13,8 @@ class EntityIdResolver extends AbstractQueryableResolver
     {
     }
 
-    /**
-     * @param array|CredentialInterface[] $arrCredentials
-     *
-     * @return array|CredentialInterface[]
-     */
-    public function resolve(CriteriaSet $criteriaSet, array $arrCredentials = [])
+    /** @return CredentialInterface[] */
+    public function resolve(CriteriaSet $criteriaSet, array $arrCredentials = []): array
     {
         $result = [];
         foreach ($criteriaSet->get(EntityIdCriteria::class) as $criteria) {

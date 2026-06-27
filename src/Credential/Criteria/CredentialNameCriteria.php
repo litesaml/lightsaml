@@ -11,10 +11,7 @@ class CredentialNameCriteria implements TrustCriteriaInterface
     {
     }
 
-    /**
-     * @return string
-     */
-    public function getName()
+    public function getName(): string
     {
         return $this->name;
     }

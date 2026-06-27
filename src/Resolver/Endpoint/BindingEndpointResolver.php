@@ -13,7 +13,7 @@ class BindingEndpointResolver implements EndpointResolverInterface
      *
      * @return EndpointReference[]
      */
-    public function resolve(CriteriaSet $criteriaSet, array $candidates)
+    public function resolve(CriteriaSet $criteriaSet, array $candidates): array
     {
         if (false === $criteriaSet->has(BindingCriteria::class)) {
             return $candidates;

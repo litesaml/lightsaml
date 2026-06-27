@@ -13,12 +13,9 @@ use LightSaml\Store\EntityDescriptor\EntityDescriptorStoreInterface;
 class CredentialFactory
 {
     /** @var CredentialInterface[] */
-    private $extraCredentials = [];
+    private array $extraCredentials = [];
 
-    /**
-     * @return CredentialFactory
-     */
-    public function addExtraCredential(CredentialInterface $credential)
+    public function addExtraCredential(CredentialInterface $credential): static
     {
         $this->extraCredentials[] = $credential;
 
@@ -26,18 +23,16 @@ class CredentialFactory
     }
 
     /**
-     * @param string                $ownEntityId
      * @param CredentialInterface[] $extraCredentials
      *
-     * @return CompositeCredentialStore
      */
     public function buildFromOwnCredentialStore(
         EntityDescriptorStoreInterface $idpEntityDescriptorStore,
         EntityDescriptorStoreInterface $spEntityDescriptorStore,
-        $ownEntityId,
+        string $ownEntityId,
         CredentialStoreInterface $ownCredentialStore,
         ?array $extraCredentials = null
-    ) {
+    ): CompositeCredentialStore {
         return $this->build(
             $idpEntityDescriptorStore,
             $spEntityDescriptorStore,
@@ -49,15 +44,13 @@ class CredentialFactory
     /**
      * @param CredentialInterface[] $ownCredentials
      * @param CredentialInterface[] $extraCredentials
-     *
-     * @return CompositeCredentialStore
      */
     public function build(
         EntityDescriptorStoreInterface $idpEntityDescriptorStore,
         EntityDescriptorStoreInterface $spEntityDescriptorStore,
         array $ownCredentials,
         ?array $extraCredentials = null
-    ) {
+    ): CompositeCredentialStore {
         if ($ownCredentials === []) {
             throw new LightSamlBuildException('There are no own credentials');
         }

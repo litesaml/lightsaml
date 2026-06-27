@@ -16,148 +16,91 @@ class ContactPerson extends AbstractSamlModel
     public const TYPE_BILLING = 'billing';
     public const TYPE_OTHER = 'other';
 
-    /** @var string */
-    protected $contactType;
+    protected string $contactType;
 
-    /** @var string|null */
-    protected $company;
+    protected ?string $company = null;
 
-    /** @var string|null */
-    protected $givenName;
+    protected ?string $givenName = null;
 
-    /** @var string|null */
-    protected $surName;
+    protected ?string $surName = null;
 
-    /** @var string|null */
-    protected $emailAddress;
+    protected ?string $emailAddress = null;
 
-    /** @var string|null */
-    protected $telephoneNumber;
+    protected ?string $telephoneNumber = null;
 
-    /**
-     * @param string $contactType
-     *
-     * @return ContactPerson
-     */
-    public function setContactType($contactType)
+    public function setContactType(string $contactType): static
     {
-        $this->contactType = (string) $contactType;
+        $this->contactType = $contactType;
 
         return $this;
     }
 
-    /**
-     * @return string
-     */
-    public function getContactType()
+    public function getContactType(): string
     {
         return $this->contactType;
     }
 
-    /**
-     * @param string|null $company
-     *
-     * @return ContactPerson
-     */
-    public function setCompany($company)
+    public function setCompany(?string $company): static
     {
         $this->company = $company;
 
         return $this;
     }
 
-    /**
-     * @return string|null
-     */
-    public function getCompany()
+    public function getCompany(): ?string
     {
         return $this->company;
     }
 
-    /**
-     * @param string|null $emailAddress
-     *
-     * @return ContactPerson
-     */
-    public function setEmailAddress($emailAddress)
+    public function setEmailAddress(?string $emailAddress): static
     {
         $this->emailAddress = $emailAddress;
 
         return $this;
     }
 
-    /**
-     * @return string|null
-     */
-    public function getEmailAddress()
+    public function getEmailAddress(): ?string
     {
         return $this->emailAddress;
     }
 
-    /**
-     * @param string|null $givenName
-     *
-     * @return ContactPerson
-     */
-    public function setGivenName($givenName)
+    public function setGivenName(?string $givenName): static
     {
         $this->givenName = $givenName;
 
         return $this;
     }
 
-    /**
-     * @return string|null
-     */
-    public function getGivenName()
+    public function getGivenName(): ?string
     {
         return $this->givenName;
     }
 
-    /**
-     * @param string|null $surName
-     *
-     * @return ContactPerson
-     */
-    public function setSurName($surName)
+    public function setSurName(?string $surName): static
     {
         $this->surName = $surName;
 
         return $this;
     }
 
-    /**
-     * @return string|null
-     */
-    public function getSurName()
+    public function getSurName(): ?string
     {
         return $this->surName;
     }
 
-    /**
-     * @param string|null $telephoneNumber
-     *
-     * @return ContactPerson
-     */
-    public function setTelephoneNumber($telephoneNumber)
+    public function setTelephoneNumber(?string $telephoneNumber): static
     {
         $this->telephoneNumber = $telephoneNumber;
 
         return $this;
     }
 
-    /**
-     * @return string|null
-     */
-    public function getTelephoneNumber()
+    public function getTelephoneNumber(): ?string
     {
         return $this->telephoneNumber;
     }
 
-    /**
-     * @return void
-     */
-    public function serialize(DOMNode $parent, SerializationContext $context)
+    public function serialize(DOMNode $parent, SerializationContext $context): void
     {
         $result = $this->createElement('ContactPerson', SamlConstants::NS_METADATA, $parent, $context);
 
@@ -171,7 +114,7 @@ class ContactPerson extends AbstractSamlModel
         );
     }
 
-    public function deserialize(DOMNode $node, DeserializationContext $context)
+    public function deserialize(DOMNode $node, DeserializationContext $context): void
     {
         $this->checkXmlNodeName($node, 'ContactPerson', SamlConstants::NS_METADATA);
 

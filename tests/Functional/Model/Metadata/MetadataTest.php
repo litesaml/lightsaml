@@ -9,14 +9,14 @@ use Tests\BaseTestCase;
 
 class MetadataTest extends BaseTestCase
 {
-    public function test_loads_from_entity_descriptor()
+    public function test_loads_from_entity_descriptor(): void
     {
         $ed = Metadata::fromFile(__DIR__ . '/../../../resources/idp2-ed.xml');
         $this->assertInstanceOf(EntityDescriptor::class, $ed);
         $this->assertEquals('https://B1.bead.loc/adfs/services/trust', $ed->getEntityID());
     }
 
-    public function test_loads_from_entities_descriptor()
+    public function test_loads_from_entities_descriptor(): void
     {
         $eds = Metadata::fromFile(__DIR__ . '/../../../resources/testshib-providers.xml');
         $this->assertInstanceOf(EntitiesDescriptor::class, $eds);

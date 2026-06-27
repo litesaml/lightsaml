@@ -17,7 +17,7 @@ use Tests\BaseTestCase;
 
 class EntityDescriptorFunctionalTest extends BaseTestCase
 {
-    public function test__deserialization_idp2_ed()
+    public function test__deserialization_idp2_ed(): void
     {
         $context = new DeserializationContext();
         $context->getDocument()->load(__DIR__ . '/../../../resources/idp2-ed.xml');
@@ -97,7 +97,7 @@ class EntityDescriptorFunctionalTest extends BaseTestCase
         //endregion
     }
 
-    public function test__deserialize_formatted_certificate()
+    public function test__deserialize_formatted_certificate(): void
     {
         $context = new DeserializationContext();
         $context->getDocument()->load(__DIR__ . '/../../../resources/ed01-formatted-certificate.xml');
@@ -115,20 +115,20 @@ class EntityDescriptorFunctionalTest extends BaseTestCase
         $this->assertEquals('idp.testshib.org', $crt['subject']['CN']);
     }
 
-    public function test_deserialize_engine_surfconext_nl_authentication_idp_metadata()
+    public function test_deserialize_engine_surfconext_nl_authentication_idp_metadata(): void
     {
         $ed = EntityDescriptor::load(__DIR__ . '/../../../resources/engine.surfconext.nl_authentication_idp_metadata.xml');
         $this->assertEquals('https://engine.surfconext.nl/authentication/idp/metadata', $ed->getEntityID());
     }
 
-    public function test_throws_on_entities_descriptor_document()
+    public function test_throws_on_entities_descriptor_document(): void
     {
         $this->expectExceptionMessage("Expected 'EntityDescriptor' xml node and 'urn:oasis:names:tc:SAML:2.0:metadata' namespace but got node 'EntitiesDescriptor' and namespace 'urn:oasis:names:tc:SAML:2.0:metadata'");
         $this->expectException(LightSamlXmlException::class);
         EntityDescriptor::load(__DIR__ . '/../../../resources/testshib-providers.xml');
     }
 
-    private function checkKD(SSODescriptor $descriptor, $use, $certificate)
+    private function checkKD(SSODescriptor $descriptor, string $use, string $certificate): void
     {
         $arrKD = $descriptor->getAllKeyDescriptorsByUse($use);
         /** @var KeyDescriptor $kd */
@@ -139,7 +139,7 @@ class EntityDescriptorFunctionalTest extends BaseTestCase
         $this->assertEquals($certificate, $kd->getCertificate()->getData());
     }
 
-    private function checkSLO(SSODescriptor $descriptor, $binding, $location)
+    private function checkSLO(SSODescriptor $descriptor, string $binding, string $location): void
     {
         $arr = $descriptor->getAllSingleLogoutServicesByBinding($binding);
         /** @var SingleLogoutService $svc */
@@ -149,7 +149,7 @@ class EntityDescriptorFunctionalTest extends BaseTestCase
         $this->assertEquals($location, $svc->getLocation());
     }
 
-    private function checkACS(SpSsoDescriptor $sp, $binding, $location, $index, $isDefault)
+    private function checkACS(SpSsoDescriptor $sp, string $binding, string $location, string $index, bool $isDefault): void
     {
         $arr = $sp->getAllAssertionConsumerServicesByBinding($binding);
         /** @var AssertionConsumerService $svc */
@@ -161,7 +161,7 @@ class EntityDescriptorFunctionalTest extends BaseTestCase
         $this->assertEquals($isDefault, $svc->getIsDefaultBool());
     }
 
-    private function checkSSO(IdpSsoDescriptor $idp, $binding, $location)
+    private function checkSSO(IdpSsoDescriptor $idp, string $binding, string $location): void
     {
         $arr = $idp->getAllSingleSignOnServicesByBinding($binding);
         /** @var SingleSignOnService $svc */

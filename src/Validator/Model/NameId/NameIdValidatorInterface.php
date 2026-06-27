@@ -6,8 +6,5 @@ use LightSaml\Model\Assertion\AbstractNameID;
 
 interface NameIdValidatorInterface
 {
-    /**
-     * @return void
-     */
-    public function validateNameId(AbstractNameID $nameId);
+    public function validateNameId(AbstractNameID $nameId): void;
 }

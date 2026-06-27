@@ -17,13 +17,13 @@ use Tests\BaseTestCase;
 
 class SignMessageActionTest extends BaseTestCase
 {
-    public function test_constructs_with_logger_and_signature_resolver()
+    public function test_constructs_with_logger_and_signature_resolver(): void
     {
         new SignMessageAction($this->getLoggerMock(), $this->getSignatureResolverMock());
         $this->assertTrue(true);
     }
 
-    public static function supports_message_provider()
+    public static function supports_message_provider(): array
     {
         return [
             ['setSignAuthnRequest', new AuthnRequest()],
@@ -32,7 +32,7 @@ class SignMessageActionTest extends BaseTestCase
     }
 
     #[DataProvider('supports_message_provider')]
-    public function test_supports_message($trustOptionsMethod, SamlMessage $message)
+    public function test_supports_message(string $trustOptionsMethod, SamlMessage $message): void
     {
         $action = new SignMessageAction($this->getLoggerMock(), $this->getSignatureResolverMock());
 
@@ -46,15 +46,15 @@ class SignMessageActionTest extends BaseTestCase
         $this->assertTrue(true);
     }
 
-    public static function does_not_support_message_provider()
+    public static function does_not_support_message_provider(): array
     {
         return [
             [new class () extends SamlMessage {
-                public function serialize(DOMNode $parent, SerializationContext $context)
+                public function serialize(DOMNode $parent, SerializationContext $context): void
                 {
                 }
 
-                public function deserialize(DOMNode $node, DeserializationContext $context)
+                public function deserialize(DOMNode $node, DeserializationContext $context): void
                 {
                 }
             }],
@@ -62,7 +62,7 @@ class SignMessageActionTest extends BaseTestCase
     }
 
     #[DataProvider('does_not_support_message_provider')]
-    public function test_does_not_support_message(SamlMessage $message)
+    public function test_does_not_support_message(SamlMessage $message): void
     {
         $this->expectExceptionMessage("Unexpected message type");
         $this->expectException(LogicException::class);
@@ -75,7 +75,7 @@ class SignMessageActionTest extends BaseTestCase
         $action->execute($context);
     }
 
-    public function test_logs_disabled_signing()
+    public function test_logs_disabled_signing(): void
     {
         $action = new SignMessageAction(
             $loggerMock = $this->getLoggerMock(),
@@ -97,7 +97,7 @@ class SignMessageActionTest extends BaseTestCase
         $action->execute($context);
     }
 
-    public function test_logs_no_signature_resolved()
+    public function test_logs_no_signature_resolved(): void
     {
         $action = new SignMessageAction(
             $loggerMock = $this->getLoggerMock(),
@@ -116,7 +116,7 @@ class SignMessageActionTest extends BaseTestCase
         $action->execute($context);
     }
 
-    public function test_signs_message_when_signing_enabled()
+    public function test_signs_message_when_signing_enabled(): void
     {
         $action = new SignMessageAction(
             $loggerMock = $this->getLoggerMock(),

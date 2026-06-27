@@ -15,10 +15,7 @@ class SendMessageAction extends AbstractProfileAction
         parent::__construct($logger);
     }
 
-    /**
-     * @return void
-     */
-    public function doExecute(ProfileContext $context)
+    public function doExecute(ProfileContext $context): void
     {
         $binding = $this->bindingFactory->create($context->getEndpoint()->getBinding());
 

@@ -11,51 +11,51 @@ use Tests\BaseTestCase;
 
 class X509CertificateTest extends BaseTestCase
 {
-    public function test_get_name()
+    public function test_get_name(): void
     {
         $certificate = new X509Certificate();
         $certificate->loadFromFile(__DIR__ . '/../../resources/saml.crt');
         $this->assertEquals('/C=RS/ST=Serbia/O=BOS/CN=mt.evo.team', $certificate->getName());
     }
 
-    public function test_algorithm_sha1()
+    public function test_algorithm_sha1(): void
     {
         $certificate = X509Certificate::fromFile(__DIR__ . '/../../resources/saml-sha1.crt');
         $this->assertEquals(XMLSecurityKey::RSA_SHA1, $certificate->getSignatureAlgorithm());
     }
 
-    public function test_algorithm_sha256()
+    public function test_algorithm_sha256(): void
     {
         $certificate = X509Certificate::fromFile(__DIR__ . '/../../resources/saml-sha256.crt');
         $this->assertEquals(XMLSecurityKey::RSA_SHA256, $certificate->getSignatureAlgorithm());
     }
 
-    public function test_algorithm_sha384()
+    public function test_algorithm_sha384(): void
     {
         $certificate = X509Certificate::fromFile(__DIR__ . '/../../resources/saml-sha384.crt');
         $this->assertEquals(XMLSecurityKey::RSA_SHA384, $certificate->getSignatureAlgorithm());
     }
 
-    public function test_algorithm_sha512()
+    public function test_algorithm_sha512(): void
     {
         $certificate = X509Certificate::fromFile(__DIR__ . '/../../resources/saml-sha512.crt');
         $this->assertEquals(XMLSecurityKey::RSA_SHA512, $certificate->getSignatureAlgorithm());
     }
 
-    public function test_algorithm_md5()
+    public function test_algorithm_md5(): void
     {
         $certificate = X509Certificate::fromFile(__DIR__ . '/../../resources/saml-md5.crt');
         $this->assertEquals(SamlConstants::XMLDSIG_DIGEST_MD5, $certificate->getSignatureAlgorithm());
     }
 
-    public function test_algorithm_pss()
+    public function test_algorithm_pss(): void
     {
         $certificate = X509Certificate::fromFile(__DIR__ . '/../../resources/saml-pss.crt');
         $this->assertEquals(SamlConstants::RSA_PSS, $certificate->getSignatureAlgorithm());
         $this->assertEquals('SHA256', $certificate->getPssHashAlgorithm());
     }
 
-    public function test_create_public_key_from_pss_certificate()
+    public function test_create_public_key_from_pss_certificate(): void
     {
         $certificate = X509Certificate::fromFile(__DIR__ . '/../../resources/saml-pss.crt');
         $key = KeyHelper::createPublicKey($certificate);
@@ -63,7 +63,7 @@ class X509CertificateTest extends BaseTestCase
         $this->assertEquals(SamlConstants::RSA_PSS, $key->type);
     }
 
-    public function test_get_subject()
+    public function test_get_subject(): void
     {
         $certificate = new X509Certificate();
         $certificate->loadFromFile(__DIR__ . '/../../resources/saml.crt');
@@ -73,7 +73,7 @@ class X509CertificateTest extends BaseTestCase
         );
     }
 
-    public function test_get_issuer()
+    public function test_get_issuer(): void
     {
         $certificate = new X509Certificate();
         $certificate->loadFromFile(__DIR__ . '/../../resources/saml.crt');
@@ -83,28 +83,28 @@ class X509CertificateTest extends BaseTestCase
         );
     }
 
-    public function test_get_valid_from_timestamp()
+    public function test_get_valid_from_timestamp(): void
     {
         $certificate = new X509Certificate();
         $certificate->loadFromFile(__DIR__ . '/../../resources/saml.crt');
         $this->assertEquals(1381258772, $certificate->getValidFromTimestamp());
     }
 
-    public function test_get_valid_to_timestamp()
+    public function test_get_valid_to_timestamp(): void
     {
         $certificate = new X509Certificate();
         $certificate->loadFromFile(__DIR__ . '/../../resources/saml.crt');
         $this->assertEquals(1696791572, $certificate->getValidToTimestamp());
     }
 
-    public function test_get_fingerprint()
+    public function test_get_fingerprint(): void
     {
         $certificate = new X509Certificate();
         $certificate->loadFromFile(__DIR__ . '/../../resources/saml.crt');
         $this->assertEquals('9a092fb31216fd1a9af9427ffc98280bc30e2f81', $certificate->getFingerprint());
     }
 
-    public function test_get_info()
+    public function test_get_info(): void
     {
         $certificate = new X509Certificate();
         $certificate->loadFromFile(__DIR__ . '/../../resources/saml.crt');

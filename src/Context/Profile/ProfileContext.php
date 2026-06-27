@@ -7,6 +7,7 @@ use LightSaml\Meta\TrustOptions\TrustOptions;
 use LightSaml\Model\Metadata\Endpoint;
 use LightSaml\Model\Metadata\EntityDescriptor;
 use LightSaml\Model\Protocol\SamlMessage;
+use LightSaml\State\Sso\SsoSessionState;
 use Psr\Http\Message\ServerRequestInterface;
 
 class ProfileContext extends AbstractProfileContext
@@ -15,209 +16,145 @@ class ProfileContext extends AbstractProfileContext
     public const ROLE_IDP = 'idp';
     public const ROLE_NONE = 'none';
 
-    /** @var string */
-    private $relayState;
+    private ?string $relayState = null;
 
-    /**
-     * @param string $profileId
-     * @param string $ownRole
-     */
-    public function __construct(private $profileId, private $ownRole)
+    public function __construct(private readonly string $profileId, private readonly string $ownRole)
     {
     }
 
-    /**
-     * @return string
-     */
-    public function getProfileId()
+    public function getProfileId(): string
     {
         return $this->profileId;
     }
 
-    /**
-     * @return string
-     */
-    public function getOwnRole()
+    public function getOwnRole(): string
     {
         return $this->ownRole;
     }
 
-    /**
-     * @return string
-     */
-    public function getRelayState()
+    public function getRelayState(): string
     {
         return $this->relayState;
     }
 
-    /**
-     * @param string $relayState
-     *
-     * @return ProfileContext
-     */
-    public function setRelayState($relayState)
+    public function setRelayState(string $relayState): static
     {
         $this->relayState = $relayState;
 
         return $this;
     }
 
-    /**
-     * @return MessageContext
-     */
-    public function getInboundContext()
+    public function getInboundContext(): MessageContext
     {
         return $this->getSubContext(ProfileContexts::INBOUND_MESSAGE, MessageContext::class);
     }
 
-    /**
-     * @return MessageContext
-     */
-    public function getOutboundContext()
+    public function getOutboundContext(): MessageContext
     {
         return $this->getSubContext(ProfileContexts::OUTBOUND_MESSAGE, MessageContext::class);
     }
 
-    /**
-     * @return HttpRequestContext
-     */
-    public function getHttpRequestContext()
+    public function getHttpRequestContext(): HttpRequestContext
     {
         return $this->getSubContext(ProfileContexts::HTTP_REQUEST, HttpRequestContext::class);
     }
 
-    /**
-     * @return HttpResponseContext
-     */
-    public function getHttpResponseContext()
+    public function getHttpResponseContext(): HttpResponseContext
     {
         return $this->getSubContext(ProfileContexts::HTTP_RESPONSE, HttpResponseContext::class);
     }
 
-    /**
-     * @return EntityContext
-     */
-    public function getOwnEntityContext()
+    public function getOwnEntityContext(): EntityContext
     {
         return $this->getSubContext(ProfileContexts::OWN_ENTITY, EntityContext::class);
     }
 
-    /**
-     * @return EntityContext
-     */
-    public function getPartyEntityContext()
+    public function getPartyEntityContext(): EntityContext
     {
         return $this->getSubContext(ProfileContexts::PARTY_ENTITY, EntityContext::class);
     }
 
-    /**
-     * @return EndpointContext
-     */
-    public function getEndpointContext()
+    public function getEndpointContext(): EndpointContext
     {
         return $this->getSubContext(ProfileContexts::ENDPOINT, EndpointContext::class);
     }
 
-    /**
-     * @return LogoutContext
-     */
-    public function getLogoutContext()
+    public function getLogoutContext(): LogoutContext
     {
         return $this->getSubContext(ProfileContexts::LOGOUT, LogoutContext::class);
     }
 
-    /**
-     * @return ServerRequestInterface
-     */
-    public function getHttpRequest()
+    public function getHttpRequest(): ServerRequestInterface
     {
         $httpRequestContext = $this->getHttpRequestContext();
-        if (null === $httpRequestContext->getRequest()) {
+        if (!$httpRequestContext->getRequest() instanceof ServerRequestInterface) {
             throw new LightSamlContextException($this, 'Missing Request in HTTP request context');
         }
 
         return $httpRequestContext->getRequest();
     }
 
-    /**
-     * @return SamlMessage
-     */
-    public function getInboundMessage()
+    public function getInboundMessage(): SamlMessage
     {
         $inboundContext = $this->getInboundContext();
-        if (null === $inboundContext->getMessage()) {
+        if (!$inboundContext->getMessage() instanceof SamlMessage) {
             throw new LightSamlContextException($this, 'Missing message in inbound context');
         }
 
         return $inboundContext->getMessage();
     }
 
-    /**
-     * @return SamlMessage
-     */
-    public function getOutboundMessage()
+    public function getOutboundMessage(): SamlMessage
     {
         $outboundContext = $this->getOutboundContext();
-        if (null === $outboundContext->getMessage()) {
+        if (!$outboundContext->getMessage() instanceof SamlMessage) {
             throw new LightSamlContextException($this, 'Missing message in outbound context');
         }
 
         return $outboundContext->getMessage();
     }
 
-    /**
-     * @return Endpoint
-     */
-    public function getEndpoint()
+    public function getEndpoint(): Endpoint
     {
         $endpointContext = $this->getEndpointContext();
-        if (null === $endpointContext->getEndpoint()) {
+        if (!$endpointContext->getEndpoint() instanceof Endpoint) {
             throw new LightSamlContextException($this, 'Missing Endpoint in endpoint context');
         }
 
         return $endpointContext->getEndpoint();
     }
 
-    /**
-     * @return EntityDescriptor
-     */
-    public function getOwnEntityDescriptor()
+    public function getOwnEntityDescriptor(): EntityDescriptor
     {
         $ownEntityContext = $this->getOwnEntityContext();
-        if (null === $ownEntityContext->getEntityDescriptor()) {
+        if (!$ownEntityContext->getEntityDescriptor() instanceof EntityDescriptor) {
             throw new LightSamlContextException($this, 'Missing EntityDescriptor in own entity context');
         }
 
         return $ownEntityContext->getEntityDescriptor();
     }
 
-    /**
-     * @return EntityDescriptor
-     */
-    public function getPartyEntityDescriptor()
+    public function getPartyEntityDescriptor(): EntityDescriptor
     {
         $partyEntityContext = $this->getPartyEntityContext();
-        if (null === $partyEntityContext->getEntityDescriptor()) {
+        if (!$partyEntityContext->getEntityDescriptor() instanceof EntityDescriptor) {
             throw new LightSamlContextException($this, 'Missing EntityDescriptor in party entity context');
         }
 
         return $partyEntityContext->getEntityDescriptor();
     }
 
-    /**
-     * @return TrustOptions
-     */
-    public function getTrustOptions()
+    public function getTrustOptions(): TrustOptions
     {
         $partyEntityContext = $this->getPartyEntityContext();
-        if (null === $partyEntityContext->getTrustOptions()) {
+        if (!$partyEntityContext->getTrustOptions() instanceof TrustOptions) {
             throw new LightSamlContextException($this, 'Missing TrustOptions in party entity context');
         }
 
         return $partyEntityContext->getTrustOptions();
     }
 
-    public function getLogoutSsoSessionState()
+    public function getLogoutSsoSessionState(): ?SsoSessionState
     {
         $logoutContext = $this->getLogoutContext();
         if (null == $logoutContext->getSsoSessionState()) {

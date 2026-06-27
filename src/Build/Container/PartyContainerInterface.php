@@ -7,18 +7,9 @@ use LightSaml\Store\TrustOptions\TrustOptionsStoreInterface;
 
 interface PartyContainerInterface
 {
-    /**
-     * @return EntityDescriptorStoreInterface
-     */
-    public function getIdpEntityDescriptorStore();
+    public function getIdpEntityDescriptorStore(): EntityDescriptorStoreInterface;
 
-    /**
-     * @return EntityDescriptorStoreInterface
-     */
-    public function getSpEntityDescriptorStore();
+    public function getSpEntityDescriptorStore(): EntityDescriptorStoreInterface;
 
-    /**
-     * @return TrustOptionsStoreInterface
-     */
-    public function getTrustOptionsStore();
+    public function getTrustOptionsStore(): TrustOptionsStoreInterface;
 }

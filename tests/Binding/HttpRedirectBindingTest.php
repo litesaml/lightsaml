@@ -12,7 +12,7 @@ use Tests\BaseTestCase;
 
 class HttpRedirectBindingTest extends BaseTestCase
 {
-    public function test_send_throws_when_factory_not_set()
+    public function test_send_throws_when_factory_not_set(): void
     {
         $this->expectException(LightSamlMissingFactoryException::class);
         $this->expectExceptionMessage('ResponseFactory must be provided to use send()');
@@ -24,7 +24,7 @@ class HttpRedirectBindingTest extends BaseTestCase
         $binding->send($context);
     }
 
-    public function test__receive_throws_when_no_message()
+    public function test__receive_throws_when_no_message(): void
     {
         $this->expectExceptionMessage("Missing SAMLRequest or SAMLResponse parameter");
         $this->expectException(LightSamlBindingException::class);

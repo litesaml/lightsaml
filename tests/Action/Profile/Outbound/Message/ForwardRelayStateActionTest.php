@@ -11,13 +11,13 @@ use Tests\BaseTestCase;
 
 class ForwardRelayStateActionTest extends BaseTestCase
 {
-    public function test_constructs_with_logger()
+    public function test_constructs_with_logger(): void
     {
         new ForwardRelayStateAction($this->getLoggerMock());
         $this->assertTrue(true);
     }
 
-    public function test_does_nothing_if_no_inbound_message()
+    public function test_does_nothing_if_no_inbound_message(): void
     {
         $action = new ForwardRelayStateAction($this->getLoggerMock());
 
@@ -28,7 +28,7 @@ class ForwardRelayStateActionTest extends BaseTestCase
         $this->assertTrue(true);
     }
 
-    public function test_sets_relat_state_from_inbound_to_outbound_message()
+    public function test_sets_relat_state_from_inbound_to_outbound_message(): void
     {
         $action = new ForwardRelayStateAction($this->getLoggerMock());
 

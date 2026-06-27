@@ -4,17 +4,11 @@ namespace LightSaml\Credential\Criteria;
 
 class PublicKeyThumbprintCriteria implements TrustCriteriaInterface
 {
-    /**
-     * @param string $thumbprint
-     */
-    public function __construct(private $thumbprint)
+    public function __construct(private readonly string $thumbprint)
     {
     }
 
-    /**
-     * @return string
-     */
-    public function getThumbprint()
+    public function getThumbprint(): string
     {
         return $this->thumbprint;
     }

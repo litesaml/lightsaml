@@ -11,59 +11,36 @@ use RobRichards\XMLSecLibs\XMLSecurityKey;
 
 class SignatureStringReader extends AbstractSignatureReader
 {
-    /**
-     * @param string|null $signature
-     * @param string|null $algorithm
-     * @param string|null $data
-     */
-    public function __construct(protected $signature = null, protected $algorithm = null, protected $data = null)
+    public function __construct(protected ?string $signature = null, protected ?string $algorithm = null, protected ?string $data = null)
     {
     }
 
-    /**
-     * @param string $algorithm
-     */
-    public function setAlgorithm($algorithm)
+    public function setAlgorithm(string $algorithm): void
     {
-        $this->algorithm = (string) $algorithm;
+        $this->algorithm = $algorithm;
     }
 
-    /**
-     * @return string
-     */
-    public function getAlgorithm()
+    public function getAlgorithm(): string
     {
         return $this->algorithm;
     }
 
-    /**
-     * @param string $data
-     */
-    public function setData($data)
+    public function setData(string $data): void
     {
-        $this->data = (string) $data;
+        $this->data = $data;
     }
 
-    /**
-     * @return string
-     */
-    public function getData()
+    public function getData(): string
     {
         return $this->data;
     }
 
-    /**
-     * @param string $signature
-     */
-    public function setSignature($signature)
+    public function setSignature(string $signature): void
     {
-        $this->signature = (string) $signature;
+        $this->signature = $signature;
     }
 
-    /**
-     * @return string
-     */
-    public function getSignature()
+    public function getSignature(): ?string
     {
         return $this->signature;
     }
@@ -73,7 +50,7 @@ class SignatureStringReader extends AbstractSignatureReader
      *
      * @throws LightSamlSecurityException If validation fails
      */
-    public function validate(XMLSecurityKey $key)
+    public function validate(XMLSecurityKey $key): bool
     {
         if (null == $this->getSignature()) {
             return false;

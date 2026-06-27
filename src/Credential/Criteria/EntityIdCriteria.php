@@ -11,10 +11,7 @@ class EntityIdCriteria implements TrustCriteriaInterface
     {
     }
 
-    /**
-     * @return string
-     */
-    public function getEntityId()
+    public function getEntityId(): string
     {
         return $this->entityId;
     }

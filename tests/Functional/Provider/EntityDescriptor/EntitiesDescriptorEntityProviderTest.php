@@ -9,7 +9,7 @@ use Tests\BaseTestCase;
 
 class EntitiesDescriptorEntityProviderTest extends BaseTestCase
 {
-    public function test___provides_by_specified_entity_id()
+    public function test___provides_by_specified_entity_id(): void
     {
         $entitiesProvider = new FileEntitiesDescriptorProvider(
             __DIR__ . '/../../../resources/testshib-providers.xml'

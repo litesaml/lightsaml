@@ -23,14 +23,9 @@ class HttpRedirectBinding extends AbstractBinding
     {
     }
 
-    /**
-     * @param string|null $destination
-     *
-     * @return ResponseInterface
-     */
-    public function send(MessageContext $context, $destination = null)
+    public function send(MessageContext $context, ?string $destination = null): ResponseInterface
     {
-        if (null === $this->responseFactory) {
+        if (!$this->responseFactory instanceof ResponseFactoryInterface) {
             throw new LightSamlMissingFactoryException('ResponseFactory must be provided to use send()');
         }
 
@@ -71,11 +66,9 @@ class HttpRedirectBinding extends AbstractBinding
     }
 
     /**
-     * @return string
-     *
      * @throws LightSamlBindingException
      */
-    protected function getMessageStringFromData(array $data)
+    protected function getMessageStringFromData(array $data): string
     {
         if (array_key_exists('SAMLRequest', $data)) {
             return $data['SAMLRequest'];
@@ -86,10 +79,7 @@ class HttpRedirectBinding extends AbstractBinding
         }
     }
 
-    /**
-     * @return string
-     */
-    protected function getEncodingFromData(array $data)
+    protected function getEncodingFromData(array $data): string
     {
         if (array_key_exists('SAMLEncoding', $data)) {
             return $data['SAMLEncoding'];
@@ -99,14 +89,12 @@ class HttpRedirectBinding extends AbstractBinding
     }
 
     /**
-     * @param string $msg
-     * @param string $encoding
      *
      * @throws LightSamlBindingException
      *
      * @return string
      */
-    protected function decodeMessageString($msg, $encoding)
+    protected function decodeMessageString(string $msg, string $encoding): string|false
     {
         $msg = base64_decode($msg, true);
         return match ($encoding) {
@@ -134,12 +122,7 @@ class HttpRedirectBinding extends AbstractBinding
         }
     }
 
-    /**
-     * @param string|null $destination
-     *
-     * @return string
-     */
-    protected function getRedirectURL(MessageContext $context, $destination)
+    protected function getRedirectURL(MessageContext $context, ?string $destination): string
     {
         $message = MessageContextHelper::asSamlMessage($context);
         $signature = $message->getSignature();
@@ -170,31 +153,20 @@ class HttpRedirectBinding extends AbstractBinding
         return base64_encode($xml);
     }
 
-    /**
-     * @param string $xml
-     *
-     * @return string
-     */
-    protected function addMessageToUrl(SamlMessage $message, $xml)
+    protected function addMessageToUrl(SamlMessage $message, string $xml): string
     {
         $msg = $message instanceof AbstractRequest ? 'SAMLRequest=' : 'SAMLResponse=';
         return $msg . urlencode($xml);
     }
 
-    /**
-     * @param string $msg
-     */
-    protected function addRelayStateToUrl(&$msg, SamlMessage $message)
+    protected function addRelayStateToUrl(string &$msg, SamlMessage $message)
     {
         if (null !== $message->getRelayState()) {
             $msg .= '&RelayState=' . urlencode($message->getRelayState());
         }
     }
 
-    /**
-     * @param string $msg
-     */
-    protected function addSignatureToUrl(&$msg, ?SignatureWriter $signature = null)
+    protected function addSignatureToUrl(string &$msg, ?SignatureWriter $signature = null)
     {
         /** @var $key XMLSecurityKey */
         $key = $signature instanceof SignatureWriter ? $signature->getXmlSecurityKey() : null;
@@ -206,13 +178,7 @@ class HttpRedirectBinding extends AbstractBinding
         }
     }
 
-    /**
-     * @param string      $msg
-     * @param string|null $destination
-     *
-     * @return string
-     */
-    protected function getDestinationUrl($msg, SamlMessage $message, $destination)
+    protected function getDestinationUrl(string $msg, SamlMessage $message, ?string $destination): string
     {
         $destination = $message->getDestination() ?: $destination;
         if (!str_contains($destination, '?')) {
@@ -224,10 +190,7 @@ class HttpRedirectBinding extends AbstractBinding
         return $destination;
     }
 
-    /**
-     * @return array
-     */
-    protected function parseQuery(ServerRequestInterface $request)
+    protected function parseQuery(ServerRequestInterface $request): array
     {
         /*
          * Parse the query string. We need to do this ourself, so that we get access
@@ -257,12 +220,7 @@ class HttpRedirectBinding extends AbstractBinding
         return $result;
     }
 
-    /**
-     * @param string $queryString
-     *
-     * @return array
-     */
-    protected function parseQueryString($queryString)
+    protected function parseQueryString(string $queryString): array
     {
         $result = [];
         foreach (explode('&', $queryString ?: '') as $e) {

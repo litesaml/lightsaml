@@ -30,10 +30,7 @@ class SsoSpReceiveResponseActionBuilder extends AbstractProfileActionBuilder
         parent::__construct($buildContainer);
     }
 
-    /**
-     * @return void
-     */
-    protected function doInitialize()
+    protected function doInitialize(): void
     {
         // Receive
         $this->add(new ReceiveMessageAction(

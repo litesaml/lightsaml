@@ -10,15 +10,12 @@ use LightSaml\SamlConstants;
 abstract class SSODescriptor extends RoleDescriptor
 {
     /** @var SingleLogoutService[] */
-    protected $singleLogoutServices = [];
+    protected array $singleLogoutServices = [];
 
     /** @var string[]|null */
-    protected $nameIDFormats;
+    protected ?array $nameIDFormats = null;
 
-    /**
-     * @return SSODescriptor
-     */
-    public function addSingleLogoutService(SingleLogoutService $singleLogoutService)
+    public function addSingleLogoutService(SingleLogoutService $singleLogoutService): SSODescriptor
     {
         $this->singleLogoutServices[] = $singleLogoutService;
 
@@ -28,17 +25,15 @@ abstract class SSODescriptor extends RoleDescriptor
     /**
      * @return SingleLogoutService[]
      */
-    public function getAllSingleLogoutServices()
+    public function getAllSingleLogoutServices(): array
     {
         return $this->singleLogoutServices;
     }
 
     /**
-     * @param string $binding
-     *
      * @return SingleLogoutService[]
      */
-    public function getAllSingleLogoutServicesByBinding($binding)
+    public function getAllSingleLogoutServicesByBinding(string $binding): array
     {
         $result = [];
         foreach ($this->getAllSingleLogoutServices() as $svc) {
@@ -50,12 +45,7 @@ abstract class SSODescriptor extends RoleDescriptor
         return $result;
     }
 
-    /**
-     * @param string|null $binding
-     *
-     * @return SingleLogoutService|null
-     */
-    public function getFirstSingleLogoutService($binding = null)
+    public function getFirstSingleLogoutService(?string $binding = null): ?SingleLogoutService
     {
         foreach ($this->getAllSingleLogoutServices() as $svc) {
             if (null == $binding || $binding == $svc->getBinding()) {
@@ -63,15 +53,10 @@ abstract class SSODescriptor extends RoleDescriptor
             }
         }
 
-        return;
+        return null;
     }
 
-    /**
-     * @param string $nameIDFormat
-     *
-     * @return SSODescriptor
-     */
-    public function addNameIDFormat($nameIDFormat)
+    public function addNameIDFormat(string $nameIDFormat): SSODescriptor
     {
         $this->nameIDFormats[] = $nameIDFormat;
 
@@ -81,17 +66,12 @@ abstract class SSODescriptor extends RoleDescriptor
     /**
      * @return string[]|null
      */
-    public function getAllNameIDFormats()
+    public function getAllNameIDFormats(): ?array
     {
         return $this->nameIDFormats;
     }
 
-    /**
-     * @param string $nameIdFormat
-     *
-     * @return bool
-     */
-    public function hasNameIDFormat($nameIdFormat)
+    public function hasNameIDFormat(string $nameIdFormat): bool
     {
         if ($this->nameIDFormats) {
             foreach ($this->nameIDFormats as $format) {
@@ -104,7 +84,7 @@ abstract class SSODescriptor extends RoleDescriptor
         return false;
     }
 
-    public function serialize(DOMNode $parent, SerializationContext $context)
+    public function serialize(DOMNode $parent, SerializationContext $context): void
     {
         parent::serialize($parent, $context);
 
@@ -112,7 +92,7 @@ abstract class SSODescriptor extends RoleDescriptor
         $this->manyElementsToXml($this->getAllNameIDFormats(), $parent, $context, 'NameIDFormat', SamlConstants::NS_METADATA);
     }
 
-    public function deserialize(DOMNode $node, DeserializationContext $context)
+    public function deserialize(DOMNode $node, DeserializationContext $context): void
     {
         parent::deserialize($node, $context);
 

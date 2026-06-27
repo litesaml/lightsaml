@@ -27,7 +27,7 @@ use Tests\BaseTestCase;
 
 class SamlMessageSignAndVerifyTest extends BaseTestCase
 {
-    public function test_authn_request()
+    public function test_authn_request(): void
     {
         $authnRequest = new AuthnRequest();
         $authnRequest
@@ -41,7 +41,7 @@ class SamlMessageSignAndVerifyTest extends BaseTestCase
         $this->verify($authnRequest);
     }
 
-    public function test_logout_request()
+    public function test_logout_request(): void
     {
         $logoutRequest = new LogoutRequest();
         $logoutRequest
@@ -51,7 +51,7 @@ class SamlMessageSignAndVerifyTest extends BaseTestCase
         $this->verify($logoutRequest);
     }
 
-    public function test_response()
+    public function test_response(): void
     {
         $response = new Response();
         $response
@@ -66,7 +66,7 @@ class SamlMessageSignAndVerifyTest extends BaseTestCase
         $this->verify($response);
     }
 
-    public function test_logout_response()
+    public function test_logout_response(): void
     {
         $logoutResponse = new LogoutResponse();
         $logoutResponse->setStatus(new Status(new StatusCode(SamlConstants::STATUS_SUCCESS)));
@@ -74,7 +74,7 @@ class SamlMessageSignAndVerifyTest extends BaseTestCase
         $this->verify($logoutResponse);
     }
 
-    private function verify(SamlMessage $message)
+    private function verify(SamlMessage $message): void
     {
         $message
             ->setID(Helper::generateID())
@@ -101,9 +101,8 @@ class SamlMessageSignAndVerifyTest extends BaseTestCase
 
     /**
      * @param string $xml
-     * @param string $class
      */
-    private function deserializeAndVerify($xml, $class)
+    private function deserializeAndVerify(string|bool $xml, string $class): void
     {
         $deserializationContext = new DeserializationContext();
         $deserializationContext->getDocument()->loadXML($xml);
@@ -119,18 +118,12 @@ class SamlMessageSignAndVerifyTest extends BaseTestCase
         $this->assertTrue($ok);
     }
 
-    /**
-     * @return X509Certificate
-     */
-    private function getCertificate()
+    private function getCertificate(): X509Certificate
     {
         return X509Certificate::fromFile(__DIR__ . '/../../../resources/web_saml.crt');
     }
 
-    /**
-     * @return XMLSecurityKey
-     */
-    private function getPrivateKey()
+    private function getPrivateKey(): XMLSecurityKey
     {
         return KeyHelper::createPrivateKey(__DIR__ . '/../../../resources/web_saml.key', null, true);
     }

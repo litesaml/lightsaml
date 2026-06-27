@@ -6,8 +6,5 @@ use LightSaml\Action\ActionInterface;
 
 interface ActionBuilderInterface
 {
-    /**
-     * @return ActionInterface
-     */
-    public function build();
+    public function build(): ActionInterface;
 }

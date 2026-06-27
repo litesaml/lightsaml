@@ -4,38 +4,17 @@ namespace LightSaml\Build\Container;
 
 interface BuildContainerInterface
 {
-    /**
-     * @return SystemContainerInterface
-     */
-    public function getSystemContainer();
+    public function getSystemContainer(): SystemContainerInterface;
 
-    /**
-     * @return PartyContainerInterface
-     */
-    public function getPartyContainer();
+    public function getPartyContainer(): PartyContainerInterface;
 
-    /**
-     * @return StoreContainerInterface
-     */
-    public function getStoreContainer();
+    public function getStoreContainer(): StoreContainerInterface;
 
-    /**
-     * @return ProviderContainerInterface
-     */
-    public function getProviderContainer();
+    public function getProviderContainer(): ProviderContainerInterface;
 
-    /**
-     * @return CredentialContainerInterface
-     */
-    public function getCredentialContainer();
+    public function getCredentialContainer(): CredentialContainerInterface;
 
-    /**
-     * @return ServiceContainerInterface
-     */
-    public function getServiceContainer();
+    public function getServiceContainer(): ServiceContainerInterface;
 
-    /**
-     * @return OwnContainerInterface
-     */
-    public function getOwnContainer();
+    public function getOwnContainer(): OwnContainerInterface;
 }

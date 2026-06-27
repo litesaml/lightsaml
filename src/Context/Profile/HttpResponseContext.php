@@ -6,21 +6,14 @@ use Psr\Http\Message\ResponseInterface;
 
 class HttpResponseContext extends AbstractProfileContext
 {
-    /** @var ResponseInterface */
-    private $response;
+    private ?ResponseInterface $response = null;
 
-    /**
-     * @return ResponseInterface|null
-     */
-    public function getResponse()
+    public function getResponse(): ?ResponseInterface
     {
         return $this->response;
     }
 
-    /**
-     * @return HttpResponseContext
-     */
-    public function setResponse(ResponseInterface $response)
+    public function setResponse(ResponseInterface $response): static
     {
         $this->response = $response;
 

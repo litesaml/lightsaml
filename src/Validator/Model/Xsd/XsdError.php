@@ -11,7 +11,7 @@ class XsdError implements Stringable
     public const ERROR = 'Error';
     public const FATAL = 'Fatal';
 
-    private static $levelMap = [
+    private static array $levelMap = [
         LIBXML_ERR_WARNING => self::WARNING,
         LIBXML_ERR_ERROR => self::ERROR,
         LIBXML_ERR_FATAL => self::FATAL,
@@ -19,10 +19,8 @@ class XsdError implements Stringable
 
     /**
      * @deprecated
-     *
-     * @return XsdError
      */
-    public static function fromLibXMLError(LibXMLError $error)
+    public static function fromLibXMLError(LibXMLError $error): self
     {
         return new self(
             self::$levelMap[$error->level] ?? 'Unknown',
@@ -33,53 +31,31 @@ class XsdError implements Stringable
         );
     }
 
-    /**
-     * @param string $level
-     * @param string $code
-     * @param string $message
-     * @param string $line
-     * @param string $column
-     */
-    public function __construct(private $level, private $code, private $message, private $line, private $column)
+    public function __construct(private readonly string $level, private readonly string $code, private readonly string $message, private readonly string $line, private readonly string $column)
     {
     }
 
-    /**
-     * @return string
-     */
-    public function getLevel()
+    public function getLevel(): string
     {
         return $this->level;
     }
 
-    /**
-     * @return string
-     */
-    public function getCode()
+    public function getCode(): string
     {
         return $this->code;
     }
 
-    /**
-     * @return string
-     */
-    public function getMessage()
+    public function getMessage(): string
     {
         return $this->message;
     }
 
-    /**
-     * @return string
-     */
-    public function getLine()
+    public function getLine(): string
     {
         return $this->line;
     }
 
-    /**
-     * @return string
-     */
-    public function getColumn()
+    public function getColumn(): string
     {
         return $this->column;
     }

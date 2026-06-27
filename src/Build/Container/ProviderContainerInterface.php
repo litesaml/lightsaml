@@ -8,18 +8,9 @@ use LightSaml\Provider\Session\SessionInfoProviderInterface;
 
 interface ProviderContainerInterface
 {
-    /**
-     * @return AttributeValueProviderInterface
-     */
-    public function getAttributeValueProvider();
+    public function getAttributeValueProvider(): AttributeValueProviderInterface;
 
-    /**
-     * @return SessionInfoProviderInterface
-     */
-    public function getSessionInfoProvider();
+    public function getSessionInfoProvider(): SessionInfoProviderInterface;
 
-    /**
-     * @return NameIdProviderInterface
-     */
-    public function getNameIdProvider();
+    public function getNameIdProvider(): NameIdProviderInterface;
 }

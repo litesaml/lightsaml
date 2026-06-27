@@ -18,47 +18,38 @@ use RobRichards\XMLSecLibs\XMLSecurityKey;
 
 class SignatureXmlReader extends AbstractSignatureReader
 {
-    /** @var XMLSecurityDSig */
-    protected $signature;
+    protected ?XMLSecurityDSig $signature = null;
 
     /** @var string[] */
-    protected $certificates = [];
+    protected array $certificates = [];
 
-    /**
-     * @param string $certificate
-     */
-    public function addCertificate($certificate)
+    public function addCertificate(string $certificate): void
     {
-        $this->certificates[] = (string) $certificate;
+        $this->certificates[] = $certificate;
     }
 
     /**
      * @return string[]
      */
-    public function getAllCertificates()
+    public function getAllCertificates(): array
     {
         return $this->certificates;
     }
 
-    public function setSignature(XMLSecurityDSig $signature)
+    public function setSignature(XMLSecurityDSig $signature): void
     {
         $this->signature = $signature;
     }
 
-    /**
-     * @return XMLSecurityDSig
-     */
-    public function getSignature()
+    public function getSignature(): XMLSecurityDSig
     {
         return $this->signature;
     }
 
     /**
-     * @return bool
-     *
      * @throws LightSamlSecurityException|Exception
      */
-    public function validate(XMLSecurityKey $key)
+    public function validate(XMLSecurityKey $key): bool
     {
         if (null == $this->signature) {
             return false;
@@ -80,11 +71,9 @@ class SignatureXmlReader extends AbstractSignatureReader
     }
 
     /**
-     * @return string
-     *
      * @throws LightSamlXmlException
      */
-    public function getAlgorithm()
+    public function getAlgorithm(): string
     {
         $xpath = new DOMXPath(
             $this->signature->sigNode instanceof DOMDocument
@@ -117,7 +106,7 @@ class SignatureXmlReader extends AbstractSignatureReader
     /**
      * @throws Exception
      */
-    public function deserialize(DOMNode $node, DeserializationContext $context)
+    public function deserialize(DOMNode $node, DeserializationContext $context): void
     {
         $this->checkXmlNodeName($node, 'Signature', SamlConstants::NS_XMLDSIG);
 

@@ -18,7 +18,7 @@ use Tests\BaseTestCase;
 
 class AbstractDestinationValidatorActionTest extends BaseTestCase
 {
-    public function test_constructs_with_logger_and_endpoint_resolver()
+    public function test_constructs_with_logger_and_endpoint_resolver(): void
     {
         $this->getMockForAbstractClass(
             AbstractDestinationValidatorAction::class,
@@ -30,7 +30,7 @@ class AbstractDestinationValidatorActionTest extends BaseTestCase
         $this->assertTrue(true);
     }
 
-    public function test_passes_if_inbound_message_destination_is_empty()
+    public function test_passes_if_inbound_message_destination_is_empty(): void
     {
         $loggerMock = $this->getLoggerMock();
         $endpointResolverMock = $this->getEndpointResolverMock();
@@ -44,7 +44,7 @@ class AbstractDestinationValidatorActionTest extends BaseTestCase
         $this->assertTrue(true);
     }
 
-    public function test_passes_if_message_destination_matches_to_one_of_own_locations()
+    public function test_passes_if_message_destination_matches_to_one_of_own_locations(): void
     {
         $loggerMock = $this->getLoggerMock();
         $endpointResolverMock = $this->getEndpointResolverMock();
@@ -59,12 +59,12 @@ class AbstractDestinationValidatorActionTest extends BaseTestCase
                 $this->isInstanceOf(CriteriaSet::class),
                 $this->isType('array')
             )
-            ->willReturn(true);
+            ->willReturn([1]);
 
         $action->execute($context);
     }
 
-    public static function makes_descriptor_type_criteria_for_own_role_provider()
+    public static function makes_descriptor_type_criteria_for_own_role_provider(): array
     {
         return [
            [ProfileContext::ROLE_IDP, IdpSsoDescriptor::class],
@@ -73,7 +73,7 @@ class AbstractDestinationValidatorActionTest extends BaseTestCase
     }
 
     #[DataProvider('makes_descriptor_type_criteria_for_own_role_provider')]
-    public function test_makes_descriptor_type_criteria_for_own_role($ownRole, $descriptorType)
+    public function test_makes_descriptor_type_criteria_for_own_role(string $ownRole, string $descriptorType): void
     {
         $loggerMock = $this->getLoggerMock();
         $endpointResolverMock = $this->getEndpointResolverMock();
@@ -84,7 +84,7 @@ class AbstractDestinationValidatorActionTest extends BaseTestCase
 
         $endpointResolverMock->expects($this->once())
             ->method('resolve')
-            ->willReturnCallback(function (CriteriaSet $criteriaSet, array $endpoints) use ($descriptorType, $expectedDestination) {
+            ->willReturnCallback(function (CriteriaSet $criteriaSet, array $endpoints) use ($descriptorType, $expectedDestination): array {
                 $this->assertTrue($criteriaSet->has(LocationCriteria::class));
                 $arr = $criteriaSet->get(LocationCriteria::class);
                 $this->assertCount(1, $arr);
@@ -100,13 +100,13 @@ class AbstractDestinationValidatorActionTest extends BaseTestCase
                 $this->assertInstanceOf(DescriptorTypeCriteria::class, $criteria);
                 $this->assertEquals($descriptorType, $criteria->getDescriptorType());
 
-                return true;
+                return [1];
             });
 
         $action->execute($context);
     }
 
-    public function test_throws_exception_when_destination_does_not_match()
+    public function test_throws_exception_when_destination_does_not_match(): void
     {
         $this->expectExceptionMessage("Invalid inbound message destination \"http://localhost/foo\"");
         $this->expectException(LightSamlContextException::class);
@@ -119,18 +119,15 @@ class AbstractDestinationValidatorActionTest extends BaseTestCase
 
         $endpointResolverMock->expects($this->once())
             ->method('resolve')
-            ->willReturn(false);
+            ->willReturn([]);
 
         $action->execute($context);
     }
 
     /**
-     * @param string $ownRole
-     * @param string $destination
      *
-     * @return ProfileContext
      */
-    private function buildContext($ownRole, $destination)
+    private function buildContext(string $ownRole, ?string $destination): ProfileContext
     {
         $context = new ProfileContext(Profiles::SSO_IDP_RECEIVE_AUTHN_REQUEST, $ownRole);
         $context->getInboundContext()->setMessage(new AuthnRequest());

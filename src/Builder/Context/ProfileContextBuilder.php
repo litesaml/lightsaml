@@ -9,30 +9,22 @@ use Psr\Http\Message\ServerRequestInterface;
 
 class ProfileContextBuilder
 {
-    /** @var ServerRequestInterface */
-    private $request;
+    private ?ServerRequestInterface $request = null;
 
-    /** @var EntityDescriptorProviderInterface */
-    private $ownEntityDescriptorProvider;
+    private ?EntityDescriptorProviderInterface $ownEntityDescriptorProvider = null;
 
-    /** @var int */
-    private $profileId;
+    private ?string $profileId = null;
 
-    /** @var string */
-    private $profileRole;
+    private ?string $profileRole = null;
 
     /**
-     * @return ServerRequestInterface
      */
-    public function getRequest()
+    public function getRequest(): ?ServerRequestInterface
     {
         return $this->request;
     }
 
-    /**
-     * @return ProfileContextBuilder
-     */
-    public function setRequest(ServerRequestInterface $request)
+    public function setRequest(ServerRequestInterface $request): static
     {
         $this->request = $request;
 
@@ -40,72 +32,49 @@ class ProfileContextBuilder
     }
 
     /**
-     * @return EntityDescriptorProviderInterface
      */
-    public function getOwnEntityDescriptorProvider()
+    public function getOwnEntityDescriptorProvider(): ?EntityDescriptorProviderInterface
     {
         return $this->ownEntityDescriptorProvider;
     }
 
-    /**
-     * @return ProfileContextBuilder
-     */
-    public function setOwnEntityDescriptorProvider(EntityDescriptorProviderInterface $ownEntityDescriptorProvider)
+    public function setOwnEntityDescriptorProvider(EntityDescriptorProviderInterface $ownEntityDescriptorProvider): static
     {
         $this->ownEntityDescriptorProvider = $ownEntityDescriptorProvider;
 
         return $this;
     }
 
-    /**
-     * @return int
-     */
-    public function getProfileId()
+    public function getProfileId(): ?string
     {
         return $this->profileId;
     }
 
-    /**
-     * @param int $profileId
-     *
-     * @return ProfileContextBuilder
-     */
-    public function setProfileId($profileId)
+    public function setProfileId(string $profileId): static
     {
         $this->profileId = $profileId;
 
         return $this;
     }
 
-    /**
-     * @return string
-     */
-    public function getProfileRole()
+    public function getProfileRole(): ?string
     {
         return $this->profileRole;
     }
 
-    /**
-     * @param string $profileRole
-     *
-     * @return ProfileContextBuilder
-     */
-    public function setProfileRole($profileRole)
+    public function setProfileRole(string $profileRole): static
     {
         $this->profileRole = $profileRole;
 
         return $this;
     }
 
-    /**
-     * @return ProfileContext
-     */
-    public function build()
+    public function build(): ProfileContext
     {
-        if (null === $this->request) {
+        if (!$this->request instanceof ServerRequestInterface) {
             throw new LightSamlBuildException('HTTP Request not set');
         }
-        if (null === $this->ownEntityDescriptorProvider) {
+        if (!$this->ownEntityDescriptorProvider instanceof EntityDescriptorProviderInterface) {
             throw new LightSamlBuildException('Own EntityDescriptor not set');
         }
         if (null === $this->profileId) {

@@ -8,7 +8,7 @@ use Tests\BaseTestCase;
 
 class PrivateKeyCriteriaTest extends BaseTestCase
 {
-    public function test_implements_trust_criteria_interface()
+    public function test_implements_trust_criteria_interface(): void
     {
         $this->assertInstanceOf(TrustCriteriaInterface::class, new PrivateKeyCriteria());
     }

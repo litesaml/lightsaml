@@ -10,13 +10,13 @@ use Tests\BaseTestCase;
 
 class KnownAssertionIssuerActionTest extends BaseTestCase
 {
-    public function test_constructs_with_logger_and_entity_descriptor_store()
+    public function test_constructs_with_logger_and_entity_descriptor_store(): void
     {
         new KnownAssertionIssuerAction($this->getLoggerMock(), $this->getEntityDescriptorStoreMock());
         $this->assertTrue(true);
     }
 
-    public function test_throws_context_exception_when_assertion_has_no_issuer()
+    public function test_throws_context_exception_when_assertion_has_no_issuer(): void
     {
         $action = new KnownAssertionIssuerAction(
             $loggerMock = $this->getLoggerMock(),
@@ -35,7 +35,7 @@ class KnownAssertionIssuerActionTest extends BaseTestCase
         $action->execute($context);
     }
 
-    public function test_throws_context_exception_on_unknown_issuer()
+    public function test_throws_context_exception_on_unknown_issuer(): void
     {
 
         $action = new KnownAssertionIssuerAction(
@@ -61,7 +61,7 @@ class KnownAssertionIssuerActionTest extends BaseTestCase
         $action->execute($context);
     }
 
-    public function test_logs_known_issuer()
+    public function test_logs_known_issuer(): void
     {
         $action = new KnownAssertionIssuerAction(
             $loggerMock = $this->getLoggerMock(),

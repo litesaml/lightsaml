@@ -10,5 +10,5 @@ interface AttributeValueProviderInterface
     /**
      * @return Attribute[]
      */
-    public function getValues(AssertionContext $context);
+    public function getValues(AssertionContext $context): array;
 }

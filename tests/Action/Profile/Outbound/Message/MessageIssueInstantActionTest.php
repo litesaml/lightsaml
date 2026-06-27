@@ -8,13 +8,13 @@ use Tests\BaseTestCase;
 
 class MessageIssueInstantActionTest extends BaseTestCase
 {
-    public function test_constructs_with_logger_and_time_provider()
+    public function test_constructs_with_logger_and_time_provider(): void
     {
         new MessageIssueInstantAction($this->getLoggerMock(), $this->getTimeProviderMock());
         $this->assertTrue(true);
     }
 
-    public function test_sets_outbounding_message_issue_instant_to_value_from_time_provider()
+    public function test_sets_outbounding_message_issue_instant_to_value_from_time_provider(): void
     {
         $action = new MessageIssueInstantAction(
             $this->getLoggerMock(),

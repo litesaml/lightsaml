@@ -9,12 +9,7 @@ use LightSaml\Resolver\Endpoint\Criteria\ServiceTypeCriteria;
 
 class DestinationValidatorResponseAction extends AbstractDestinationValidatorAction
 {
-    /**
-     * @param string $location
-     *
-     * @return CriteriaSet
-     */
-    protected function getCriteriaSet(ProfileContext $context, $location)
+    protected function getCriteriaSet(ProfileContext $context, string $location): CriteriaSet
     {
         $result = parent::getCriteriaSet($context, $location);
 

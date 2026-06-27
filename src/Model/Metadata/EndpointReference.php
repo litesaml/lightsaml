@@ -8,26 +8,17 @@ class EndpointReference
     {
     }
 
-    /**
-     * @return EntityDescriptor
-     */
-    public function getEntityDescriptor()
+    public function getEntityDescriptor(): EntityDescriptor
     {
         return $this->entityDescriptor;
     }
 
-    /**
-     * @return RoleDescriptor
-     */
-    public function getDescriptor()
+    public function getDescriptor(): RoleDescriptor
     {
         return $this->descriptor;
     }
 
-    /**
-     * @return Endpoint
-     */
-    public function getEndpoint()
+    public function getEndpoint(): Endpoint
     {
         return $this->endpoint;
     }

@@ -13,7 +13,7 @@ use Tests\BaseTestCase;
 
 class SamlMessageDeserializationTest extends BaseTestCase
 {
-    public static function deserialize_provider()
+    public static function deserialize_provider(): array
     {
         return [
             ['<samlp:AuthnRequest xmlns:samlp="urn:oasis:names:tc:SAML:2.0:protocol"></samlp:AuthnRequest>', AuthnRequest::class],
@@ -28,7 +28,7 @@ class SamlMessageDeserializationTest extends BaseTestCase
     }
 
     #[DataProvider('deserialize_provider')]
-    public function test_deserialize($xml, $expectedType)
+    public function test_deserialize(string $xml, string $expectedType): void
     {
         $deserializationContext = new DeserializationContext();
         $samlMessage = SamlMessage::fromXML($xml, $deserializationContext);

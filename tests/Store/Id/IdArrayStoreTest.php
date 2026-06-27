@@ -8,7 +8,7 @@ use Tests\BaseTestCase;
 
 class IdArrayStoreTest extends BaseTestCase
 {
-    public function test_works()
+    public function test_works(): void
     {
         $store = new IdArrayStore();
         $store->set('aaa', '111', new DateTime('+1 day'));

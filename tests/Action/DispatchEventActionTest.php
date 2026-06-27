@@ -11,7 +11,7 @@ use Tests\BaseTestCase;
 
 class DispatchEventActionTest extends BaseTestCase
 {
-    public function test_constructs_with_logger_event_dispatcher_and_event_name()
+    public function test_constructs_with_logger_event_dispatcher_and_event_name(): void
     {
         new DispatchEventAction(
             $this->getEventDispatcherMock()
@@ -19,7 +19,7 @@ class DispatchEventActionTest extends BaseTestCase
         $this->assertTrue(true);
     }
 
-    public function test_dispatches_generic_event_on_execute()
+    public function test_dispatches_generic_event_on_execute(): void
     {
         $eventDispatcherMock = $this->getEventDispatcherMock();
 
@@ -41,7 +41,7 @@ class DispatchEventActionTest extends BaseTestCase
     /**
      * @return MockObject|ContextInterface
      */
-    private function getContextMock()
+    private function getContextMock(): MockObject
     {
         return $this->getMockBuilder(ContextInterface::class)->getMock();
     }
@@ -49,7 +49,7 @@ class DispatchEventActionTest extends BaseTestCase
     /**
      * @return MockObject|EventDispatcherInterface
      */
-    private function getEventDispatcherMock()
+    private function getEventDispatcherMock(): MockObject
     {
         return $this->getMockBuilder(EventDispatcherInterface::class)->getMock();
     }

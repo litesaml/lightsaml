@@ -11,7 +11,7 @@ use LightSaml\SamlConstants;
 
 class LogoutRequestXsdTest extends AbstractXsdValidation
 {
-    public function test_logout_request_with_xsd()
+    public function test_logout_request_with_xsd(): void
     {
         $logoutRequest = new LogoutRequest();
         $logoutRequest

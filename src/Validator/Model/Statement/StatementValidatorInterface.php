@@ -6,8 +6,5 @@ use LightSaml\Model\Assertion\AbstractStatement;
 
 interface StatementValidatorInterface
 {
-    /**
-     * @return void
-     */
-    public function validateStatement(AbstractStatement $statement);
+    public function validateStatement(AbstractStatement $statement): void;
 }

@@ -17,11 +17,9 @@ class MetadataCredentialStore implements CredentialStoreInterface
     }
 
     /**
-     * @param string $entityId
-     *
      * @return CredentialInterface[]
      */
-    public function getByEntityId($entityId)
+    public function getByEntityId(string $entityId): array
     {
         $entityDescriptor = $this->entityDescriptorProvider->get($entityId);
         if (false == $entityDescriptor) {
@@ -34,7 +32,7 @@ class MetadataCredentialStore implements CredentialStoreInterface
     /**
      * @return CredentialInterface[]
      */
-    protected function extractCredentials(EntityDescriptor $entityDescriptor)
+    protected function extractCredentials(EntityDescriptor $entityDescriptor): array
     {
         $result = [];
 

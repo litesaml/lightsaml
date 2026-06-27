@@ -6,27 +6,11 @@ use LightSaml\State\Request\RequestState;
 
 interface RequestStateStoreInterface
 {
-    /**
-     * @return RequestStateStoreInterface
-     */
-    public function set(RequestState $state);
+    public function set(RequestState $state): void;
 
-    /**
-     * @param string $id
-     *
-     * @return RequestState|null
-     */
-    public function get($id);
+    public function get(?string $id): ?RequestState;
 
-    /**
-     * @param string $id
-     *
-     * @return bool
-     */
-    public function remove($id);
+    public function remove(string $id): bool;
 
-    /**
-     * @return void
-     */
-    public function clear();
+    public function clear(): void;
 }

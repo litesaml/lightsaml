@@ -13,18 +13,12 @@ use Psr\Log\LoggerInterface;
  */
 class MessageVersionAction extends AbstractProfileAction
 {
-    /**
-     * @param string $version
-     */
-    public function __construct(LoggerInterface $logger, private $version)
+    public function __construct(LoggerInterface $logger, private readonly string $version)
     {
         parent::__construct($logger);
     }
 
-    /**
-     * @return void
-     */
-    protected function doExecute(ProfileContext $context)
+    protected function doExecute(ProfileContext $context): void
     {
         MessageContextHelper::asSamlMessage($context->getOutboundContext())
             ->setVersion($this->version);

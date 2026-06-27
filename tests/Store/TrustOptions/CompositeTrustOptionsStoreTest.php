@@ -10,26 +10,26 @@ use Tests\BaseTestCase;
 
 class CompositeTrustOptionsStoreTest extends BaseTestCase
 {
-    public function test_constructs_without_arguments()
+    public function test_constructs_without_arguments(): void
     {
         new CompositeTrustOptionsStore();
         $this->assertTrue(true);
     }
 
-    public function test_constructs_wit_array_of_stores()
+    public function test_constructs_wit_array_of_stores(): void
     {
         new CompositeTrustOptionsStore([$this->getTrustOptionsStoreMock(), $this->getTrustOptionsStoreMock()]);
         $this->assertTrue(true);
     }
 
-    public function test_can_add_stores()
+    public function test_can_add_stores(): void
     {
         $composite = new CompositeTrustOptionsStore();
         $composite->add($this->getTrustOptionsStoreMock());
         $this->assertTrue(true);
     }
 
-    public function test_get_calls_each_store()
+    public function test_get_calls_each_store(): void
     {
         $expectedEntityId = 'id';
         $composite = new CompositeTrustOptionsStore();
@@ -45,7 +45,7 @@ class CompositeTrustOptionsStoreTest extends BaseTestCase
         $this->assertNull($result);
     }
 
-    public function test_get_returns_first_result()
+    public function test_get_returns_first_result(): void
     {
         $expectedEntityId = 'id';
         $expectedTrustOptions = new TrustOptions();
@@ -67,7 +67,7 @@ class CompositeTrustOptionsStoreTest extends BaseTestCase
         $this->assertSame($expectedTrustOptions, $result);
     }
 
-    public function test_has_calls_each_store()
+    public function test_has_calls_each_store(): void
     {
         $expectedEntityId = 'id';
         $composite = new CompositeTrustOptionsStore();
@@ -75,7 +75,7 @@ class CompositeTrustOptionsStoreTest extends BaseTestCase
         $store->expects($this->once())
             ->method('has')
             ->with($expectedEntityId)
-            ->willReturn(null);
+            ->willReturn(false);
         $composite->add($store);
 
         $result = $composite->has($expectedEntityId);
@@ -83,10 +83,9 @@ class CompositeTrustOptionsStoreTest extends BaseTestCase
         $this->assertFalse($result);
     }
 
-    public function test_has_returns_true_on_first_true()
+    public function test_has_returns_true_on_first_true(): void
     {
         $expectedEntityId = 'id';
-        $expectedTrustOptions = new TrustOptions();
         $composite = new CompositeTrustOptionsStore();
 
         $composite->add($this->getTrustOptionsStoreMock());
@@ -95,7 +94,7 @@ class CompositeTrustOptionsStoreTest extends BaseTestCase
         $store->expects($this->once())
             ->method('has')
             ->with($expectedEntityId)
-            ->willReturn($expectedTrustOptions);
+            ->willReturn(true);
         $composite->add($store);
 
         $composite->add($this->getTrustOptionsStoreMock());
@@ -108,7 +107,7 @@ class CompositeTrustOptionsStoreTest extends BaseTestCase
     /**
      * @return MockObject|TrustOptionsStoreInterface
      */
-    private function getTrustOptionsStoreMock()
+    private function getTrustOptionsStoreMock(): MockObject
     {
         return $this->getMockBuilder(TrustOptionsStoreInterface::class)->getMock();
     }

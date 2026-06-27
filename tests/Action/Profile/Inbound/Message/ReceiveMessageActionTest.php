@@ -12,13 +12,13 @@ use Tests\BaseTestCase;
 
 class ReceiveMessageActionTest extends BaseTestCase
 {
-    public function test_constructs_with_logger_and_binding_factory()
+    public function test_constructs_with_logger_and_binding_factory(): void
     {
         new ReceiveMessageAction($this->getLoggerMock(), $this->getBindingFactoryMock());
         $this->assertTrue(true);
     }
 
-    public function test_throws_on_invalid_binding()
+    public function test_throws_on_invalid_binding(): void
     {
         $this->expectExceptionMessage("Unable to resolve binding type, invalid or unsupported http request");
         $this->expectException(LightSamlBindingException::class);
@@ -41,7 +41,7 @@ class ReceiveMessageActionTest extends BaseTestCase
         $action->execute($context);
     }
 
-    public function test_receives_message()
+    public function test_receives_message(): void
     {
         $action = new ReceiveMessageAction($logger = $this->getLoggerMock(), $bindingFactory = $this->getBindingFactoryMock());
 

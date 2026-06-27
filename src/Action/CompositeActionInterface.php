@@ -4,15 +4,7 @@ namespace LightSaml\Action;
 
 interface CompositeActionInterface extends ActionInterface
 {
-    /**
-     * @return CompositeActionInterface
-     */
-    public function add(ActionInterface $action);
+    public function add(ActionInterface $action): CompositeActionInterface;
 
-    /**
-     * @param callable $callable
-     *
-     * @return ActionInterface|null
-     */
-    public function map($callable);
+    public function map(callable $callable): void;
 }

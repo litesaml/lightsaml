@@ -10,25 +10,27 @@ use LightSaml\SamlConstants;
 use LogicException;
 use Nyholm\Psr7\Factory\Psr17Factory;
 use Psr\EventDispatcher\EventDispatcherInterface;
+use Psr\Http\Message\MessageInterface;
+use Psr\Http\Message\ServerRequestInterface;
 use Tests\BaseTestCase;
 
 class BindingFactoryTest extends BaseTestCase
 {
-    public function test__create_http_redirect()
+    public function test__create_http_redirect(): void
     {
         $factory = new BindingFactory();
         $binding = $factory->create(SamlConstants::BINDING_SAML2_HTTP_REDIRECT);
         $this->assertInstanceOf(HttpRedirectBinding::class, $binding);
     }
 
-    public function test__create_http_post()
+    public function test__create_http_post(): void
     {
         $factory = new BindingFactory();
         $binding = $factory->create(SamlConstants::BINDING_SAML2_HTTP_POST);
         $this->assertInstanceOf(HttpPostBinding::class, $binding);
     }
 
-    public function test__create_throws_not_implemented_error_for_soap()
+    public function test__create_throws_not_implemented_error_for_soap(): void
     {
         $this->expectExceptionMessage("SOAP binding not implemented");
         $this->expectException(LogicException::class);
@@ -36,7 +38,7 @@ class BindingFactoryTest extends BaseTestCase
         $factory->create(SamlConstants::BINDING_SAML2_SOAP);
     }
 
-    public function test__create_throws_not_implemented_error_for_artifact()
+    public function test__create_throws_not_implemented_error_for_artifact(): void
     {
         $this->expectExceptionMessage("Artifact binding not implemented");
         $this->expectException(LogicException::class);
@@ -44,7 +46,7 @@ class BindingFactoryTest extends BaseTestCase
         $factory->create(SamlConstants::BINDING_SAML2_HTTP_ARTIFACT);
     }
 
-    public function test__create_throws_for_unknown_binding()
+    public function test__create_throws_for_unknown_binding(): void
     {
         $this->expectExceptionMessage("Unknown binding type 'foo'");
         $this->expectException(LightSamlBindingException::class);
@@ -52,7 +54,7 @@ class BindingFactoryTest extends BaseTestCase
         $factory->create('foo');
     }
 
-    public function test__detect_http_redirect()
+    public function test__detect_http_redirect(): void
     {
         $request = $this->createHttpRedirectRequest();
 
@@ -61,7 +63,7 @@ class BindingFactoryTest extends BaseTestCase
         $this->assertEquals(SamlConstants::BINDING_SAML2_HTTP_REDIRECT, $factory->detectBindingType($request));
     }
 
-    public function test__detect_http_post()
+    public function test__detect_http_post(): void
     {
         $request = $this->createHttpPostRequest();
 
@@ -70,7 +72,7 @@ class BindingFactoryTest extends BaseTestCase
         $this->assertEquals(SamlConstants::BINDING_SAML2_HTTP_POST, $factory->detectBindingType($request));
     }
 
-    public function test__detect_artifact_post()
+    public function test__detect_artifact_post(): void
     {
         $request = $this->createArtifactPostRequest();
 
@@ -79,7 +81,7 @@ class BindingFactoryTest extends BaseTestCase
         $this->assertEquals(SamlConstants::BINDING_SAML2_HTTP_ARTIFACT, $factory->detectBindingType($request));
     }
 
-    public function test__detect_artifact_get()
+    public function test__detect_artifact_get(): void
     {
         $request = $this->createArtifactGetRequest();
 
@@ -88,7 +90,7 @@ class BindingFactoryTest extends BaseTestCase
         $this->assertEquals(SamlConstants::BINDING_SAML2_HTTP_ARTIFACT, $factory->detectBindingType($request));
     }
 
-    public function test__detect_soap()
+    public function test__detect_soap(): void
     {
         $request = $this->createSoapRequest();
 
@@ -97,7 +99,7 @@ class BindingFactoryTest extends BaseTestCase
         $this->assertEquals(SamlConstants::BINDING_SAML2_SOAP, $factory->detectBindingType($request));
     }
 
-    public function test__detect_none_get()
+    public function test__detect_none_get(): void
     {
         $factory = new Psr17Factory();
         $request = $factory->createServerRequest('GET', '/');
@@ -107,7 +109,7 @@ class BindingFactoryTest extends BaseTestCase
         $this->assertNull($bindingFactory->detectBindingType($request));
     }
 
-    public function test__detect_none_post()
+    public function test__detect_none_post(): void
     {
         $factory = new Psr17Factory();
         $request = $factory->createServerRequest('POST', '/');
@@ -117,21 +119,21 @@ class BindingFactoryTest extends BaseTestCase
         $this->assertNull($bindingFactory->detectBindingType($request));
     }
 
-    public function test__get_binding_by_request_http_redirect()
+    public function test__get_binding_by_request_http_redirect(): void
     {
         $request = $this->createHttpRedirectRequest();
         $factory = new BindingFactory();
         $this->assertInstanceOf(HttpRedirectBinding::class, $factory->getBindingByRequest($request));
     }
 
-    public function test__get_binding_by_request_http_post()
+    public function test__get_binding_by_request_http_post(): void
     {
         $request = $this->createHttpPostRequest();
         $factory = new BindingFactory();
         $this->assertInstanceOf(HttpPostBinding::class, $factory->getBindingByRequest($request));
     }
 
-    public function test__create_with_event_dispatcher()
+    public function test__create_with_event_dispatcher(): void
     {
         $eventDispatcher = $this->createMock(EventDispatcherInterface::class);
 
@@ -141,31 +143,31 @@ class BindingFactoryTest extends BaseTestCase
         $this->assertEquals($eventDispatcher, $binding->getEventDispatcher());
     }
 
-    private function createHttpPostRequest()
+    private function createHttpPostRequest(): ServerRequestInterface
     {
         $factory = new Psr17Factory();
         return $factory->createServerRequest('POST', '/')->withParsedBody(['SAMLRequest' => 'request']);
     }
 
-    private function createHttpRedirectRequest()
+    private function createHttpRedirectRequest(): ServerRequestInterface
     {
         $factory = new Psr17Factory();
         return $factory->createServerRequest('GET', '/')->withQueryParams(['SAMLRequest' => 'request']);
     }
 
-    private function createArtifactPostRequest()
+    private function createArtifactPostRequest(): ServerRequestInterface
     {
         $factory = new Psr17Factory();
         return $factory->createServerRequest('POST', '/')->withParsedBody(['SAMLart' => 'request']);
     }
 
-    private function createArtifactGetRequest()
+    private function createArtifactGetRequest(): ServerRequestInterface
     {
         $factory = new Psr17Factory();
         return $factory->createServerRequest('GET', '/')->withQueryParams(['SAMLart' => 'request']);
     }
 
-    private function createSoapRequest()
+    private function createSoapRequest(): MessageInterface
     {
         $factory = new Psr17Factory();
         return $factory->createServerRequest('POST', '/')->withHeader('Content-Type', 'text/xml; charset=utf-8');

@@ -20,10 +20,7 @@ use LightSaml\SamlConstants;
 
 class SsoSpSendAuthnRequestActionBuilder extends AbstractProfileActionBuilder
 {
-    /**
-     * @return void
-     */
-    protected function doInitialize()
+    protected function doInitialize(): void
     {
         // Create AuthnRequest
         $this->add(new ResolveEndpointIdpSsoAction(

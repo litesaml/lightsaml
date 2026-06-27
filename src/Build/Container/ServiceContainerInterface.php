@@ -3,7 +3,6 @@
 namespace LightSaml\Build\Container;
 
 use LightSaml\Binding\BindingFactoryInterface;
-use LightSaml\Logout\Resolver\Logout\LogoutSessionResolverInterface;
 use LightSaml\Resolver\Credential\CredentialResolverInterface;
 use LightSaml\Resolver\Endpoint\EndpointResolverInterface;
 use LightSaml\Resolver\Session\SessionProcessorInterface;
@@ -15,53 +14,21 @@ use LightSaml\Validator\Model\Signature\SignatureValidatorInterface;
 
 interface ServiceContainerInterface
 {
-    /**
-     * @return AssertionValidatorInterface
-     */
-    public function getAssertionValidator();
+    public function getAssertionValidator(): AssertionValidatorInterface;
 
-    /**
-     * @return AssertionTimeValidator
-     */
-    public function getAssertionTimeValidator();
+    public function getAssertionTimeValidator(): AssertionTimeValidator;
 
-    /**
-     * @return SignatureResolverInterface
-     */
-    public function getSignatureResolver();
+    public function getSignatureResolver(): SignatureResolverInterface;
 
-    /**
-     * @return EndpointResolverInterface
-     */
-    public function getEndpointResolver();
+    public function getEndpointResolver(): EndpointResolverInterface;
 
-    /**
-     * @return NameIdValidatorInterface
-     */
-    public function getNameIdValidator();
+    public function getNameIdValidator(): NameIdValidatorInterface;
 
-    /**
-     * @return BindingFactoryInterface
-     */
-    public function getBindingFactory();
+    public function getBindingFactory(): BindingFactoryInterface;
 
-    /**
-     * @return SignatureValidatorInterface
-     */
-    public function getSignatureValidator();
+    public function getSignatureValidator(): SignatureValidatorInterface;
 
-    /**
-     * @return CredentialResolverInterface
-     */
-    public function getCredentialResolver();
+    public function getCredentialResolver(): CredentialResolverInterface;
 
-    /**
-     * @return LogoutSessionResolverInterface
-     */
-    public function getLogoutSessionResolver();
-
-    /**
-     * @return SessionProcessorInterface
-     */
-    public function getSessionProcessor();
+    public function getSessionProcessor(): SessionProcessorInterface;
 }

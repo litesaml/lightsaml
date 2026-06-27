@@ -9,14 +9,10 @@ use LightSaml\Model\Assertion\Assertion;
 class AssertionTimeValidator implements AssertionTimeValidatorInterface
 {
     /**
-     * @param int $now
-     * @param int $allowedSecondsSkew
      *
      * @throws LightSamlValidationException
-     *
-     * @return void
      */
-    public function validateTimeRestrictions(Assertion $assertion, $now, $allowedSecondsSkew)
+    public function validateTimeRestrictions(Assertion $assertion, int $now, int $allowedSecondsSkew): void
     {
         if ($allowedSecondsSkew < 0) {
             $allowedSecondsSkew = -1 * $allowedSecondsSkew;
@@ -27,11 +23,7 @@ class AssertionTimeValidator implements AssertionTimeValidatorInterface
         $this->validateSubject($assertion, $now, $allowedSecondsSkew);
     }
 
-    /**
-     * @param int $now
-     * @param int $allowedSecondsSkew
-     */
-    protected function validateConditions(Assertion $assertion, $now, $allowedSecondsSkew)
+    protected function validateConditions(Assertion $assertion, int $now, int $allowedSecondsSkew)
     {
         if (false == $assertion->getConditions()) {
             return;
@@ -46,11 +38,7 @@ class AssertionTimeValidator implements AssertionTimeValidatorInterface
         }
     }
 
-    /**
-     * @param int $now
-     * @param int $allowedSecondsSkew
-     */
-    protected function validateAuthnStatements(Assertion $assertion, $now, $allowedSecondsSkew)
+    protected function validateAuthnStatements(Assertion $assertion, int $now, int $allowedSecondsSkew)
     {
         if (false == $assertion->getAllAuthnStatements()) {
             return;
@@ -64,11 +52,7 @@ class AssertionTimeValidator implements AssertionTimeValidatorInterface
         }
     }
 
-    /**
-     * @param int $now
-     * @param int $allowedSecondsSkew
-     */
-    protected function validateSubject(Assertion $assertion, $now, $allowedSecondsSkew)
+    protected function validateSubject(Assertion $assertion, int $now, int $allowedSecondsSkew)
     {
         if (false == $assertion->getSubject()) {
             return;

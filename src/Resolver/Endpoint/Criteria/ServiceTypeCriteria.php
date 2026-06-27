@@ -13,10 +13,7 @@ class ServiceTypeCriteria implements CriteriaInterface
     {
     }
 
-    /**
-     * @return string
-     */
-    public function getServiceType()
+    public function getServiceType(): string
     {
         return $this->serviceType;
     }

@@ -11,10 +11,7 @@ class AlgorithmCriteria implements TrustCriteriaInterface
     {
     }
 
-    /**
-     * @return string
-     */
-    public function getAlgorithm()
+    public function getAlgorithm(): string
     {
         return $this->algorithm;
     }

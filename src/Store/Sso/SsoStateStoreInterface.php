@@ -6,13 +6,7 @@ use LightSaml\State\Sso\SsoState;
 
 interface SsoStateStoreInterface
 {
-    /**
-     * @return SsoState
-     */
-    public function get();
+    public function get(): SsoState;
 
-    /**
-     * @return void
-     */
-    public function set(SsoState $ssoState);
+    public function set(SsoState $ssoState): void;
 }

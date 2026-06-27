@@ -7,11 +7,8 @@ use InvalidArgumentException;
 class CredentialContextSet
 {
     /** @var CredentialContextInterface[] */
-    protected $contexts = [];
+    protected array $contexts = [];
 
-    /**
-     * @param CredentialContextInterface[] $contexts
-     */
     public function __construct(array $contexts = [])
     {
         foreach ($contexts as $context) {
@@ -25,17 +22,12 @@ class CredentialContextSet
     /**
      * @return CredentialContextInterface[]
      */
-    public function all()
+    public function all(): array
     {
         return $this->contexts;
     }
 
-    /**
-     * @param string $class
-     *
-     * @return CredentialContextInterface|null
-     */
-    public function get($class)
+    public function get(string $class): ?CredentialContextInterface
     {
         foreach ($this->contexts as $context) {
             if ($context::class == $class || is_subclass_of($context, $class)) {
@@ -43,6 +35,6 @@ class CredentialContextSet
             }
         }
 
-        return;
+        return null;
     }
 }

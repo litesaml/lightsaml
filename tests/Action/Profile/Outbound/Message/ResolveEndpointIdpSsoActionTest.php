@@ -13,12 +13,12 @@ use Psr\Log\LoggerInterface;
 
 class ResolveEndpointIdpSsoActionTest extends AbstractResolveEndpointAction
 {
-    public function test_adds_service_type_sso()
+    public function test_adds_service_type_sso(): void
     {
         $message = new AuthnRequest();
         $context = $this->createContext(ProfileContext::ROLE_IDP, $message);
 
-        $this->setEndpointResolver(true, function (CriteriaSet $criteriaSet) {
+        $this->setEndpointResolver(true, function (CriteriaSet $criteriaSet): array {
             $this->criteriaSetShouldHaveServiceTypeCriteria($criteriaSet, SingleSignOnService::class);
 
             return [$this->getEndpointReferenceMock($endpoint = new SingleSignOnService())];
@@ -31,7 +31,7 @@ class ResolveEndpointIdpSsoActionTest extends AbstractResolveEndpointAction
      *
      * @return ResolveEndpointBaseAction
      */
-    protected function createAction(LoggerInterface $logger, EndpointResolverInterface $endpointResolver)
+    protected function createAction(LoggerInterface $logger, EndpointResolverInterface $endpointResolver): ResolveEndpointIdpSsoAction
     {
         return new ResolveEndpointIdpSsoAction($logger, $endpointResolver);
     }

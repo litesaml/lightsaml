@@ -14,7 +14,7 @@ abstract class AbstractAssertionAction implements ActionInterface
     {
     }
 
-    public function execute(ContextInterface $context)
+    public function execute(ContextInterface $context): void
     {
         if ($context instanceof AssertionContext) {
             $this->doExecute($context);

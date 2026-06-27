@@ -10,13 +10,13 @@ use Tests\BaseTestCase;
 
 class SignatureWriterTest extends BaseTestCase
 {
-    public function test_create_with_signing_options()
+    public function test_create_with_signing_options(): void
     {
         SignatureWriter::create(new SigningOptions());
         $this->assertTrue(true);
     }
 
-    public function test_create_with_key_and_certificate()
+    public function test_create_with_key_and_certificate(): void
     {
         $writer = SignatureWriter::createByKeyAndCertificate(
             $this->getX509CertificateMock(),
@@ -27,7 +27,7 @@ class SignatureWriterTest extends BaseTestCase
         $this->assertInstanceOf(SigningOptions::class, $writer->getSigningOptions());
     }
 
-    public function test_constructs_with_certificate_and_key()
+    public function test_constructs_with_certificate_and_key(): void
     {
         $writer = new SignatureWriter(
             $this->getX509CertificateMock(),
@@ -37,13 +37,13 @@ class SignatureWriterTest extends BaseTestCase
         $this->assertNull($writer->getSigningOptions());
     }
 
-    public function test_can_be_constructed_wout_arguments()
+    public function test_can_be_constructed_wout_arguments(): void
     {
         new SignatureWriter();
         $this->assertTrue(true);
     }
 
-    public function test_throws_logic_exception_on_deserialize()
+    public function test_throws_logic_exception_on_deserialize(): void
     {
         $this->expectExceptionMessage("SignatureWriter can not be deserialized");
         $this->expectException(LogicException::class);
@@ -53,14 +53,14 @@ class SignatureWriterTest extends BaseTestCase
         $writer->deserialize($deserializationContext->getDocument(), $deserializationContext);
     }
 
-    public function test_returns_set_certificate()
+    public function test_returns_set_certificate(): void
     {
         $writer = new SignatureWriter();
         $writer->setCertificate($certificate = $this->getX509CertificateMock());
         $this->assertSame($certificate, $writer->getCertificate());
     }
 
-    public function test_returns_set_key()
+    public function test_returns_set_key(): void
     {
         $writer = new SignatureWriter();
         $writer->setXmlSecurityKey($key = $this->getXmlSecurityKeyMock());

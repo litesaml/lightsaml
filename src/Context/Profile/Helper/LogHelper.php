@@ -8,30 +8,17 @@ use LightSaml\Context\Profile\ProfileContext;
 
 abstract class LogHelper
 {
-    /**
-     *
-     * @return array
-     */
-    public static function getActionContext(ContextInterface $context, ActionInterface $action, ?array $extraData = null)
+    public static function getActionContext(ContextInterface $context, ActionInterface $action, ?array $extraData = null): array
     {
         return self::getContext($context, $action, $extraData, false);
     }
 
-    /**
-     *
-     * @return array
-     */
-    public static function getActionErrorContext(ContextInterface $context, ActionInterface $action, ?array $extraData = null)
+    public static function getActionErrorContext(ContextInterface $context, ActionInterface $action, ?array $extraData = null): array
     {
         return self::getContext($context, $action, $extraData, true);
     }
 
-    /**
-     * @param bool $logWholeContext
-     *
-     * @return array
-     */
-    private static function getContext(ContextInterface $context, ?ActionInterface $action = null, ?array $extraData = null, $logWholeContext = false)
+    private static function getContext(ContextInterface $context, ?ActionInterface $action = null, ?array $extraData = null, bool $logWholeContext = false): array
     {
         $topContext = $context->getTopParent();
         $result = [];

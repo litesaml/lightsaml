@@ -6,10 +6,12 @@ use LightSaml\Action\Assertion\AbstractAssertionAction;
 use LightSaml\Context\Profile\AssertionContext;
 use LightSaml\Context\Profile\Helper\LogHelper;
 use LightSaml\Context\Profile\ProfileContext;
+use LightSaml\Credential\CredentialInterface;
 use LightSaml\Credential\Criteria\MetadataCriteria;
 use LightSaml\Error\LightSamlContextException;
 use LightSaml\Error\LightSamlModelException;
 use LightSaml\Model\XmlDSig\AbstractSignatureReader;
+use LightSaml\Model\XmlDSig\Signature;
 use LightSaml\Validator\Model\Signature\SignatureValidatorInterface;
 use Psr\Log\LoggerInterface;
 
@@ -23,13 +25,10 @@ class AssertionSignatureValidatorAction extends AbstractAssertionAction
         parent::__construct($logger);
     }
 
-    /**
-     * @return void
-     */
-    protected function doExecute(AssertionContext $context)
+    protected function doExecute(AssertionContext $context): void
     {
         $signature = $context->getAssertion()->getSignature();
-        if (null === $signature) {
+        if (!$signature instanceof Signature) {
             if ($this->requireSignature) {
                 $message = 'Assertions must be signed';
                 $this->logger->critical($message, LogHelper::getActionErrorContext($context, $this));
@@ -44,7 +43,7 @@ class AssertionSignatureValidatorAction extends AbstractAssertionAction
         if ($signature instanceof AbstractSignatureReader) {
             $metadataType = ProfileContext::ROLE_IDP === $context->getProfileContext()->getOwnRole() ? MetadataCriteria::TYPE_SP : MetadataCriteria::TYPE_IDP;
             $credential = $this->signatureValidator->validate($signature, $context->getAssertion()->getIssuer()->getValue(), $metadataType);
-            if ($credential) {
+            if ($credential instanceof CredentialInterface) {
                 $keyNames = $credential->getKeyNames();
                 $this->logger->debug(
                     sprintf('Assertion signature validated with key "%s"', implode(', ', $keyNames)),

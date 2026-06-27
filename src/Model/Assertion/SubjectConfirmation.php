@@ -10,96 +10,63 @@ use LightSaml\SamlConstants;
 
 class SubjectConfirmation extends AbstractSamlModel
 {
-    /** @var string */
-    protected $method;
+    protected ?string $method = null;
 
-    /** @var NameID|null */
-    protected $nameId;
+    protected ?NameID $nameId = null;
 
-    /** @var EncryptedElement|null */
-    protected $encryptedId;
+    protected ?EncryptedElement $encryptedId = null;
 
-    /** @var SubjectConfirmationData|null */
-    protected $subjectConfirmationData;
+    protected ?SubjectConfirmationData $subjectConfirmationData = null;
 
-    /**
-     * @param string $method
-     *
-     * @return SubjectConfirmation
-     */
-    public function setMethod($method)
+    public function setMethod(string $method): static
     {
-        $this->method = (string) $method;
+        $this->method = $method;
 
         return $this;
     }
 
-    /**
-     * @return string
-     */
-    public function getMethod()
+    public function getMethod(): ?string
     {
         return $this->method;
     }
 
-    /**
-     * @return SubjectConfirmation
-     */
-    public function setEncryptedId(?EncryptedElement $encryptedId = null)
+    public function setEncryptedId(?EncryptedElement $encryptedId = null): static
     {
         $this->encryptedId = $encryptedId;
 
         return $this;
     }
 
-    /**
-     * @return EncryptedElement|null
-     */
-    public function getEncryptedId()
+    public function getEncryptedId(): ?EncryptedElement
     {
         return $this->encryptedId;
     }
 
-    /**
-     * @return SubjectConfirmation
-     */
-    public function setNameID(?NameID $nameId = null)
+    public function setNameID(?NameID $nameId = null): static
     {
         $this->nameId = $nameId;
 
         return $this;
     }
 
-    /**
-     * @return NameID|null
-     */
-    public function getNameID()
+    public function getNameID(): ?NameID
     {
         return $this->nameId;
     }
 
-    /**
-     * @return SubjectConfirmation
-     */
-    public function setSubjectConfirmationData(?SubjectConfirmationData $subjectConfirmationData = null)
+    public function setSubjectConfirmationData(?SubjectConfirmationData $subjectConfirmationData = null): static
     {
         $this->subjectConfirmationData = $subjectConfirmationData;
 
         return $this;
     }
 
-    /**
-     * @return SubjectConfirmationData|null
-     */
-    public function getSubjectConfirmationData()
+    public function getSubjectConfirmationData(): ?SubjectConfirmationData
     {
         return $this->subjectConfirmationData;
     }
 
-    /**
-     * @return void
-     */
-    public function serialize(DOMNode $parent, SerializationContext $context)
+    public function serialize(DOMNode $parent, SerializationContext $context): void
     {
         $result = $this->createElement('SubjectConfirmation', SamlConstants::NS_ASSERTION, $parent, $context);
 
@@ -112,7 +79,7 @@ class SubjectConfirmation extends AbstractSamlModel
         );
     }
 
-    public function deserialize(DOMNode $node, DeserializationContext $context)
+    public function deserialize(DOMNode $node, DeserializationContext $context): void
     {
         $this->checkXmlNodeName($node, 'SubjectConfirmation', SamlConstants::NS_ASSERTION);
 

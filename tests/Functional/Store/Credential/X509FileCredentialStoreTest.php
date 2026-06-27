@@ -8,13 +8,13 @@ use Tests\BaseTestCase;
 
 class X509FileCredentialStoreTest extends BaseTestCase
 {
-    public function test_returns_null_if_entity_id_does_not_match()
+    public function test_returns_null_if_entity_id_does_not_match(): void
     {
         $store = new X509FileCredentialStore('foo', '', '', '');
         $this->assertCount(0, $store->getByEntityId('bar'));
     }
 
-    public function test_returns_credential_with_loaded_specified_key_and_certificate()
+    public function test_returns_credential_with_loaded_specified_key_and_certificate(): void
     {
         $store = new X509FileCredentialStore(
             $entityId = 'foo',

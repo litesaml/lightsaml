@@ -9,29 +9,21 @@ use Serializable;
 
 class SsoSessionState implements Serializable
 {
-    /** @var string */
-    protected $idpEntityId;
+    protected ?string $idpEntityId = null;
 
-    /** @var string */
-    protected $spEntityId;
+    protected string $spEntityId = '';
 
-    /** @var string */
-    protected $nameId;
+    protected string $nameId = '';
 
-    /** @var string */
-    protected $nameIdFormat;
+    protected string $nameIdFormat = '';
 
-    /** @var string */
-    protected $sessionIndex;
+    protected string $sessionIndex = '';
 
-    /** @var DateTime */
-    protected $sessionInstant;
+    protected ?DateTime $sessionInstant = null;
 
-    /** @var DateTime */
-    protected $firstAuthOn;
+    protected ?DateTime $firstAuthOn = null;
 
-    /** @var DateTime */
-    protected $lastAuthOn;
+    protected ?DateTime $lastAuthOn = null;
 
     protected ParameterBag $parameters;
 
@@ -40,192 +32,119 @@ class SsoSessionState implements Serializable
         $this->parameters = new ParameterBag();
     }
 
-    /**
-     * @return string
-     */
-    public function getIdpEntityId()
+    public function getIdpEntityId(): ?string
     {
         return $this->idpEntityId;
     }
 
-    /**
-     * @param string $idpEntityId
-     *
-     * @return SsoSessionState
-     */
-    public function setIdpEntityId($idpEntityId)
+    public function setIdpEntityId(string $idpEntityId): static
     {
         $this->idpEntityId = $idpEntityId;
 
         return $this;
     }
 
-    /**
-     * @return string
-     */
-    public function getSpEntityId()
+    public function getSpEntityId(): string
     {
         return $this->spEntityId;
     }
 
-    /**
-     * @param string $spEntityId
-     *
-     * @return SsoSessionState
-     */
-    public function setSpEntityId($spEntityId)
+    public function setSpEntityId(string $spEntityId): static
     {
         $this->spEntityId = $spEntityId;
 
         return $this;
     }
 
-    /**
-     * @return string
-     */
-    public function getNameId()
+    public function getNameId(): string
     {
         return $this->nameId;
     }
 
-    /**
-     * @param string $nameId
-     *
-     * @return SsoSessionState
-     */
-    public function setNameId($nameId)
+    public function setNameId(string $nameId): static
     {
         $this->nameId = $nameId;
 
         return $this;
     }
 
-    /**
-     * @return string
-     */
-    public function getNameIdFormat()
+    public function getNameIdFormat(): string
     {
         return $this->nameIdFormat;
     }
 
-    /**
-     * @param string $nameIdFormat
-     *
-     * @return SsoSessionState
-     */
-    public function setNameIdFormat($nameIdFormat)
+    public function setNameIdFormat(string $nameIdFormat): static
     {
         $this->nameIdFormat = $nameIdFormat;
 
         return $this;
     }
 
-    /**
-     * @return string
-     */
-    public function getSessionIndex()
+    public function getSessionIndex(): string
     {
         return $this->sessionIndex;
     }
 
-    /**
-     * @param string $sessionIndex
-     *
-     * @return SsoSessionState
-     */
-    public function setSessionIndex($sessionIndex)
+    public function setSessionIndex(string $sessionIndex): static
     {
         $this->sessionIndex = $sessionIndex;
 
         return $this;
     }
 
-    /**
-     * @return DateTime
-     */
-    public function getFirstAuthOn()
+    public function getFirstAuthOn(): ?DateTime
     {
         return $this->firstAuthOn;
     }
 
-    /**
-     * @param DateTime $firstAuthOn
-     *
-     * @return SsoSessionState
-     */
-    public function setFirstAuthOn($firstAuthOn)
+    public function setFirstAuthOn(DateTime $firstAuthOn): static
     {
         $this->firstAuthOn = $firstAuthOn;
 
         return $this;
     }
 
-    /**
-     * @return DateTime
-     */
-    public function getLastAuthOn()
+    public function getLastAuthOn(): ?DateTime
     {
         return $this->lastAuthOn;
     }
 
-    /**
-     * @param DateTime $lastAuthOn
-     *
-     * @return SsoSessionState
-     */
-    public function setLastAuthOn($lastAuthOn)
+    public function setLastAuthOn(DateTime $lastAuthOn): static
     {
         $this->lastAuthOn = $lastAuthOn;
 
         return $this;
     }
 
-    /**
-     * @return DateTime
-     */
-    public function getSessionInstant()
+    public function getSessionInstant(): ?DateTime
     {
         return $this->sessionInstant;
     }
 
-    /**
-     * @param DateTime $sessionInstant
-     *
-     * @return SsoSessionState
-     */
-    public function setSessionInstant($sessionInstant)
+    public function setSessionInstant(DateTime $sessionInstant): static
     {
         $this->sessionInstant = $sessionInstant;
 
         return $this;
     }
 
-    /**
-     * @return ParameterBag
-     */
-    public function getParameters()
+    public function getParameters(): ParameterBag
     {
         return $this->parameters;
     }
 
     /**
      * @deprecated Since 1.2, will be removed in 2.0. Use getParameters() instead
-     *
-     * @return array
      */
-    public function getOptions()
+    public function getOptions(): array
     {
         return $this->parameters->all();
     }
 
     /**
      * @deprecated Since 1.2, will be removed in 2.0. Use getParameters() instead
-     *
-     * @param string $name
-     *
-     * @return SsoSessionState
      */
-    public function addOption($name, mixed $value)
+    public function addOption(string $name, mixed $value): static
     {
         $this->parameters->set($name, $value);
 
@@ -234,12 +153,8 @@ class SsoSessionState implements Serializable
 
     /**
      * @deprecated Since 1.2, will be removed in 2.0. Use getParameters() instead
-     *
-     * @param string $name
-     *
-     * @return SsoSessionState
      */
-    public function removeOption($name)
+    public function removeOption(string $name): static
     {
         $this->parameters->remove($name);
 
@@ -248,24 +163,19 @@ class SsoSessionState implements Serializable
 
     /**
      * @deprecated Since 1.2, will be removed in 2.0. Use getParameters() instead
-     *
-     * @param string $name
-     *
-     * @return bool
      */
-    public function hasOption($name)
+    public function hasOption(string $name): bool
     {
         return $this->parameters->has($name);
     }
 
     /**
-     * @param string $partyId
      *
      * @return string Other party id
      *
      * @throws LightSamlException If $partyId does not match sp or idp entity id
      */
-    public function getOtherPartyId($partyId)
+    public function getOtherPartyId(string $partyId): string
     {
         if ($partyId == $this->idpEntityId) {
             return $this->spEntityId;
@@ -276,10 +186,7 @@ class SsoSessionState implements Serializable
         throw new LightSamlException(sprintf('Party "%s" is not included in sso session between "%s" and "%s"', $partyId, $this->idpEntityId, $this->spEntityId));
     }
 
-    /**
-     * @return string the string representation of the object or null
-     */
-    public function serialize()
+    public function serialize(): string
     {
         return serialize($this->__serialize());
     }
@@ -287,41 +194,32 @@ class SsoSessionState implements Serializable
     /**
      * (PHP >= 8.1)
      * String representation of object.
-     *
-     * @return array
      */
-    public function __serialize()
+    public function __serialize(): array
     {
-        return[
+        return [
             $this->idpEntityId,
             $this->spEntityId,
             $this->nameId,
             $this->nameIdFormat,
             $this->sessionIndex,
-            $this->sessionInstant,
-            $this->firstAuthOn,
-            $this->lastAuthOn,
+            isset($this->sessionInstant) ? $this->sessionInstant : null,
+            isset($this->firstAuthOn) ? $this->firstAuthOn : null,
+            isset($this->lastAuthOn) ? $this->lastAuthOn : null,
             [],
             $this->parameters,
         ];
     }
 
-    /**
-     * @param string $serialized
-     *
-     * @return void
-     */
-    public function unserialize($serialized)
+    public function unserialize(string $serialized): void
     {
         $this->__unserialize(unserialize($serialized));
     }
 
     /**
      * (PHP >= 8.1)
-     *
-     * @return void
      */
-    public function __unserialize(array $data)
+    public function __unserialize(array $data): void
     {
         // add a few extra elements in the array to ensure that we have enough keys when unserializing
         // older data which does not include all properties.

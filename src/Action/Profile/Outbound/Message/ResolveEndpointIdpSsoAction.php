@@ -7,7 +7,7 @@ use LightSaml\Model\Metadata\SingleSignOnService;
 
 class ResolveEndpointIdpSsoAction extends ResolveEndpointBaseAction
 {
-    protected function getServiceType(ProfileContext $context)
+    protected function getServiceType(ProfileContext $context): string
     {
         return SingleSignOnService::class;
     }

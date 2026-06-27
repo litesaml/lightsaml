@@ -6,13 +6,7 @@ use DateTime;
 
 interface TimeProviderInterface
 {
-    /**
-     * @return int
-     */
-    public function getTimestamp();
+    public function getTimestamp(): int;
 
-    /**
-     * @return DateTime
-     */
-    public function getDateTime();
+    public function getDateTime(): DateTime;
 }

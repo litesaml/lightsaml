@@ -9,8 +9,6 @@ interface AssertionValidatorInterface
 {
     /**
      * @throws LightSamlValidationException
-     *
-     * @return void
      */
-    public function validateAssertion(Assertion $assertion);
+    public function validateAssertion(Assertion $assertion): void;
 }

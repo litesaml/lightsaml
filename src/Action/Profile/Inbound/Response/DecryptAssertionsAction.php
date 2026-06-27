@@ -17,6 +17,7 @@ use LightSaml\Model\Context\DeserializationContext;
 use LightSaml\Resolver\Credential\CredentialResolverInterface;
 use LightSaml\SamlConstants;
 use Psr\Log\LoggerInterface;
+use RobRichards\XMLSecLibs\XMLSecurityKey;
 
 class DecryptAssertionsAction extends AbstractProfileAction
 {
@@ -29,7 +30,7 @@ class DecryptAssertionsAction extends AbstractProfileAction
     {
         $response = MessageContextHelper::asResponse($context->getInboundContext());
 
-        if (0 === count($response->getAllEncryptedAssertions())) {
+        if ([] === $response->getAllEncryptedAssertions()) {
             $this->logger->debug('Response has no encrypted assertions', LogHelper::getActionContext($context, $this));
 
             return;
@@ -50,17 +51,17 @@ class DecryptAssertionsAction extends AbstractProfileAction
         ;
         $query->resolve();
         $privateKeys = $query->getPrivateKeys();
-        if (empty($privateKeys)) {
+        if ($privateKeys === []) {
             $message = 'No credentials resolved for assertion decryption';
             $this->logger->emergency($message, LogHelper::getActionErrorContext($context, $this));
             throw new LightSamlContextException($context, $message);
         }
         $this->logger->info('Trusted decryption candidates', LogHelper::getActionContext($context, $this, [
-            'credentials' => array_map(function (CredentialInterface $credential) {
+            'credentials' => array_map(function (CredentialInterface $credential): string {
                 return sprintf(
                     "Entity: '%s'; PK X509 Thumb: '%s'",
                     $credential->getEntityId(),
-                    $credential->getPublicKey() ? $credential->getPublicKey()->getX509Thumbprint() : ''
+                    $credential->getPublicKey() instanceof XMLSecurityKey ? $credential->getPublicKey()->getX509Thumbprint() : ''
                 );
             }, $privateKeys),
         ]));

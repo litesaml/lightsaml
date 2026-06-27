@@ -7,14 +7,12 @@ use LightSaml\Credential\CredentialInterface;
 class CompositeCredentialStore implements CredentialStoreInterface
 {
     /** @var CredentialStoreInterface[] */
-    protected $stores = [];
+    protected array $stores = [];
 
     /**
-     * @param string $entityId
-     *
      * @return CredentialInterface[]
      */
-    public function getByEntityId($entityId)
+    public function getByEntityId(string $entityId): array
     {
         $result = [];
         foreach ($this->stores as $store) {
@@ -24,10 +22,7 @@ class CompositeCredentialStore implements CredentialStoreInterface
         return $result;
     }
 
-    /**
-     * @return CompositeCredentialStore
-     */
-    public function add(CredentialStoreInterface $store)
+    public function add(CredentialStoreInterface $store): static
     {
         $this->stores[] = $store;
 

@@ -11,20 +11,16 @@ use RobRichards\XMLSecLibs\XMLSecurityKey;
 
 abstract class AbstractSignatureReader extends Signature
 {
-    /** @var XMLSecurityKey|null */
-    protected $key;
+    protected ?XMLSecurityKey $key = null;
 
     /**
      * @return bool True if validated, False if validation was not performed
      *
      * @throws LightSamlSecurityException If validation fails
      */
-    abstract public function validate(XMLSecurityKey $key);
+    abstract public function validate(XMLSecurityKey $key): bool;
 
-    /**
-     * @return XMLSecurityKey|null
-     */
-    public function getKey()
+    public function getKey(): ?XMLSecurityKey
     {
         return $this->key;
     }
@@ -37,7 +33,7 @@ abstract class AbstractSignatureReader extends Signature
      *
      * @return CredentialInterface|null Returns credential that validated the signature or null if validation was not performed
      */
-    public function validateMulti(array $credentialCandidates)
+    public function validateMulti(array $credentialCandidates): ?CredentialInterface
     {
         $lastException = null;
 
@@ -53,7 +49,7 @@ abstract class AbstractSignatureReader extends Signature
                 $result = $this->validate($credential->getPublicKey());
 
                 if (false === $result) {
-                    return;
+                    return null;
                 }
 
                 return $credential;
@@ -69,15 +65,9 @@ abstract class AbstractSignatureReader extends Signature
         }
     }
 
-    /**
-     * @return string
-     */
-    abstract public function getAlgorithm();
+    abstract public function getAlgorithm(): string;
 
-    /**
-     * @return XMLSecurityKey
-     */
-    protected function castKeyIfNecessary(XMLSecurityKey $key)
+    protected function castKeyIfNecessary(XMLSecurityKey $key): XMLSecurityKey
     {
         $algorithm = $this->getAlgorithm();
 

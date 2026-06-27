@@ -6,8 +6,5 @@ use LightSaml\Model\Metadata\EntityDescriptor;
 
 interface EntityDescriptorProviderInterface
 {
-    /**
-     * @return EntityDescriptor
-     */
-    public function get();
+    public function get(): EntityDescriptor;
 }

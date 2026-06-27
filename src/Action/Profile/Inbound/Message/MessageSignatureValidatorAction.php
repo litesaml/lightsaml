@@ -6,9 +6,11 @@ use LightSaml\Action\Profile\AbstractProfileAction;
 use LightSaml\Context\Profile\Helper\LogHelper;
 use LightSaml\Context\Profile\Helper\MessageContextHelper;
 use LightSaml\Context\Profile\ProfileContext;
+use LightSaml\Credential\CredentialInterface;
 use LightSaml\Credential\Criteria\MetadataCriteria;
 use LightSaml\Error\LightSamlModelException;
 use LightSaml\Model\XmlDSig\AbstractSignatureReader;
+use LightSaml\Model\XmlDSig\Signature;
 use LightSaml\Validator\Model\Signature\SignatureValidatorInterface;
 use Psr\Log\LoggerInterface;
 
@@ -22,15 +24,12 @@ class MessageSignatureValidatorAction extends AbstractProfileAction
         parent::__construct($logger);
     }
 
-    /**
-     * @return void
-     */
-    protected function doExecute(ProfileContext $context)
+    protected function doExecute(ProfileContext $context): void
     {
         $message = MessageContextHelper::asSamlMessage($context->getInboundContext());
 
         $signature = $message->getSignature();
-        if (null === $signature) {
+        if (!$signature instanceof Signature) {
             $this->logger->debug('Message is not signed', LogHelper::getActionContext($context, $this));
 
             return;
@@ -39,7 +38,7 @@ class MessageSignatureValidatorAction extends AbstractProfileAction
         if ($signature instanceof AbstractSignatureReader) {
             $metadataType = ProfileContext::ROLE_IDP === $context->getOwnRole() ? MetadataCriteria::TYPE_SP : MetadataCriteria::TYPE_IDP;
             $credential = $this->signatureValidator->validate($signature, $message->getIssuer()->getValue(), $metadataType);
-            if ($credential) {
+            if ($credential instanceof CredentialInterface) {
                 $keyNames = $credential->getKeyNames();
                 $this->logger->debug(
                     sprintf('Message signature validated with key "%s"', implode(', ', $keyNames)),

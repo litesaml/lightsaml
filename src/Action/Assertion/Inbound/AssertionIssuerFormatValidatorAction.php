@@ -10,10 +10,7 @@ use Psr\Log\LoggerInterface;
 
 class AssertionIssuerFormatValidatorAction extends AbstractAssertionAction
 {
-    /**
-     * @param string $expectedIssuerFormat
-     */
-    public function __construct(LoggerInterface $logger, private $expectedIssuerFormat)
+    public function __construct(LoggerInterface $logger, private readonly string $expectedIssuerFormat)
     {
         parent::__construct($logger);
     }
@@ -28,7 +25,7 @@ class AssertionIssuerFormatValidatorAction extends AbstractAssertionAction
 
         if (
             $context->getAssertion()->getIssuer()->getFormat()
-            && $context->getAssertion()->getIssuer()->getFormat() != $this->expectedIssuerFormat
+            && $context->getAssertion()->getIssuer()->getFormat() !== $this->expectedIssuerFormat
         ) {
             $message = sprintf(
                 "Response Issuer Format if set must have value '%s' but it was '%s'",

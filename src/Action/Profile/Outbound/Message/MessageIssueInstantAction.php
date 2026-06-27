@@ -19,10 +19,7 @@ class MessageIssueInstantAction extends AbstractProfileAction
         parent::__construct($logger);
     }
 
-    /**
-     * @return void
-     */
-    protected function doExecute(ProfileContext $context)
+    protected function doExecute(ProfileContext $context): void
     {
         MessageContextHelper::asSamlMessage($context->getOutboundContext())
             ->setIssueInstant($this->timeProvider->getTimestamp());

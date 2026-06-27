@@ -9,19 +9,14 @@ use LightSaml\SamlConstants;
 
 class SpSsoDescriptor extends SSODescriptor
 {
-    /** @var bool|null */
-    protected $authnRequestsSigned;
+    protected ?bool $authnRequestsSigned = null;
 
-    /** @var bool|null */
-    protected $wantAssertionsSigned;
+    protected ?bool $wantAssertionsSigned = null;
 
     /** @var AssertionConsumerService[]|null */
-    protected $assertionConsumerServices;
+    protected ?array $assertionConsumerServices = null;
 
-    /**
-     * @return SpSsoDescriptor
-     */
-    public function addAssertionConsumerService(AssertionConsumerService $assertionConsumerService)
+    public function addAssertionConsumerService(AssertionConsumerService $assertionConsumerService): static
     {
         if (false == is_array($this->assertionConsumerServices)) {
             $this->assertionConsumerServices = [];
@@ -37,17 +32,15 @@ class SpSsoDescriptor extends SSODescriptor
     /**
      * @return AssertionConsumerService[]|null
      */
-    public function getAllAssertionConsumerServices()
+    public function getAllAssertionConsumerServices(): ?array
     {
         return $this->assertionConsumerServices;
     }
 
     /**
-     * @param string $binding
-     *
      * @return AssertionConsumerService[]
      */
-    public function getAllAssertionConsumerServicesByBinding($binding)
+    public function getAllAssertionConsumerServicesByBinding(string $binding): array
     {
         $result = [];
         foreach ($this->getAllAssertionConsumerServices() as $svc) {
@@ -60,11 +53,9 @@ class SpSsoDescriptor extends SSODescriptor
     }
 
     /**
-     * @param string $url
-     *
      * @return AssertionConsumerService[]
      */
-    public function getAllAssertionConsumerServicesByUrl($url)
+    public function getAllAssertionConsumerServicesByUrl(string $url): array
     {
         $result = [];
         foreach ($this->getAllAssertionConsumerServices() as $svc) {
@@ -76,12 +67,7 @@ class SpSsoDescriptor extends SSODescriptor
         return $result;
     }
 
-    /**
-     * @param int $index
-     *
-     * @return AssertionConsumerService|null
-     */
-    public function getAssertionConsumerServicesByIndex($index)
+    public function getAssertionConsumerServicesByIndex(int $index): ?AssertionConsumerService
     {
         foreach ($this->getAllAssertionConsumerServices() as $svc) {
             if ($svc->getIndex() == $index) {
@@ -89,15 +75,10 @@ class SpSsoDescriptor extends SSODescriptor
             }
         }
 
-        return;
+        return null;
     }
 
-    /**
-     * @param string|null $binding
-     *
-     * @return AssertionConsumerService|null
-     */
-    public function getFirstAssertionConsumerService($binding = null)
+    public function getFirstAssertionConsumerService(?string $binding = null): ?AssertionConsumerService
     {
         foreach ($this->getAllAssertionConsumerServices() as $svc) {
             if (null == $binding || $svc->getBinding() == $binding) {
@@ -105,50 +86,34 @@ class SpSsoDescriptor extends SSODescriptor
             }
         }
 
-        return;
+        return null;
     }
 
-    /**
-     * @param bool|null $authnRequestsSigned
-     *
-     * @return SpSsoDescriptor
-     */
-    public function setAuthnRequestsSigned($authnRequestsSigned)
+    public function setAuthnRequestsSigned(mixed $authnRequestsSigned): static
     {
         $this->authnRequestsSigned = filter_var($authnRequestsSigned, FILTER_VALIDATE_BOOLEAN, ['flags' => FILTER_NULL_ON_FAILURE]);
 
         return $this;
     }
 
-    /**
-     * @return bool|null
-     */
-    public function getAuthnRequestsSigned()
+    public function getAuthnRequestsSigned(): ?bool
     {
         return $this->authnRequestsSigned;
     }
 
-    /**
-     * @param bool|null $wantAssertionsSigned
-     *
-     * @return SpSsoDescriptor
-     */
-    public function setWantAssertionsSigned($wantAssertionsSigned)
+    public function setWantAssertionsSigned(mixed $wantAssertionsSigned): static
     {
         $this->wantAssertionsSigned = filter_var($wantAssertionsSigned, FILTER_VALIDATE_BOOLEAN, ['flags' => FILTER_NULL_ON_FAILURE]);
 
         return $this;
     }
 
-    /**
-     * @return bool|null
-     */
-    public function getWantAssertionsSigned()
+    public function getWantAssertionsSigned(): ?bool
     {
         return $this->wantAssertionsSigned;
     }
 
-    public function serialize(DOMNode $parent, SerializationContext $context)
+    public function serialize(DOMNode $parent, SerializationContext $context): void
     {
         $result = $this->createElement('SPSSODescriptor', SamlConstants::NS_METADATA, $parent, $context);
 
@@ -159,7 +124,7 @@ class SpSsoDescriptor extends SSODescriptor
         $this->manyElementsToXml($this->getAllAssertionConsumerServices(), $result, $context, null);
     }
 
-    public function deserialize(DOMNode $node, DeserializationContext $context)
+    public function deserialize(DOMNode $node, DeserializationContext $context): void
     {
         $this->checkXmlNodeName($node, 'SPSSODescriptor', SamlConstants::NS_METADATA);
 

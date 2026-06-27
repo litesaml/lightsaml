@@ -4,12 +4,9 @@ namespace LightSaml\Criteria;
 
 class CriteriaSet
 {
-    /** @var array|CriteriaInterface[] */
-    protected $criterions = [];
+    /** @var CriteriaInterface[] */
+    protected array $criterions = [];
 
-    /**
-     * @param CriteriaInterface[] $criterions
-     */
     public function __construct(array $criterions = [])
     {
         foreach ($criterions as $criterion) {
@@ -17,20 +14,14 @@ class CriteriaSet
         }
     }
 
-    /**
-     * @return CriteriaSet
-     */
-    public function add(CriteriaInterface $criteria)
+    public function add(CriteriaInterface $criteria): static
     {
         $this->criterions[] = $criteria;
 
         return $this;
     }
 
-    /**
-     * @return CriteriaSet
-     */
-    public function addIfNone(CriteriaInterface $criteria)
+    public function addIfNone(CriteriaInterface $criteria): static
     {
         if (false == $this->has($criteria::class)) {
             $this->add($criteria);
@@ -39,10 +30,7 @@ class CriteriaSet
         return $this;
     }
 
-    /**
-     * @return CriteriaSet
-     */
-    public function addAll(CriteriaSet $criteriaSet)
+    public function addAll(CriteriaSet $criteriaSet): static
     {
         foreach ($criteriaSet->all() as $criteria) {
             $this->add($criteria);
@@ -51,12 +39,7 @@ class CriteriaSet
         return $this;
     }
 
-    /**
-     * @param callable $callback
-     *
-     * @return CriteriaSet
-     */
-    public function addIf(mixed $condition, $callback)
+    public function addIf(mixed $condition, callable $callback): static
     {
         if ($condition) {
             $criteria = call_user_func($callback);
@@ -68,20 +51,14 @@ class CriteriaSet
         return $this;
     }
 
-    /**
-     * @return CriteriaInterface[]|array
-     */
-    public function all()
+    /** @return CriteriaInterface[] */
+    public function all(): array
     {
         return $this->criterions;
     }
 
-    /**
-     * @param string $class
-     *
-     * @return array|CriteriaInterface[]
-     */
-    public function get($class)
+    /** @return CriteriaInterface[] */
+    public function get(string $class): array
     {
         $result = [];
         foreach ($this->criterions as $criteria) {
@@ -93,12 +70,7 @@ class CriteriaSet
         return $result;
     }
 
-    /**
-     * @param string $class
-     *
-     * @return CriteriaInterface|null
-     */
-    public function getSingle($class)
+    public function getSingle(string $class): ?CriteriaInterface
     {
         foreach ($this->criterions as $criteria) {
             if ($criteria instanceof $class) {
@@ -106,15 +78,10 @@ class CriteriaSet
             }
         }
 
-        return;
+        return null;
     }
 
-    /**
-     * @param string $class
-     *
-     * @return bool
-     */
-    public function has($class)
+    public function has(string $class): bool
     {
         foreach ($this->criterions as $criteria) {
             if ($criteria instanceof $class) {

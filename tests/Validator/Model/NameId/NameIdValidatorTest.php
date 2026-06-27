@@ -10,7 +10,7 @@ use Tests\BaseTestCase;
 
 class NameIdValidatorTest extends BaseTestCase
 {
-    public function test_ok_if_no_format()
+    public function test_ok_if_no_format(): void
     {
         $nameId = new NameID();
 
@@ -21,7 +21,7 @@ class NameIdValidatorTest extends BaseTestCase
         $this->assertTrue(true);
     }
 
-    public function test_invalid_format()
+    public function test_invalid_format(): void
     {
         $this->expectExceptionMessage("NameID element has Format attribute 'invalid format' which is not a wellformed absolute uri");
         $this->expectException(LightSamlValidationException::class);
@@ -35,7 +35,7 @@ class NameIdValidatorTest extends BaseTestCase
         $this->assertTrue(true);
     }
 
-    public function test_valid_email_format()
+    public function test_valid_email_format(): void
     {
         $nameId = new NameID();
         $nameId->setFormat(SamlConstants::NAME_ID_FORMAT_EMAIL)
@@ -48,7 +48,7 @@ class NameIdValidatorTest extends BaseTestCase
         $this->assertTrue(true);
     }
 
-    public function test_invalid_email_format()
+    public function test_invalid_email_format(): void
     {
         $this->expectExceptionMessage("Value of NameID is not a valid email address according to the IETF RFC 2822 specification");
         $this->expectException(LightSamlValidationException::class);
@@ -63,7 +63,7 @@ class NameIdValidatorTest extends BaseTestCase
         $this->assertTrue(true);
     }
 
-    public function test_empty_email_format()
+    public function test_empty_email_format(): void
     {
         $this->expectExceptionMessage("NameID with Email Format attribute MUST contain a Value that contains more than whitespace characters");
         $this->expectException(LightSamlValidationException::class);
@@ -77,7 +77,7 @@ class NameIdValidatorTest extends BaseTestCase
         $this->assertTrue(true);
     }
 
-    public function test_valid_x509_subject_format()
+    public function test_valid_x509_subject_format(): void
     {
         $nameId = new NameID();
         $nameId->setFormat(SamlConstants::NAME_ID_FORMAT_X509_SUBJECT_NAME)
@@ -90,7 +90,7 @@ class NameIdValidatorTest extends BaseTestCase
         $this->assertTrue(true);
     }
 
-    public function test_empty_x509_subject_format()
+    public function test_empty_x509_subject_format(): void
     {
         $this->expectExceptionMessage("NameID with X509SubjectName Format attribute MUST contain a Value that contains more than whitespace characters");
         $this->expectException(LightSamlValidationException::class);
@@ -104,7 +104,7 @@ class NameIdValidatorTest extends BaseTestCase
         $this->assertTrue(true);
     }
 
-    public function test_valid_windows_format_with_domain()
+    public function test_valid_windows_format_with_domain(): void
     {
         $nameId = new NameID();
         $nameId->setFormat(SamlConstants::NAME_ID_FORMAT_WINDOWS)
@@ -117,7 +117,7 @@ class NameIdValidatorTest extends BaseTestCase
         $this->assertTrue(true);
     }
 
-    public function test_valid_windows_format_with_out_domain()
+    public function test_valid_windows_format_with_out_domain(): void
     {
         $nameId = new NameID();
         $nameId->setFormat(SamlConstants::NAME_ID_FORMAT_WINDOWS)
@@ -130,7 +130,7 @@ class NameIdValidatorTest extends BaseTestCase
         $this->assertTrue(true);
     }
 
-    public function test_empty_windows_format()
+    public function test_empty_windows_format(): void
     {
         $this->expectExceptionMessage("NameID with Windows Format attribute MUST contain a Value that contains more than whitespace characters");
         $this->expectException(LightSamlValidationException::class);
@@ -144,7 +144,7 @@ class NameIdValidatorTest extends BaseTestCase
         $this->assertTrue(true);
     }
 
-    public function test_valid_kerberos_format_full()
+    public function test_valid_kerberos_format_full(): void
     {
         $nameId = new NameID();
         $nameId->setFormat(SamlConstants::NAME_ID_FORMAT_KERBEROS)
@@ -157,7 +157,7 @@ class NameIdValidatorTest extends BaseTestCase
         $this->assertTrue(true);
     }
 
-    public function test_valid_kerberos_format_short()
+    public function test_valid_kerberos_format_short(): void
     {
         $nameId = new NameID();
         $nameId->setFormat(SamlConstants::NAME_ID_FORMAT_KERBEROS)
@@ -170,7 +170,7 @@ class NameIdValidatorTest extends BaseTestCase
         $this->assertTrue(true);
     }
 
-    public function test_invalid_kerberos_format()
+    public function test_invalid_kerberos_format(): void
     {
         $this->expectExceptionMessage("NameID with Kerberos Format attribute MUST contain a Value that contains a '@'");
         $this->expectException(LightSamlValidationException::class);
@@ -185,7 +185,7 @@ class NameIdValidatorTest extends BaseTestCase
         $this->assertTrue(true);
     }
 
-    public function test_invalid_kerberos_format_short()
+    public function test_invalid_kerberos_format_short(): void
     {
         $this->expectExceptionMessage("NameID with Kerberos Format attribute MUST contain a Value with at least 3 characters");
         $this->expectException(LightSamlValidationException::class);
@@ -200,7 +200,7 @@ class NameIdValidatorTest extends BaseTestCase
         $this->assertTrue(true);
     }
 
-    public function test_invalid_kerberos_format_empty()
+    public function test_invalid_kerberos_format_empty(): void
     {
         $this->expectExceptionMessage("NameID with Kerberos Format attribute MUST contain a Value that contains more than whitespace characters");
         $this->expectException(LightSamlValidationException::class);
@@ -214,7 +214,7 @@ class NameIdValidatorTest extends BaseTestCase
         $this->assertTrue(true);
     }
 
-    public function test_valid_entity_format()
+    public function test_valid_entity_format(): void
     {
         $nameId = new NameID();
         $nameId->setFormat(SamlConstants::NAME_ID_FORMAT_ENTITY)
@@ -227,7 +227,7 @@ class NameIdValidatorTest extends BaseTestCase
         $this->assertTrue(true);
     }
 
-    public function test_invalid_entity_format_empty()
+    public function test_invalid_entity_format_empty(): void
     {
         $this->expectExceptionMessage("NameID with Entity Format attribute MUST contain a Value that contains more than whitespace characters");
         $this->expectException(LightSamlValidationException::class);
@@ -241,7 +241,7 @@ class NameIdValidatorTest extends BaseTestCase
         $this->assertTrue(true);
     }
 
-    public function test_invalid_entity_format_long()
+    public function test_invalid_entity_format_long(): void
     {
         $this->expectExceptionMessage("NameID with Entity Format attribute MUST have a Value that contains no more than 1024 characters");
         $this->expectException(LightSamlValidationException::class);
@@ -256,7 +256,7 @@ class NameIdValidatorTest extends BaseTestCase
         $this->assertTrue(true);
     }
 
-    public function test_invalid_entity_format_with_name_qualifier()
+    public function test_invalid_entity_format_with_name_qualifier(): void
     {
         $this->expectExceptionMessage("NameID with Entity Format attribute MUST NOT set the NameQualifier attribute");
         $this->expectException(LightSamlValidationException::class);
@@ -272,7 +272,7 @@ class NameIdValidatorTest extends BaseTestCase
         $this->assertTrue(true);
     }
 
-    public function test_invalid_entity_format_with_sp_name_qualifier()
+    public function test_invalid_entity_format_with_sp_name_qualifier(): void
     {
         $this->expectExceptionMessage("NameID with Entity Format attribute MUST NOT set the SPNameQualifier attribute");
         $this->expectException(LightSamlValidationException::class);
@@ -288,7 +288,7 @@ class NameIdValidatorTest extends BaseTestCase
         $this->assertTrue(true);
     }
 
-    public function test_invalid_entity_format_with_sp_provided_id()
+    public function test_invalid_entity_format_with_sp_provided_id(): void
     {
         $this->expectExceptionMessage("NameID with Entity Format attribute MUST NOT set the SPProvidedID attribute");
         $this->expectException(LightSamlValidationException::class);
@@ -304,7 +304,7 @@ class NameIdValidatorTest extends BaseTestCase
         $this->assertTrue(true);
     }
 
-    public function test_valid_persistent_format()
+    public function test_valid_persistent_format(): void
     {
         $nameId = new NameID();
         $nameId->setFormat(SamlConstants::NAME_ID_FORMAT_PERSISTENT)
@@ -317,7 +317,7 @@ class NameIdValidatorTest extends BaseTestCase
         $this->assertTrue(true);
     }
 
-    public function test_valid_persistent_format_with_other_attributes()
+    public function test_valid_persistent_format_with_other_attributes(): void
     {
         $nameId = new NameID();
         $nameId->setFormat(SamlConstants::NAME_ID_FORMAT_PERSISTENT)
@@ -334,7 +334,7 @@ class NameIdValidatorTest extends BaseTestCase
         $this->assertTrue(true);
     }
 
-    public function test_invalid_persistent_format_empty()
+    public function test_invalid_persistent_format_empty(): void
     {
         $this->expectExceptionMessage("NameID with Persistent Format attribute MUST contain a Value that contains more than whitespace characters");
         $this->expectException(LightSamlValidationException::class);
@@ -348,7 +348,7 @@ class NameIdValidatorTest extends BaseTestCase
         $this->assertTrue(true);
     }
 
-    public function test_invalid_persistent_format_long()
+    public function test_invalid_persistent_format_long(): void
     {
         $this->expectExceptionMessage("NameID with Persistent Format attribute MUST have a Value that contains no more than 256 characters");
         $this->expectException(LightSamlValidationException::class);
@@ -363,7 +363,7 @@ class NameIdValidatorTest extends BaseTestCase
         $this->assertTrue(true);
     }
 
-    public function test_valid_transient_format()
+    public function test_valid_transient_format(): void
     {
         $nameId = new NameID();
         $nameId->setFormat(SamlConstants::NAME_ID_FORMAT_TRANSIENT)
@@ -376,7 +376,7 @@ class NameIdValidatorTest extends BaseTestCase
         $this->assertTrue(true);
     }
 
-    public function test_valid_transient_format_with_other_attributes()
+    public function test_valid_transient_format_with_other_attributes(): void
     {
         $nameId = new NameID();
         $nameId->setFormat(SamlConstants::NAME_ID_FORMAT_TRANSIENT)
@@ -393,7 +393,7 @@ class NameIdValidatorTest extends BaseTestCase
         $this->assertTrue(true);
     }
 
-    public function test_invalid_transient_format_empty()
+    public function test_invalid_transient_format_empty(): void
     {
         $this->expectExceptionMessage("NameID with Transient Format attribute MUST contain a Value that contains more than whitespace characters");
         $this->expectException(LightSamlValidationException::class);
@@ -407,7 +407,7 @@ class NameIdValidatorTest extends BaseTestCase
         $this->assertTrue(true);
     }
 
-    public function test_invalid_transient_format_long()
+    public function test_invalid_transient_format_long(): void
     {
         $this->expectExceptionMessage("NameID with Transient Format attribute MUST have a Value that contains no more than 256 characters");
         $this->expectException(LightSamlValidationException::class);
@@ -422,7 +422,7 @@ class NameIdValidatorTest extends BaseTestCase
         $this->assertTrue(true);
     }
 
-    public function test_invalid_transient_format_short()
+    public function test_invalid_transient_format_short(): void
     {
         $this->expectExceptionMessage("NameID '123456789012345' with Transient Format attribute MUST have a Value with at least 16 characters (the equivalent of 128 bits)");
         $this->expectException(LightSamlValidationException::class);

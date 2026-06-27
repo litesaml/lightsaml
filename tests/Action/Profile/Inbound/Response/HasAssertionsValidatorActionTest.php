@@ -12,13 +12,13 @@ use Tests\BaseTestCase;
 
 class HasAssertionsValidatorActionTest extends BaseTestCase
 {
-    public function test_constructs_with_logger()
+    public function test_constructs_with_logger(): void
     {
         new HasAssertionsValidatorAction($this->getLoggerMock());
         $this->assertTrue(true);
     }
 
-    public function test_does_nothing_if_response_has_at_least_one_assertion()
+    public function test_does_nothing_if_response_has_at_least_one_assertion(): void
     {
         $action = new HasAssertionsValidatorAction($this->getLoggerMock());
 
@@ -31,7 +31,7 @@ class HasAssertionsValidatorActionTest extends BaseTestCase
         $this->assertTrue(true);
     }
 
-    public function test_throws_context_exception_if_no_assertions()
+    public function test_throws_context_exception_if_no_assertions(): void
     {
         $this->expectExceptionMessage("Response must contain at least one assertion");
         $this->expectException(LightSamlContextException::class);

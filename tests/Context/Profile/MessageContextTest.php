@@ -13,7 +13,7 @@ use Tests\BaseTestCase;
 
 class MessageContextTest extends BaseTestCase
 {
-    public static function message_as_concrete_type_provider()
+    public static function message_as_concrete_type_provider(): array
     {
         return [
             ['asAuthnRequest', true, new AuthnRequest()],
@@ -31,7 +31,7 @@ class MessageContextTest extends BaseTestCase
     }
 
     #[DataProvider('message_as_concrete_type_provider')]
-    public function test_message_as_concrete_type($method, $hasValue, ?SamlMessage $message = null)
+    public function test_message_as_concrete_type(string $method, bool $hasValue, ?SamlMessage $message = null): void
     {
         $context = new MessageContext();
         if ($message instanceof SamlMessage) {

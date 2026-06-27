@@ -25,10 +25,7 @@ class RepeatedIdValidatorAction extends AbstractAssertionAction
         parent::__construct($logger);
     }
 
-    /**
-     * @return void
-     */
-    protected function doExecute(AssertionContext $context)
+    protected function doExecute(AssertionContext $context): void
     {
         if ($context->getAssertion()->hasBearerSubject()) {
             $this->validateBearerAssertion($context);
@@ -75,10 +72,8 @@ class RepeatedIdValidatorAction extends AbstractAssertionAction
     /**
      * @throws LogicException
      * @throws LightSamlValidationException
-     *
-     * @return DateTime
      */
-    protected function getIdExpiryTime(AssertionContext $context)
+    protected function getIdExpiryTime(AssertionContext $context): DateTime
     {
         /** @var DateTime $result */
         $result = null;

@@ -14,7 +14,7 @@ use Tests\BaseTestCase;
 
 class BindingEndpointResolverTest extends BaseTestCase
 {
-    public function test__does_not_modify_when_criteria_not_present()
+    public function test__does_not_modify_when_criteria_not_present(): void
     {
         $candidates = [
             $firstEndpoint = $this->getMockBuilder(EndpointReference::class)->disableOriginalConstructor()->getMock(),
@@ -30,7 +30,7 @@ class BindingEndpointResolverTest extends BaseTestCase
         $this->assertSame($secondEndpoint, $result[1]);
     }
 
-    public function test__filters_by_given_bindings()
+    public function test__filters_by_given_bindings(): void
     {
         $criteriaSet = new CriteriaSet([new BindingCriteria([
             SamlConstants::BINDING_SAML2_HTTP_POST,

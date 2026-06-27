@@ -3,23 +3,20 @@
 namespace LightSaml\Builder\Action\Profile;
 
 use LightSaml\Action\ActionInterface;
+use LightSaml\Action\CompositeAction;
 use LightSaml\Build\Container\BuildContainerInterface;
 use LightSaml\Builder\Action\CompositeActionBuilder;
 use LightSaml\Error\LightSamlBuildException;
 
 abstract class AbstractProfileActionBuilder extends CompositeActionBuilder
 {
-    /** @var bool */
-    private $initialized = false;
+    private bool $initialized = false;
 
     public function __construct(protected BuildContainerInterface $buildContainer)
     {
     }
 
-    /**
-     * @return void
-     */
-    public function init()
+    public function init(): void
     {
         if ($this->initialized) {
             throw new LightSamlBuildException('Already initialized');
@@ -30,15 +27,12 @@ abstract class AbstractProfileActionBuilder extends CompositeActionBuilder
         $this->initialized = true;
     }
 
-    /**
-     * @return void
-     */
-    abstract protected function doInitialize();
+    abstract protected function doInitialize(): void;
 
     /**
      * @return ActionInterface
      */
-    public function build()
+    public function build(): CompositeAction
     {
         if (false === $this->initialized) {
             $this->init();

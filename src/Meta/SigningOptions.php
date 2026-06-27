@@ -10,8 +10,7 @@ class SigningOptions
     public const CERTIFICATE_SUBJECT_NAME = 'subjectName';
     public const CERTIFICATE_ISSUER_SERIAL = 'issuerSerial';
 
-    /** @var bool */
-    private $enabled = true;
+    private bool $enabled = true;
 
     private readonly ParameterBag $certificateOptions;
 
@@ -23,18 +22,13 @@ class SigningOptions
     }
 
     /**
-     * @return X509Certificate
      */
-    public function getCertificate()
+    public function getCertificate(): ?X509Certificate
     {
         return $this->certificate;
     }
 
-    /**
-     *
-     * @return SigningOptions
-     */
-    public function setCertificate(?X509Certificate $certificate = null)
+    public function setCertificate(?X509Certificate $certificate = null): static
     {
         $this->certificate = $certificate;
 
@@ -42,48 +36,32 @@ class SigningOptions
     }
 
     /**
-     * @return XMLSecurityKey
      */
-    public function getPrivateKey()
+    public function getPrivateKey(): ?XMLSecurityKey
     {
         return $this->privateKey;
     }
 
-    /**
-     *
-     * @return SigningOptions
-     */
-    public function setPrivateKey(?XMLSecurityKey $privateKey = null)
+    public function setPrivateKey(?XMLSecurityKey $privateKey = null): static
     {
         $this->privateKey = $privateKey;
 
         return $this;
     }
 
-    /**
-     * @return ParameterBag
-     */
-    public function getCertificateOptions()
+    public function getCertificateOptions(): ParameterBag
     {
         return $this->certificateOptions;
     }
 
-    /**
-     * @return bool
-     */
-    public function isEnabled()
+    public function isEnabled(): bool
     {
         return $this->enabled;
     }
 
-    /**
-     * @param bool $enabled
-     *
-     * @return SigningOptions
-     */
-    public function setEnabled($enabled)
+    public function setEnabled(bool $enabled): static
     {
-        $this->enabled = (bool) $enabled;
+        $this->enabled = $enabled;
 
         return $this;
     }

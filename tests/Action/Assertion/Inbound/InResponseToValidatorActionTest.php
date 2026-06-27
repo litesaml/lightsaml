@@ -15,13 +15,13 @@ use Tests\BaseTestCase;
 
 class InResponseToValidatorActionTest extends BaseTestCase
 {
-    public function test_constructs_with_logger()
+    public function test_constructs_with_logger(): void
     {
         new InResponseToValidatorAction($this->getLoggerMock(), $this->getRequestStateStoreMock());
         $this->assertTrue(true);
     }
 
-    public function test_does_nothing_if_assertion_has_no_subject()
+    public function test_does_nothing_if_assertion_has_no_subject(): void
     {
         $action = new InResponseToValidatorAction(
             $this->getLoggerMock(),
@@ -35,7 +35,7 @@ class InResponseToValidatorActionTest extends BaseTestCase
         $this->assertTrue(true);
     }
 
-    public function test_throws_context_exception_on_unknown_in_response_to()
+    public function test_throws_context_exception_on_unknown_in_response_to(): void
     {
         $action = new InResponseToValidatorAction(
             $this->getLoggerMock(),
@@ -54,7 +54,7 @@ class InResponseToValidatorActionTest extends BaseTestCase
         $action->execute($context);
     }
 
-    public function test_adds_known_in_response_to_request_state_to_context()
+    public function test_adds_known_in_response_to_request_state_to_context(): void
     {
         $action = new InResponseToValidatorAction(
             $this->getLoggerMock(),

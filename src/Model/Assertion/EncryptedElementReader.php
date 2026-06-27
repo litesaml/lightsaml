@@ -18,27 +18,18 @@ use RobRichards\XMLSecLibs\XMLSecurityKey;
 
 class EncryptedElementReader extends EncryptedElement
 {
-    /** @var XMLSecEnc */
-    protected $xmlEnc;
+    protected XMLSecEnc $xmlEnc;
 
-    /** @var XMLSecurityKey */
-    protected $symmetricKey;
+    protected XMLSecurityKey $symmetricKey;
 
-    /** @var XMLSecurityKey */
-    protected $symmetricKeyInfo;
+    protected XMLSecurityKey $symmetricKeyInfo;
 
-    /**
-     * @return XMLSecurityKey
-     */
-    public function getSymmetricKey()
+    public function getSymmetricKey(): XMLSecurityKey
     {
         return $this->symmetricKey;
     }
 
-    /**
-     * @return XMLSecurityKey
-     */
-    public function getSymmetricKeyInfo()
+    public function getSymmetricKeyInfo(): XMLSecurityKey
     {
         return $this->symmetricKeyInfo;
     }
@@ -51,7 +42,7 @@ class EncryptedElementReader extends EncryptedElement
         throw new LogicException('EncryptedElementReader can not be used for serialization');
     }
 
-    public function deserialize(DOMNode $node, DeserializationContext $context)
+    public function deserialize(DOMNode $node, DeserializationContext $context): void
     {
         $list = $context->getXpath()->query('xenc:EncryptedData', $node);
         if (0 == $list->length) {
@@ -78,10 +69,8 @@ class EncryptedElementReader extends EncryptedElement
      * @throws LogicException
      * @throws LightSamlXmlException
      * @throws LightSamlSecurityException
-     *
-     * @return DOMElement
      */
-    public function decryptMulti(array $inputKeys)
+    public function decryptMulti(array $inputKeys): DOMElement
     {
         /** @var LogicException $lastException */
         $lastException = null;
@@ -112,10 +101,8 @@ class EncryptedElementReader extends EncryptedElement
      * @throws LogicException
      * @throws LightSamlXmlException
      * @throws LightSamlSecurityException
-     *
-     * @return DOMElement
      */
-    public function decrypt(XMLSecurityKey $inputKey)
+    public function decrypt(XMLSecurityKey $inputKey): DOMElement
     {
         $this->symmetricKey = $this->loadSymmetricKey();
         $this->symmetricKeyInfo = $this->loadSymmetricKeyInfo($this->symmetricKey);
@@ -131,12 +118,7 @@ class EncryptedElementReader extends EncryptedElement
         return $this->buildXmlElement($decrypted);
     }
 
-    /**
-     * @param string $decrypted
-     *
-     * @return DOMElement
-     */
-    protected function buildXmlElement($decrypted)
+    protected function buildXmlElement(string $decrypted): DOMElement
     {
         /*
          * This is a workaround for the case where only a subset of the XML
@@ -164,11 +146,9 @@ class EncryptedElementReader extends EncryptedElement
     }
 
     /**
-     * @return string
-     *
      * @throws Exception
      */
-    protected function decryptCipher()
+    protected function decryptCipher(): string
     {
         $decrypted = $this->xmlEnc->decryptNode($this->symmetricKey, false);
         if (false == is_string($decrypted)) {
@@ -207,11 +187,9 @@ class EncryptedElementReader extends EncryptedElement
     }
 
     /**
-     * @return XMLSecurityKey
-     *
      * @throws LightSamlXmlException
      */
-    protected function loadSymmetricKey()
+    protected function loadSymmetricKey(): XMLSecurityKey
     {
         $symmetricKey = $this->xmlEnc->locateKey();
         if (false == $symmetricKey) {
@@ -223,10 +201,8 @@ class EncryptedElementReader extends EncryptedElement
 
     /**
      * @throws LightSamlXmlException
-     *
-     * @return XMLSecurityKey
      */
-    protected function loadSymmetricKeyInfo(XMLSecurityKey $symmetricKey)
+    protected function loadSymmetricKeyInfo(XMLSecurityKey $symmetricKey): XMLSecurityKey
     {
         $symmetricKeyInfo = $this->xmlEnc->locateKeyInfo($symmetricKey);
         if (false == $symmetricKeyInfo) {

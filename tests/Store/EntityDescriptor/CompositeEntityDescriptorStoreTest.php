@@ -8,13 +8,13 @@ use Tests\BaseTestCase;
 
 class CompositeEntityDescriptorStoreTest extends BaseTestCase
 {
-    public function test_constructs_without_arguments()
+    public function test_constructs_without_arguments(): void
     {
         new CompositeEntityDescriptorStore();
         $this->assertTrue(true);
     }
 
-    public function test_constructs_with_array_of_entity_descriptor_stores()
+    public function test_constructs_with_array_of_entity_descriptor_stores(): void
     {
         new CompositeEntityDescriptorStore([
             $this->getEntityDescriptorStoreMock(),
@@ -23,14 +23,14 @@ class CompositeEntityDescriptorStoreTest extends BaseTestCase
         $this->assertTrue(true);
     }
 
-    public function test_entity_descriptor_store_can_be_added()
+    public function test_entity_descriptor_store_can_be_added(): void
     {
         $composite = new CompositeEntityDescriptorStore();
         $composite->add($this->getEntityDescriptorStoreMock());
         $this->assertTrue(true);
     }
 
-    public function test_get_returns_value_given_by_child_store()
+    public function test_get_returns_value_given_by_child_store(): void
     {
         $composite = new CompositeEntityDescriptorStore([
             $child1 = $this->getEntityDescriptorStoreMock(),
@@ -47,7 +47,7 @@ class CompositeEntityDescriptorStoreTest extends BaseTestCase
         $this->assertSame($expected, $actual);
     }
 
-    public function test_has_return_true_if_any_child_returns_true()
+    public function test_has_return_true_if_any_child_returns_true(): void
     {
         $composite = new CompositeEntityDescriptorStore([
             $child1 = $this->getEntityDescriptorStoreMock(),
@@ -63,7 +63,7 @@ class CompositeEntityDescriptorStoreTest extends BaseTestCase
         $this->assertTrue($composite->has($entityId));
     }
 
-    public function test_all_returns_union_of_all_children_results()
+    public function test_all_returns_union_of_all_children_results(): void
     {
         $composite = new CompositeEntityDescriptorStore([
             $child1 = $this->getEntityDescriptorStoreMock(),

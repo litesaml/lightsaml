@@ -11,212 +11,129 @@ use LightSaml\SamlConstants;
 
 class AuthnRequest extends AbstractRequest
 {
-    //region Attributes
+    protected ?bool $forceAuthn = null;
 
-    /** @var bool|null */
-    protected $forceAuthn;
+    protected ?bool $isPassive = null;
 
-    /** @var bool|null */
-    protected $isPassive;
+    protected ?int $assertionConsumerServiceIndex = null;
 
-    /** @var int|null */
-    protected $assertionConsumerServiceIndex;
+    protected ?string $assertionConsumerServiceURL = null;
 
-    /** @var string|null */
-    protected $assertionConsumerServiceURL;
+    protected ?int $attributeConsumingServiceIndex = null;
 
-    /** @var int|null */
-    protected $attributeConsumingServiceIndex;
+    protected ?string $protocolBinding = null;
 
-    /** @var string|null */
-    protected $protocolBinding;
+    protected ?string $providerName = null;
 
-    /** @var string|null */
-    protected $providerName;
+    protected ?Conditions $conditions = null;
 
-    //endregion
+    protected ?NameIDPolicy $nameIDPolicy = null;
 
-    //region Elements
+    protected ?Subject $subject = null;
 
-    /** @var Conditions|null */
-    protected $conditions;
-
-    /** @var NameIDPolicy|null */
-    protected $nameIDPolicy;
-
-    /** @var Subject|null */
-    protected $subject;
-
-    /**
-     * @param Subject|null $subject
-     *
-     * @return AuthnRequest
-     */
-    public function setSubject(Subject $subject)
+    public function setSubject(Subject $subject): static
     {
         $this->subject = $subject;
 
         return $this;
     }
 
-    /**
-     * @return Subject|null
-     */
-    public function getSubject()
+    public function getSubject(): ?Subject
     {
         return $this->subject;
     }
 
-    /**
-     * @param string|null $providerName
-     *
-     * @return AuthnRequest
-     */
-    public function setProviderName($providerName)
+    public function setProviderName(?string $providerName): static
     {
         $this->providerName = (string) $providerName;
 
         return $this;
     }
 
-    /**
-     * @return string|null
-     */
-    public function getProviderName()
+    public function getProviderName(): ?string
     {
         return $this->providerName;
     }
 
-    /**
-     * @param string|null $protocolBinding
-     *
-     * @return AuthnRequest
-     */
-    public function setProtocolBinding($protocolBinding)
+    public function setProtocolBinding(?string $protocolBinding): static
     {
         $this->protocolBinding = (string) $protocolBinding;
 
         return $this;
     }
 
-    /**
-     * @return string|null
-     */
-    public function getProtocolBinding()
+    public function getProtocolBinding(): ?string
     {
         return $this->protocolBinding;
     }
 
-    /**
-     * @param NameIDPolicy|null $nameIDPolicy
-     *
-     * @return AuthnRequest
-     */
-    public function setNameIDPolicy(NameIDPolicy $nameIDPolicy)
+    public function setNameIDPolicy(?NameIDPolicy $nameIDPolicy): static
     {
         $this->nameIDPolicy = $nameIDPolicy;
 
         return $this;
     }
 
-    /**
-     * @return NameIDPolicy|null
-     */
-    public function getNameIDPolicy()
+    public function getNameIDPolicy(): ?NameIDPolicy
     {
         return $this->nameIDPolicy;
     }
 
-    /**
-     * @param bool|null $isPassive
-     *
-     * @return AuthnRequest
-     */
-    public function setIsPassive($isPassive)
+    public function setIsPassive(?bool $isPassive): static
     {
         $this->isPassive = 0 == strcasecmp($isPassive, 'true') || true === $isPassive || 1 == $isPassive;
 
         return $this;
     }
 
-    /**
-     * @return bool|null
-     */
-    public function getIsPassive()
+    public function getIsPassive(): ?bool
     {
         return $this->isPassive;
     }
 
-    /**
-     * @return string|null
-     */
-    public function getIsPassiveString()
+    public function getIsPassiveString(): ?string
     {
         if (null === $this->isPassive) {
-            return;
+            return null;
         }
 
         return $this->isPassive ? 'true' : 'false';
     }
 
-    /**
-     * @param bool|null $forceAuthn
-     *
-     * @return AuthnRequest
-     */
-    public function setForceAuthn($forceAuthn)
+    public function setForceAuthn(?bool $forceAuthn): static
     {
         $this->forceAuthn = 0 == strcasecmp($forceAuthn, 'true') || true === $forceAuthn || 1 == $forceAuthn;
 
         return $this;
     }
 
-    /**
-     * @return bool|null
-     */
-    public function getForceAuthn()
+    public function getForceAuthn(): ?bool
     {
         return $this->forceAuthn;
     }
 
-    /**
-     * @return string|null
-     */
-    public function getForceAuthnString()
+    public function getForceAuthnString(): ?string
     {
         if (null === $this->forceAuthn) {
-            return;
+            return null;
         }
 
         return $this->forceAuthn ? 'true' : 'false';
     }
 
-    /**
-     * @param Conditions|null $conditions
-     *
-     * @return AuthnRequest
-     */
-    public function setConditions($conditions)
+    public function setConditions(?Conditions $conditions): static
     {
         $this->conditions = $conditions;
 
         return $this;
     }
 
-    /**
-     * @return Conditions|null
-     */
-    public function getConditions()
+    public function getConditions(): ?Conditions
     {
         return $this->conditions;
     }
 
-    /**
-     * @param int|null $attributeConsumingServiceIndex
-     *
-     * @return AuthnRequest
-     */
-    public function setAttributeConsumingServiceIndex($attributeConsumingServiceIndex)
+    public function setAttributeConsumingServiceIndex(?int $attributeConsumingServiceIndex): static
     {
         $this->attributeConsumingServiceIndex = null !== $attributeConsumingServiceIndex
             ? intval(((string) $attributeConsumingServiceIndex))
@@ -225,40 +142,24 @@ class AuthnRequest extends AbstractRequest
         return $this;
     }
 
-    /**
-     * @return int|null
-     */
-    public function getAttributeConsumingServiceIndex()
+    public function getAttributeConsumingServiceIndex(): ?int
     {
         return $this->attributeConsumingServiceIndex;
     }
 
-    /**
-     * @param string|null $assertionConsumerServiceURL
-     *
-     * @return AuthnRequest
-     */
-    public function setAssertionConsumerServiceURL($assertionConsumerServiceURL)
+    public function setAssertionConsumerServiceURL(?string $assertionConsumerServiceURL): static
     {
         $this->assertionConsumerServiceURL = (string) $assertionConsumerServiceURL;
 
         return $this;
     }
 
-    /**
-     * @return string|null
-     */
-    public function getAssertionConsumerServiceURL()
+    public function getAssertionConsumerServiceURL(): ?string
     {
         return $this->assertionConsumerServiceURL;
     }
 
-    /**
-     * @param int|null $assertionConsumerServiceIndex
-     *
-     * @return AuthnRequest
-     */
-    public function setAssertionConsumerServiceIndex($assertionConsumerServiceIndex)
+    public function setAssertionConsumerServiceIndex(?int $assertionConsumerServiceIndex): static
     {
         $this->assertionConsumerServiceIndex = null !== $assertionConsumerServiceIndex
             ? intval((string) $assertionConsumerServiceIndex)
@@ -267,20 +168,12 @@ class AuthnRequest extends AbstractRequest
         return $this;
     }
 
-    /**
-     * @return int|null
-     */
-    public function getAssertionConsumerServiceIndex()
+    public function getAssertionConsumerServiceIndex(): ?int
     {
         return $this->assertionConsumerServiceIndex;
     }
 
-    //endregion
-
-    /**
-     * @return void
-     */
-    public function serialize(DOMNode $parent, SerializationContext $context)
+    public function serialize(DOMNode $parent, SerializationContext $context): void
     {
         $result = $this->createElement('AuthnRequest', SamlConstants::NS_PROTOCOL, $parent, $context);
 
@@ -297,7 +190,7 @@ class AuthnRequest extends AbstractRequest
         $this->singleElementsToXml(['Signature'], $result, $context);
     }
 
-    public function deserialize(DOMNode $node, DeserializationContext $context)
+    public function deserialize(DOMNode $node, DeserializationContext $context): void
     {
         $this->checkXmlNodeName($node, 'AuthnRequest', SamlConstants::NS_PROTOCOL);
 

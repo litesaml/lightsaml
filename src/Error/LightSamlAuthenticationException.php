@@ -8,11 +8,7 @@ use LightSaml\Model\Protocol\StatusResponse;
 
 class LightSamlAuthenticationException extends LightSamlValidationException
 {
-    /**
-     * @param string $message
-     * @param int    $code
-     */
-    public function __construct(protected StatusResponse $response, $message = '', $code = 0, ?Exception $previous = null)
+    public function __construct(protected StatusResponse $response, string $message = '', int $code = 0, ?Exception $previous = null)
     {
         parent::__construct($message, $code, $previous);
     }
@@ -20,7 +16,7 @@ class LightSamlAuthenticationException extends LightSamlValidationException
     /**
      * @return Response
      */
-    public function getResponse()
+    public function getResponse(): StatusResponse
     {
         return $this->response;
     }

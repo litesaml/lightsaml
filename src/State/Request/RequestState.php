@@ -9,10 +9,7 @@ class RequestState implements Serializable
 {
     private ParameterBag $parameters;
 
-    /**
-     * @param string $id
-     */
-    public function __construct(private $id = null, mixed $nonce = null)
+    public function __construct(private ?string $id = null, mixed $nonce = null)
     {
         $this->parameters = new ParameterBag();
         if ($nonce) {
@@ -20,40 +17,27 @@ class RequestState implements Serializable
         }
     }
 
-    /**
-     * @param string $id
-     *
-     * @return RequestState
-     */
-    public function setId($id)
+    public function setId(string $id): static
     {
         $this->id = $id;
 
         return $this;
     }
 
-    /**
-     * @return string
-     */
-    public function getId()
+    public function getId(): string
     {
         return $this->id;
     }
 
-    /**
-     * @return ParameterBag
-     */
-    public function getParameters()
+    public function getParameters(): ParameterBag
     {
         return $this->parameters;
     }
 
     /**
      * @deprecated Since 1.2, to be removed in 2.0. Use getParameters() instead
-     *
-     * @return RequestState
      */
-    public function setNonce(mixed $nonce)
+    public function setNonce(mixed $nonce): static
     {
         $this->parameters->set('nonce', $nonce);
 
@@ -62,10 +46,8 @@ class RequestState implements Serializable
 
     /**
      * @deprecated Since 1.2, to be removed in 2.0. Use getParameters() instead
-     *
-     * @return mixed
      */
-    public function getNonce()
+    public function getNonce(): mixed
     {
         return $this->parameters->get('nonce');
     }
@@ -76,19 +58,16 @@ class RequestState implements Serializable
      *
      * @see http://php.net/manual/en/serializable.serialize.php
      *
-     * @return string the string representation of the object or null
      */
-    public function serialize()
+    public function serialize(): string
     {
         return serialize($this->__serialize());
     }
 
     /**
      * (PHP >= 8.1)
-     *
-     * @return array
      */
-    public function __serialize()
+    public function __serialize(): array
     {
         $nonce = $this->parameters->get('nonce');
 
@@ -97,18 +76,13 @@ class RequestState implements Serializable
 
     /**
      * @param string $serialized The string representation of the object
-     *
-     * @return void
      */
-    public function unserialize($serialized)
+    public function unserialize(string $serialized): void
     {
         $this->__unserialize(unserialize($serialized));
     }
 
-    /**
-     * @return void
-     */
-    public function __unserialize(array $serialized)
+    public function __unserialize(array $serialized): void
     {
         $nonce = null;
         $this->parameters = new ParameterBag();

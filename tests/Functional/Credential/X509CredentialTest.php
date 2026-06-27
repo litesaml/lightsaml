@@ -9,7 +9,7 @@ use Tests\BaseTestCase;
 
 class X509CredentialTest extends BaseTestCase
 {
-    public function test_public_key()
+    public function test_public_key(): void
     {
         $certificate = new X509Certificate();
         $certificate->loadFromFile(__DIR__ . '/../../resources/saml.crt');
@@ -25,7 +25,7 @@ class X509CredentialTest extends BaseTestCase
         $this->assertEquals(['/C=RS/ST=Serbia/O=BOS/CN=mt.evo.team'], $credential->getKeyNames());
     }
 
-    public function test_private_key()
+    public function test_private_key(): void
     {
         $certificate = new X509Certificate();
         $certificate->loadFromFile(__DIR__ . '/../../resources/saml.crt');

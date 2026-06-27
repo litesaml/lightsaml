@@ -7,10 +7,7 @@ use LightSaml\Context\ContextInterface;
 
 class FooAction implements ActionInterface
 {
-    /**
-     * @return void
-     */
-    public function execute(ContextInterface $context)
+    public function execute(ContextInterface $context): void
     {
         // foo
     }

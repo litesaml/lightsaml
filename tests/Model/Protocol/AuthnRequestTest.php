@@ -14,21 +14,21 @@ use Tests\BaseTestCase;
 
 class AuthnRequestTest extends BaseTestCase
 {
-    public function test__set_subject()
+    public function test__set_subject(): void
     {
         $request = new AuthnRequest();
         $request->setSubject($value = new Subject());
         $this->assertSame($value, $request->getSubject());
     }
 
-    public function test__set_provider_name()
+    public function test__set_provider_name(): void
     {
         $request = new AuthnRequest();
         $request->setProviderName($value = 'some-provider');
         $this->assertSame($value, $request->getProviderName());
     }
 
-    public function test__set_is_passive()
+    public function test__set_is_passive(): void
     {
         $request = new AuthnRequest();
         $request->setIsPassive($value = false);
@@ -39,7 +39,7 @@ class AuthnRequestTest extends BaseTestCase
         $this->assertEquals('true', $request->getIsPassiveString());
     }
 
-    public function test__set_force_authn()
+    public function test__set_force_authn(): void
     {
         $request = new AuthnRequest();
         $request->setForceAuthn($value = false);
@@ -50,28 +50,28 @@ class AuthnRequestTest extends BaseTestCase
         $this->assertEquals('true', $request->getForceAuthnString());
     }
 
-    public function test__set_conditions()
+    public function test__set_conditions(): void
     {
         $request = new AuthnRequest();
         $request->setConditions($value = new Conditions());
         $this->assertSame($value, $request->getConditions());
     }
 
-    public function test__set_attribute_consuming_service_index()
+    public function test__set_attribute_consuming_service_index(): void
     {
         $request = new AuthnRequest();
         $request->setAttributeConsumingServiceIndex($value = 2);
         $this->assertEquals($value, $request->getAttributeConsumingServiceIndex());
     }
 
-    public function test__set_assertion_consumer_service_index()
+    public function test__set_assertion_consumer_service_index(): void
     {
         $request = new AuthnRequest();
         $request->setAssertionConsumerServiceIndex($value = 2);
         $this->assertEquals($value, $request->getAssertionConsumerServiceIndex());
     }
 
-    public function test__serialize()
+    public function test__serialize(): void
     {
         $context = new SerializationContext();
         $request = new AuthnRequest();

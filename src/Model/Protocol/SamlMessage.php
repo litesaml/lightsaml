@@ -11,7 +11,6 @@ use LightSaml\Error\LightSamlXmlException;
 use LightSaml\Helper;
 use LightSaml\Model\AbstractSamlModel;
 use LightSaml\Model\Assertion\Issuer;
-use LightSaml\Model\Assertion\NameID;
 use LightSaml\Model\Context\DeserializationContext;
 use LightSaml\Model\Context\SerializationContext;
 use LightSaml\Model\SamlElementInterface;
@@ -22,38 +21,28 @@ use LogicException;
 
 abstract class SamlMessage extends AbstractSamlModel
 {
-    /** @var string */
-    protected $id;
+    protected ?string $id = null;
 
-    /** @var string */
-    protected $version = SamlConstants::VERSION_20;
+    protected string $version = SamlConstants::VERSION_20;
 
-    /** @var int */
-    protected $issueInstant;
+    protected ?int $issueInstant = null;
 
-    /** @var string|null */
-    protected $destination;
+    protected ?string $destination = null;
 
-    /** @var Issuer|null */
-    protected $issuer;
+    protected ?Issuer $issuer = null;
 
-    /** @var string|null */
-    protected $consent;
+    protected ?string $consent = null;
 
-    /** @var Signature|null */
-    protected $signature;
+    protected ?Signature $signature = null;
 
-    /** @var string|null */
-    protected $relayState;
+    protected ?string $relayState = null;
 
     /**
-     * @param string $xml
      *
-     * @return AuthnRequest|LogoutRequest|LogoutResponse|Response|SamlMessage
      *
      * @throws Exception
      */
-    public static function fromXML($xml, DeserializationContext $context)
+    public static function fromXML(string $xml, DeserializationContext $context): AuthnRequest|LogoutRequest|LogoutResponse|Response|SamlMessage
     {
         if (false == is_string($xml)) {
             throw new InvalidArgumentException('Expecting string');
@@ -101,197 +90,128 @@ abstract class SamlMessage extends AbstractSamlModel
         return $result;
     }
 
-    /**
-     * @param string $id
-     *
-     * @return SamlMessage
-     */
-    public function setID($id)
+    public function setID(string $id): SamlMessage
     {
-        $this->id = (string) $id;
+        $this->id = $id;
 
         return $this;
     }
 
-    /**
-     * @return string
-     */
-    public function getID()
+    public function getID(): ?string
     {
         return $this->id;
     }
 
-    /**
-     * @param int|string|DateTime $issueInstant
-     *
-     * @return SamlMessage
-     */
-    public function setIssueInstant($issueInstant)
+    public function setIssueInstant(int|string|DateTime $issueInstant): SamlMessage
     {
         $this->issueInstant = Helper::getTimestampFromValue($issueInstant);
 
         return $this;
     }
 
-    /**
-     * @return int|null
-     */
-    public function getIssueInstantTimestamp()
+    public function getIssueInstantTimestamp(): ?int
     {
         return $this->issueInstant;
     }
 
-    /**
-     * @return string|null
-     */
-    public function getIssueInstantString()
+    public function getIssueInstantString(): ?string
     {
         if ($this->issueInstant) {
             return Helper::time2string($this->issueInstant);
         }
 
-        return;
+        return null;
     }
 
-    /**
-     * @return DateTime|null
-     */
-    public function getIssueInstantDateTime()
+    public function getIssueInstantDateTime(): ?DateTime
     {
         if ($this->issueInstant) {
             return new DateTime('@' . $this->issueInstant);
         }
 
-        return;
+        return null;
     }
 
-    /**
-     * @param string $version
-     *
-     * @return SamlMessage
-     */
-    public function setVersion($version)
+    public function setVersion(string $version): SamlMessage
     {
-        $this->version = (string) $version;
+        $this->version = $version;
 
         return $this;
     }
 
-    /**
-     * @return string
-     */
-    public function getVersion()
+    public function getVersion(): string
     {
         return $this->version;
     }
 
-    /**
-     * @param string|null $destination
-     *
-     * @return SamlMessage
-     */
-    public function setDestination($destination)
+    public function setDestination(?string $destination): SamlMessage
     {
         $this->destination = $destination;
 
         return $this;
     }
 
-    /**
-     * @return string|null
-     */
-    public function getDestination()
+    public function getDestination(): ?string
     {
         return $this->destination;
     }
 
-    /**
-     * @return SamlMessage
-     */
-    public function setIssuer(?Issuer $issuer = null)
+    public function setIssuer(?Issuer $issuer = null): SamlMessage
     {
         $this->issuer = $issuer;
 
         return $this;
     }
 
-    /**
-     * @return NameID|null
-     */
-    public function getIssuer()
+    public function getIssuer(): ?Issuer
     {
         return $this->issuer;
     }
 
-    /**
-     * @param string|null $consent
-     *
-     * @return StatusResponse
-     */
-    public function setConsent($consent)
+    public function setConsent(?string $consent): StatusResponse
     {
         $this->consent = $consent;
 
         return $this;
     }
 
-    /**
-     * @return string|null
-     */
-    public function getConsent()
+    public function getConsent(): ?string
     {
         return $this->consent;
     }
 
-    /**
-     * @return SamlMessage
-     */
-    public function setSignature(?Signature $signature = null)
+    public function setSignature(?Signature $signature = null): SamlMessage
     {
         $this->signature = $signature;
 
         return $this;
     }
 
-    /**
-     * @return Signature|null
-     */
-    public function getSignature()
+    public function getSignature(): ?Signature
     {
         return $this->signature;
     }
 
-    /**
-     * @param string|null $relayState
-     *
-     * @return SamlMessage
-     */
-    public function setRelayState($relayState)
+    public function setRelayState(?string $relayState): SamlMessage
     {
         $this->relayState = $relayState;
 
         return $this;
     }
 
-    /**
-     * @return string|null
-     */
-    public function getRelayState()
+    public function getRelayState(): ?string
     {
         return $this->relayState;
     }
 
-    /**
-     * @return void
-     */
-    public function serialize(DOMNode $parent, SerializationContext $context)
+    public function serialize(DOMNode $parent, SerializationContext $context): void
     {
         $this->attributesToXml(['ID', 'Version', 'IssueInstant', 'Destination', 'Consent'], $parent);
 
         $this->singleElementsToXml(['Issuer'], $parent, $context);
     }
 
-    public function deserialize(DOMNode $node, DeserializationContext $context)
+    public function deserialize(DOMNode $node, DeserializationContext $context): void
     {
         $this->attributesFromXml($node, ['ID', 'Version', 'IssueInstant', 'Destination', 'Consent']);
 

@@ -12,35 +12,22 @@ use LightSaml\SamlConstants;
 
 class Conditions extends AbstractSamlModel
 {
-    /**
-     * @var int|null
-     */
-    protected $notBefore;
+    protected ?int $notBefore = null;
 
-    /**
-     * @var int|null
-     */
-    protected $notOnOrAfter;
+    protected ?int $notOnOrAfter = null;
 
-    /**
-     * @var array|AbstractCondition[]|AudienceRestriction[]|OneTimeUse[]|ProxyRestriction[]
-     */
-    protected $items = [];
+    /** @var AbstractCondition[]|AudienceRestriction[]|OneTimeUse[]|ProxyRestriction[] */
+    protected array $items = [];
 
-    /**
-     * @return Conditions
-     */
-    public function addItem(AbstractCondition $item)
+    public function addItem(AbstractCondition $item): static
     {
         $this->items[] = $item;
 
         return $this;
     }
 
-    /**
-     * @return AbstractCondition[]|AudienceRestriction[]|OneTimeUse[]|ProxyRestriction[]|array
-     */
-    public function getAllItems()
+    /** @return AbstractCondition[]|AudienceRestriction[]|OneTimeUse[]|ProxyRestriction[] */
+    public function getAllItems(): array
     {
         return $this->items;
     }
@@ -48,7 +35,7 @@ class Conditions extends AbstractSamlModel
     /**
      * @return AudienceRestriction[]
      */
-    public function getAllAudienceRestrictions()
+    public function getAllAudienceRestrictions(): array
     {
         $result = [];
         foreach ($this->items as $item) {
@@ -60,10 +47,7 @@ class Conditions extends AbstractSamlModel
         return $result;
     }
 
-    /**
-     * @return AudienceRestriction|null
-     */
-    public function getFirstAudienceRestriction()
+    public function getFirstAudienceRestriction(): ?AudienceRestriction
     {
         foreach ($this->items as $item) {
             if ($item instanceof AudienceRestriction) {
@@ -71,13 +55,13 @@ class Conditions extends AbstractSamlModel
             }
         }
 
-        return;
+        return null;
     }
 
     /**
      * @return OneTimeUse[]
      */
-    public function getAllOneTimeUses()
+    public function getAllOneTimeUses(): array
     {
         $result = [];
         foreach ($this->items as $item) {
@@ -89,10 +73,7 @@ class Conditions extends AbstractSamlModel
         return $result;
     }
 
-    /**
-     * @return OneTimeUse|null
-     */
-    public function getFirstOneTimeUse()
+    public function getFirstOneTimeUse(): ?OneTimeUse
     {
         foreach ($this->items as $item) {
             if ($item instanceof OneTimeUse) {
@@ -100,13 +81,13 @@ class Conditions extends AbstractSamlModel
             }
         }
 
-        return;
+        return null;
     }
 
     /**
      * @return ProxyRestriction[]
      */
-    public function getAllProxyRestrictions()
+    public function getAllProxyRestrictions(): array
     {
         $result = [];
         foreach ($this->items as $item) {
@@ -118,10 +99,7 @@ class Conditions extends AbstractSamlModel
         return $result;
     }
 
-    /**
-     * @return ProxyRestriction|null
-     */
-    public function getFirstProxyRestriction()
+    public function getFirstProxyRestriction(): ?ProxyRestriction
     {
         foreach ($this->items as $item) {
             if ($item instanceof ProxyRestriction) {
@@ -129,101 +107,70 @@ class Conditions extends AbstractSamlModel
             }
         }
 
-        return;
+        return null;
     }
 
-    /**
-     * @param int|string|DateTime $notBefore
-     *
-     * @return Conditions
-     */
-    public function setNotBefore($notBefore)
+    public function setNotBefore(int|string|DateTime $notBefore): static
     {
         $this->notBefore = Helper::getTimestampFromValue($notBefore);
 
         return $this;
     }
 
-    /**
-     * @return int|null
-     */
-    public function getNotBeforeTimestamp()
+    public function getNotBeforeTimestamp(): ?int
     {
         return $this->notBefore;
     }
 
-    /**
-     * @return string|null
-     */
-    public function getNotBeforeString()
+    public function getNotBeforeString(): ?string
     {
         if ($this->notBefore) {
             return Helper::time2string($this->notBefore);
         }
 
-        return;
+        return null;
     }
 
-    /**
-     * @return DateTime|null
-     */
-    public function getNotBeforeDateTime()
+    public function getNotBeforeDateTime(): ?DateTime
     {
         if ($this->notBefore) {
             return new DateTime('@' . $this->notBefore);
         }
 
-        return;
+        return null;
     }
 
-    /**
-     * @param int|string|DateTime $notOnOrAfter
-     *
-     * @return Conditions
-     */
-    public function setNotOnOrAfter($notOnOrAfter)
+    public function setNotOnOrAfter(int|string|DateTime $notOnOrAfter): static
     {
         $this->notOnOrAfter = Helper::getTimestampFromValue($notOnOrAfter);
 
         return $this;
     }
 
-    /**
-     * @return int|null
-     */
-    public function getNotOnOrAfterTimestamp()
+    public function getNotOnOrAfterTimestamp(): ?int
     {
         return $this->notOnOrAfter;
     }
 
-    /**
-     * @return string|null
-     */
-    public function getNotOnOrAfterString()
+    public function getNotOnOrAfterString(): ?string
     {
         if ($this->notOnOrAfter) {
             return Helper::time2string($this->notOnOrAfter);
         }
 
-        return;
+        return null;
     }
 
-    /**
-     * @return DateTime|null
-     */
-    public function getNotOnOrAfterDateTime()
+    public function getNotOnOrAfterDateTime(): ?DateTime
     {
         if ($this->notOnOrAfter) {
             return new DateTime('@' . $this->notOnOrAfter);
         }
 
-        return;
+        return null;
     }
 
-    /**
-     * @return void
-     */
-    public function serialize(DOMNode $parent, SerializationContext $context)
+    public function serialize(DOMNode $parent, SerializationContext $context): void
     {
         $result = $this->createElement('Conditions', SamlConstants::NS_ASSERTION, $parent, $context);
 
@@ -237,7 +184,7 @@ class Conditions extends AbstractSamlModel
         }
     }
 
-    public function deserialize(DOMNode $node, DeserializationContext $context)
+    public function deserialize(DOMNode $node, DeserializationContext $context): void
     {
         $this->checkXmlNodeName($node, 'Conditions', SamlConstants::NS_ASSERTION);
 

@@ -13,13 +13,13 @@ use Tests\BaseTestCase;
 
 class HasAuthnStatementValidatorActionTest extends BaseTestCase
 {
-    public function test_constructs_with_logger()
+    public function test_constructs_with_logger(): void
     {
         new HasAuthnStatementValidatorAction($this->getLoggerMock());
         $this->assertTrue(true);
     }
 
-    public function test_does_nothing_if_there_is_at_least_one_authn_statement()
+    public function test_does_nothing_if_there_is_at_least_one_authn_statement(): void
     {
         $action = new HasAuthnStatementValidatorAction($this->getLoggerMock());
 
@@ -33,7 +33,7 @@ class HasAuthnStatementValidatorActionTest extends BaseTestCase
         $this->assertTrue(true);
     }
 
-    public function test_throws_context_exception_if_no_authn_statement()
+    public function test_throws_context_exception_if_no_authn_statement(): void
     {
         $this->expectExceptionMessage("Response must have at least one Assertion containing AuthnStatement element");
         $this->expectException(LightSamlContextException::class);

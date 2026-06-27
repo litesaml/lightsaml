@@ -8,7 +8,7 @@ use RobRichards\XMLSecLibs\XMLSecurityKey;
 
 class RsaPssKey extends XMLSecurityKey
 {
-    private string $pssDigest;
+    private readonly string $pssDigest;
 
     public function __construct(string $hashAlgorithm = 'SHA256')
     {

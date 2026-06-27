@@ -74,12 +74,7 @@ abstract class SamlConstants
 
     public const ATTRIBUTE_NAME_FORMAT_UNSPECIFIED = 'urn:oasis:names:tc:SAML:2.0:attrname-format:unspecified';
 
-    /**
-     * @param string $value
-     *
-     * @return bool
-     */
-    public static function isProtocolValid($value)
+    public static function isProtocolValid(string $value): bool
     {
         static $arr = [
             self::PROTOCOL_SAML2,
@@ -92,12 +87,7 @@ abstract class SamlConstants
         return in_array($value, $arr, true);
     }
 
-    /**
-     * @param string $value
-     *
-     * @return bool
-     */
-    public static function isNsValid($value)
+    public static function isNsValid(string $value): bool
     {
         static $arr = [
             self::NS_PROTOCOL,
@@ -109,12 +99,7 @@ abstract class SamlConstants
         return in_array($value, $arr, true);
     }
 
-    /**
-     * @param string $value
-     *
-     * @return bool
-     */
-    public static function isNameIdFormatValid($value)
+    public static function isNameIdFormatValid(mixed $value): bool
     {
         static $arr = [
             self::NAME_ID_FORMAT_NONE,
@@ -132,12 +117,7 @@ abstract class SamlConstants
         return in_array($value, $arr, true);
     }
 
-    /**
-     * @param string $value
-     *
-     * @return bool
-     */
-    public static function isBindingValid($value)
+    public static function isBindingValid(string $value): bool
     {
         static $arr = [
             self::BINDING_SAML2_HTTP_REDIRECT,
@@ -154,12 +134,7 @@ abstract class SamlConstants
         return in_array($value, $arr, true);
     }
 
-    /**
-     * @param string $value
-     *
-     * @return bool
-     */
-    public static function isStatusValid($value)
+    public static function isStatusValid(string $value): bool
     {
         static $arr = [
             self::STATUS_SUCCESS,
@@ -176,12 +151,7 @@ abstract class SamlConstants
         return in_array($value, $arr, true);
     }
 
-    /**
-     * @param string $value
-     *
-     * @return bool
-     */
-    public static function isConfirmationMethodValid($value)
+    public static function isConfirmationMethodValid(string $value): bool
     {
         static $arr = [
             self::CONFIRMATION_METHOD_BEARER,
@@ -192,12 +162,7 @@ abstract class SamlConstants
         return in_array($value, $arr, true);
     }
 
-    /**
-     * @param string $value
-     *
-     * @return bool
-     */
-    public static function isAuthnContextValid($value)
+    public static function isAuthnContextValid(string $value): bool
     {
         static $arr = [
             self::AUTHN_CONTEXT_PASSWORD,
@@ -209,12 +174,7 @@ abstract class SamlConstants
         return in_array($value, $arr, true);
     }
 
-    /**
-     * @param string $value
-     *
-     * @return bool
-     */
-    public static function isLogoutReasonValid($value)
+    public static function isLogoutReasonValid(string $value): bool
     {
         static $arr = [
             self::LOGOUT_REASON_USER,
