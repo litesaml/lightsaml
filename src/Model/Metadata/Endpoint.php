@@ -9,14 +9,9 @@ use LightSaml\Model\Context\SerializationContext;
 
 abstract class Endpoint extends AbstractSamlModel
 {
-    /** @var string|null */
-    protected $responseLocation;
+    protected ?string $responseLocation = null;
 
-    /**
-     * @param string $location
-     * @param string $binding
-     */
-    public function __construct(protected $location = null, protected $binding = null)
+    public function __construct(protected ?string $location = null, protected ?string $binding = null)
     {
     }
 

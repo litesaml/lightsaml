@@ -17,14 +17,11 @@ class X509Certificate
         'RSA-SHA512' => XMLSecurityKey::RSA_SHA512,
     ];
 
-    /** @var string */
-    protected $data;
+    protected string $data = '';
 
-    /** @var array|null */
-    protected $info;
+    protected ?array $info = null;
 
-    /** @var string */
-    private $signatureAlgorithm;
+    private ?string $signatureAlgorithm = null;
 
     private ?string $pssHashAlgorithm = null;
 
@@ -229,7 +226,7 @@ class X509Certificate
         return XMLSecurityKey::getRawThumbprint($this->toPem());
     }
 
-    public function getSignatureAlgorithm()
+    public function getSignatureAlgorithm(): ?string
     {
         if (false == $this->data) {
             throw new LightSamlException('Certificate data not set');

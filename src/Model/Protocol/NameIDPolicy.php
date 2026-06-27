@@ -10,16 +10,9 @@ use LightSaml\SamlConstants;
 
 class NameIDPolicy extends AbstractSamlModel
 {
-    /**
-     * @var string|null
-     */
-    protected $spNameQualifier;
+    protected ?string $spNameQualifier = null;
 
-    /**
-     * @param string $format
-     * @param bool   $allowCreate
-     */
-    public function __construct(protected $format = null, protected $allowCreate = null)
+    public function __construct(protected ?string $format = null, protected ?bool $allowCreate = null)
     {
     }
 

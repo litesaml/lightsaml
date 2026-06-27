@@ -8,11 +8,9 @@ use LightSaml\Model\Context\SerializationContext;
 
 class IndexedEndpoint extends Endpoint
 {
-    /** @var int */
-    protected $index;
+    protected ?int $index = null;
 
-    /** @var bool|null */
-    protected $isDefault;
+    protected ?bool $isDefault = null;
 
     public function setIsDefault(mixed $isDefault): static
     {

@@ -31,10 +31,7 @@ interface ServiceContainerInterface
 
     public function getCredentialResolver(): \LightSaml\Resolver\Credential\CredentialResolverInterface;
 
-    /**
-     * @return LogoutSessionResolverInterface
-     */
-    public function getLogoutSessionResolver();
+    public function getLogoutSessionResolver(): LogoutSessionResolverInterface;
 
     public function getSessionProcessor(): \LightSaml\Resolver\Session\SessionProcessorInterface;
 }

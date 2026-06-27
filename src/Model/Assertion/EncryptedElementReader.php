@@ -18,14 +18,11 @@ use RobRichards\XMLSecLibs\XMLSecurityKey;
 
 class EncryptedElementReader extends EncryptedElement
 {
-    /** @var XMLSecEnc */
-    protected $xmlEnc;
+    protected XMLSecEnc $xmlEnc;
 
-    /** @var XMLSecurityKey */
-    protected $symmetricKey;
+    protected XMLSecurityKey $symmetricKey;
 
-    /** @var XMLSecurityKey */
-    protected $symmetricKeyInfo;
+    protected XMLSecurityKey $symmetricKeyInfo;
 
     public function getSymmetricKey(): \RobRichards\XMLSecLibs\XMLSecurityKey
     {

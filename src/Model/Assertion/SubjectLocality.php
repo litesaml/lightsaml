@@ -10,15 +10,9 @@ use LightSaml\SamlConstants;
 
 class SubjectLocality extends AbstractSamlModel
 {
-    /**
-     * @var string
-     */
-    protected $address;
+    protected ?string $address = null;
 
-    /**
-     * @var string
-     */
-    protected $dnsName;
+    protected ?string $dnsName = null;
 
     public function setAddress(string $address): static
     {

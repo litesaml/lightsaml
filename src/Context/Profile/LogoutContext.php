@@ -6,11 +6,9 @@ use LightSaml\State\Sso\SsoSessionState;
 
 class LogoutContext extends AbstractProfileContext
 {
-    /** @var SsoSessionState|null */
-    protected $ssoSessionState;
+    protected ?SsoSessionState $ssoSessionState = null;
 
-    /** @var bool */
-    protected $allSsoSessionsTerminated = false;
+    protected bool $allSsoSessionsTerminated = false;
 
     public function getSsoSessionState(): ?\LightSaml\State\Sso\SsoSessionState
     {

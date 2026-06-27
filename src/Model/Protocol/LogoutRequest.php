@@ -12,17 +12,13 @@ use LightSaml\SamlConstants;
 
 class LogoutRequest extends AbstractRequest
 {
-    /** @var string|null */
-    protected $reason;
+    protected ?string $reason = null;
 
-    /** @var int|null */
-    protected $notOnOrAfter;
+    protected ?int $notOnOrAfter = null;
 
-    /** @var NameID */
-    protected $nameID;
+    protected NameID $nameID;
 
-    /** @var string|null */
-    protected $sessionIndex;
+    protected ?string $sessionIndex = null;
 
     public function setNameID(NameID $nameID): static
     {

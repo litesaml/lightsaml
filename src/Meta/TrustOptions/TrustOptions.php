@@ -7,29 +7,21 @@ use RobRichards\XMLSecLibs\XMLSecurityKey;
 
 class TrustOptions
 {
-    /** @var bool */
-    protected $signAuthnRequest = false;
+    protected bool $signAuthnRequest = false;
 
-    /** @var bool */
-    protected $encryptAuthnRequest = false;
+    protected bool $encryptAuthnRequest = false;
 
-    /** @var bool */
-    protected $signAssertions = true;
+    protected bool $signAssertions = true;
 
-    /** @var bool */
-    protected $encryptAssertions = true;
+    protected bool $encryptAssertions = true;
 
-    /** @var bool */
-    protected $signResponse = true;
+    protected bool $signResponse = true;
 
-    /** @var string */
-    protected $signatureDigestAlgorithm = XMLSecurityDSig::SHA1;
+    protected string $signatureDigestAlgorithm = XMLSecurityDSig::SHA1;
 
-    /** @var string */
-    protected $blockEncryptionAlgorithm = XMLSecurityKey::AES128_CBC;
+    protected string $blockEncryptionAlgorithm = XMLSecurityKey::AES128_CBC;
 
-    /** @var string */
-    protected $keyTransportEncryptionAlgorithm = XMLSecurityKey::RSA_OAEP_MGF1P;
+    protected string $keyTransportEncryptionAlgorithm = XMLSecurityKey::RSA_OAEP_MGF1P;
 
     public function getEncryptAssertions(): bool
     {

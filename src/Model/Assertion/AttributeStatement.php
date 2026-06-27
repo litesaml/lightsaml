@@ -9,10 +9,8 @@ use LightSaml\SamlConstants;
 
 class AttributeStatement extends AbstractStatement
 {
-    /**
-     * @var Attribute[]
-     */
-    protected $attributes = [];
+    /** @var Attribute[] */
+    protected array $attributes = [];
 
     public function addAttribute(Attribute $attribute): static
     {

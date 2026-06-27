@@ -10,25 +10,13 @@ use LightSaml\SamlConstants;
 
 class AuthnContext extends AbstractSamlModel
 {
-    /**
-     * @var string|null
-     */
-    protected $authnContextClassRef;
+    protected ?string $authnContextClassRef = null;
 
-    /**
-     * @var string|null
-     */
-    protected $authnContextDecl;
+    protected ?string $authnContextDecl = null;
 
-    /**
-     * @var string|null
-     */
-    protected $authnContextDeclRef;
+    protected ?string $authnContextDeclRef = null;
 
-    /**
-     * @var string|null
-     */
-    protected $authenticatingAuthority;
+    protected ?string $authenticatingAuthority = null;
 
     public function setAuthenticatingAuthority(?string $authenticatingAuthority): static
     {

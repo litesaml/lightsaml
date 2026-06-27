@@ -8,7 +8,7 @@ use LightSaml\Model\Assertion\Attribute;
 class FixedAttributeValueProvider implements AttributeValueProviderInterface
 {
     /** @var Attribute[] */
-    protected $attributes = [];
+    protected array $attributes = [];
 
     public function add(Attribute $attribute): static
     {

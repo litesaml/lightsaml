@@ -50,9 +50,7 @@ class CompositeEntityDescriptorStore implements EntityDescriptorStoreInterface
         return false;
     }
 
-    /**
-     * @return array|EntityDescriptor[]
-     */
+    /** @return EntityDescriptor[] */
     public function all(): array
     {
         $result = [];

@@ -7,7 +7,7 @@ use LightSaml\Credential\CredentialInterface;
 class CompositeCredentialStore implements CredentialStoreInterface
 {
     /** @var CredentialStoreInterface[] */
-    protected $stores = [];
+    protected array $stores = [];
 
     /**
      * @return CredentialInterface[]

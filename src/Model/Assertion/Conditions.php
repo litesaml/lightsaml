@@ -12,20 +12,12 @@ use LightSaml\SamlConstants;
 
 class Conditions extends AbstractSamlModel
 {
-    /**
-     * @var int|null
-     */
-    protected $notBefore;
+    protected ?int $notBefore = null;
 
-    /**
-     * @var int|null
-     */
-    protected $notOnOrAfter;
+    protected ?int $notOnOrAfter = null;
 
-    /**
-     * @var array|AbstractCondition[]|AudienceRestriction[]|OneTimeUse[]|ProxyRestriction[]
-     */
-    protected $items = [];
+    /** @var AbstractCondition[]|AudienceRestriction[]|OneTimeUse[]|ProxyRestriction[] */
+    protected array $items = [];
 
     public function addItem(AbstractCondition $item): static
     {
@@ -34,9 +26,7 @@ class Conditions extends AbstractSamlModel
         return $this;
     }
 
-    /**
-     * @return AbstractCondition[]|AudienceRestriction[]|OneTimeUse[]|ProxyRestriction[]|array
-     */
+    /** @return AbstractCondition[]|AudienceRestriction[]|OneTimeUse[]|ProxyRestriction[] */
     public function getAllItems(): array
     {
         return $this->items;

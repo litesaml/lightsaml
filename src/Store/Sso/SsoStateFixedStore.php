@@ -6,8 +6,7 @@ use LightSaml\State\Sso\SsoState;
 
 class SsoStateFixedStore implements SsoStateStoreInterface
 {
-    /** @var SsoState */
-    protected $ssoState;
+    protected ?SsoState $ssoState = null;
 
     public function get(): \LightSaml\State\Sso\SsoState
     {

@@ -9,29 +9,21 @@ use Serializable;
 
 class SsoSessionState implements Serializable
 {
-    /** @var string */
-    protected $idpEntityId;
+    protected ?string $idpEntityId = null;
 
-    /** @var string */
-    protected $spEntityId;
+    protected string $spEntityId = '';
 
-    /** @var string */
-    protected $nameId;
+    protected string $nameId = '';
 
-    /** @var string */
-    protected $nameIdFormat;
+    protected string $nameIdFormat = '';
 
-    /** @var string */
-    protected $sessionIndex;
+    protected string $sessionIndex = '';
 
-    /** @var DateTime */
-    protected $sessionInstant;
+    protected ?DateTime $sessionInstant = null;
 
-    /** @var DateTime */
-    protected $firstAuthOn;
+    protected ?DateTime $firstAuthOn = null;
 
-    /** @var DateTime */
-    protected $lastAuthOn;
+    protected ?DateTime $lastAuthOn = null;
 
     protected ParameterBag $parameters;
 
@@ -100,7 +92,7 @@ class SsoSessionState implements Serializable
         return $this;
     }
 
-    public function getFirstAuthOn(): \DateTime
+    public function getFirstAuthOn(): ?\DateTime
     {
         return $this->firstAuthOn;
     }
@@ -112,7 +104,7 @@ class SsoSessionState implements Serializable
         return $this;
     }
 
-    public function getLastAuthOn(): \DateTime
+    public function getLastAuthOn(): ?\DateTime
     {
         return $this->lastAuthOn;
     }
@@ -124,7 +116,7 @@ class SsoSessionState implements Serializable
         return $this;
     }
 
-    public function getSessionInstant(): \DateTime
+    public function getSessionInstant(): ?\DateTime
     {
         return $this->sessionInstant;
     }
@@ -204,15 +196,15 @@ class SsoSessionState implements Serializable
      */
     public function __serialize(): array
     {
-        return[
+        return [
             $this->idpEntityId,
             $this->spEntityId,
             $this->nameId,
             $this->nameIdFormat,
             $this->sessionIndex,
-            $this->sessionInstant,
-            $this->firstAuthOn,
-            $this->lastAuthOn,
+            isset($this->sessionInstant) ? $this->sessionInstant : null,
+            isset($this->firstAuthOn) ? $this->firstAuthOn : null,
+            isset($this->lastAuthOn) ? $this->lastAuthOn : null,
             [],
             $this->parameters,
         ];

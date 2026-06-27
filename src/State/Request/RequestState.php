@@ -9,10 +9,7 @@ class RequestState implements Serializable
 {
     private ParameterBag $parameters;
 
-    /**
-     * @param string $id
-     */
-    public function __construct(private $id = null, mixed $nonce = null)
+    public function __construct(private ?string $id = null, mixed $nonce = null)
     {
         $this->parameters = new ParameterBag();
         if ($nonce) {
@@ -50,10 +47,8 @@ class RequestState implements Serializable
 
     /**
      * @deprecated Since 1.2, to be removed in 2.0. Use getParameters() instead
-     *
-     * @return mixed
      */
-    public function getNonce()
+    public function getNonce(): mixed
     {
         return $this->parameters->get('nonce');
     }

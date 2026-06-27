@@ -6,8 +6,7 @@ use LightSaml\State\Request\RequestState;
 
 class RequestStateContext extends AbstractProfileContext
 {
-    /** @var RequestState */
-    protected $requestState;
+    protected RequestState $requestState;
 
     public function getRequestState(): \LightSaml\State\Request\RequestState
     {

@@ -12,20 +12,15 @@ use LightSaml\SamlConstants;
 
 class SubjectConfirmationData extends AbstractSamlModel
 {
-    /** @var int|null */
-    protected $notBefore;
+    protected ?int $notBefore = null;
 
-    /** @var int|null */
-    protected $notOnOrAfter;
+    protected ?int $notOnOrAfter = null;
 
-    /** @var string|null */
-    protected $address;
+    protected ?string $address = null;
 
-    /** @var string|null */
-    protected $inResponseTo;
+    protected ?string $inResponseTo = null;
 
-    /** @var string|null */
-    protected $recipient;
+    protected ?string $recipient = null;
 
     public function setAddress(?string $address): static
     {

@@ -12,14 +12,11 @@ use LightSaml\SamlConstants;
 
 class Organization extends AbstractSamlModel
 {
-    /** @var string */
-    protected $organizationName;
+    protected string $organizationName;
 
-    /** @var string */
-    protected $organizationDisplayName;
+    protected string $organizationDisplayName;
 
-    /** @var string */
-    protected $organizationURL;
+    protected string $organizationURL;
 
     protected $lang = 'en-US';
 

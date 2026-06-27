@@ -15,36 +15,29 @@ use LightSaml\SamlConstants;
 
 abstract class RoleDescriptor extends AbstractSamlModel
 {
-    /** @var string|null */
-    protected $id;
+    protected ?string $id = null;
 
-    /** @var int|null */
-    protected $validUntil;
+    protected ?int $validUntil = null;
 
-    /** @var string|null */
-    protected $cacheDuration;
+    protected ?string $cacheDuration = null;
 
-    /** @var string */
-    protected $protocolSupportEnumeration = SamlConstants::PROTOCOL_SAML2;
+    protected string $protocolSupportEnumeration = SamlConstants::PROTOCOL_SAML2;
 
-    /** @var string|null */
-    protected $errorURL;
+    protected ?string $errorURL = null;
 
     /** @var Signature[]|null */
-    protected $signatures;
+    protected ?array $signatures = null;
 
     /** @var KeyDescriptor[]|null */
-    protected $keyDescriptors;
+    protected ?array $keyDescriptors = null;
 
     /** @var Organization[]|null */
-    protected $organizations;
+    protected ?array $organizations = null;
 
     /** @var ContactPerson[]|null */
-    protected $contactPersons;
+    protected ?array $contactPersons = null;
 
     /**
-     * @param string|null $cacheDuration
-     *
      * @throws InvalidArgumentException
      */
     public function setCacheDuration(string $cacheDuration): \LightSaml\Model\Metadata\RoleDescriptor
@@ -203,9 +196,6 @@ abstract class RoleDescriptor extends AbstractSamlModel
         return $this->signatures;
     }
 
-    /**
-     * @param int|null $validUntil
-     */
     public function setValidUntil(int|string|\DateTime $validUntil): \LightSaml\Model\Metadata\RoleDescriptor
     {
         $this->validUntil = Helper::getTimestampFromValue($validUntil);

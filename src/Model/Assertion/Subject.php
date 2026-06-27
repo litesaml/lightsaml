@@ -10,11 +10,10 @@ use LightSaml\SamlConstants;
 
 class Subject extends AbstractSamlModel
 {
-    /** @var NameID */
-    protected $nameId;
+    protected ?NameID $nameId = null;
 
     /** @var SubjectConfirmation[] */
-    protected $subjectConfirmation = [];
+    protected array $subjectConfirmation = [];
 
     
     public function setNameID(?NameID $nameId = null): static

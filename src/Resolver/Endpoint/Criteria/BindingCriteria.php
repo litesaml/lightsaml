@@ -6,16 +6,9 @@ use LightSaml\Criteria\CriteriaInterface;
 
 class BindingCriteria implements CriteriaInterface
 {
-    /**
-     * Binding => Preference.
-     *
-     * @var int[]
-     */
-    protected $bindings = [];
+    /** @var int[] Binding => Preference */
+    protected array $bindings = [];
 
-    /**
-     * @param string[] $bindings Ordered by preference, first being most preferable, last least preferable
-     */
     public function __construct(array $bindings)
     {
         foreach ($bindings as $binding) {
@@ -23,9 +16,6 @@ class BindingCriteria implements CriteriaInterface
         }
     }
 
-    /**
-     * @param string $binding Next preferable binding
-     */
     public function add(string $binding): static
     {
         $this->bindings[$binding] = count($this->bindings) + 1;

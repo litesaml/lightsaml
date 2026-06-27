@@ -8,11 +8,8 @@ use Stringable;
 class CompositeAction implements ActionInterface, DebugPrintTreeActionInterface, CompositeActionInterface, Stringable
 {
     /** @var ActionInterface[] */
-    protected $children = [];
+    protected array $children = [];
 
-    /**
-     * @param ActionInterface[] $children
-     */
     public function __construct(array $children = [])
     {
         foreach ($children as $action) {

@@ -11,10 +11,7 @@ class FileEntityDescriptorStore implements EntityDescriptorStoreInterface
     /** @var EntityDescriptor|EntitiesDescriptor */
     private \LightSaml\Model\Metadata\EntityDescriptor|\LightSaml\Model\Metadata\EntitiesDescriptor|null $object = null;
 
-    /**
-     * @param string $filename
-     */
-    public function __construct(private $filename)
+    public function __construct(private string $filename)
     {
     }
 
@@ -42,9 +39,7 @@ class FileEntityDescriptorStore implements EntityDescriptorStoreInterface
         return null != $this->get($entityId);
     }
 
-    /**
-     * @return array|EntityDescriptor[]
-     */
+    /** @return EntityDescriptor[] */
     public function all(): array
     {
         if (null == $this->object) {

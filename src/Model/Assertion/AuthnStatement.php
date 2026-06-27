@@ -11,30 +11,15 @@ use LightSaml\SamlConstants;
 
 class AuthnStatement extends AbstractStatement
 {
-    /**
-     * @var int|null
-     */
-    protected $authnInstant;
+    protected ?int $authnInstant = null;
 
-    /**
-     * @var int|null
-     */
-    protected $sessionNotOnOrAfter;
+    protected ?int $sessionNotOnOrAfter = null;
 
-    /**
-     * @var string|null
-     */
-    protected $sessionIndex;
+    protected ?string $sessionIndex = null;
 
-    /**
-     * @var AuthnContext
-     */
-    protected $authnContext;
+    protected ?AuthnContext $authnContext = null;
 
-    /**
-     * @var SubjectLocality
-     */
-    protected $subjectLocality;
+    protected ?SubjectLocality $subjectLocality = null;
 
     public function setAuthnContext(AuthnContext $authnContext): static
     {

@@ -14,23 +14,18 @@ use LightSaml\SamlConstants;
 
 class EntitiesDescriptor extends Metadata
 {
-    /** @var int */
-    protected $validUntil;
+    protected ?int $validUntil = null;
 
-    /** @var string */
-    protected $cacheDuration;
+    protected ?string $cacheDuration = null;
 
-    /** @var string */
-    protected $id;
+    protected ?string $id = null;
 
-    /** @var string */
-    protected $name;
+    protected ?string $name = null;
 
-    /** @var Signature */
-    protected $signature;
+    protected ?Signature $signature = null;
 
     /** @var EntitiesDescriptor[]|EntityDescriptor[] */
-    protected $items = [];
+    protected array $items = [];
 
     
     public static function load(string $filename): \LightSaml\Model\Metadata\EntitiesDescriptor
@@ -103,9 +98,6 @@ class EntitiesDescriptor extends Metadata
     }
 
     /**
-     * @param int|string $validUntil
-     *
-     *
      * @throws InvalidArgumentException
      */
     public function setValidUntil(int|string|\DateTime $validUntil): static

@@ -10,10 +10,10 @@ use LightSaml\SamlConstants;
 abstract class SSODescriptor extends RoleDescriptor
 {
     /** @var SingleLogoutService[] */
-    protected $singleLogoutServices = [];
+    protected array $singleLogoutServices = [];
 
     /** @var string[]|null */
-    protected $nameIDFormats;
+    protected ?array $nameIDFormats = null;
 
     public function addSingleLogoutService(SingleLogoutService $singleLogoutService): \LightSaml\Model\Metadata\SSODescriptor
     {

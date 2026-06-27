@@ -10,13 +10,9 @@ use LightSaml\SamlConstants;
 
 class StatusCode extends AbstractSamlModel
 {
-    /** @var StatusCode|null */
-    protected $statusCode;
+    protected ?StatusCode $statusCode = null;
 
-    /**
-     * @param string $value
-     */
-    public function __construct(protected $value = null)
+    public function __construct(protected ?string $value = null)
     {
     }
 
@@ -30,9 +26,6 @@ class StatusCode extends AbstractSamlModel
         return $this->value;
     }
 
-    /**
-     * @param StatusCode|null $statusCode
-     */
     public function setStatusCode(StatusCode $statusCode): static
     {
         $this->statusCode = $statusCode;

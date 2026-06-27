@@ -14,26 +14,22 @@ use LightSaml\SamlConstants;
 
 class EntityDescriptor extends Metadata
 {
-    /** @var int|null */
-    protected $validUntil;
+    protected ?int $validUntil = null;
 
-    /** @var string|null */
-    protected $cacheDuration;
+    protected ?string $cacheDuration = null;
 
-    /** @var string|null */
-    protected $id;
+    protected ?string $id = null;
 
-    /** @var Signature|null */
-    protected $signature;
+    protected ?Signature $signature = null;
 
     /** @var IdpSsoDescriptor[]|SpSsoDescriptor[] */
-    protected $items;
+    protected array $items = [];
 
     /** @var Organization[]|null */
-    protected $organizations;
+    protected ?array $organizations = null;
 
     /** @var ContactPerson[]|null */
-    protected $contactPersons;
+    protected ?array $contactPersons = null;
 
     
     public static function load(string $filename): \LightSaml\Model\Metadata\EntityDescriptor
@@ -111,8 +107,6 @@ class EntityDescriptor extends Metadata
     }
 
     /**
-     * @param string|null $cacheDuration
-     *
      * @throws InvalidArgumentException
      */
     public function setCacheDuration(string $cacheDuration): static
@@ -234,9 +228,6 @@ class EntityDescriptor extends Metadata
         return null;
     }
 
-    /**
-     * @param Signature|null $signature
-     */
     public function setSignature(Signature $signature): static
     {
         $this->signature = $signature;
@@ -249,9 +240,6 @@ class EntityDescriptor extends Metadata
         return $this->signature;
     }
 
-    /**
-     * @param int $validUntil
-     */
     public function setValidUntil(int|string|\DateTime $validUntil): static
     {
         $this->validUntil = Helper::getTimestampFromValue($validUntil);
@@ -283,7 +271,7 @@ class EntityDescriptor extends Metadata
     }
 
     /**
-     * @return array|KeyDescriptor[]
+     * @return KeyDescriptor[]
      */
     public function getAllIdpKeyDescriptors(): array
     {
@@ -298,7 +286,7 @@ class EntityDescriptor extends Metadata
     }
 
     /**
-     * @return array|KeyDescriptor[]
+     * @return KeyDescriptor[]
      */
     public function getAllSpKeyDescriptors(): array
     {

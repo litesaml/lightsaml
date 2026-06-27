@@ -14,11 +14,9 @@ use RobRichards\XMLSecLibs\XMLSecurityKey;
 
 class SignatureWriter extends Signature
 {
-    /** @var string */
-    protected $canonicalMethod = XMLSecurityDSig::EXC_C14N;
+    protected string $canonicalMethod = XMLSecurityDSig::EXC_C14N;
 
-    /** @var SigningOptions */
-    protected $signingOptions;
+    protected ?SigningOptions $signingOptions = null;
 
     public static function create(SigningOptions $options): self
     {
@@ -35,10 +33,7 @@ class SignatureWriter extends Signature
         return self::create($signingOptions);
     }
 
-    /**
-     * @param string $digestAlgorithm
-     */
-    public function __construct(protected ?X509Certificate $certificate = null, protected ?XMLSecurityKey $xmlSecurityKey = null, protected $digestAlgorithm = XMLSecurityDSig::SHA256)
+    public function __construct(protected ?X509Certificate $certificate = null, protected ?XMLSecurityKey $xmlSecurityKey = null, protected string $digestAlgorithm = XMLSecurityDSig::SHA256)
     {
     }
 
@@ -87,9 +82,6 @@ class SignatureWriter extends Signature
         return $this;
     }
 
-    /**
-     * @return XMLSecurityKey
-     */
     public function getXmlSecurityKey(): ?\RobRichards\XMLSecLibs\XMLSecurityKey
     {
         return $this->xmlSecurityKey;
@@ -102,9 +94,6 @@ class SignatureWriter extends Signature
         return $this;
     }
 
-    /**
-     * @return X509Certificate
-     */
     public function getCertificate(): ?\LightSaml\Credential\X509Certificate
     {
         return $this->certificate;

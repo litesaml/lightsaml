@@ -6,8 +6,7 @@ use Exception;
 
 class ExceptionContext extends AbstractProfileContext
 {
-    /** @var ExceptionContext|null */
-    protected $nextExceptionContext;
+    protected ?ExceptionContext $nextExceptionContext = null;
 
     public function __construct(protected ?Exception $exception = null)
     {

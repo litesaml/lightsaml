@@ -12,8 +12,7 @@ use Psr\Http\Message\ServerRequestInterface;
 
 abstract class AbstractBinding
 {
-    /** @var EventDispatcherInterface|null */
-    protected $eventDispatcher;
+    protected ?EventDispatcherInterface $eventDispatcher = null;
 
     public function setEventDispatcher(?EventDispatcherInterface $eventDispatcher = null): \LightSaml\Binding\AbstractBinding
     {

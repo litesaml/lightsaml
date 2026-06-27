@@ -13,7 +13,7 @@ use Psr\Log\LoggerInterface;
 class SerializeOwnEntityAction extends AbstractProfileAction
 {
     /** @var string[] */
-    protected $supportedContextTypes = ['application/samlmetadata+xml', 'application/xml', 'text/xml'];
+    protected array $supportedContextTypes = ['application/samlmetadata+xml', 'application/xml', 'text/xml'];
 
     public function __construct(
         LoggerInterface $logger,

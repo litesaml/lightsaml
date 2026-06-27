@@ -22,29 +22,21 @@ use LogicException;
 
 abstract class SamlMessage extends AbstractSamlModel
 {
-    /** @var string */
-    protected $id;
+    protected ?string $id = null;
 
-    /** @var string */
-    protected $version = SamlConstants::VERSION_20;
+    protected string $version = SamlConstants::VERSION_20;
 
-    /** @var int */
-    protected $issueInstant;
+    protected ?int $issueInstant = null;
 
-    /** @var string|null */
-    protected $destination;
+    protected ?string $destination = null;
 
-    /** @var Issuer|null */
-    protected $issuer;
+    protected ?Issuer $issuer = null;
 
-    /** @var string|null */
-    protected $consent;
+    protected ?string $consent = null;
 
-    /** @var Signature|null */
-    protected $signature;
+    protected ?Signature $signature = null;
 
-    /** @var string|null */
-    protected $relayState;
+    protected ?string $relayState = null;
 
     /**
      *

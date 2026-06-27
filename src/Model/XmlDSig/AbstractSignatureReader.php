@@ -11,8 +11,7 @@ use RobRichards\XMLSecLibs\XMLSecurityKey;
 
 abstract class AbstractSignatureReader extends Signature
 {
-    /** @var XMLSecurityKey|null */
-    protected $key;
+    protected ?XMLSecurityKey $key = null;
 
     /**
      * @return bool True if validated, False if validation was not performed

@@ -8,11 +8,9 @@ use LightSaml\Model\Context\SerializationContext;
 
 abstract class StatusResponse extends SamlMessage
 {
-    /** @var string */
-    protected $inResponseTo;
+    protected ?string $inResponseTo = null;
 
-    /** @var Status */
-    protected $status;
+    protected ?Status $status = null;
 
     
     public function setInResponseTo(string $inResponseTo): \LightSaml\Model\Protocol\StatusResponse

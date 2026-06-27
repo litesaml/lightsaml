@@ -10,14 +10,13 @@ use LightSaml\SamlConstants;
 
 class IdpSsoDescriptor extends SSODescriptor
 {
-    /** @var bool|null */
-    protected $wantAuthnRequestsSigned;
+    protected ?bool $wantAuthnRequestsSigned = null;
 
     /** @var SingleSignOnService[]|null */
-    protected $singleSignOnServices;
+    protected ?array $singleSignOnServices = null;
 
     /** @var Attribute[]|null */
-    protected $attributes;
+    protected ?array $attributes = null;
 
     public function setWantAuthnRequestsSigned(mixed $wantAuthnRequestsSigned): static
     {

@@ -13,43 +13,30 @@ class AuthnRequest extends AbstractRequest
 {
     //region Attributes
 
-    /** @var bool|null */
-    protected $forceAuthn;
+    protected ?bool $forceAuthn = null;
 
-    /** @var bool|null */
-    protected $isPassive;
+    protected ?bool $isPassive = null;
 
-    /** @var int|null */
-    protected $assertionConsumerServiceIndex;
+    protected ?int $assertionConsumerServiceIndex = null;
 
-    /** @var string|null */
-    protected $assertionConsumerServiceURL;
+    protected ?string $assertionConsumerServiceURL = null;
 
-    /** @var int|null */
-    protected $attributeConsumingServiceIndex;
+    protected ?int $attributeConsumingServiceIndex = null;
 
-    /** @var string|null */
-    protected $protocolBinding;
+    protected ?string $protocolBinding = null;
 
-    /** @var string|null */
-    protected $providerName;
+    protected ?string $providerName = null;
 
     //endregion
 
     //region Elements
 
-    /** @var Conditions|null */
-    protected $conditions;
+    protected ?Conditions $conditions = null;
 
-    /** @var NameIDPolicy|null */
-    protected $nameIDPolicy;
+    protected ?NameIDPolicy $nameIDPolicy = null;
 
-    /** @var Subject|null */
-    protected $subject;
+    protected ?Subject $subject = null;
 
-    /**
-     * @param Subject|null $subject
-     */
     public function setSubject(Subject $subject): static
     {
         $this->subject = $subject;
@@ -86,9 +73,6 @@ class AuthnRequest extends AbstractRequest
         return $this->protocolBinding;
     }
 
-    /**
-     * @param NameIDPolicy|null $nameIDPolicy
-     */
     public function setNameIDPolicy(NameIDPolicy $nameIDPolicy): static
     {
         $this->nameIDPolicy = $nameIDPolicy;

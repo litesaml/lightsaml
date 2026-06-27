@@ -224,11 +224,9 @@ abstract class AbstractSamlModel implements SamlElementInterface
     }
 
     /**
-     *
-     * @return mixed
      * @throws LogicException
      */
-    private function getPropertyValue(string $name)
+    private function getPropertyValue(string $name): mixed
     {
         if (false !== ($pos = strpos($name, ':'))) {
             $name = substr($name, $pos + 1);

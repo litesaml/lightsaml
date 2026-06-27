@@ -7,11 +7,8 @@ use InvalidArgumentException;
 class CredentialContextSet
 {
     /** @var CredentialContextInterface[] */
-    protected $contexts = [];
+    protected array $contexts = [];
 
-    /**
-     * @param CredentialContextInterface[] $contexts
-     */
     public function __construct(array $contexts = [])
     {
         foreach ($contexts as $context) {

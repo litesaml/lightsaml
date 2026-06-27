@@ -41,11 +41,8 @@ class ParameterBag implements IteratorAggregate, Countable, Serializable
 
     /**
      * Returns a parameter by name.
-     *
-     *
-     * @return mixed
      */
-    public function get(string $key, mixed $default = null)
+    public function get(string $key, mixed $default = null): mixed
     {
         return array_key_exists($key, $this->parameters) ? $this->parameters[$key] : $default;
     }

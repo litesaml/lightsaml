@@ -13,11 +13,7 @@ class EntityIdResolver extends AbstractQueryableResolver
     {
     }
 
-    /**
-     * @param array|CredentialInterface[] $arrCredentials
-     *
-     * @return array|CredentialInterface[]
-     */
+    /** @return CredentialInterface[] */
     public function resolve(CriteriaSet $criteriaSet, array $arrCredentials = []): array
     {
         $result = [];

@@ -18,11 +18,10 @@ use RobRichards\XMLSecLibs\XMLSecurityKey;
 
 class SignatureXmlReader extends AbstractSignatureReader
 {
-    /** @var XMLSecurityDSig */
-    protected $signature;
+    protected ?XMLSecurityDSig $signature = null;
 
     /** @var string[] */
-    protected $certificates = [];
+    protected array $certificates = [];
 
     public function addCertificate(string $certificate): void
     {

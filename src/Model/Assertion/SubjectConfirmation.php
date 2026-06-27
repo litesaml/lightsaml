@@ -10,17 +10,13 @@ use LightSaml\SamlConstants;
 
 class SubjectConfirmation extends AbstractSamlModel
 {
-    /** @var string */
-    protected $method;
+    protected ?string $method = null;
 
-    /** @var NameID|null */
-    protected $nameId;
+    protected ?NameID $nameId = null;
 
-    /** @var EncryptedElement|null */
-    protected $encryptedId;
+    protected ?EncryptedElement $encryptedId = null;
 
-    /** @var SubjectConfirmationData|null */
-    protected $subjectConfirmationData;
+    protected ?SubjectConfirmationData $subjectConfirmationData = null;
 
     public function setMethod(string $method): static
     {

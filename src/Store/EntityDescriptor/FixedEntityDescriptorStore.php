@@ -8,8 +8,8 @@ use LightSaml\Model\Metadata\EntityDescriptor;
 
 class FixedEntityDescriptorStore implements EntityDescriptorStoreInterface
 {
-    /** @var array|EntityDescriptor[] entityId=>descriptor */
-    protected $descriptors = [];
+    /** @var EntityDescriptor[] entityId=>descriptor */
+    protected array $descriptors = [];
 
     /**
      *
@@ -44,9 +44,7 @@ class FixedEntityDescriptorStore implements EntityDescriptorStoreInterface
         return isset($this->descriptors[$entityId]);
     }
 
-    /**
-     * @return array|EntityDescriptor[]
-     */
+    /** @return EntityDescriptor[] */
     public function all(): array
     {
         return array_values($this->descriptors);

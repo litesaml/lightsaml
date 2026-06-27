@@ -11,26 +11,13 @@ use LightSaml\SamlConstants;
 
 abstract class AbstractNameID extends AbstractSamlModel
 {
-    /**
-     * @var string|null
-     */
-    protected $nameQualifier;
+    protected ?string $nameQualifier = null;
 
-    /**
-     * @var string|null
-     */
-    protected $spNameQualifier;
+    protected ?string $spNameQualifier = null;
 
-    /**
-     * @var string|null
-     */
-    protected $spProvidedId;
+    protected ?string $spProvidedId = null;
 
-    /**
-     * @param string $value
-     * @param string $format
-     */
-    public function __construct(protected $value = null, protected $format = null)
+    public function __construct(protected ?string $value = null, protected ?string $format = null)
     {
     }
 
@@ -115,7 +102,6 @@ abstract class AbstractNameID extends AbstractSamlModel
             $result = $this->createElement('saml:' . $this->getElementName(), SamlConstants::NS_ASSERTION, $parent, $context);
         }
 
-        /* @var \DOMElement $parent */
         $this->attributesToXml(['Format', 'NameQualifier', 'SPNameQualifier', 'SPProvidedID'], $result);
         $result->nodeValue = $this->getValue();
     }

@@ -16,23 +16,17 @@ class ContactPerson extends AbstractSamlModel
     public const TYPE_BILLING = 'billing';
     public const TYPE_OTHER = 'other';
 
-    /** @var string */
-    protected $contactType;
+    protected string $contactType;
 
-    /** @var string|null */
-    protected $company;
+    protected ?string $company = null;
 
-    /** @var string|null */
-    protected $givenName;
+    protected ?string $givenName = null;
 
-    /** @var string|null */
-    protected $surName;
+    protected ?string $surName = null;
 
-    /** @var string|null */
-    protected $emailAddress;
+    protected ?string $emailAddress = null;
 
-    /** @var string|null */
-    protected $telephoneNumber;
+    protected ?string $telephoneNumber = null;
 
     public function setContactType(string $contactType): static
     {

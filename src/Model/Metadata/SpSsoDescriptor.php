@@ -9,14 +9,12 @@ use LightSaml\SamlConstants;
 
 class SpSsoDescriptor extends SSODescriptor
 {
-    /** @var bool|null */
-    protected $authnRequestsSigned;
+    protected ?bool $authnRequestsSigned = null;
 
-    /** @var bool|null */
-    protected $wantAssertionsSigned;
+    protected ?bool $wantAssertionsSigned = null;
 
     /** @var AssertionConsumerService[]|null */
-    protected $assertionConsumerServices;
+    protected ?array $assertionConsumerServices = null;
 
     public function addAssertionConsumerService(AssertionConsumerService $assertionConsumerService): static
     {

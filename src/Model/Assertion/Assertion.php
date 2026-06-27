@@ -17,49 +17,26 @@ class Assertion extends AbstractSamlModel
 {
     //region Attributes
 
-    /**
-     * @var string
-     */
-    protected $id;
+    protected ?string $id = null;
 
-    /**
-     * @var string
-     */
-    protected $version = SamlConstants::VERSION_20;
+    protected ?string $version = SamlConstants::VERSION_20;
 
-    /**
-     * @var int
-     */
-    protected $issueInstant;
+    protected ?int $issueInstant = null;
 
     //endregion
 
     //region Elements
 
-    /**
-     * @var Issuer
-     */
-    protected $issuer;
+    protected ?Issuer $issuer = null;
 
-    /**
-     * @var Signature|null
-     */
-    protected $signature;
+    protected ?Signature $signature = null;
 
-    /**
-     * @var Subject|null
-     */
-    protected $subject;
+    protected ?Subject $subject = null;
 
-    /**
-     * @var Conditions|null
-     */
-    protected $conditions;
+    protected ?Conditions $conditions = null;
 
-    /**
-     * @var array|AbstractStatement[]|AuthnStatement[]|AttributeStatement[]
-     */
-    protected $items = [];
+    /** @var AbstractStatement[]|AuthnStatement[]|AttributeStatement[] */
+    protected array $items = [];
 
     //endregion
     /**
@@ -162,9 +139,6 @@ class Assertion extends AbstractSamlModel
         return null;
     }
 
-    /**
-     * @return string
-     */
     public function getIssueInstantDateTime(): ?\DateTime
     {
         if ($this->issueInstant) {
@@ -231,9 +205,7 @@ class Assertion extends AbstractSamlModel
         return $this;
     }
 
-    /**
-     * @return AbstractStatement[]|AttributeStatement[]|AuthnStatement[]|array
-     */
+    /** @return AbstractStatement[]|AttributeStatement[]|AuthnStatement[] */
     public function getAllItems(): array
     {
         return $this->items;

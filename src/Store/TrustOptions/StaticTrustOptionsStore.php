@@ -7,7 +7,7 @@ use LightSaml\Meta\TrustOptions\TrustOptions;
 class StaticTrustOptionsStore implements TrustOptionsStoreInterface
 {
     /** @var TrustOptions[] */
-    protected $options = [];
+    protected array $options = [];
 
     public function add(string $entityId, TrustOptions $options): static
     {

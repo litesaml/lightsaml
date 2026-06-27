@@ -14,10 +14,10 @@ use LightSaml\SamlConstants;
 class Response extends StatusResponse
 {
     /** @var Assertion[] */
-    protected $assertions = [];
+    protected array $assertions = [];
 
     /** @var EncryptedElement[] */
-    protected $encryptedAssertions = [];
+    protected array $encryptedAssertions = [];
 
     /**
      * @return Assertion[]
