@@ -3,10 +3,10 @@
 namespace LightSaml\Model\Protocol;
 
 use DOMNode;
+use LightSaml\Context\Model\DeserializationContext;
+use LightSaml\Context\Model\SerializationContext;
 use LightSaml\Model\Assertion\Conditions;
 use LightSaml\Model\Assertion\Subject;
-use LightSaml\Model\Context\DeserializationContext;
-use LightSaml\Model\Context\SerializationContext;
 use LightSaml\SamlConstants;
 
 class AuthnRequest extends AbstractRequest
@@ -81,7 +81,7 @@ class AuthnRequest extends AbstractRequest
 
     public function setIsPassive(?bool $isPassive): static
     {
-        $this->isPassive = 0 == strcasecmp($isPassive, 'true') || true === $isPassive || 1 == $isPassive;
+        $this->isPassive = $isPassive;
 
         return $this;
     }
@@ -102,7 +102,7 @@ class AuthnRequest extends AbstractRequest
 
     public function setForceAuthn(?bool $forceAuthn): static
     {
-        $this->forceAuthn = 0 == strcasecmp($forceAuthn, 'true') || true === $forceAuthn || 1 == $forceAuthn;
+        $this->forceAuthn = $forceAuthn;
 
         return $this;
     }

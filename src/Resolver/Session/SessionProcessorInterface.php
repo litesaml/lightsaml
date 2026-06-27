@@ -9,5 +9,5 @@ interface SessionProcessorInterface
     /**
      * @param Assertion[] $assertions
      */
-    public function processAssertions(array $assertions, string $ownEntityId, string $partyEntityId);
+    public function processAssertions(array $assertions, string $ownEntityId, string $partyEntityId): void;
 }

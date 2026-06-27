@@ -13,7 +13,7 @@ use LightSaml\Helper;
  */
 class MessageIdAction extends AbstractProfileAction
 {
-    protected function doExecute(ProfileContext $context)
+    protected function doExecute(ProfileContext $context): void
     {
         $id = Helper::generateID();
         MessageContextHelper::asSamlMessage($context->getOutboundContext())

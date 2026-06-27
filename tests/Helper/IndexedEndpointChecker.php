@@ -7,7 +7,7 @@ use Tests\BaseTestCase;
 
 class IndexedEndpointChecker
 {
-    public static function check(BaseTestCase $test, $binding, $location, $index, $isDefault, ?IndexedEndpoint $svc = null): void
+    public static function check(BaseTestCase $test, string $binding, string $location, int $index, ?bool $isDefault, ?IndexedEndpoint $svc = null): void
     {
         EndpointChecker::check($test, $binding, $location, $svc);
         $test->assertEquals($index, $svc->getIndex());

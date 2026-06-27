@@ -32,6 +32,7 @@ class FlushRequestStatesActionTest extends BaseTestCase
     {
         $expectedIds = ['1111', '2222', '3333'];
 
+        /** @var RequestStateStoreInterface $requestStoreMock */
         $requestStoreMock = Mockery::mock(RequestStateStoreInterface::class, function ($mock) use ($expectedIds): void {
             $mock->shouldReceive('remove')
                 ->once()
@@ -47,6 +48,7 @@ class FlushRequestStatesActionTest extends BaseTestCase
                 ->andReturn(false);
         });
 
+        /** @var LoggerInterface $loggerMock */
         $loggerMock = Mockery::mock(LoggerInterface::class, function ($mock) use ($expectedIds): void {
             $mock->shouldReceive('debug')
                 ->once()

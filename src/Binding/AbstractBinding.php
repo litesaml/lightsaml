@@ -26,14 +26,14 @@ abstract class AbstractBinding
         return $this->eventDispatcher;
     }
 
-    protected function dispatchReceive(string $messageString)
+    protected function dispatchReceive(string $messageString): void
     {
         if ($this->eventDispatcher) {
             $this->eventDispatcher->dispatch(new MessageReceived($messageString));
         }
     }
 
-    protected function dispatchSend(string $messageString)
+    protected function dispatchSend(string $messageString): void
     {
         if ($this->eventDispatcher) {
             $this->eventDispatcher->dispatch(new MessageSent($messageString));

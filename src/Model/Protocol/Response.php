@@ -4,11 +4,11 @@ namespace LightSaml\Model\Protocol;
 
 use DOMNode;
 use InvalidArgumentException;
+use LightSaml\Context\Model\DeserializationContext;
+use LightSaml\Context\Model\SerializationContext;
 use LightSaml\Model\Assertion\Assertion;
 use LightSaml\Model\Assertion\EncryptedAssertionReader;
 use LightSaml\Model\Assertion\EncryptedElement;
-use LightSaml\Model\Context\DeserializationContext;
-use LightSaml\Model\Context\SerializationContext;
 use LightSaml\SamlConstants;
 
 class Response extends StatusResponse

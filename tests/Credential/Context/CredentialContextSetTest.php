@@ -44,7 +44,7 @@ class CredentialContextSetTest extends BaseTestCase
     }
 
     /**
-     * @return MockObject|MetadataCredentialContext
+     * @return MetadataCredentialContext&MockObject
      */
     private function getMetadataContextMock(): MockObject
     {

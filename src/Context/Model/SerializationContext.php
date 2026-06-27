@@ -1,15 +1,14 @@
 <?php
 
-namespace LightSaml\Model\Context;
+namespace LightSaml\Context\Model;
 
 use DOMDocument;
+use LightSaml\Context\AbstractContext;
 
-class SerializationContext
+class SerializationContext extends AbstractContext
 {
     protected DOMDocument $document;
 
-    /**
-     */
     public function __construct(?DOMDocument $document = null)
     {
         $this->document = $document ?: new DOMDocument();

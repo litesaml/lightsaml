@@ -3,6 +3,7 @@
 namespace LightSaml\Action\Profile\Inbound\Response;
 
 use LightSaml\Action\Profile\AbstractProfileAction;
+use LightSaml\Context\Model\DeserializationContext;
 use LightSaml\Context\Profile\Helper\LogHelper;
 use LightSaml\Context\Profile\Helper\MessageContextHelper;
 use LightSaml\Context\Profile\ProfileContext;
@@ -13,7 +14,6 @@ use LightSaml\Credential\Criteria\UsageCriteria;
 use LightSaml\Credential\UsageType;
 use LightSaml\Error\LightSamlContextException;
 use LightSaml\Model\Assertion\EncryptedAssertionReader;
-use LightSaml\Model\Context\DeserializationContext;
 use LightSaml\Resolver\Credential\CredentialResolverInterface;
 use LightSaml\SamlConstants;
 use Psr\Log\LoggerInterface;
@@ -26,7 +26,7 @@ class DecryptAssertionsAction extends AbstractProfileAction
         parent::__construct($logger);
     }
 
-    protected function doExecute(ProfileContext $context)
+    protected function doExecute(ProfileContext $context): void
     {
         $response = MessageContextHelper::asResponse($context->getInboundContext());
 
@@ -63,15 +63,20 @@ class DecryptAssertionsAction extends AbstractProfileAction
                     $credential->getEntityId(),
                     $credential->getPublicKey() instanceof XMLSecurityKey ? $credential->getPublicKey()->getX509Thumbprint() : ''
                 );
-            }, $privateKeys),
+            }, $query->allCredentials()),
         ]));
 
         foreach ($response->getAllEncryptedAssertions() as $index => $encryptedAssertion) {
             if ($encryptedAssertion instanceof EncryptedAssertionReader) {
                 $name = sprintf('assertion_encrypted_%s', $index);
-                /** @var DeserializationContext $deserializationContext */
                 $deserializationContext = $context->getInboundContext()->getSubContext($name, DeserializationContext::class);
-                $assertion = $encryptedAssertion->decryptMultiAssertion($privateKeys, $deserializationContext);
+                $assertion = $encryptedAssertion->decryptMultiAssertion(
+                    array_map(
+                        fn (CredentialInterface $credential): XMLSecurityKey => $credential->getPrivateKey(),
+                        $privateKeys
+                    ),
+                    $deserializationContext
+                );
                 $response->addAssertion($assertion);
 
                 $this->logger->info(

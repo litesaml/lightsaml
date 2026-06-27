@@ -2,7 +2,6 @@
 
 namespace Tests\Context;
 
-use InvalidArgumentException;
 use LightSaml\Context\AbstractContext;
 use LightSaml\Context\Profile\AssertionContext;
 use LightSaml\Context\Profile\EntityContext;
@@ -10,6 +9,7 @@ use LightSaml\Context\Profile\ProfileContext;
 use LightSaml\Context\Profile\RequestStateContext;
 use PHPUnit\Framework\MockObject\MockObject;
 use Tests\BaseTestCase;
+use TypeError;
 
 class AbstractContextTest extends BaseTestCase
 {
@@ -75,19 +75,18 @@ class AbstractContextTest extends BaseTestCase
 
     public function test_add_sub_context_throws_if_not_a_context_value(): void
     {
-        $this->expectExceptionMessage("Expected object or ContextInterface");
-        $this->expectException(InvalidArgumentException::class);
+        $this->expectException(TypeError::class);
         $context = $this->getContextMock();
-        $context->addSubContext($name = 'some', '123');
+        $context->addSubContext($name = 'some', '123'); // @phpstan-ignore-line
         $context->getSubContext($name);
     }
 
     public function test_get_sub_context_or_create_new_does_create_new_instance(): void
     {
         $context = $this->getContextMock();
-        $value = $context->getSubContext($name = 'name', '\stdClass');
+        $value = $context->getSubContext($name = 'name', AssertionContext::class);
 
-        $this->assertInstanceOf('\stdClass', $value);
+        $this->assertInstanceOf(AssertionContext::class, $value);
     }
 
     public function test__created_sub_context_has_set_parent(): void
@@ -241,7 +240,7 @@ EOT;
     }
 
     /**
-     * @return MockObject|AbstractContext
+     * @return AbstractContext&MockObject
      */
     private function getContextMock(): MockObject
     {

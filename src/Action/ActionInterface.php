@@ -6,5 +6,5 @@ use LightSaml\Context\ContextInterface;
 
 interface ActionInterface
 {
-    public function execute(ContextInterface $context);
+    public function execute(ContextInterface $context): void;
 }

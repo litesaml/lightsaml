@@ -2,10 +2,10 @@
 
 namespace Tests\Model\Xsd;
 
+use LightSaml\Context\Model\SerializationContext;
 use LightSaml\Credential\KeyHelper;
 use LightSaml\Credential\X509Certificate;
 use LightSaml\Model\Assertion\Assertion;
-use LightSaml\Model\Context\SerializationContext;
 use LightSaml\Model\Metadata\EntitiesDescriptor;
 use LightSaml\Model\Metadata\EntityDescriptor;
 use LightSaml\Model\Protocol\SamlMessage;
@@ -26,7 +26,7 @@ abstract class AbstractXsdValidation extends BaseTestCase
         return X509Certificate::fromFile(__DIR__ . '/../../resources/saml.crt');
     }
 
-    protected function sign(SamlMessage|EntityDescriptor|EntitiesDescriptor|Assertion $object)
+    protected function sign(SamlMessage|EntityDescriptor|EntitiesDescriptor|Assertion $object): void
     {
         $object->setSignature(new SignatureWriter(
             $this->getX509Certificate(),
@@ -34,7 +34,7 @@ abstract class AbstractXsdValidation extends BaseTestCase
         ));
     }
 
-    protected function validateProtocol(SamlElementInterface $samlElement)
+    protected function validateProtocol(SamlElementInterface $samlElement): void
     {
         $validator = new XsdValidator();
         $xml = $this->serialize($samlElement);
@@ -45,7 +45,7 @@ abstract class AbstractXsdValidation extends BaseTestCase
         $this->assertTrue(true);
     }
 
-    protected function validateMetadata(SamlElementInterface $samlElement)
+    protected function validateMetadata(SamlElementInterface $samlElement): void
     {
         $validator = new XsdValidator();
         $xml = $this->serialize($samlElement);

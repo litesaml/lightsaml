@@ -105,7 +105,7 @@ class CompositeTrustOptionsStoreTest extends BaseTestCase
     }
 
     /**
-     * @return MockObject|TrustOptionsStoreInterface
+     * @return TrustOptionsStoreInterface&MockObject
      */
     private function getTrustOptionsStoreMock(): MockObject
     {

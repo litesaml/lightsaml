@@ -10,6 +10,7 @@ class CompositeAction implements ActionInterface, DebugPrintTreeActionInterface,
     /** @var ActionInterface[] */
     protected array $children = [];
 
+    /** @param ActionInterface[] $children */
     public function __construct(array $children = [])
     {
         foreach ($children as $action) {
@@ -49,6 +50,7 @@ class CompositeAction implements ActionInterface, DebugPrintTreeActionInterface,
         }
     }
 
+    /** @return array<string, array<mixed>> */
     public function debugPrintTree(): array
     {
         $arr = [];

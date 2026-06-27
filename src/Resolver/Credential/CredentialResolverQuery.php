@@ -2,7 +2,6 @@
 
 namespace LightSaml\Resolver\Credential;
 
-use InvalidArgumentException;
 use LightSaml\Credential\CredentialInterface;
 use LightSaml\Criteria\CriteriaSet;
 use RobRichards\XMLSecLibs\XMLSecurityKey;
@@ -43,13 +42,8 @@ class CredentialResolverQuery extends CriteriaSet
     {
         $result = [];
         foreach ($this->arrCredentials as $credential) {
-            if ($credential instanceof CredentialInterface) {
-                $publicKey = $credential->getPublicKey();
-                if ($publicKey instanceof XMLSecurityKey) {
-                    $result[] = $credential;
-                }
-            } else {
-                throw new InvalidArgumentException('Expected CredentialInterface');
+            if ($credential->getPublicKey() instanceof XMLSecurityKey) {
+                $result[] = $credential;
             }
         }
 
@@ -63,13 +57,8 @@ class CredentialResolverQuery extends CriteriaSet
     {
         $result = [];
         foreach ($this->arrCredentials as $credential) {
-            if ($credential instanceof CredentialInterface) {
-                $privateKey = $credential->getPrivateKey();
-                if ($privateKey instanceof XMLSecurityKey) {
-                    $result[] = $credential;
-                }
-            } else {
-                throw new InvalidArgumentException('Expected CredentialInterface');
+            if ($credential->getPrivateKey() instanceof XMLSecurityKey) {
+                $result[] = $credential;
             }
         }
 

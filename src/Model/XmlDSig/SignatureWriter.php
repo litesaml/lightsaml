@@ -3,10 +3,10 @@
 namespace LightSaml\Model\XmlDSig;
 
 use DOMNode;
+use LightSaml\Context\Model\DeserializationContext;
+use LightSaml\Context\Model\SerializationContext;
 use LightSaml\Credential\X509Certificate;
 use LightSaml\Meta\SigningOptions;
-use LightSaml\Model\Context\DeserializationContext;
-use LightSaml\Model\Context\SerializationContext;
 use LightSaml\SamlConstants;
 use LogicException;
 use RobRichards\XMLSecLibs\XMLSecurityDSig;

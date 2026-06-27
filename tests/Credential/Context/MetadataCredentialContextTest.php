@@ -25,7 +25,7 @@ class MetadataCredentialContextTest extends BaseTestCase
     }
 
     /**
-     * @return MockObject|KeyDescriptor
+     * @return KeyDescriptor&MockObject
      */
     private function getKeyDescriptorMock(): MockObject
     {
@@ -33,7 +33,7 @@ class MetadataCredentialContextTest extends BaseTestCase
     }
 
     /**
-     * @return MockObject|RoleDescriptor
+     * @return RoleDescriptor&MockObject
      */
     private function getRoleDescriptorMock(): MockObject
     {
@@ -41,7 +41,7 @@ class MetadataCredentialContextTest extends BaseTestCase
     }
 
     /**
-     * @return MockObject|EntityDescriptor
+     * @return EntityDescriptor&MockObject
      */
     private function getEntityDescriptorMock(): MockObject
     {

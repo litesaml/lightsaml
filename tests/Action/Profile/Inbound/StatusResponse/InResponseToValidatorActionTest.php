@@ -85,7 +85,7 @@ class InResponseToValidatorActionTest extends BaseTestCase
     }
 
     /**
-     * @return MockObject|StatusResponse
+     * @return StatusResponse&MockObject
      */
     private function getStatusResponseMock(?string $inResponseTo = null): MockObject
     {

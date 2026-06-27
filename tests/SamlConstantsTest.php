@@ -15,17 +15,19 @@ class SamlConstantsTest extends BaseTestCase
     }
 
     #[DataProvider('constantsProvider')]
-    public function test__is_valid_method($method, string $constant): void
+    public function test__is_valid_method(string $method, string $constant): void
     {
         $value = constant('\LightSaml\SamlConstants::' . $constant);
         $this->assertTrue(SamlConstants::$method($value));
     }
 
+    /** @return array<array{string}> */
     public static function methodsProvider(): array
     {
         return [['isProtocolValid'], ['isNsValid'], ['isNameIdFormatValid'], ['isBindingValid'], ['isStatusValid'], ['isConfirmationMethodValid'], ['isAuthnContextValid'], ['isLogoutReasonValid']];
     }
 
+    /** @return array<array{string, string}> */
     public static function constantsProvider(): array
     {
         return array_merge(
@@ -40,10 +42,8 @@ class SamlConstantsTest extends BaseTestCase
         );
     }
 
-    /**
-     * @return int[][]|string[][]
-     */
-    public static function getConstants($method): array
+    /** @return array<array{string, string}> */
+    public static function getConstants(string $method): array
     {
         $ret = [];
         $ref = new ReflectionClass(SamlConstants::class);

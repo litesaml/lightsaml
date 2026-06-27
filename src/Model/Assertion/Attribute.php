@@ -3,9 +3,9 @@
 namespace LightSaml\Model\Assertion;
 
 use DOMNode;
+use LightSaml\Context\Model\DeserializationContext;
+use LightSaml\Context\Model\SerializationContext;
 use LightSaml\Model\AbstractSamlModel;
-use LightSaml\Model\Context\DeserializationContext;
-use LightSaml\Model\Context\SerializationContext;
 use LightSaml\SamlConstants;
 
 class Attribute extends AbstractSamlModel
@@ -16,8 +16,8 @@ class Attribute extends AbstractSamlModel
     /** @var string */
     protected $friendlyName;
 
-    /** @var string[] */
-    protected $attributeValue;
+    /** @var string[]|null */
+    protected ?array $attributeValue = null;
 
     /**
      * @param string|string[] $value
@@ -31,7 +31,7 @@ class Attribute extends AbstractSamlModel
 
     public function addAttributeValue(string $attributeValue): static
     {
-        if (false == is_array($this->attributeValue)) {
+        if (null === $this->attributeValue) {
             $this->attributeValue = [];
         }
         $this->attributeValue[] = $attributeValue;

@@ -2,7 +2,6 @@
 
 namespace Tests\Action\Profile\Outbound\Message;
 
-use LightSaml\Action\Profile\Outbound\Message\ResolveEndpointBaseAction;
 use LightSaml\Action\Profile\Outbound\Message\ResolveEndpointSloAction;
 use LightSaml\Context\Profile\ProfileContext;
 use LightSaml\Criteria\CriteriaSet;
@@ -18,10 +17,6 @@ use Psr\Log\LoggerInterface;
 
 class ResolveEndpointSloActionTest extends AbstractResolveEndpointAction
 {
-    /**
-     *
-     * @return ResolveEndpointBaseAction
-     */
     protected function createAction(LoggerInterface $logger, EndpointResolverInterface $endpointResolver): ResolveEndpointSloAction
     {
         return new ResolveEndpointSloAction($logger, $endpointResolver);

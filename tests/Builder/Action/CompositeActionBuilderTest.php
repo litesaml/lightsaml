@@ -17,7 +17,7 @@ class CompositeActionBuilderTest extends BaseTestCase
     {
         $this->expectException(TypeError::class);
         $compositeBuilder = new CompositeActionBuilder();
-        $compositeBuilder->add(new FooAction(), "asc");
+        $compositeBuilder->add(new FooAction(), "asc"); // @phpstan-ignore-line
     }
 
     public function test__ranked_as_added_with_out_priority_parameter(): void
@@ -36,7 +36,9 @@ class CompositeActionBuilderTest extends BaseTestCase
 
         $this->assertInstanceOf(CompositeAction::class, $compositeAction);
 
-        $compositeAction->execute($this->getMockBuilder(ContextInterface::class)->getMock());
+        /** @var ContextInterface $contextMock */
+        $contextMock = $this->getMockBuilder(ContextInterface::class)->getMock();
+        $compositeAction->execute($contextMock);
     }
 
     public function test__ranked_as_given_priority_parameter(): void
@@ -55,13 +57,12 @@ class CompositeActionBuilderTest extends BaseTestCase
 
         $this->assertInstanceOf(CompositeAction::class, $compositeAction);
 
-        $compositeAction->execute($this->getMockBuilder(ContextInterface::class)->getMock());
+        /** @var ContextInterface $contextMock */
+        $contextMock = $this->getMockBuilder(ContextInterface::class)->getMock();
+        $compositeAction->execute($contextMock);
     }
 
-    /**
-     * @return MockObject|ActionInterface
-     */
-    private function getActionMock(int $expectedOrder, int &$order): MockObject
+    private function getActionMock(int $expectedOrder, int &$order): ActionInterface&MockObject
     {
         $action = $this->getMockBuilder(ActionInterface::class)->getMock();
         $action->expects($this->once())

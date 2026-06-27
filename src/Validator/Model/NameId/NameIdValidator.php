@@ -9,6 +9,7 @@ use LightSaml\SamlConstants;
 
 class NameIdValidator implements NameIdValidatorInterface
 {
+    /** @var array<string, string> */
     private static array $formatValidators = [
         SamlConstants::NAME_ID_FORMAT_EMAIL => 'validateEmailFormat',
         SamlConstants::NAME_ID_FORMAT_X509_SUBJECT_NAME => 'validateX509SubjectNameFormat',
@@ -37,14 +38,14 @@ class NameIdValidator implements NameIdValidatorInterface
         }
     }
 
-    protected function validateFormat(AbstractNameID $nameId)
+    protected function validateFormat(AbstractNameID $nameId): void
     {
         if (false == Helper::validateWellFormedUriString($nameId->getFormat())) {
             throw new LightSamlValidationException(sprintf("NameID element has Format attribute '%s' which is not a wellformed absolute uri", $nameId->getFormat()));
         }
     }
 
-    protected function validateEmailFormat(AbstractNameID $nameId)
+    protected function validateEmailFormat(AbstractNameID $nameId): void
     {
         if (null === $nameId->getValue() || trim($nameId->getValue()) === '') {
             throw new LightSamlValidationException('NameID with Email Format attribute MUST contain a Value that contains more than whitespace characters');
@@ -55,7 +56,7 @@ class NameIdValidator implements NameIdValidatorInterface
         }
     }
 
-    protected function validateX509SubjectNameFormat(AbstractNameID $nameId)
+    protected function validateX509SubjectNameFormat(AbstractNameID $nameId): void
     {
         if (null === $nameId->getValue() || trim($nameId->getValue()) === '') {
             throw new LightSamlValidationException('NameID with X509SubjectName Format attribute MUST contain a Value that contains more than whitespace characters');
@@ -65,7 +66,7 @@ class NameIdValidator implements NameIdValidatorInterface
         // XML Signature Recommendation (http://www.w3.org/TR/xmldsig-core/) section 4.4.4
     }
 
-    protected function validateWindowsFormat(AbstractNameID $nameId)
+    protected function validateWindowsFormat(AbstractNameID $nameId): void
     {
         // Required format is 'DomainName\UserName' but the domain name and the '\' are optional
         if (null === $nameId->getValue() || trim($nameId->getValue()) === '') {
@@ -73,7 +74,7 @@ class NameIdValidator implements NameIdValidatorInterface
         }
     }
 
-    protected function validateKerberosFormat(AbstractNameID $nameId)
+    protected function validateKerberosFormat(AbstractNameID $nameId): void
     {
         // Required format is 'name[/instance]@REALM'
         if (null === $nameId->getValue() || trim($nameId->getValue()) === '') {
@@ -88,7 +89,7 @@ class NameIdValidator implements NameIdValidatorInterface
         // TODO: Consider implementing the rules for 'name', 'instance' and 'REALM' found in IETF RFC 1510 (http://www.ietf.org/rfc/rfc1510.txt) here
     }
 
-    protected function validateEntityFormat(AbstractNameID $nameId)
+    protected function validateEntityFormat(AbstractNameID $nameId): void
     {
         if (null === $nameId->getValue() || trim($nameId->getValue()) === '') {
             throw new LightSamlValidationException('NameID with Entity Format attribute MUST contain a Value that contains more than whitespace characters');
@@ -107,7 +108,7 @@ class NameIdValidator implements NameIdValidatorInterface
         }
     }
 
-    protected function validatePersistentFormat(AbstractNameID $nameId)
+    protected function validatePersistentFormat(AbstractNameID $nameId): void
     {
         if (null === $nameId->getValue() || trim($nameId->getValue()) === '') {
             throw new LightSamlValidationException('NameID with Persistent Format attribute MUST contain a Value that contains more than whitespace characters');
@@ -117,7 +118,7 @@ class NameIdValidator implements NameIdValidatorInterface
         }
     }
 
-    protected function validateTransientFormat(AbstractNameID $nameId)
+    protected function validateTransientFormat(AbstractNameID $nameId): void
     {
         if (null === $nameId->getValue() || trim($nameId->getValue()) === '') {
             throw new LightSamlValidationException('NameID with Transient Format attribute MUST contain a Value that contains more than whitespace characters');

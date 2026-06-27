@@ -31,7 +31,7 @@ abstract class ResolveEndpointBaseAction extends AbstractProfileAction
         parent::__construct($logger);
     }
 
-    protected function doExecute(ProfileContext $context)
+    protected function doExecute(ProfileContext $context): void
     {
         if ($context->getEndpointContext()->getEndpoint() instanceof Endpoint) {
             $this->logger->debug(
@@ -54,7 +54,7 @@ abstract class ResolveEndpointBaseAction extends AbstractProfileAction
         $message = $context->getInboundContext()->getMessage();
         if ($message instanceof AuthnRequest) {
             if (null !== $message->getAssertionConsumerServiceIndex()) {
-                $criteriaSet->add(new IndexCriteria($message->getAssertionConsumerServiceIndex()));
+                $criteriaSet->add(new IndexCriteria((string) $message->getAssertionConsumerServiceIndex()));
             }
             if (null !== $message->getAssertionConsumerServiceURL()) {
                 $criteriaSet->add(new LocationCriteria($message->getAssertionConsumerServiceURL()));

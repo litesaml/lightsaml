@@ -15,6 +15,7 @@ class SamlPostResponseTest extends BaseTestCase
         $this->factory = new Psr17Factory();
     }
 
+    /** @param array<string, string> $data */
     private function makeResponse(?string $destination = 'https://sp.example.com/acs', array $data = ['SAMLResponse' => 'abc']): SamlPostResponse
     {
         $inner = $this->factory->createResponse(200);

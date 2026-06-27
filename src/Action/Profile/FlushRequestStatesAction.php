@@ -28,12 +28,11 @@ class FlushRequestStatesAction extends AbstractProfileAction
         }
     }
 
-    protected function flush(?ContextInterface $requestStateContext = null)
+    protected function flush(?ContextInterface $requestStateContext = null): void
     {
         if (
             $requestStateContext instanceof RequestStateContext
-            && $requestStateContext->getRequestState()
-            && $requestStateContext->getRequestState()->getId()
+            && $requestStateContext->getRequestState()->getId() !== ''
         ) {
             $existed = $this->requestStore->remove($requestStateContext->getRequestState()->getId());
 

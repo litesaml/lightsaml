@@ -157,10 +157,7 @@ class SubjectValidatorTest extends BaseTestCase
         $validator->validateSubject($subject);
     }
 
-    /**
-     * @return MockObject|NameIdValidatorInterface
-     */
-    public function getNameIdValidatorMock(): MockObject
+    public function getNameIdValidatorMock(): NameIdValidatorInterface&MockObject
     {
         return $this->getMockBuilder(NameIdValidatorInterface::class)->getMock();
     }

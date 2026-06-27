@@ -23,5 +23,5 @@ abstract class AbstractAssertionAction implements ActionInterface
         }
     }
 
-    abstract protected function doExecute(AssertionContext $context);
+    abstract protected function doExecute(AssertionContext $context): void;
 }

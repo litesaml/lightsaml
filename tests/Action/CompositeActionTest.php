@@ -134,7 +134,7 @@ EOT;
     }
 
     /**
-     * @return MockObject|ActionInterface
+     * @return ActionInterface&MockObject
      */
     private function getActionMock(): MockObject
     {
@@ -142,7 +142,7 @@ EOT;
     }
 
     /**
-     * @return MockObject|ContextInterface
+     * @return ContextInterface&MockObject
      */
     private function getContextMock(): MockObject
     {

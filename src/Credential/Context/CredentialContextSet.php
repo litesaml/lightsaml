@@ -9,10 +9,11 @@ class CredentialContextSet
     /** @var CredentialContextInterface[] */
     protected array $contexts = [];
 
+    /** @param array<mixed> $contexts */
     public function __construct(array $contexts = [])
     {
         foreach ($contexts as $context) {
-            if (false == $context instanceof CredentialContextInterface) {
+            if (!($context instanceof CredentialContextInterface)) {
                 throw new InvalidArgumentException('Expected CredentialContextInterface');
             }
             $this->contexts[] = $context;

@@ -15,7 +15,7 @@ use LightSaml\Model\Protocol\StatusCode;
  */
 class StatusAction extends AbstractProfileAction
 {
-    protected function doExecute(ProfileContext $context)
+    protected function doExecute(ProfileContext $context): void
     {
         $statusResponse = MessageContextHelper::asStatusResponse($context->getInboundContext());
 

@@ -2,7 +2,6 @@
 
 namespace LightSaml\Model\XmlDSig;
 
-use InvalidArgumentException;
 use LightSaml\Credential\CredentialInterface;
 use LightSaml\Credential\KeyHelper;
 use LightSaml\Error\LightSamlSecurityException;
@@ -28,7 +27,6 @@ abstract class AbstractSignatureReader extends Signature
     /**
      * @param CredentialInterface[] $credentialCandidates
      *
-     * @throws InvalidArgumentException   If element of $credentialCandidates array is not CredentialInterface
      * @throws LightSamlSecurityException If validation fails
      *
      * @return CredentialInterface|null Returns credential that validated the signature or null if validation was not performed
@@ -38,9 +36,6 @@ abstract class AbstractSignatureReader extends Signature
         $lastException = null;
 
         foreach ($credentialCandidates as $credential) {
-            if (false == $credential instanceof CredentialInterface) {
-                throw new InvalidArgumentException('Expected CredentialInterface');
-            }
             if (null == $credential->getPublicKey()) {
                 continue;
             }

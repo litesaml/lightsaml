@@ -33,7 +33,7 @@ class AssertionValidator implements AssertionValidatorInterface
     /**
      * @throws LightSamlValidationException
      */
-    protected function validateAssertionAttributes(Assertion $assertion)
+    protected function validateAssertionAttributes(Assertion $assertion): void
     {
         if (null === $assertion->getVersion() || trim($assertion->getVersion()) === '') {
             throw new LightSamlValidationException('Assertion element must have the Version attribute set.');
@@ -59,7 +59,7 @@ class AssertionValidator implements AssertionValidatorInterface
     /**
      * @throws LightSamlValidationException
      */
-    protected function validateSubject(Assertion $assertion)
+    protected function validateSubject(Assertion $assertion): void
     {
         if (false == $assertion->getSubject()) {
             if (false == $assertion->getAllItems()) {
@@ -75,7 +75,7 @@ class AssertionValidator implements AssertionValidatorInterface
         }
     }
 
-    protected function validateConditions(Assertion $assertion)
+    protected function validateConditions(Assertion $assertion): void
     {
         if (false == $assertion->getConditions()) {
             return;
@@ -104,7 +104,7 @@ class AssertionValidator implements AssertionValidatorInterface
         }
     }
 
-    protected function validateConditionsInterval(Conditions $conditions)
+    protected function validateConditionsInterval(Conditions $conditions): void
     {
         if (
             $conditions->getNotBeforeTimestamp()
@@ -118,7 +118,7 @@ class AssertionValidator implements AssertionValidatorInterface
     /**
      * @throws LightSamlValidationException
      */
-    protected function validateProxyRestriction(ProxyRestriction $item)
+    protected function validateProxyRestriction(ProxyRestriction $item): void
     {
         if (null === $item->getCount() || 0 === $item->getCount() || intval($item->getCount()) !== $item->getCount() || $item->getCount() < 0) {
             throw new LightSamlValidationException('Count attribute of ProxyRestriction MUST BE a non-negative integer');
@@ -136,7 +136,7 @@ class AssertionValidator implements AssertionValidatorInterface
     /**
      * @throws LightSamlValidationException
      */
-    protected function validateAudienceRestriction(AudienceRestriction $item)
+    protected function validateAudienceRestriction(AudienceRestriction $item): void
     {
         if (false == $item->getAllAudience()) {
             return;
@@ -149,7 +149,7 @@ class AssertionValidator implements AssertionValidatorInterface
         }
     }
 
-    protected function validateStatements(Assertion $assertion)
+    protected function validateStatements(Assertion $assertion): void
     {
         if (false == $assertion->getAllItems()) {
             return;

@@ -23,7 +23,7 @@ class ACSUrlAction extends AbstractProfileAction
         parent::__construct($logger);
     }
 
-    protected function doExecute(ProfileContext $context)
+    protected function doExecute(ProfileContext $context): void
     {
         $ownEntityDescriptor = $context->getOwnEntityDescriptor();
 

@@ -10,13 +10,16 @@ use PHPUnit\Framework\Attributes\DataProvider;
 
 class HelperTest extends BaseTestCase
 {
-    protected static $timestamps = [[1412399250, '2014-10-04T05:07:30Z'], [1412368132, '2014-10-03T20:28:52Z'], [1412331547, '2014-10-03T10:19:07Z']];
+    /** @var array<array{int, string}> */
+    protected static array $timestamps = [[1412399250, '2014-10-04T05:07:30Z'], [1412368132, '2014-10-03T20:28:52Z'], [1412331547, '2014-10-03T10:19:07Z']];
 
+    /** @return array<array{int, string}> */
     public static function timestamp2StringProvider(): array
     {
         return self::$timestamps;
     }
 
+    /** @return array<array{string, int}> */
     public static function string2TimestampProvider(): array
     {
         $timestamps = array_merge(
@@ -169,6 +172,7 @@ class HelperTest extends BaseTestCase
         $this->assertTrue(Helper::validateWellFormedUriString(SamlConstants::AUTHN_CONTEXT_PASSWORD));
     }
 
+    /** @return array<array{int, int, int, bool}> */
     public static function notBeforeProvider(): array
     {
         return [[1000, 989, 10, false], [1000, 900, 10, false], [1000, 1100, 10, true], [1000, 990, 10, true]];
@@ -180,6 +184,7 @@ class HelperTest extends BaseTestCase
         $this->assertEquals($expected, Helper::validateNotBefore($notBefore, $now, $allowedSecondsSkew));
     }
 
+    /** @return array<array{int, int, int, bool}> */
     public static function notOnOrAfterProvider(): array
     {
         return [[1000, 900, 10, true], [1000, 1100, 10, false]];

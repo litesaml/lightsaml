@@ -2,7 +2,6 @@
 
 namespace Tests\Action\Profile\Outbound\Message;
 
-use LightSaml\Action\Profile\Outbound\Message\ResolveEndpointBaseAction;
 use LightSaml\Action\Profile\Outbound\Message\ResolveEndpointIdpSsoAction;
 use LightSaml\Context\Profile\ProfileContext;
 use LightSaml\Criteria\CriteriaSet;
@@ -27,10 +26,6 @@ class ResolveEndpointIdpSsoActionTest extends AbstractResolveEndpointAction
         $this->action->execute($context);
     }
 
-    /**
-     *
-     * @return ResolveEndpointBaseAction
-     */
     protected function createAction(LoggerInterface $logger, EndpointResolverInterface $endpointResolver): ResolveEndpointIdpSsoAction
     {
         return new ResolveEndpointIdpSsoAction($logger, $endpointResolver);

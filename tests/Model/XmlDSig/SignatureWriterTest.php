@@ -2,8 +2,8 @@
 
 namespace Tests\Model\XmlDSig;
 
+use LightSaml\Context\Model\DeserializationContext;
 use LightSaml\Meta\SigningOptions;
-use LightSaml\Model\Context\DeserializationContext;
 use LightSaml\Model\XmlDSig\SignatureWriter;
 use LogicException;
 use Tests\BaseTestCase;

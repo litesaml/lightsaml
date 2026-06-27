@@ -18,7 +18,7 @@ class EntityIdResolver extends AbstractQueryableResolver
     {
         $result = [];
         foreach ($criteriaSet->get(EntityIdCriteria::class) as $criteria) {
-            /* @var EntityIdCriteria $criteria */
+            /** @var EntityIdCriteria $criteria */
             $result = array_merge($result, $this->credentialStore->getByEntityId($criteria->getEntityId()));
         }
 

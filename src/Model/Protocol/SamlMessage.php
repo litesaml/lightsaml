@@ -6,14 +6,12 @@ use DateTime;
 use DOMComment;
 use DOMNode;
 use Exception;
-use InvalidArgumentException;
+use LightSaml\Context\Model\DeserializationContext;
+use LightSaml\Context\Model\SerializationContext;
 use LightSaml\Error\LightSamlXmlException;
 use LightSaml\Helper;
 use LightSaml\Model\AbstractSamlModel;
 use LightSaml\Model\Assertion\Issuer;
-use LightSaml\Model\Context\DeserializationContext;
-use LightSaml\Model\Context\SerializationContext;
-use LightSaml\Model\SamlElementInterface;
 use LightSaml\Model\XmlDSig\Signature;
 use LightSaml\Model\XmlDSig\SignatureXmlReader;
 use LightSaml\SamlConstants;
@@ -44,10 +42,6 @@ abstract class SamlMessage extends AbstractSamlModel
      */
     public static function fromXML(string $xml, DeserializationContext $context): AuthnRequest|LogoutRequest|LogoutResponse|Response|SamlMessage
     {
-        if (false == is_string($xml)) {
-            throw new InvalidArgumentException('Expecting string');
-        }
-
         $context->getDocument()->loadXML($xml);
 
         $node = $context->getDocument()->firstChild;
@@ -76,7 +70,7 @@ abstract class SamlMessage extends AbstractSamlModel
 
         if (array_key_exists($rootElementName, $map)) {
             if ($class = $map[$rootElementName]) {
-                /** @var SamlElementInterface $result */
+                /** @var SamlMessage $result */
                 $result = new $class();
             } else {
                 throw new LogicException('Deserialization of %s root element is not implemented');
@@ -90,7 +84,7 @@ abstract class SamlMessage extends AbstractSamlModel
         return $result;
     }
 
-    public function setID(string $id): SamlMessage
+    public function setID(string $id): static
     {
         $this->id = $id;
 
@@ -102,7 +96,7 @@ abstract class SamlMessage extends AbstractSamlModel
         return $this->id;
     }
 
-    public function setIssueInstant(int|string|DateTime $issueInstant): SamlMessage
+    public function setIssueInstant(int|string|DateTime $issueInstant): static
     {
         $this->issueInstant = Helper::getTimestampFromValue($issueInstant);
 
@@ -132,7 +126,7 @@ abstract class SamlMessage extends AbstractSamlModel
         return null;
     }
 
-    public function setVersion(string $version): SamlMessage
+    public function setVersion(string $version): static
     {
         $this->version = $version;
 
@@ -144,7 +138,7 @@ abstract class SamlMessage extends AbstractSamlModel
         return $this->version;
     }
 
-    public function setDestination(?string $destination): SamlMessage
+    public function setDestination(?string $destination): static
     {
         $this->destination = $destination;
 
@@ -156,7 +150,7 @@ abstract class SamlMessage extends AbstractSamlModel
         return $this->destination;
     }
 
-    public function setIssuer(?Issuer $issuer = null): SamlMessage
+    public function setIssuer(?Issuer $issuer = null): static
     {
         $this->issuer = $issuer;
 
@@ -168,7 +162,7 @@ abstract class SamlMessage extends AbstractSamlModel
         return $this->issuer;
     }
 
-    public function setConsent(?string $consent): StatusResponse
+    public function setConsent(?string $consent): static
     {
         $this->consent = $consent;
 
@@ -180,7 +174,7 @@ abstract class SamlMessage extends AbstractSamlModel
         return $this->consent;
     }
 
-    public function setSignature(?Signature $signature = null): SamlMessage
+    public function setSignature(?Signature $signature = null): static
     {
         $this->signature = $signature;
 
@@ -192,7 +186,7 @@ abstract class SamlMessage extends AbstractSamlModel
         return $this->signature;
     }
 
-    public function setRelayState(?string $relayState): SamlMessage
+    public function setRelayState(?string $relayState): static
     {
         $this->relayState = $relayState;
 

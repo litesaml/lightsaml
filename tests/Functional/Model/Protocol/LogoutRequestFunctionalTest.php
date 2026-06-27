@@ -2,7 +2,7 @@
 
 namespace Tests\Functional\Model\Protocol;
 
-use LightSaml\Model\Context\DeserializationContext;
+use LightSaml\Context\Model\DeserializationContext;
 use LightSaml\Model\Protocol\LogoutRequest;
 use LightSaml\SamlConstants;
 use Tests\BaseTestCase;

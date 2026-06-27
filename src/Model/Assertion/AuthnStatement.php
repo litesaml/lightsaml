@@ -4,9 +4,9 @@ namespace LightSaml\Model\Assertion;
 
 use DateTime;
 use DOMNode;
+use LightSaml\Context\Model\DeserializationContext;
+use LightSaml\Context\Model\SerializationContext;
 use LightSaml\Helper;
-use LightSaml\Model\Context\DeserializationContext;
-use LightSaml\Model\Context\SerializationContext;
 use LightSaml\SamlConstants;
 
 class AuthnStatement extends AbstractStatement

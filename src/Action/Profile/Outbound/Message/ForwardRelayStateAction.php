@@ -7,7 +7,7 @@ use LightSaml\Context\Profile\ProfileContext;
 
 class ForwardRelayStateAction extends AbstractProfileAction
 {
-    protected function doExecute(ProfileContext $context)
+    protected function doExecute(ProfileContext $context): void
     {
         if (null == $context->getInboundContext()->getMessage()) {
             return;

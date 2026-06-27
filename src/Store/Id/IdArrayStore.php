@@ -6,6 +6,7 @@ use DateTime;
 
 class IdArrayStore implements IdStoreInterface
 {
+    /** @var array<string, array<string, DateTime>> */
     protected array $store = [];
 
     public function set(string $entityId, string $id, DateTime $expiryTime): void

@@ -5,10 +5,10 @@ namespace LightSaml\Model\Assertion;
 use DateTime;
 use DOMNode;
 use InvalidArgumentException;
+use LightSaml\Context\Model\DeserializationContext;
+use LightSaml\Context\Model\SerializationContext;
 use LightSaml\Helper;
 use LightSaml\Model\AbstractSamlModel;
-use LightSaml\Model\Context\DeserializationContext;
-use LightSaml\Model\Context\SerializationContext;
 use LightSaml\Model\XmlDSig\Signature;
 use LightSaml\Model\XmlDSig\SignatureXmlReader;
 use LightSaml\SamlConstants;
@@ -253,7 +253,7 @@ class Assertion extends AbstractSamlModel
         return $this->getAllAuthnStatements() && $this->getSubject() && $this->getSubject()->getBearerConfirmations();
     }
 
-    protected function prepareForXml()
+    protected function prepareForXml(): void
     {
         if (false == $this->getId()) {
             $this->setId(Helper::generateID());

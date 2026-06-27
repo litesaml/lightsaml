@@ -12,7 +12,7 @@ class LoggableAction extends WrappedAction
         parent::__construct($action);
     }
 
-    protected function beforeAction(ContextInterface $context)
+    protected function beforeAction(ContextInterface $context): void
     {
         $this->logger->debug(sprintf('Executing action "%s"', $this->action::class), [
             'context' => $context,
@@ -20,7 +20,7 @@ class LoggableAction extends WrappedAction
         ]);
     }
 
-    protected function afterAction(ContextInterface $context)
+    protected function afterAction(ContextInterface $context): void
     {
     }
 }
