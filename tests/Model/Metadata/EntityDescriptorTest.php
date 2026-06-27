@@ -3,10 +3,10 @@
 namespace Tests\Model\Metadata;
 
 use LightSaml\ClaimTypes;
+use LightSaml\Context\Model\DeserializationContext;
+use LightSaml\Context\Model\SerializationContext;
 use LightSaml\Credential\X509Certificate;
 use LightSaml\Model\Assertion\Attribute;
-use LightSaml\Model\Context\DeserializationContext;
-use LightSaml\Model\Context\SerializationContext;
 use LightSaml\Model\Metadata\AssertionConsumerService;
 use LightSaml\Model\Metadata\ContactPerson;
 use LightSaml\Model\Metadata\EntityDescriptor;

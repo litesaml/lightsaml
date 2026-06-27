@@ -12,7 +12,6 @@ use LightSaml\Model\Metadata\SingleSignOnService;
 use LightSaml\Model\Metadata\SpSsoDescriptor;
 use LightSaml\Provider\EntityDescriptor\EntityDescriptorProviderInterface;
 use LightSaml\SamlConstants;
-use LogicException;
 
 class SimpleEntityDescriptorBuilder implements EntityDescriptorProviderInterface
 {
@@ -23,7 +22,7 @@ class SimpleEntityDescriptorBuilder implements EntityDescriptorProviderInterface
      * @param string[]      $ssoBindings
      * @param string[]|null $use
      */
-    public function __construct(protected string $entityId, protected string $acsUrl, protected string $ssoUrl, protected X509Certificate $ownCertificate, protected array $acsBindings = [SamlConstants::BINDING_SAML2_HTTP_POST], protected array $ssoBindings = [SamlConstants::BINDING_SAML2_HTTP_POST, SamlConstants::BINDING_SAML2_HTTP_REDIRECT], protected ?array $use = [KeyDescriptor::USE_ENCRYPTION, KeyDescriptor::USE_SIGNING])
+    public function __construct(protected string $entityId, protected ?string $acsUrl, protected ?string $ssoUrl, protected X509Certificate $ownCertificate, protected array $acsBindings = [SamlConstants::BINDING_SAML2_HTTP_POST], protected array $ssoBindings = [SamlConstants::BINDING_SAML2_HTTP_POST, SamlConstants::BINDING_SAML2_HTTP_REDIRECT], protected ?array $use = [KeyDescriptor::USE_ENCRYPTION, KeyDescriptor::USE_SIGNING])
     {
     }
 
@@ -31,9 +30,6 @@ class SimpleEntityDescriptorBuilder implements EntityDescriptorProviderInterface
     {
         if (!$this->entityDescriptor instanceof EntityDescriptor) {
             $this->entityDescriptor = $this->getEntityDescriptor();
-            if (false === $this->entityDescriptor instanceof EntityDescriptor) {
-                throw new LogicException('Expected EntityDescriptor');
-            }
         }
 
         return $this->entityDescriptor;
@@ -99,7 +95,7 @@ class SimpleEntityDescriptorBuilder implements EntityDescriptorProviderInterface
         return $idpSso;
     }
 
-    protected function addKeyDescriptors(RoleDescriptor $descriptor)
+    protected function addKeyDescriptors(RoleDescriptor $descriptor): void
     {
         if ($this->use) {
             foreach ($this->use as $use) {

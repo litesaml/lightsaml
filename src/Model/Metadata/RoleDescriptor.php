@@ -5,10 +5,10 @@ namespace LightSaml\Model\Metadata;
 use DateTime;
 use DOMNode;
 use InvalidArgumentException;
+use LightSaml\Context\Model\DeserializationContext;
+use LightSaml\Context\Model\SerializationContext;
 use LightSaml\Helper;
 use LightSaml\Model\AbstractSamlModel;
-use LightSaml\Model\Context\DeserializationContext;
-use LightSaml\Model\Context\SerializationContext;
 use LightSaml\Model\XmlDSig\Signature;
 use LightSaml\Model\XmlDSig\SignatureXmlReader;
 use LightSaml\SamlConstants;
@@ -40,7 +40,7 @@ abstract class RoleDescriptor extends AbstractSamlModel
     /**
      * @throws InvalidArgumentException
      */
-    public function setCacheDuration(?string $cacheDuration): RoleDescriptor
+    public function setCacheDuration(?string $cacheDuration): static
     {
         if ($cacheDuration !== null) {
             Helper::validateDurationString($cacheDuration);
@@ -56,7 +56,7 @@ abstract class RoleDescriptor extends AbstractSamlModel
         return $this->cacheDuration;
     }
 
-    public function addContactPerson(ContactPerson $contactPerson): RoleDescriptor
+    public function addContactPerson(ContactPerson $contactPerson): static
     {
         if (false == is_array($this->contactPersons)) {
             $this->contactPersons = [];
@@ -74,7 +74,7 @@ abstract class RoleDescriptor extends AbstractSamlModel
         return $this->contactPersons;
     }
 
-    public function setErrorURL(?string $errorURL): RoleDescriptor
+    public function setErrorURL(?string $errorURL): static
     {
         $this->errorURL = (string) $errorURL;
 
@@ -86,7 +86,7 @@ abstract class RoleDescriptor extends AbstractSamlModel
         return $this->errorURL;
     }
 
-    public function setID(?string $id): RoleDescriptor
+    public function setID(?string $id): static
     {
         $this->id = (string) $id;
 
@@ -98,7 +98,7 @@ abstract class RoleDescriptor extends AbstractSamlModel
         return $this->id;
     }
 
-    public function addKeyDescriptor(KeyDescriptor $keyDescriptor): RoleDescriptor
+    public function addKeyDescriptor(KeyDescriptor $keyDescriptor): static
     {
         if (false == is_array($this->keyDescriptors)) {
             $this->keyDescriptors = [];
@@ -147,7 +147,7 @@ abstract class RoleDescriptor extends AbstractSamlModel
         return null;
     }
 
-    public function addOrganization(Organization $organization): RoleDescriptor
+    public function addOrganization(Organization $organization): static
     {
         if (false == is_array($this->organizations)) {
             $this->organizations = [];
@@ -165,7 +165,7 @@ abstract class RoleDescriptor extends AbstractSamlModel
         return $this->organizations;
     }
 
-    public function setProtocolSupportEnumeration(string $protocolSupportEnumeration): RoleDescriptor
+    public function setProtocolSupportEnumeration(string $protocolSupportEnumeration): static
     {
         $this->protocolSupportEnumeration = $protocolSupportEnumeration;
 
@@ -177,7 +177,7 @@ abstract class RoleDescriptor extends AbstractSamlModel
         return $this->protocolSupportEnumeration;
     }
 
-    public function addSignature(Signature $signature): RoleDescriptor
+    public function addSignature(Signature $signature): static
     {
         if (false == is_array($this->signatures)) {
             $this->signatures = [];
@@ -195,7 +195,7 @@ abstract class RoleDescriptor extends AbstractSamlModel
         return $this->signatures;
     }
 
-    public function setValidUntil(int|string|DateTime $validUntil): RoleDescriptor
+    public function setValidUntil(int|string|DateTime $validUntil): static
     {
         $this->validUntil = Helper::getTimestampFromValue($validUntil);
 

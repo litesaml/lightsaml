@@ -24,14 +24,12 @@ class MetadataFilterResolver extends AbstractQueryableResolver
 
         $result = [];
         foreach ($criteriaSet->get(MetadataCriteria::class) as $criteria) {
-            /* @var MetadataCriteria $criteria */
             foreach ($arrCredentials as $credential) {
-                /** @var MetadataCredentialContext $metadataContext */
                 $metadataContext = $credential->getCredentialContext()->get(MetadataCredentialContext::class);
                 if (
-                    false == $metadataContext
-                    || MetadataCriteria::TYPE_IDP == $criteria->getMetadataType() && $metadataContext->getRoleDescriptor() instanceof IdpSsoDescriptor
-                    || MetadataCriteria::TYPE_SP == $criteria->getMetadataType() && $metadataContext->getRoleDescriptor() instanceof SpSsoDescriptor
+                    null === $metadataContext
+                    || ($metadataContext instanceof MetadataCredentialContext && MetadataCriteria::TYPE_IDP == $criteria->getMetadataType() && $metadataContext->getRoleDescriptor() instanceof IdpSsoDescriptor)
+                    || ($metadataContext instanceof MetadataCredentialContext && MetadataCriteria::TYPE_SP == $criteria->getMetadataType() && $metadataContext->getRoleDescriptor() instanceof SpSsoDescriptor)
                 ) {
                     $result[] = $credential;
                 }

@@ -38,6 +38,7 @@ class SsoState
     /**
      * @deprecated Since 1.2, to be removed in 2.0. Use getParameters() instead
      */
+    /** @return array<string, mixed> */
     public function getOptions(): array
     {
         return $this->parameters->all();
@@ -103,7 +104,8 @@ class SsoState
      *
      * @return SsoSessionState[]
      */
-    public function filter($idpEntityId, $spEntityId, $nameId, $nameIdFormat, $sessionIndex): array
+    /** @return SsoSessionState[] */
+    public function filter(?string $idpEntityId, ?string $spEntityId, ?string $nameId, ?string $nameIdFormat, ?string $sessionIndex): array
     {
         $result = [];
 
@@ -139,6 +141,7 @@ class SsoState
         ];
     }
 
+    /** @param array<int, mixed> $data */
     public function __unserialize(array $data): void
     {
         // add a few extra elements in the array to ensure that we have enough keys when unserializing

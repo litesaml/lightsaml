@@ -2,9 +2,9 @@
 
 namespace LightSaml\Builder\Action;
 
-use LightSaml\Action\ActionInterface;
+use LightSaml\Action\CompositeAction;
 
 interface ActionBuilderInterface
 {
-    public function build(): ActionInterface;
+    public function build(): CompositeAction;
 }

@@ -15,7 +15,7 @@ class AssertionIssuerFormatValidatorAction extends AbstractAssertionAction
         parent::__construct($logger);
     }
 
-    protected function doExecute(AssertionContext $context)
+    protected function doExecute(AssertionContext $context): void
     {
         if (null == $context->getAssertion()->getIssuer()) {
             $message = 'Assertion element must have an issuer element';

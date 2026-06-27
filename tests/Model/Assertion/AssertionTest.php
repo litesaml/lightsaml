@@ -12,6 +12,7 @@ use Tests\BaseTestCase;
 
 class AssertionTest extends BaseTestCase
 {
+    /** @return array<array{string, string, bool, Assertion}> */
     public static function equals_provider(): array
     {
         return [
@@ -30,6 +31,7 @@ class AssertionTest extends BaseTestCase
         $this->assertEquals($expectedValue, $assertion->equals($nameId, $format));
     }
 
+    /** @return array<array{string, bool, Assertion}> */
     public static function has_session_index_provider(): array
     {
         return [
@@ -49,6 +51,7 @@ class AssertionTest extends BaseTestCase
         $this->assertEquals($expectedValue, $assertion->hasSessionIndex($sessionIndex));
     }
 
+    /** @return array<array{bool, Assertion}> */
     public static function has_any_session_index_provider(): array
     {
         return [

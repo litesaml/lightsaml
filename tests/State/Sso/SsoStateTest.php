@@ -17,6 +17,7 @@ class SsoStateTest extends BaseTestCase
         $this->assertTrue(true);
     }
 
+    /** @return array<array{string}> */
     public static function property_getter_setter_provider(): array
     {
         return [
@@ -238,6 +239,10 @@ class SsoStateTest extends BaseTestCase
         $this->assertEquals($session2->getIdpEntityId(), $sessions[0]->getIdpEntityId());
     }
 
+    /**
+     * @param array<string> $arrIdp
+     * @param array<string> $arrSp
+     */
     private function buildAllStateCombinations(array $arrIdp, array $arrSp): SsoState
     {
         $state = new SsoState();

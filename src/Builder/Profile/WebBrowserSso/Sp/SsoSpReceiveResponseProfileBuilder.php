@@ -2,7 +2,6 @@
 
 namespace LightSaml\Builder\Profile\WebBrowserSso\Sp;
 
-use LightSaml\Builder\Action\ActionBuilderInterface;
 use LightSaml\Builder\Action\Profile\SingleSignOn\Sp\SsoSpReceiveResponseActionBuilder;
 use LightSaml\Builder\Action\Profile\SingleSignOn\Sp\SsoSpValidateAssertionActionBuilder;
 use LightSaml\Builder\Profile\AbstractProfileBuilder;
@@ -21,9 +20,6 @@ class SsoSpReceiveResponseProfileBuilder extends AbstractProfileBuilder
         return ProfileContext::ROLE_SP;
     }
 
-    /**
-     * @return ActionBuilderInterface
-     */
     protected function getActionBuilder(): SsoSpReceiveResponseActionBuilder
     {
         return new SsoSpReceiveResponseActionBuilder(

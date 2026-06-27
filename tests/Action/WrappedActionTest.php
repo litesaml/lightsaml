@@ -61,7 +61,7 @@ class WrappedActionTest extends BaseTestCase
     }
 
     /**
-     * @return MockObject|ContextInterface
+     * @return ContextInterface&MockObject
      */
     private function getContextMock(): MockObject
     {

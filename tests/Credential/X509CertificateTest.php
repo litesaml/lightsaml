@@ -34,6 +34,7 @@ class X509CertificateTest extends BaseTestCase
         $certificate->parse();
     }
 
+    /** @return array<array{string}> */
     public static function throws_exception_when_data_not_set_provider(): array
     {
         return [

@@ -95,7 +95,7 @@ class AssertionActionTest extends BaseTestCase
     }
 
     /**
-     * @return MockObject|ActionInterface
+     * @return ActionInterface&MockObject
      */
     private function getActionMock(): MockObject
     {

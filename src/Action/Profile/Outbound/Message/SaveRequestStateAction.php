@@ -18,16 +18,17 @@ class SaveRequestStateAction extends AbstractProfileAction
         parent::__construct($logger);
     }
 
-    protected function doExecute(ProfileContext $context)
+    protected function doExecute(ProfileContext $context): void
     {
         $message = MessageContextHelper::asSamlMessage($context->getOutboundContext());
 
         $state = new RequestState();
         $state->setId($message->getID());
 
-        $partyEntityId = $context->getPartyEntityContext() ? $context->getPartyEntityContext()->getEntityId() : '';
-        if ($context->getPartyEntityContext() && $context->getPartyEntityContext()->getEntityDescriptor()) {
-            $partyEntityId = $context->getPartyEntityContext()->getEntityDescriptor()->getEntityID();
+        $partyEntityContext = $context->getPartyEntityContext();
+        $partyEntityId = $partyEntityContext->getEntityId() ?? '';
+        if ($partyEntityContext->getEntityDescriptor()) {
+            $partyEntityId = $partyEntityContext->getEntityDescriptor()->getEntityID();
         }
 
         $state->getParameters()->add([

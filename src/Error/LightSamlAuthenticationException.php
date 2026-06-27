@@ -3,7 +3,6 @@
 namespace LightSaml\Error;
 
 use Exception;
-use LightSaml\Model\Protocol\Response;
 use LightSaml\Model\Protocol\StatusResponse;
 
 class LightSamlAuthenticationException extends LightSamlValidationException
@@ -13,9 +12,6 @@ class LightSamlAuthenticationException extends LightSamlValidationException
         parent::__construct($message, $code, $previous);
     }
 
-    /**
-     * @return Response
-     */
     public function getResponse(): StatusResponse
     {
         return $this->response;

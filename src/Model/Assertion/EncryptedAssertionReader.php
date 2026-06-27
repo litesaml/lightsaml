@@ -3,7 +3,7 @@
 namespace LightSaml\Model\Assertion;
 
 use DOMElement;
-use LightSaml\Model\Context\DeserializationContext;
+use LightSaml\Context\Model\DeserializationContext;
 use RobRichards\XMLSecLibs\XMLSecurityKey;
 
 class EncryptedAssertionReader extends EncryptedElementReader

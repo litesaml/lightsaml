@@ -65,6 +65,7 @@ class MessageSignatureValidatorActionTest extends BaseTestCase
         $action->execute($context);
     }
 
+    /** @return array<array{string, string}> */
     public static function success_on_validator_returns_credential_provider(): array
     {
         return [
@@ -137,7 +138,7 @@ class MessageSignatureValidatorActionTest extends BaseTestCase
     }
 
     /**
-     * @return MockObject|SignatureValidatorInterface
+     * @return SignatureValidatorInterface&MockObject
      */
     private function getSignatureValidatorMock(): MockObject
     {
@@ -145,7 +146,7 @@ class MessageSignatureValidatorActionTest extends BaseTestCase
     }
 
     /**
-     * @return MockObject|CredentialInterface
+     * @return CredentialInterface&MockObject
      */
     private function getCredentialMock(): MockObject
     {

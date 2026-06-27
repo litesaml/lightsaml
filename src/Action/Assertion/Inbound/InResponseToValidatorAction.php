@@ -20,7 +20,7 @@ class InResponseToValidatorAction extends AbstractAssertionAction
         parent::__construct($logger);
     }
 
-    protected function doExecute(AssertionContext $context)
+    protected function doExecute(AssertionContext $context): void
     {
         if (!$context->getAssertion()->getSubject() instanceof Subject) {
             return;

@@ -93,7 +93,7 @@ class IssuerValidatorActionTest extends BaseTestCase
     }
 
     /**
-     * @return MockObject|NameIdValidatorInterface
+     * @return NameIdValidatorInterface&MockObject
      */
     public function getNameIdValidatorMock(): MockObject
     {

@@ -4,7 +4,7 @@ namespace LightSaml\Model\Assertion;
 
 use DOMElement;
 use DOMNode;
-use LightSaml\Model\Context\SerializationContext;
+use LightSaml\Context\Model\SerializationContext;
 use LightSaml\SamlConstants;
 
 class EncryptedAssertionWriter extends EncryptedElementWriter

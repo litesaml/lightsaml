@@ -3,6 +3,7 @@
 namespace Tests\Model\Protocol;
 
 use LightSaml\ClaimTypes;
+use LightSaml\Context\Model\SerializationContext;
 use LightSaml\Credential\KeyHelper;
 use LightSaml\Credential\X509Certificate;
 use LightSaml\Meta\SigningOptions;
@@ -18,7 +19,6 @@ use LightSaml\Model\Assertion\NameID;
 use LightSaml\Model\Assertion\Subject;
 use LightSaml\Model\Assertion\SubjectConfirmation;
 use LightSaml\Model\Assertion\SubjectConfirmationData;
-use LightSaml\Model\Context\SerializationContext;
 use LightSaml\Model\Protocol\Response;
 use LightSaml\Model\XmlDSig\SignatureWriter;
 use LightSaml\SamlConstants;

@@ -6,27 +6,33 @@ use ArrayIterator;
 use Countable;
 use IteratorAggregate;
 
+/** @implements IteratorAggregate<string, mixed> */
 class ParameterBag implements IteratorAggregate, Countable
 {
+    /** @param array<string, mixed> $parameters */
     public function __construct(protected array $parameters = [])
     {
     }
 
+    /** @return array<string, mixed> */
     public function all(): array
     {
         return $this->parameters;
     }
 
+    /** @return array<int, string> */
     public function keys(): array
     {
         return array_keys($this->parameters);
     }
 
+    /** @param array<string, mixed> $parameters */
     public function replace(array $parameters = []): void
     {
         $this->parameters = $parameters;
     }
 
+    /** @param array<string, mixed> $parameters */
     public function add(array $parameters = []): void
     {
         $this->parameters = array_replace($this->parameters, $parameters);
@@ -52,6 +58,7 @@ class ParameterBag implements IteratorAggregate, Countable
         unset($this->parameters[$key]);
     }
 
+    /** @return ArrayIterator<string, mixed> */
     public function getIterator(): ArrayIterator
     {
         return new ArrayIterator($this->parameters);
@@ -62,11 +69,13 @@ class ParameterBag implements IteratorAggregate, Countable
         return count($this->parameters);
     }
 
+    /** @return array<string, mixed> */
     public function __serialize(): array
     {
         return $this->parameters;
     }
 
+    /** @param array<string, mixed> $serialized */
     public function __unserialize(array $serialized): void
     {
         $this->parameters = $serialized;

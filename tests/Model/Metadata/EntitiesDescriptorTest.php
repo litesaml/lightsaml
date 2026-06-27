@@ -4,8 +4,8 @@ namespace Tests\Model\Metadata;
 
 use DOMXPath;
 use InvalidArgumentException;
-use LightSaml\Model\Context\DeserializationContext;
-use LightSaml\Model\Context\SerializationContext;
+use LightSaml\Context\Model\DeserializationContext;
+use LightSaml\Context\Model\SerializationContext;
 use LightSaml\Model\Metadata\EntitiesDescriptor;
 use LightSaml\Model\Metadata\EntityDescriptor;
 use LightSaml\Model\SamlElementInterface;

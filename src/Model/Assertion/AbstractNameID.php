@@ -3,10 +3,10 @@
 namespace LightSaml\Model\Assertion;
 
 use DOMNode;
+use LightSaml\Context\Model\DeserializationContext;
+use LightSaml\Context\Model\SerializationContext;
 use LightSaml\Error\LightSamlModelException;
 use LightSaml\Model\AbstractSamlModel;
-use LightSaml\Model\Context\DeserializationContext;
-use LightSaml\Model\Context\SerializationContext;
 use LightSaml\SamlConstants;
 
 abstract class AbstractNameID extends AbstractSamlModel
@@ -21,7 +21,7 @@ abstract class AbstractNameID extends AbstractSamlModel
     {
     }
 
-    public function setFormat(?string $format): AbstractNameID
+    public function setFormat(?string $format): static
     {
         $this->format = (string) $format;
 
@@ -33,7 +33,7 @@ abstract class AbstractNameID extends AbstractSamlModel
         return $this->format;
     }
 
-    public function setNameQualifier(?string $nameQualifier): AbstractNameID
+    public function setNameQualifier(?string $nameQualifier): static
     {
         $this->nameQualifier = (string) $nameQualifier;
 
@@ -45,7 +45,7 @@ abstract class AbstractNameID extends AbstractSamlModel
         return $this->nameQualifier;
     }
 
-    public function setSPNameQualifier(?string $spNameQualifier): AbstractNameID
+    public function setSPNameQualifier(?string $spNameQualifier): static
     {
         $this->spNameQualifier = (string) $spNameQualifier;
 
@@ -57,7 +57,7 @@ abstract class AbstractNameID extends AbstractSamlModel
         return $this->spNameQualifier;
     }
 
-    public function setSPProvidedID(?string $spProvidedId): AbstractNameID
+    public function setSPProvidedID(?string $spProvidedId): static
     {
         $this->spProvidedId = (string) $spProvidedId;
 
@@ -69,7 +69,7 @@ abstract class AbstractNameID extends AbstractSamlModel
         return $this->spProvidedId;
     }
 
-    public function setValue(string $value): AbstractNameID
+    public function setValue(string $value): static
     {
         $this->value = $value;
 
@@ -81,7 +81,7 @@ abstract class AbstractNameID extends AbstractSamlModel
         return $this->value;
     }
 
-    protected function prepareForXml()
+    protected function prepareForXml(): void
     {
         if (false == $this->getValue()) {
             throw new LightSamlModelException('NameID value not set');

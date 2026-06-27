@@ -193,7 +193,7 @@ class ResolvePartyEntityIdActionTest extends BaseTestCase
     }
 
     /**
-     * @return MockObject|TrustOptionsStoreInterface
+     * @return TrustOptionsStoreInterface&MockObject
      */
     private function getTrustOptionsStore(): MockObject
     {

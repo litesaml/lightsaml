@@ -6,7 +6,6 @@ use Exception;
 use LightSaml\Action\ActionInterface;
 use LightSaml\Action\CatchableErrorAction;
 use LightSaml\Context\AbstractContext;
-use LightSaml\Context\ContextInterface;
 use LightSaml\Context\Profile\ExceptionContext;
 use LightSaml\Context\Profile\ProfileContexts;
 use PHPUnit\Framework\MockObject\MockObject;
@@ -62,7 +61,7 @@ class CatchableErrorActionTest extends BaseTestCase
     }
 
     /**
-     * @return MockObject|ActionInterface
+     * @return ActionInterface&MockObject
      */
     private function getActionMock(): MockObject
     {
@@ -70,7 +69,7 @@ class CatchableErrorActionTest extends BaseTestCase
     }
 
     /**
-     * @return MockObject|ContextInterface
+     * @return AbstractContext&MockObject
      */
     private function getContextMock(): MockObject
     {

@@ -3,9 +3,9 @@
 namespace Tests\Functional\Model\Protocol;
 
 use LightSaml\ClaimTypes;
+use LightSaml\Context\Model\DeserializationContext;
 use LightSaml\Credential\KeyHelper;
 use LightSaml\Credential\X509Certificate;
-use LightSaml\Model\Context\DeserializationContext;
 use LightSaml\Model\Protocol\Response;
 use LightSaml\Model\XmlDSig\SignatureXmlReader;
 use LightSaml\SamlConstants;

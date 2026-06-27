@@ -42,7 +42,7 @@ class XsdValidator
                     default => 'Unknown',
                 };
 
-                return new XsdError($level, $error->code, $error->message, $error->line, $error->column);
+                return new XsdError($level, (string) $error->code, $error->message, (string) $error->line, (string) $error->column);
             }, $errorBag->getErrors());
         } catch (UnexpectedSchemaException $e) {
             throw new LightSamlXmlException($e->getMessage());

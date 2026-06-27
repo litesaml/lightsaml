@@ -10,7 +10,6 @@ use LightSaml\SamlConstants;
 use LogicException;
 use Nyholm\Psr7\Factory\Psr17Factory;
 use Psr\EventDispatcher\EventDispatcherInterface;
-use Psr\Http\Message\MessageInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Tests\BaseTestCase;
 
@@ -167,9 +166,12 @@ class BindingFactoryTest extends BaseTestCase
         return $factory->createServerRequest('GET', '/')->withQueryParams(['SAMLart' => 'request']);
     }
 
-    private function createSoapRequest(): MessageInterface
+    private function createSoapRequest(): ServerRequestInterface
     {
         $factory = new Psr17Factory();
-        return $factory->createServerRequest('POST', '/')->withHeader('Content-Type', 'text/xml; charset=utf-8');
+        $request = $factory->createServerRequest('POST', '/')->withHeader('Content-Type', 'text/xml; charset=utf-8');
+        assert($request instanceof ServerRequestInterface);
+
+        return $request;
     }
 }

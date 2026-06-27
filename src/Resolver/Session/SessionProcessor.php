@@ -4,7 +4,6 @@ namespace LightSaml\Resolver\Session;
 
 use DateTime;
 use DateTimeZone;
-use InvalidArgumentException;
 use LightSaml\Model\Assertion\Assertion;
 use LightSaml\Provider\TimeProvider\TimeProviderInterface;
 use LightSaml\State\Sso\SsoSessionState;
@@ -26,12 +25,8 @@ class SessionProcessor implements SessionProcessorInterface
         $ssoState = $this->ssoStateStore->get();
 
         foreach ($assertions as $assertion) {
-            if ($assertion instanceof Assertion) {
-                if ($this->supportsSession($assertion)) {
-                    $this->checkSession($ownEntityId, $partyEntityId, $ssoState, $assertion, $now);
-                }
-            } else {
-                throw new InvalidArgumentException('Expected Assertion');
+            if ($this->supportsSession($assertion)) {
+                $this->checkSession($ownEntityId, $partyEntityId, $ssoState, $assertion, $now);
             }
         }
 
@@ -47,7 +42,7 @@ class SessionProcessor implements SessionProcessorInterface
         ;
     }
 
-    protected function checkSession(string $ownEntityId, string $partyEntityId, SsoState $ssoState, Assertion $assertion, DateTime $now)
+    protected function checkSession(string $ownEntityId, string $partyEntityId, SsoState $ssoState, Assertion $assertion, DateTime $now): void
     {
         $sessions = $this->filterSessions($ssoState, $assertion, $ownEntityId, $partyEntityId);
 
@@ -78,7 +73,7 @@ class SessionProcessor implements SessionProcessorInterface
     /**
      * @param SsoSessionState[] $sessions
      */
-    protected function updateLastAuthn(array $sessions, DateTime $now)
+    protected function updateLastAuthn(array $sessions, DateTime $now): void
     {
         foreach ($sessions as $session) {
             $session->setLastAuthOn($now);

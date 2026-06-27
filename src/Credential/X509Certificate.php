@@ -10,6 +10,7 @@ use RobRichards\XMLSecLibs\XMLSecurityKey;
 
 class X509Certificate
 {
+    /** @var array<string, string> */
     private static array $typeMap = [
         'RSA-SHA1' => XMLSecurityKey::RSA_SHA1,
         'RSA-SHA256' => XMLSecurityKey::RSA_SHA256,
@@ -19,6 +20,7 @@ class X509Certificate
 
     protected string $data = '';
 
+    /** @var array<string, mixed>|null */
     protected ?array $info = null;
 
     private ?string $signatureAlgorithm = null;
@@ -157,6 +159,7 @@ class X509Certificate
     /**
      * @throws LightSamlException
      */
+    /** @return array<string, string|array<string, string>> */
     public function getSubject(): array
     {
         if (false == $this->info) {
@@ -169,6 +172,7 @@ class X509Certificate
     /**
      * @throws LightSamlException
      */
+    /** @return array<string, string|array<string, string>> */
     public function getIssuer(): array
     {
         if (false == $this->info) {
@@ -205,6 +209,7 @@ class X509Certificate
     /**
      * @throws LightSamlException
      */
+    /** @return array<string, mixed> */
     public function getInfo(): array
     {
         if (false == $this->info) {

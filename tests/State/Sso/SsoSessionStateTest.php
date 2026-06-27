@@ -17,6 +17,7 @@ class SsoSessionStateTest extends BaseTestCase
         $this->assertTrue(true);
     }
 
+    /** @return array<array{string}> */
     public static function property_getter_setter_provider(): array
     {
         return [

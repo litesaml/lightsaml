@@ -35,7 +35,7 @@ class RepeatedIdValidatorAction extends AbstractAssertionAction
     /**
      * @throws LightSamlContextException
      */
-    protected function validateBearerAssertion(AssertionContext $context)
+    protected function validateBearerAssertion(AssertionContext $context): void
     {
         if (null == $context->getAssertion()->getId()) {
             $message = 'Bearer Assertion must have ID attribute';

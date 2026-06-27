@@ -54,7 +54,7 @@ class AbstractCredentialTest extends BaseTestCase
     }
 
     /**
-     * @return MockObject|AbstractCredential
+     * @return AbstractCredential&MockObject
      */
     private function getAbstractCredentialMock(): MockObject
     {

@@ -18,7 +18,7 @@ class AssertBindingTypeAction extends AbstractProfileAction
         parent::__construct($logger);
     }
 
-    protected function doExecute(ProfileContext $context)
+    protected function doExecute(ProfileContext $context): void
     {
         if (false === in_array($context->getInboundContext()->getBindingType(), $this->expectedBindingTypes, true)) {
             $message = sprintf(

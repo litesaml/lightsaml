@@ -25,5 +25,5 @@ abstract class AbstractProfileAction implements ActionInterface
         }
     }
 
-    abstract protected function doExecute(ProfileContext $context);
+    abstract protected function doExecute(ProfileContext $context): void;
 }

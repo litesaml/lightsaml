@@ -39,7 +39,7 @@ class ActionLogWrapperTest extends BaseTestCase
     }
 
     /**
-     * @return MockObject|ActionInterface
+     * @return ActionInterface&MockObject
      */
     private function getActionMock(): MockObject
     {
@@ -47,7 +47,7 @@ class ActionLogWrapperTest extends BaseTestCase
     }
 
     /**
-     * @return MockObject|ContextInterface
+     * @return ContextInterface&MockObject
      */
     private function getContextMock(): MockObject
     {

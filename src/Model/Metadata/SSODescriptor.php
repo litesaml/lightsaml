@@ -3,8 +3,8 @@
 namespace LightSaml\Model\Metadata;
 
 use DOMNode;
-use LightSaml\Model\Context\DeserializationContext;
-use LightSaml\Model\Context\SerializationContext;
+use LightSaml\Context\Model\DeserializationContext;
+use LightSaml\Context\Model\SerializationContext;
 use LightSaml\SamlConstants;
 
 abstract class SSODescriptor extends RoleDescriptor
@@ -15,7 +15,7 @@ abstract class SSODescriptor extends RoleDescriptor
     /** @var string[]|null */
     protected ?array $nameIDFormats = null;
 
-    public function addSingleLogoutService(SingleLogoutService $singleLogoutService): SSODescriptor
+    public function addSingleLogoutService(SingleLogoutService $singleLogoutService): static
     {
         $this->singleLogoutServices[] = $singleLogoutService;
 
@@ -56,7 +56,7 @@ abstract class SSODescriptor extends RoleDescriptor
         return null;
     }
 
-    public function addNameIDFormat(string $nameIDFormat): SSODescriptor
+    public function addNameIDFormat(string $nameIDFormat): static
     {
         $this->nameIDFormats[] = $nameIDFormat;
 

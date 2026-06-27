@@ -7,7 +7,7 @@ use Tests\BaseTestCase;
 
 class EndpointChecker
 {
-    public static function check(BaseTestCase $test, $binding, $location, ?Endpoint $svc = null): void
+    public static function check(BaseTestCase $test, string $binding, string $location, ?Endpoint $svc = null): void
     {
         $test->assertNotNull($svc);
         $test->assertEquals($binding, $svc->getBinding());

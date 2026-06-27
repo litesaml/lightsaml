@@ -21,6 +21,7 @@ class ProfileContextBuilderTest extends BaseTestCase
         $this->assertTrue(true);
     }
 
+    /** @return array<array<mixed>> */
     public static function getters_setters_provider(): array
     {
         $factory = new Psr17Factory();

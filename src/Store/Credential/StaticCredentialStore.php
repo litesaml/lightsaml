@@ -6,7 +6,7 @@ use LightSaml\Credential\CredentialInterface;
 
 class StaticCredentialStore implements CredentialStoreInterface
 {
-    /** entityID => CredentialInterface[] */
+    /** @var array<string, CredentialInterface[]> */
     protected array $credentials = [];
 
     /**

@@ -3,9 +3,9 @@
 namespace LightSaml\Model\XmlDSig;
 
 use DOMNode;
+use LightSaml\Context\Model\DeserializationContext;
+use LightSaml\Context\Model\SerializationContext;
 use LightSaml\Error\LightSamlSecurityException;
-use LightSaml\Model\Context\DeserializationContext;
-use LightSaml\Model\Context\SerializationContext;
 use LogicException;
 use RobRichards\XMLSecLibs\XMLSecurityKey;
 
