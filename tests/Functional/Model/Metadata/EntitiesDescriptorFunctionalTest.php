@@ -7,6 +7,7 @@ use LightSaml\Model\Context\DeserializationContext;
 use LightSaml\Model\Metadata\ContactPerson;
 use LightSaml\Model\Metadata\EntitiesDescriptor;
 use LightSaml\SamlConstants;
+use PHPUnit\Framework\Attributes\IgnoreDeprecations;
 use Tests\BaseTestCase;
 use Tests\Helper\ContactPersonChecker;
 use Tests\Helper\EndpointChecker;
@@ -205,6 +206,7 @@ class EntitiesDescriptorFunctionalTest extends BaseTestCase
         //endregion
     }
 
+    #[IgnoreDeprecations]
     public function test_deserialize_ukfederation_metadata(): void
     {
         $context = new DeserializationContext();
