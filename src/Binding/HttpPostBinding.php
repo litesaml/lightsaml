@@ -20,14 +20,9 @@ class HttpPostBinding extends AbstractBinding
     ) {
     }
 
-    /**
-     * @param string|null $destination
-     *
-     * @return SamlPostResponse
-     */
-    public function send(MessageContext $context, $destination = null)
+    public function send(MessageContext $context, ?string $destination = null): SamlPostResponse
     {
-        if (null === $this->responseFactory || null === $this->streamFactory) {
+        if (!$this->responseFactory instanceof ResponseFactoryInterface || !$this->streamFactory instanceof StreamFactoryInterface) {
             throw new LightSamlMissingFactoryException('ResponseFactory and StreamFactory must be provided to use send()');
         }
 

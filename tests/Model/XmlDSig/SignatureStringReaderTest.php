@@ -13,25 +13,25 @@ use Tests\BaseTestCase;
 
 class SignatureStringReaderTest extends BaseTestCase
 {
-    public function test_can_be_constructed_without_arguments()
+    public function test_can_be_constructed_without_arguments(): void
     {
         new SignatureStringReader();
         $this->assertTrue(true);
     }
 
-    public function test_can_be_constructed_with_signature_algorithm_and_data()
+    public function test_can_be_constructed_with_signature_algorithm_and_data(): void
     {
         new SignatureStringReader('signature', 'algo', 'data');
         $this->assertTrue(true);
     }
 
-    public function test_extends_abstract_signature_reader()
+    public function test_extends_abstract_signature_reader(): void
     {
         $reader = new SignatureStringReader();
         $this->assertInstanceOf(AbstractSignatureReader::class, $reader);
     }
 
-    public function test_validate_returns_false_when_no_signature_set()
+    public function test_validate_returns_false_when_no_signature_set(): void
     {
         $publicKey = KeyHelper::createPublicKey(X509Certificate::fromFile(__DIR__ . '/../../resources/saml.crt'));
         $reader = new SignatureStringReader();
@@ -39,7 +39,7 @@ class SignatureStringReaderTest extends BaseTestCase
         $this->assertFalse($result);
     }
 
-    public function test_validate_correct_signature()
+    public function test_validate_correct_signature(): void
     {
         $publicKey = KeyHelper::createPublicKey(X509Certificate::fromFile(__DIR__ . '/../../resources/saml.crt'));
         $privateKey = KeyHelper::createPrivateKey(__DIR__ . '/../../resources/saml.pem', '', true);
@@ -51,7 +51,7 @@ class SignatureStringReaderTest extends BaseTestCase
         $this->assertTrue($result);
     }
 
-    public function test_serialize_throws_exception()
+    public function test_serialize_throws_exception(): void
     {
         $this->expectExceptionMessage("SignatureStringReader can not be serialized");
         $this->expectException(LogicException::class);
@@ -60,7 +60,7 @@ class SignatureStringReaderTest extends BaseTestCase
         $reader->serialize($context->getDocument(), $context);
     }
 
-    public function test_deserialize_throws_exception()
+    public function test_deserialize_throws_exception(): void
     {
         $this->expectExceptionMessage("SignatureStringReader can not be deserialized");
         $this->expectException(LogicException::class);

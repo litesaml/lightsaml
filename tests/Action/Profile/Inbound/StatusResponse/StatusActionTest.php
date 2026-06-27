@@ -15,13 +15,13 @@ use Tests\BaseTestCase;
 
 class StatusActionTest extends BaseTestCase
 {
-    public function test_constructs_with_logger()
+    public function test_constructs_with_logger(): void
     {
         new StatusAction($this->getLoggerMock());
         $this->assertTrue(true);
     }
 
-    public function test_does_nothing_if_status_success()
+    public function test_does_nothing_if_status_success(): void
     {
         $action = new StatusAction($this->getLoggerMock());
 
@@ -34,7 +34,7 @@ class StatusActionTest extends BaseTestCase
         $this->assertTrue(true);
     }
 
-    public function test_throws_context_exception_if_no_status()
+    public function test_throws_context_exception_if_no_status(): void
     {
         $this->expectExceptionMessage("Status response does not have Status set");
         $this->expectException(LightSamlContextException::class);
@@ -49,7 +49,7 @@ class StatusActionTest extends BaseTestCase
         $action->execute($context);
     }
 
-    public function test_throws_authentication_exception_if_status_not_success()
+    public function test_throws_authentication_exception_if_status_not_success(): void
     {
         $this->expectExceptionMessage("Unsuccessful SAML response: urn:oasis:names:tc:SAML:2.0:status:Requester\n\nurn:oasis:names:tc:SAML:2.0:status:UnsupportedBinding");
         $this->expectException(LightSamlAuthenticationException::class);

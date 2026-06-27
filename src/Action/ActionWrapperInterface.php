@@ -4,8 +4,5 @@ namespace LightSaml\Action;
 
 interface ActionWrapperInterface
 {
-    /**
-     * @return ActionInterface
-     */
-    public function wrap(ActionInterface $action);
+    public function wrap(ActionInterface $action): ActionInterface;
 }

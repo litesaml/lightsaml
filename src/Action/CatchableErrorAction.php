@@ -13,10 +13,7 @@ class CatchableErrorAction implements ActionInterface
     {
     }
 
-    /**
-     * @return void
-     */
-    public function execute(ContextInterface $context)
+    public function execute(ContextInterface $context): void
     {
         try {
             $this->mainAction->execute($context);

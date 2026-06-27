@@ -10,7 +10,7 @@ use LightSaml\SamlConstants;
 
 class EntitiesDescriptorXsdTest extends AbstractXsdValidation
 {
-    public function test_entities_descriptor_with_xsd()
+    public function test_entities_descriptor_with_xsd(): void
     {
         $entitiesDescriptor = new EntitiesDescriptor();
         $entitiesDescriptor->addItem($ed1 = new EntityDescriptor('https://ed1.com'));
@@ -27,7 +27,7 @@ class EntitiesDescriptorXsdTest extends AbstractXsdValidation
         $this->validateMetadata($entitiesDescriptor);
     }
 
-    private function fillEntityDescriptor(EntityDescriptor $ed)
+    private function fillEntityDescriptor(EntityDescriptor $ed): void
     {
         $ed->addItem($sp = new SpSsoDescriptor());
         $sp->addAssertionConsumerService(new AssertionConsumerService('https://location.com', SamlConstants::BINDING_SAML2_HTTP_POST));

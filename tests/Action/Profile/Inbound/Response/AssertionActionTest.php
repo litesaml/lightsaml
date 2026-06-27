@@ -15,13 +15,13 @@ use Tests\Mock\Action\FooAction;
 
 class AssertionActionTest extends BaseTestCase
 {
-    public function test_constructs_with_logger_and_action()
+    public function test_constructs_with_logger_and_action(): void
     {
         new AssertionAction($this->getLoggerMock(), $this->getActionMock());
         $this->assertTrue(true);
     }
 
-    public function test_calls_action_for_each_assertion()
+    public function test_calls_action_for_each_assertion(): void
     {
         $action = new AssertionAction($this->getLoggerMock(), $assertionActionMock = $this->getActionMock());
 
@@ -36,7 +36,7 @@ class AssertionActionTest extends BaseTestCase
         $assertionActionMock->expects($this->exactly(2))
             ->method('execute')
             ->with($this->isInstanceOf(AssertionContext::class))
-            ->willReturnCallback(function (AssertionContext $assertionContext) use (&$assertion1, &$assertion2, &$assertion1Called, &$assertion2Called) {
+            ->willReturnCallback(function (AssertionContext $assertionContext) use (&$assertion1, &$assertion2, &$assertion1Called, &$assertion2Called): void {
                 if ($assertionContext->getAssertion() === $assertion1) {
                     $assertion1Called = true;
                 } elseif ($assertionContext->getAssertion() === $assertion2) {
@@ -53,7 +53,7 @@ class AssertionActionTest extends BaseTestCase
         $this->assertTrue($assertion2Called);
     }
 
-    public function test_creates_context_for_each_assertion()
+    public function test_creates_context_for_each_assertion(): void
     {
         $action = new AssertionAction($this->getLoggerMock(), $assertionActionMock = $this->getActionMock());
 
@@ -76,7 +76,7 @@ class AssertionActionTest extends BaseTestCase
         $this->assertSame($assertion2, $assertionContext->getAssertion());
     }
 
-    public function test_debug_tree()
+    public function test_debug_tree(): void
     {
         $innerAction = new AssertionAction($this->getLoggerMock(), new FooAction());
         $outerAction = new AssertionAction($this->getLoggerMock(), $innerAction);
@@ -97,7 +97,7 @@ class AssertionActionTest extends BaseTestCase
     /**
      * @return MockObject|ActionInterface
      */
-    private function getActionMock()
+    private function getActionMock(): MockObject
     {
         return $this->getMockBuilder(ActionInterface::class)->getMock();
     }

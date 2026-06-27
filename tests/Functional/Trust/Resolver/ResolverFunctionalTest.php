@@ -25,7 +25,7 @@ use Tests\BaseTestCase;
 
 class ResolverFunctionalTest extends BaseTestCase
 {
-    public function test__idp2()
+    public function test__idp2(): void
     {
         $resolver = $this->getResolver();
 
@@ -57,7 +57,7 @@ class ResolverFunctionalTest extends BaseTestCase
         $this->assertEquals(UsageType::SIGNING, $credential->getUsageType());
     }
 
-    public function test__idp()
+    public function test__idp(): void
     {
         $resolver = $this->getResolver();
 
@@ -89,7 +89,7 @@ class ResolverFunctionalTest extends BaseTestCase
         $this->assertEquals(UsageType::SIGNING, $credential->getUsageType());
     }
 
-    public function test__sp2()
+    public function test__sp2(): void
     {
         $resolver = $this->getResolver();
 
@@ -121,7 +121,7 @@ class ResolverFunctionalTest extends BaseTestCase
         $this->assertEquals(UsageType::SIGNING, $credential->getUsageType());
     }
 
-    public function test__get_private_key()
+    public function test__get_private_key(): void
     {
         $resolver = $this->getResolver();
 
@@ -140,10 +140,7 @@ class ResolverFunctionalTest extends BaseTestCase
         $this->assertNotNull($credential->getPrivateKey());
     }
 
-    /**
-     * @return CredentialResolverInterface
-     */
-    private function getResolver()
+    private function getResolver(): CredentialResolverInterface
     {
         $provider = new FixedEntityDescriptorStore();
         $provider->add(EntityDescriptor::load(__DIR__ . '/../../../resources/idp2-ed.xml'));

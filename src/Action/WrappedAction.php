@@ -10,10 +10,7 @@ abstract class WrappedAction implements ActionInterface
     {
     }
 
-    /**
-     * @return void
-     */
-    public function execute(ContextInterface $context)
+    public function execute(ContextInterface $context): void
     {
         $this->beforeAction($context);
         $this->action->execute($context);

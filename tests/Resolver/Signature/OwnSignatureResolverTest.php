@@ -24,13 +24,13 @@ use Tests\BaseTestCase;
 
 class OwnSignatureResolverTest extends BaseTestCase
 {
-    public function test_constructs_with_credential_resolver()
+    public function test_constructs_with_credential_resolver(): void
     {
         new OwnSignatureResolver($this->getCredentialResolverMock());
         $this->assertTrue(true);
     }
 
-    public function test_throws_context_exception_when_no_credential_resolved()
+    public function test_throws_context_exception_when_no_credential_resolved(): void
     {
         $this->expectExceptionMessage("Unable to find signing credential");
         $this->expectException(LightSamlContextException::class);
@@ -45,7 +45,7 @@ class OwnSignatureResolverTest extends BaseTestCase
         $signatureResolver->getSignature($context);
     }
 
-    public function test_returns_signature_writer_with_first_resolved_credential()
+    public function test_returns_signature_writer_with_first_resolved_credential(): void
     {
         $signatureResolver = new OwnSignatureResolver($credentialResolverMock = $this->getCredentialResolverMock());
 
@@ -72,7 +72,7 @@ class OwnSignatureResolverTest extends BaseTestCase
         $this->assertSame($privateKey, $signatureWriter->getXmlSecurityKey());
     }
 
-    public static function _provider()
+    public static function _provider(): array
     {
         return [
             [ProfileContext::ROLE_IDP, MetadataCriteria::TYPE_IDP],
@@ -81,7 +81,7 @@ class OwnSignatureResolverTest extends BaseTestCase
     }
 
     #[DataProvider('_provider')]
-    public function test_credential_criterias($profileRole, $expectedMetadataType)
+    public function test_credential_criterias(string $profileRole, string $expectedMetadataType): void
     {
         $signatureResolver = new OwnSignatureResolver($credentialResolverMock = $this->getCredentialResolverMock());
 
@@ -91,7 +91,7 @@ class OwnSignatureResolverTest extends BaseTestCase
 
         $credentialResolverMock->method('query')->willReturn($query = new CredentialResolverQuery($credentialResolverMock));
         $credentialResolverMock->method('resolve')
-            ->willReturnCallback(function (CriteriaSet $criteriaSet) use ($ownEntityId, $expectedMetadataType) {
+            ->willReturnCallback(function (CriteriaSet $criteriaSet) use ($ownEntityId, $expectedMetadataType): array {
                 $this->assertCriteria($criteriaSet, EntityIdCriteria::class, 'getEntityId', $ownEntityId);
                 $this->assertCriteria($criteriaSet, UsageCriteria::class, 'getUsage', UsageType::SIGNING);
                 $this->assertCriteria($criteriaSet, X509CredentialCriteria::class, null, null);
@@ -103,7 +103,7 @@ class OwnSignatureResolverTest extends BaseTestCase
         $signatureResolver->getSignature($context);
     }
 
-    public function test_throws_logic_exception_when_returned_value_if_not_credential()
+    public function test_throws_logic_exception_when_returned_value_if_not_credential(): void
     {
         $this->expectExceptionMessage("Expected X509CredentialInterface but got");
         $this->expectException(LogicException::class);

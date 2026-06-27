@@ -8,54 +8,35 @@ use LightSaml\Model\Context\SerializationContext;
 
 abstract class StatusResponse extends SamlMessage
 {
-    /** @var string */
-    protected $inResponseTo;
+    protected ?string $inResponseTo = null;
 
-    /** @var Status */
-    protected $status;
+    protected ?Status $status = null;
 
-    /**
-     * @param string $inResponseTo
-     *
-     * @return StatusResponse
-     */
-    public function setInResponseTo($inResponseTo)
+    public function setInResponseTo(string $inResponseTo): StatusResponse
     {
         $this->inResponseTo = $inResponseTo;
 
         return $this;
     }
 
-    /**
-     * @return string
-     */
-    public function getInResponseTo()
+    public function getInResponseTo(): ?string
     {
         return $this->inResponseTo;
     }
 
-    /**
-     * @return StatusResponse
-     */
-    public function setStatus(Status $status)
+    public function setStatus(Status $status): StatusResponse
     {
         $this->status = $status;
 
         return $this;
     }
 
-    /**
-     * @return Status
-     */
-    public function getStatus()
+    public function getStatus(): ?Status
     {
         return $this->status;
     }
 
-    /**
-     * @return void
-     */
-    public function serialize(DOMNode $parent, SerializationContext $context)
+    public function serialize(DOMNode $parent, SerializationContext $context): void
     {
         parent::serialize($parent, $context);
 
@@ -64,7 +45,7 @@ abstract class StatusResponse extends SamlMessage
         $this->singleElementsToXml(['Status'], $parent, $context);
     }
 
-    public function deserialize(DOMNode $node, DeserializationContext $context)
+    public function deserialize(DOMNode $node, DeserializationContext $context): void
     {
         $this->attributesFromXml($node, ['InResponseTo']);
 

@@ -7,7 +7,7 @@ use Tests\BaseTestCase;
 
 class AudienceRestrictionTest extends BaseTestCase
 {
-    public function test_has_audience()
+    public function test_has_audience(): void
     {
         $audienceRestriction = new AudienceRestriction(['a', 'b', 'c']);
         $this->assertTrue($audienceRestriction->hasAudience('a'));

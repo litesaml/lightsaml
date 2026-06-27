@@ -5,30 +5,25 @@ namespace LightSaml\Resolver\Credential;
 use InvalidArgumentException;
 use LightSaml\Credential\CredentialInterface;
 use LightSaml\Criteria\CriteriaSet;
+use RobRichards\XMLSecLibs\XMLSecurityKey;
 
 class CredentialResolverQuery extends CriteriaSet
 {
     /** @var CredentialInterface[] */
-    private $arrCredentials;
+    private ?array $arrCredentials = null;
 
     public function __construct(private readonly CredentialResolverInterface $resolver)
     {
     }
 
-    /**
-     * @return CredentialResolverQuery
-     */
-    public function resolve()
+    public function resolve(): static
     {
         $this->arrCredentials = $this->resolver->resolve($this);
 
         return $this;
     }
 
-    /**
-     * @return CredentialInterface|null
-     */
-    public function firstCredential()
+    public function firstCredential(): ?CredentialInterface
     {
         return reset($this->arrCredentials) ?: null;
     }
@@ -36,7 +31,7 @@ class CredentialResolverQuery extends CriteriaSet
     /**
      * @return CredentialInterface[]
      */
-    public function allCredentials()
+    public function allCredentials(): array
     {
         return $this->arrCredentials;
     }
@@ -44,13 +39,13 @@ class CredentialResolverQuery extends CriteriaSet
     /**
      * @return CredentialInterface[]
      */
-    public function getPublicKeys()
+    public function getPublicKeys(): array
     {
         $result = [];
         foreach ($this->arrCredentials as $credential) {
             if ($credential instanceof CredentialInterface) {
                 $publicKey = $credential->getPublicKey();
-                if ($publicKey) {
+                if ($publicKey instanceof XMLSecurityKey) {
                     $result[] = $credential;
                 }
             } else {
@@ -64,13 +59,13 @@ class CredentialResolverQuery extends CriteriaSet
     /**
      * @return CredentialInterface[]
      */
-    public function getPrivateKeys()
+    public function getPrivateKeys(): array
     {
         $result = [];
         foreach ($this->arrCredentials as $credential) {
             if ($credential instanceof CredentialInterface) {
                 $privateKey = $credential->getPrivateKey();
-                if ($privateKey) {
+                if ($privateKey instanceof XMLSecurityKey) {
                     $result[] = $credential;
                 }
             } else {

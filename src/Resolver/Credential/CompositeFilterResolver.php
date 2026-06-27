@@ -12,7 +12,7 @@ class CompositeFilterResolver extends AbstractCompositeResolver
      *
      * @return CredentialInterface[]
      */
-    public function resolve(CriteriaSet $criteriaSet, array $arrCredentials = [])
+    public function resolve(CriteriaSet $criteriaSet, array $arrCredentials = []): array
     {
         $result = $arrCredentials;
         foreach ($this->resolvers as $resolver) {

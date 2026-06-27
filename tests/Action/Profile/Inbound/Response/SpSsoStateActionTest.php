@@ -14,13 +14,13 @@ use Tests\BaseTestCase;
 
 class SpSsoStateActionTest extends BaseTestCase
 {
-    public function test_constructs_with_logger_and_session_processor()
+    public function test_constructs_with_logger_and_session_processor(): void
     {
         new SpSsoStateAction($this->getLoggerMock(), $this->getSessionProcessorMock());
         $this->assertTrue(true);
     }
 
-    public function test_calls_session_processor()
+    public function test_calls_session_processor(): void
     {
         $action = new SpSsoStateAction($this->getLoggerMock(), $sessionProcessorMock = $this->getSessionProcessorMock());
 
@@ -35,7 +35,7 @@ class SpSsoStateActionTest extends BaseTestCase
         $sessionProcessorMock->expects($this->once())
             ->method('processAssertions')
             ->with($this->isType('array'), $ownEntityId, $partyEntityId)
-            ->willReturnCallback(function (array $assertions, $ownId, $partyId) use ($assertion1, $assertion2) {
+            ->willReturnCallback(function (array $assertions, $ownId, $partyId) use ($assertion1, $assertion2): void {
                 $this->assertSame($assertion1, $assertions[0]);
                 $this->assertSame($assertion2, $assertions[1]);
             })
@@ -47,7 +47,7 @@ class SpSsoStateActionTest extends BaseTestCase
     /**
      * @return MockObject|SessionProcessorInterface
      */
-    private function getSessionProcessorMock()
+    private function getSessionProcessorMock(): MockObject
     {
         return $this->getMockBuilder(SessionProcessorInterface::class)->getMock();
     }

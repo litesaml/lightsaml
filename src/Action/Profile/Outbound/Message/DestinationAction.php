@@ -12,10 +12,7 @@ use LightSaml\Context\Profile\ProfileContext;
  */
 class DestinationAction extends AbstractProfileAction
 {
-    /**
-     * @return void
-     */
-    protected function doExecute(ProfileContext $context)
+    protected function doExecute(ProfileContext $context): void
     {
         $endpoint = $context->getEndpoint();
 

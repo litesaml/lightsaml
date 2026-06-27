@@ -5,12 +5,9 @@ namespace LightSaml\Resolver\Credential;
 abstract class AbstractCompositeResolver extends AbstractQueryableResolver
 {
     /** @var CredentialResolverInterface[] */
-    protected $resolvers = [];
+    protected array $resolvers = [];
 
-    /**
-     * @return AbstractCompositeResolver
-     */
-    public function add(CredentialResolverInterface $resolver)
+    public function add(CredentialResolverInterface $resolver): AbstractCompositeResolver
     {
         $this->resolvers[] = $resolver;
 

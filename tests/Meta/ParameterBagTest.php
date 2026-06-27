@@ -7,32 +7,32 @@ use Tests\BaseTestCase;
 
 class ParameterBagTest extends BaseTestCase
 {
-    public function test_constructs_wout_arguments()
+    public function test_constructs_wout_arguments(): void
     {
         new ParameterBag();
         $this->assertTrue(true);
     }
 
-    public function test_all()
+    public function test_all(): void
     {
         $bag = new ParameterBag(['foo' => 'bar']);
         $this->assertEquals(['foo' => 'bar'], $bag->all(), '->all() gets all the input');
     }
 
-    public function test_keys()
+    public function test_keys(): void
     {
         $bag = new ParameterBag(['foo' => 'bar']);
         $this->assertEquals(['foo'], $bag->keys());
     }
 
-    public function test_add()
+    public function test_add(): void
     {
         $bag = new ParameterBag(['foo' => 'bar']);
         $bag->add(['bar' => 'bas']);
         $this->assertEquals(['foo' => 'bar', 'bar' => 'bas'], $bag->all());
     }
 
-    public function test_remove()
+    public function test_remove(): void
     {
         $bag = new ParameterBag(['foo' => 'bar']);
         $bag->add(['bar' => 'bas']);
@@ -41,7 +41,7 @@ class ParameterBagTest extends BaseTestCase
         $this->assertEquals(['foo' => 'bar'], $bag->all());
     }
 
-    public function test_replace()
+    public function test_replace(): void
     {
         $bag = new ParameterBag(['foo' => 'bar']);
 
@@ -50,7 +50,7 @@ class ParameterBagTest extends BaseTestCase
         $this->assertFalse($bag->has('foo'), '->replace() overrides previously set the input');
     }
 
-    public function test_get()
+    public function test_get(): void
     {
         $bag = new ParameterBag(['foo' => 'bar', 'null' => null]);
 
@@ -59,14 +59,14 @@ class ParameterBagTest extends BaseTestCase
         $this->assertNull($bag->get('null', 'default'), '->get() returns null if null is set');
     }
 
-    public function test_get_does_not_use_deep_by_default()
+    public function test_get_does_not_use_deep_by_default(): void
     {
         $bag = new ParameterBag(['foo' => ['bar' => 'moo']]);
 
         $this->assertNull($bag->get('foo[bar]'));
     }
 
-    public function test_set()
+    public function test_set(): void
     {
         $bag = new ParameterBag([]);
 
@@ -77,7 +77,7 @@ class ParameterBagTest extends BaseTestCase
         $this->assertEquals('baz', $bag->get('foo'), '->set() overrides previously set parameter');
     }
 
-    public function test_has()
+    public function test_has(): void
     {
         $bag = new ParameterBag(['foo' => 'bar']);
 
@@ -85,7 +85,7 @@ class ParameterBagTest extends BaseTestCase
         $this->assertFalse($bag->has('unknown'), '->has() return false if a parameter is not defined');
     }
 
-    public function test_get_iterator()
+    public function test_get_iterator(): void
     {
         $parameters = ['foo' => 'bar', 'hello' => 'world'];
         $bag = new ParameterBag($parameters);
@@ -99,7 +99,7 @@ class ParameterBagTest extends BaseTestCase
         $this->assertEquals(count($parameters), $i);
     }
 
-    public function test_count()
+    public function test_count(): void
     {
         $parameters = ['foo' => 'bar', 'hello' => 'world'];
         $bag = new ParameterBag($parameters);
@@ -107,7 +107,7 @@ class ParameterBagTest extends BaseTestCase
         $this->assertEquals(count($parameters), count($bag));
     }
 
-    public function test_serialization()
+    public function test_serialization(): void
     {
         $expectedData = ['a' => 'aaa', 'b' => 2, 'c' => [1, 2, 3]];
         $bag = new ParameterBag($expectedData);

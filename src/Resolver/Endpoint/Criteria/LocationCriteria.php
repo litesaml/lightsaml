@@ -13,10 +13,7 @@ class LocationCriteria implements CriteriaInterface
     {
     }
 
-    /**
-     * @return string
-     */
-    public function getLocation()
+    public function getLocation(): string
     {
         return $this->location;
     }

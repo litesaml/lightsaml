@@ -14,7 +14,7 @@ use Tests\BaseTestCase;
 
 class DestinationValidatorResponseActionTest extends BaseTestCase
 {
-    public function test_creates_acs_service_type_criteria()
+    public function test_creates_acs_service_type_criteria(): void
     {
         $endpointResolverMock = $this->getEndpointResolverMock();
 
@@ -24,7 +24,7 @@ class DestinationValidatorResponseActionTest extends BaseTestCase
 
         $endpointResolverMock->expects($this->once())
             ->method('resolve')
-            ->willReturnCallback(function (CriteriaSet $criteriaSet, array $endpoints) {
+            ->willReturnCallback(function (CriteriaSet $criteriaSet, array $endpoints): array {
                 $this->assertTrue($criteriaSet->has(ServiceTypeCriteria::class));
                 $arr = $criteriaSet->get(ServiceTypeCriteria::class);
                 $this->assertCount(1, $arr);
@@ -32,23 +32,17 @@ class DestinationValidatorResponseActionTest extends BaseTestCase
                 $criteria = $arr[0];
                 $this->assertEquals(AssertionConsumerService::class, $criteria->getServiceType());
 
-                return true;
+                return [1];
             });
 
         $action->execute($context);
     }
 
-    /**
-     * @param string $ownRole
-     * @param string $destination
-     *
-     * @return ProfileContext
-     */
-    private function buildContext($ownRole, $destination)
+    private function buildContext(string $ownRole, string $destination): ProfileContext
     {
         $context = new ProfileContext(Profiles::SSO_IDP_RECEIVE_AUTHN_REQUEST, $ownRole);
         $context->getInboundContext()->setMessage(new AuthnRequest());
-        if ($destination) {
+        if ($destination !== '') {
             $context->getInboundMessage()->setDestination($destination);
         }
 

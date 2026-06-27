@@ -22,16 +22,16 @@ use Tests\BaseTestCase;
 
 class MessageContextHelperTest extends BaseTestCase
 {
-    public static function helperProvider()
+    public static function helperProvider(): array
     {
         $samlMessage = new class () extends SamlMessage {};
         $abstractRequest = new class () extends AbstractRequest {};
         $statusResponse = new class () extends StatusResponse {
-            public function serialize(DOMNode $parent, SerializationContext $context)
+            public function serialize(DOMNode $parent, SerializationContext $context): void
             {
             }
 
-            public function deserialize(DOMNode $node, DeserializationContext $context)
+            public function deserialize(DOMNode $node, DeserializationContext $context): void
             {
             }
         };
@@ -74,7 +74,7 @@ class MessageContextHelperTest extends BaseTestCase
     }
 
     #[DataProvider('helperProvider')]
-    public function test__helper($method, ?SamlMessage $message = null, $expectedException = null, $expectedMessage = null)
+    public function test__helper(string $method, ?SamlMessage $message = null, ?string $expectedException = null, ?string $expectedMessage = null): void
     {
         $context = new MessageContext();
         if ($message instanceof SamlMessage) {
@@ -96,7 +96,7 @@ class MessageContextHelperTest extends BaseTestCase
         }
     }
 
-    public function test__as_saml_message_returns_message()
+    public function test__as_saml_message_returns_message(): void
     {
         $context = new MessageContext();
         $context->setMessage($expectedMessage = $this->getMessageMock());
@@ -107,7 +107,7 @@ class MessageContextHelperTest extends BaseTestCase
     /**
      * @return MockObject|SamlMessage
      */
-    private function getMessageMock()
+    private function getMessageMock(): MockObject
     {
         return $this->getMockForAbstractClass(SamlMessage::class);
     }

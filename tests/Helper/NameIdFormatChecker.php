@@ -7,7 +7,7 @@ use Tests\BaseTestCase;
 
 class NameIdFormatChecker
 {
-    public static function check(BaseTestCase $test, SSODescriptor $descriptor, array $expectedNameIdFormats)
+    public static function check(BaseTestCase $test, SSODescriptor $descriptor, array $expectedNameIdFormats): void
     {
         $test->assertCount(count($expectedNameIdFormats), $descriptor->getAllNameIDFormats());
         foreach ($expectedNameIdFormats as $nameIdFormat) {

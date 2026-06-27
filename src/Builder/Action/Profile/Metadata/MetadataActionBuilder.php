@@ -7,10 +7,7 @@ use LightSaml\Builder\Action\Profile\AbstractProfileActionBuilder;
 
 class MetadataActionBuilder extends AbstractProfileActionBuilder
 {
-    /**
-     * @return void
-     */
-    protected function doInitialize()
+    protected function doInitialize(): void
     {
         $container = $this->buildContainer->getSystemContainer();
         $this->add(new SerializeOwnEntityAction(

@@ -24,7 +24,7 @@ use LightSaml\SamlConstants;
 
 class ResponseXsdTest extends AbstractXsdValidation
 {
-    public function test_fail_response_with_xsd()
+    public function test_fail_response_with_xsd(): void
     {
         $response = new Response();
         $response
@@ -42,7 +42,7 @@ class ResponseXsdTest extends AbstractXsdValidation
         $this->validateProtocol($response);
     }
 
-    public function test_success_response_with_xsd()
+    public function test_success_response_with_xsd(): void
     {
         $response = new Response();
         $response

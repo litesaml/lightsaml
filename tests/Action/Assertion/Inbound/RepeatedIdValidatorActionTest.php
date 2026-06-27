@@ -16,13 +16,13 @@ use Tests\BaseTestCase;
 
 class RepeatedIdValidatorActionTest extends BaseTestCase
 {
-    public function test_constructs_with_logger_and_id_store()
+    public function test_constructs_with_logger_and_id_store(): void
     {
         new RepeatedIdValidatorAction($this->getLoggerMock(), $this->getIdStoreMock());
         $this->assertTrue(true);
     }
 
-    public function test_does_nothing_if_assertion_has_no_bearer_subject()
+    public function test_does_nothing_if_assertion_has_no_bearer_subject(): void
     {
         $action = new RepeatedIdValidatorAction($this->getLoggerMock(), $this->getIdStoreMock());
 
@@ -33,7 +33,7 @@ class RepeatedIdValidatorActionTest extends BaseTestCase
         $this->assertTrue(true);
     }
 
-    public function test_throws_context_exception_when_bearer_assertion_has_no_id()
+    public function test_throws_context_exception_when_bearer_assertion_has_no_id(): void
     {
         $action = new RepeatedIdValidatorAction(
             $loggerMock = $this->getLoggerMock(),
@@ -56,7 +56,7 @@ class RepeatedIdValidatorActionTest extends BaseTestCase
         $action->execute($assertionContext);
     }
 
-    public function test_throws_context_exception_when_bearer_assertion_has_no_issuer()
+    public function test_throws_context_exception_when_bearer_assertion_has_no_issuer(): void
     {
         $action = new RepeatedIdValidatorAction(
             $loggerMock = $this->getLoggerMock(),
@@ -80,7 +80,7 @@ class RepeatedIdValidatorActionTest extends BaseTestCase
         $action->execute($assertionContext);
     }
 
-    public function test_throws_context_exception_for_known_assertion_id()
+    public function test_throws_context_exception_for_known_assertion_id(): void
     {
         $action = new RepeatedIdValidatorAction(
             $loggerMock = $this->getLoggerMock(),
@@ -110,7 +110,7 @@ class RepeatedIdValidatorActionTest extends BaseTestCase
         $action->execute($assertionContext);
     }
 
-    public function test_throws_context_exception_if_no_subject_confirmation_data()
+    public function test_throws_context_exception_if_no_subject_confirmation_data(): void
     {
 
         $action = new RepeatedIdValidatorAction(
@@ -141,7 +141,7 @@ class RepeatedIdValidatorActionTest extends BaseTestCase
         $action->execute($assertionContext);
     }
 
-    public function test_throws_context_exception_if_no_not_on_or_after_attribute()
+    public function test_throws_context_exception_if_no_not_on_or_after_attribute(): void
     {
         $this->expectExceptionMessage("Bearer SubjectConfirmation must have NotOnOrAfter attribute");
         $this->expectException(LightSamlContextException::class);
@@ -171,7 +171,7 @@ class RepeatedIdValidatorActionTest extends BaseTestCase
         $action->execute($assertionContext);
     }
 
-    public function test_sets_unknown_assertion_id_to_store()
+    public function test_sets_unknown_assertion_id_to_store(): void
     {
         $action = new RepeatedIdValidatorAction(
             $loggerMock = $this->getLoggerMock(),

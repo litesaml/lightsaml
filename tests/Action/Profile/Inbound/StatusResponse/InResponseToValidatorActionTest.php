@@ -15,13 +15,13 @@ use Tests\BaseTestCase;
 
 class InResponseToValidatorActionTest extends BaseTestCase
 {
-    public function test_constructs_with_logger_and_request_state_store()
+    public function test_constructs_with_logger_and_request_state_store(): void
     {
         new InResponseToValidatorAction($this->getLoggerMock(), $this->getRequestStateStoreMock());
         $this->assertTrue(true);
     }
 
-    public function test_does_nothing_if_no_in_response_to()
+    public function test_does_nothing_if_no_in_response_to(): void
     {
         $action = new InResponseToValidatorAction(
             $loggerMock = $this->getLoggerMock(),
@@ -37,7 +37,7 @@ class InResponseToValidatorActionTest extends BaseTestCase
         $action->execute($context);
     }
 
-    public function test_get_request_state_from_store_and_creates_context()
+    public function test_get_request_state_from_store_and_creates_context(): void
     {
         $action = new InResponseToValidatorAction(
             $loggerMock = $this->getLoggerMock(),
@@ -61,7 +61,7 @@ class InResponseToValidatorActionTest extends BaseTestCase
         $this->assertSame($requestState, $requestStateContext->getRequestState());
     }
 
-    public function test_throws_context_exception_if_no_request_state_for_in_response_to_from_message()
+    public function test_throws_context_exception_if_no_request_state_for_in_response_to_from_message(): void
     {
         $this->expectExceptionMessage("Unknown InResponseTo '1234567890'");
         $this->expectException(LightSamlContextException::class);
@@ -85,11 +85,9 @@ class InResponseToValidatorActionTest extends BaseTestCase
     }
 
     /**
-     * @param string $inResponseTo
-     *
      * @return MockObject|StatusResponse
      */
-    private function getStatusResponseMock($inResponseTo = null)
+    private function getStatusResponseMock(?string $inResponseTo = null): MockObject
     {
         $result = $this->getMockForAbstractClass(StatusResponse::class);
         if ($inResponseTo) {

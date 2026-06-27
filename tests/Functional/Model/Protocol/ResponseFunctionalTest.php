@@ -13,7 +13,7 @@ use Tests\BaseTestCase;
 
 class ResponseFunctionalTest extends BaseTestCase
 {
-    public function test_deserialize_response01()
+    public function test_deserialize_response01(): void
     {
         $context = new DeserializationContext();
         $context->getDocument()->load(__DIR__ . '/../../../resources/response01.xml');
@@ -89,7 +89,7 @@ class ResponseFunctionalTest extends BaseTestCase
         );
     }
 
-    public function test_deserialize_invalid02()
+    public function test_deserialize_invalid02(): void
     {
         $context = new DeserializationContext();
         $context->getDocument()->load(__DIR__ . '/../../../resources/invalid02.xml');

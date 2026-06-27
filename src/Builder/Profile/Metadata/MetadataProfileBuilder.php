@@ -10,18 +10,12 @@ use LightSaml\Profile\Profiles;
 
 class MetadataProfileBuilder extends AbstractProfileBuilder
 {
-    /**
-     * @return string
-     */
-    protected function getProfileId()
+    protected function getProfileId(): string
     {
         return Profiles::METADATA;
     }
 
-    /**
-     * @return string
-     */
-    protected function getProfileRole()
+    protected function getProfileRole(): string
     {
         return ProfileContext::ROLE_NONE;
     }
@@ -29,7 +23,7 @@ class MetadataProfileBuilder extends AbstractProfileBuilder
     /**
      * @return ActionBuilderInterface
      */
-    protected function getActionBuilder()
+    protected function getActionBuilder(): MetadataActionBuilder
     {
         return new MetadataActionBuilder($this->container);
     }

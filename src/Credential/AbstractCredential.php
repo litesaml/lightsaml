@@ -7,23 +7,18 @@ use RobRichards\XMLSecLibs\XMLSecurityKey;
 
 abstract class AbstractCredential implements CredentialInterface
 {
-    /** @var string */
-    private $entityId;
+    private ?string $entityId = null;
 
-    /** @var string */
-    private $usageType;
+    private ?string $usageType = null;
 
     /** @var string[] */
-    private $keyNames = [];
+    private array $keyNames = [];
 
-    /** @var XMLSecurityKey|null */
-    private $publicKey;
+    private ?XMLSecurityKey $publicKey = null;
 
-    /** @var XMLSecurityKey|null */
-    private $privateKey;
+    private ?XMLSecurityKey $privateKey = null;
 
-    /** @var string|null */
-    private $secretKey;
+    private ?string $secretKey = null;
 
     private CredentialContextSet $credentialContext;
 
@@ -32,20 +27,15 @@ abstract class AbstractCredential implements CredentialInterface
         $this->credentialContext = new CredentialContextSet();
     }
 
-    /**
-     * @return string
-     */
-    public function getEntityId()
+    public function getEntityId(): string
     {
         return $this->entityId;
     }
 
     /**
      * One of UsageType constants.
-     *
-     * @return string|null
      */
-    public function getUsageType()
+    public function getUsageType(): ?string
     {
         return $this->usageType;
     }
@@ -53,59 +43,39 @@ abstract class AbstractCredential implements CredentialInterface
     /**
      * @return string[]
      */
-    public function getKeyNames()
+    public function getKeyNames(): array
     {
         return $this->keyNames;
     }
 
-    /**
-     * @return XMLSecurityKey|null
-     */
-    public function getPublicKey()
+    public function getPublicKey(): ?XMLSecurityKey
     {
         return $this->publicKey;
     }
 
-    /**
-     * @return XMLSecurityKey|null
-     */
-    public function getPrivateKey()
+    public function getPrivateKey(): ?XMLSecurityKey
     {
         return $this->privateKey;
     }
 
-    /**
-     * @return string|null
-     */
-    public function getSecretKey()
+    public function getSecretKey(): ?string
     {
         return $this->secretKey;
     }
 
-    /**
-     * @return CredentialContextSet
-     */
-    public function getCredentialContext()
+    public function getCredentialContext(): CredentialContextSet
     {
         return $this->credentialContext;
     }
 
-    /**
-     * @return AbstractCredential
-     */
-    public function setCredentialContext(CredentialContextSet $credentialContext)
+    public function setCredentialContext(CredentialContextSet $credentialContext): AbstractCredential
     {
         $this->credentialContext = $credentialContext;
 
         return $this;
     }
 
-    /**
-     * @param string $entityId
-     *
-     * @return AbstractCredential
-     */
-    public function setEntityId($entityId)
+    public function setEntityId(string $entityId): AbstractCredential
     {
         $this->entityId = $entityId;
 
@@ -114,22 +84,15 @@ abstract class AbstractCredential implements CredentialInterface
 
     /**
      * @param string[] $keyNames
-     *
-     * @return AbstractCredential
      */
-    public function setKeyNames(array $keyNames)
+    public function setKeyNames(array $keyNames): AbstractCredential
     {
         $this->keyNames = $keyNames;
 
         return $this;
     }
 
-    /**
-     * @param string $keyName
-     *
-     * @return AbstractCredential
-     */
-    public function addKeyName($keyName)
+    public function addKeyName(string $keyName): AbstractCredential
     {
         $keyName = trim($keyName);
         if ($keyName !== '' && $keyName !== '0') {
@@ -139,48 +102,28 @@ abstract class AbstractCredential implements CredentialInterface
         return $this;
     }
 
-    /**
-     * @param XMLSecurityKey|null $privateKey
-     *
-     * @return AbstractCredential
-     */
-    public function setPrivateKey(XMLSecurityKey $privateKey)
+    public function setPrivateKey(XMLSecurityKey $privateKey): AbstractCredential
     {
         $this->privateKey = $privateKey;
 
         return $this;
     }
 
-    /**
-     * @param XMLSecurityKey|null $publicKey
-     *
-     * @return AbstractCredential
-     */
-    public function setPublicKey(XMLSecurityKey $publicKey)
+    public function setPublicKey(XMLSecurityKey $publicKey): AbstractCredential
     {
         $this->publicKey = $publicKey;
 
         return $this;
     }
 
-    /**
-     * @param string|null $secretKey
-     *
-     * @return AbstractCredential
-     */
-    public function setSecretKey($secretKey)
+    public function setSecretKey(?string $secretKey): AbstractCredential
     {
         $this->secretKey = $secretKey;
 
         return $this;
     }
 
-    /**
-     * @param string $usageType
-     *
-     * @return AbstractCredential
-     */
-    public function setUsageType($usageType)
+    public function setUsageType(string $usageType): AbstractCredential
     {
         $this->usageType = $usageType;
 

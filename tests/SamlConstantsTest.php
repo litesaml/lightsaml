@@ -9,19 +9,19 @@ use ReflectionClass;
 class SamlConstantsTest extends BaseTestCase
 {
     #[DataProvider('methodsProvider')]
-    public function test__is_not_valid($method)
+    public function test__is_not_valid(string $method): void
     {
         $this->assertFalse(SamlConstants::$method('Nonsense'));
     }
 
     #[DataProvider('constantsProvider')]
-    public function test__is_valid_method($method, $constant)
+    public function test__is_valid_method($method, string $constant): void
     {
         $value = constant('\LightSaml\SamlConstants::' . $constant);
         $this->assertTrue(SamlConstants::$method($value));
     }
 
-    public static function methodsProvider()
+    public static function methodsProvider(): array
     {
         return [['isProtocolValid'], ['isNsValid'], ['isNameIdFormatValid'], ['isBindingValid'], ['isStatusValid'], ['isConfirmationMethodValid'], ['isAuthnContextValid'], ['isLogoutReasonValid']];
     }
@@ -40,7 +40,10 @@ class SamlConstantsTest extends BaseTestCase
         );
     }
 
-    public static function getConstants($method)
+    /**
+     * @return int[][]|string[][]
+     */
+    public static function getConstants($method): array
     {
         $ret = [];
         $ref = new ReflectionClass(SamlConstants::class);

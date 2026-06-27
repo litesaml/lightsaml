@@ -11,10 +11,7 @@ class UsageCriteria implements TrustCriteriaInterface
     {
     }
 
-    /**
-     * @return string
-     */
-    public function getUsage()
+    public function getUsage(): string
     {
         return $this->usage;
     }

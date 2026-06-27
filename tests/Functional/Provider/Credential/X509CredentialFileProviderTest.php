@@ -10,13 +10,13 @@ use Tests\BaseTestCase;
 
 class X509CredentialFileProviderTest extends BaseTestCase
 {
-    public function test___implements_credential_provider_interface()
+    public function test___implements_credential_provider_interface(): void
     {
         $reflection = new ReflectionClass(X509CredentialFileProvider::class);
         $this->assertTrue($reflection->implementsInterface(CredentialProviderInterface::class));
     }
 
-    public function test___loads_specified_files()
+    public function test___loads_specified_files(): void
     {
         $provider = new X509CredentialFileProvider(
             $expectedEntityId = 'http://localhost',

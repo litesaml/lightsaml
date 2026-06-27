@@ -10,31 +10,22 @@ use RobRichards\XMLSecLibs\XMLSecurityKey;
 
 class X509Certificate
 {
-    private static $typeMap = [
+    private static array $typeMap = [
         'RSA-SHA1' => XMLSecurityKey::RSA_SHA1,
         'RSA-SHA256' => XMLSecurityKey::RSA_SHA256,
         'RSA-SHA384' => XMLSecurityKey::RSA_SHA384,
         'RSA-SHA512' => XMLSecurityKey::RSA_SHA512,
     ];
 
-    /** @var string */
-    protected $data;
+    protected string $data = '';
 
-    /** @var array|null */
-    protected $info;
+    protected ?array $info = null;
 
-    /** @var string */
-    private $signatureAlgorithm;
+    private ?string $signatureAlgorithm = null;
 
-    /** @var string|null */
-    private $pssHashAlgorithm;
+    private ?string $pssHashAlgorithm = null;
 
-    /**
-     * @param string $filename
-     *
-     * @return X509Certificate
-     */
-    public static function fromFile($filename)
+    public static function fromFile(string $filename): self
     {
         $result = new self();
         $result->loadFromFile($filename);
@@ -42,12 +33,7 @@ class X509Certificate
         return $result;
     }
 
-    /**
-     * @param string $data
-     *
-     * @return X509Certificate
-     */
-    public function setData($data)
+    public function setData(string $data): static
     {
         $this->data = preg_replace('/\s+/', '', $data);
         $this->parse();
@@ -55,22 +41,16 @@ class X509Certificate
         return $this;
     }
 
-    /**
-     * @return string
-     */
-    public function getData()
+    public function getData(): string
     {
         return $this->data;
     }
 
     /**
-     * @param string $data
-     *
-     * @return X509Certificate
      *
      * @throws InvalidArgumentException
      */
-    public function loadPem($data)
+    public function loadPem(string $data): static
     {
         $pattern = '/^-----BEGIN CERTIFICATE-----([^-]*)^-----END CERTIFICATE-----/m';
         if (false == preg_match($pattern, $data, $matches)) {
@@ -83,13 +63,10 @@ class X509Certificate
     }
 
     /**
-     * @param string $filename
-     *
-     * @return X509Certificate
      *
      * @throws InvalidArgumentException
      */
-    public function loadFromFile($filename)
+    public function loadFromFile(string $filename): static
     {
         if (!is_file($filename)) {
             throw new InvalidArgumentException(sprintf("File not found '%s'", $filename));
@@ -100,15 +77,12 @@ class X509Certificate
         return $this;
     }
 
-    /**
-     * @return string
-     */
-    public function toPem()
+    public function toPem(): string
     {
         return "-----BEGIN CERTIFICATE-----\n" . chunk_split($this->getData(), 64, "\n") . "-----END CERTIFICATE-----\n";
     }
 
-    public function parse()
+    public function parse(): void
     {
         if (false == $this->data) {
             throw new LightSamlException('Certificate data not set');
@@ -169,11 +143,9 @@ class X509Certificate
     }
 
     /**
-     * @return string
-     *
      * @throws LightSamlException
      */
-    public function getName()
+    public function getName(): string
     {
         if (false == $this->info) {
             throw new LightSamlException('Certificate data not set');
@@ -183,11 +155,9 @@ class X509Certificate
     }
 
     /**
-     * @return string
-     *
      * @throws LightSamlException
      */
-    public function getSubject()
+    public function getSubject(): array
     {
         if (false == $this->info) {
             throw new LightSamlException('Certificate data not set');
@@ -197,11 +167,9 @@ class X509Certificate
     }
 
     /**
-     * @return array
-     *
      * @throws LightSamlException
      */
-    public function getIssuer()
+    public function getIssuer(): array
     {
         if (false == $this->info) {
             throw new LightSamlException('Certificate data not set');
@@ -211,11 +179,9 @@ class X509Certificate
     }
 
     /**
-     * @return int
-     *
      * @throws LightSamlException
      */
-    public function getValidFromTimestamp()
+    public function getValidFromTimestamp(): int
     {
         if (false == $this->info) {
             throw new LightSamlException('Certificate data not set');
@@ -225,11 +191,9 @@ class X509Certificate
     }
 
     /**
-     * @return int
-     *
      * @throws LightSamlException
      */
-    public function getValidToTimestamp()
+    public function getValidToTimestamp(): int
     {
         if (false == $this->info) {
             throw new LightSamlException('Certificate data not set');
@@ -239,11 +203,9 @@ class X509Certificate
     }
 
     /**
-     * @return array
-     *
      * @throws LightSamlException
      */
-    public function getInfo()
+    public function getInfo(): array
     {
         if (false == $this->info) {
             throw new LightSamlException('Certificate data not set');
@@ -254,10 +216,8 @@ class X509Certificate
 
     /**
      * @throws LightSamlException
-     *
-     * @return string
      */
-    public function getFingerprint()
+    public function getFingerprint(): string
     {
         if (false == $this->data) {
             throw new LightSamlException('Certificate data not set');
@@ -266,7 +226,7 @@ class X509Certificate
         return XMLSecurityKey::getRawThumbprint($this->toPem());
     }
 
-    public function getSignatureAlgorithm()
+    public function getSignatureAlgorithm(): ?string
     {
         if (false == $this->data) {
             throw new LightSamlException('Certificate data not set');

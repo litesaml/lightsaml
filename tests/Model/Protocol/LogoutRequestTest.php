@@ -12,7 +12,7 @@ use Tests\BaseTestCase;
 
 class LogoutRequestTest extends BaseTestCase
 {
-    public function test__serialize()
+    public function test__serialize(): void
     {
         $context = new SerializationContext();
         $request = new LogoutRequest();

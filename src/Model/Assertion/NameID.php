@@ -4,10 +4,7 @@ namespace LightSaml\Model\Assertion;
 
 class NameID extends AbstractNameID
 {
-    /**
-     * @return string
-     */
-    protected function getElementName()
+    protected function getElementName(): string
     {
         return 'NameID';
     }

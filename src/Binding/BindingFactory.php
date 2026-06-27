@@ -19,20 +19,14 @@ class BindingFactory implements BindingFactoryInterface
     ) {
     }
 
-    /**
-     * @return BindingFactoryInterface
-     */
-    public function setEventDispatcher(?EventDispatcherInterface $eventDispatcher = null)
+    public function setEventDispatcher(?EventDispatcherInterface $eventDispatcher = null): static
     {
         $this->eventDispatcher = $eventDispatcher;
 
         return $this;
     }
 
-    /**
-     * @return AbstractBinding
-     */
-    public function getBindingByRequest(ServerRequestInterface $request)
+    public function getBindingByRequest(ServerRequestInterface $request): AbstractBinding
     {
         $bindingType = $this->detectBindingType($request);
 
@@ -40,14 +34,10 @@ class BindingFactory implements BindingFactoryInterface
     }
 
     /**
-     * @param string $bindingType
-     *
      * @throws LogicException
      * @throws LightSamlBindingException
-     *
-     * @return AbstractBinding
      */
-    public function create($bindingType)
+    public function create(string $bindingType): AbstractBinding
     {
         $result = null;
         switch ($bindingType) {
@@ -74,10 +64,7 @@ class BindingFactory implements BindingFactoryInterface
         throw new LightSamlBindingException(sprintf("Unknown binding type '%s'", $bindingType));
     }
 
-    /**
-     * @return string|null
-     */
-    public function detectBindingType(ServerRequestInterface $request)
+    public function detectBindingType(ServerRequestInterface $request): ?string
     {
         $requestMethod = trim(strtoupper($request->getMethod()));
         if ('GET' === $requestMethod) {
@@ -86,13 +73,10 @@ class BindingFactory implements BindingFactoryInterface
             return $this->processPOST($request);
         }
 
-        return;
+        return null;
     }
 
-    /**
-     * @return string|null
-     */
-    protected function processGET(ServerRequestInterface $request)
+    protected function processGET(ServerRequestInterface $request): ?string
     {
         $get = $request->getQueryParams();
         if (array_key_exists('SAMLRequest', $get) || array_key_exists('SAMLResponse', $get)) {
@@ -101,20 +85,17 @@ class BindingFactory implements BindingFactoryInterface
             return SamlConstants::BINDING_SAML2_HTTP_ARTIFACT;
         }
 
-        return;
+        return null;
     }
 
-    /**
-     * @return string|null
-     */
-    protected function processPOST(ServerRequestInterface $request)
+    protected function processPOST(ServerRequestInterface $request): ?string
     {
         $post = (array) ($request->getParsedBody() ?? []);
         if (array_key_exists('SAMLRequest', $post) || array_key_exists('SAMLResponse', $post)) {
             return SamlConstants::BINDING_SAML2_HTTP_POST;
         } elseif (array_key_exists('SAMLart', $post)) {
             return SamlConstants::BINDING_SAML2_HTTP_ARTIFACT;
-        } elseif ($contentType = $request->getHeaderLine('content-type')) {
+        } elseif (($contentType = $request->getHeaderLine('content-type')) !== '') {
             // Remove charset
             if (false !== $pos = strpos($contentType, ';')) {
                 $contentType = substr($contentType, 0, $pos);
@@ -124,6 +105,6 @@ class BindingFactory implements BindingFactoryInterface
             }
         }
 
-        return;
+        return null;
     }
 }

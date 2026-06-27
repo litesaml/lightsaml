@@ -11,13 +11,13 @@ use Tests\BaseTestCase;
 
 class DestinationActionTest extends BaseTestCase
 {
-    public function test_constructs_with_logger()
+    public function test_constructs_with_logger(): void
     {
         new DestinationAction($this->getLoggerMock());
         $this->assertTrue(true);
     }
 
-    public function test_sets_outbounding_message_destination_to_endpoint_context_value()
+    public function test_sets_outbounding_message_destination_to_endpoint_context_value(): void
     {
         $action = new DestinationAction($this->getLoggerMock());
 

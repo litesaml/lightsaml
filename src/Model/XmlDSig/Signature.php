@@ -6,10 +6,7 @@ use LightSaml\Model\AbstractSamlModel;
 
 abstract class Signature extends AbstractSamlModel
 {
-    /**
-     * @return string
-     */
-    protected function getIDName()
+    protected function getIDName(): string
     {
         return 'ID';
     }

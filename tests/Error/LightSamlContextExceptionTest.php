@@ -7,7 +7,7 @@ use Tests\BaseTestCase;
 
 class LightSamlContextExceptionTest extends BaseTestCase
 {
-    public function test_returns_context_its_constructed_with()
+    public function test_returns_context_its_constructed_with(): void
     {
         $context = $this->getProfileContext();
 

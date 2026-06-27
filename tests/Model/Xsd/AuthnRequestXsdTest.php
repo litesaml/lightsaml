@@ -11,7 +11,7 @@ use LightSaml\SamlConstants;
 
 class AuthnRequestXsdTest extends AbstractXsdValidation
 {
-    public function test_authn_request_with_xsd()
+    public function test_authn_request_with_xsd(): void
     {
         $authnRequest = new AuthnRequest();
         $authnRequest

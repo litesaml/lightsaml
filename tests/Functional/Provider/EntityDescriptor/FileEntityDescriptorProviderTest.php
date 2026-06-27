@@ -8,7 +8,7 @@ use Tests\BaseTestCase;
 
 class FileEntityDescriptorProviderTest extends BaseTestCase
 {
-    public function test_loads_from_file()
+    public function test_loads_from_file(): void
     {
         $provider = new FileEntityDescriptorProvider(
             __DIR__ . '/../../../resources//idp-ed.xml'

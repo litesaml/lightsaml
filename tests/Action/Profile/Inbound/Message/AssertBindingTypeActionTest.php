@@ -11,7 +11,7 @@ use Tests\BaseTestCase;
 
 class AssertBindingTypeActionTest extends BaseTestCase
 {
-    public function test_construct_with_logger_and_expected_binding_types()
+    public function test_construct_with_logger_and_expected_binding_types(): void
     {
         new AssertBindingTypeAction(
             $this->getLoggerMock(),
@@ -20,7 +20,7 @@ class AssertBindingTypeActionTest extends BaseTestCase
         $this->assertTrue(true);
     }
 
-    public function test_passes_with_inbound_binding_type_being_one_of_expected()
+    public function test_passes_with_inbound_binding_type_being_one_of_expected(): void
     {
         $action = new AssertBindingTypeAction(
             $this->getLoggerMock(),
@@ -35,7 +35,7 @@ class AssertBindingTypeActionTest extends BaseTestCase
         $this->assertTrue(true);
     }
 
-    public function test_throws_when_inbound_binding_type_not_one_of_expected()
+    public function test_throws_when_inbound_binding_type_not_one_of_expected(): void
     {
         $this->expectExceptionMessage("Unexpected binding type \"urn:oasis:names:tc:SAML:2.0:bindings:SOAP\" - expected binding types are: urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST");
         $this->expectException(LightSamlContextException::class);
@@ -49,7 +49,7 @@ class AssertBindingTypeActionTest extends BaseTestCase
 
         $logger->expects($this->once())
             ->method('critical')
-            ->willReturnCallback(function ($message, $arr) {
+            ->willReturnCallback(function ($message, $arr): void {
                 $this->assertEquals('Unexpected binding type "urn:oasis:names:tc:SAML:2.0:bindings:SOAP" - expected binding types are: urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST', $message);
                 $this->assertTrue(is_array($arr));
             });

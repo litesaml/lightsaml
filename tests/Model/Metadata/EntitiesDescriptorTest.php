@@ -16,104 +16,104 @@ use Tests\BaseTestCase;
 
 class EntitiesDescriptorTest extends BaseTestCase
 {
-    public function test_implement_saml_element_interface()
+    public function test_implement_saml_element_interface(): void
     {
         $rc = new ReflectionClass(EntitiesDescriptor::class);
         $this->assertTrue($rc->implementsInterface(SamlElementInterface::class));
     }
 
-    public function test_set_valid_string_to_valid_until()
+    public function test_set_valid_string_to_valid_until(): void
     {
         $ed = new EntitiesDescriptor();
         $ed->setValidUntil('2013-10-27T11:55:37.035Z');
         $this->assertTrue(true);
     }
 
-    public function test_set_positive_int_to_valid_until()
+    public function test_set_positive_int_to_valid_until(): void
     {
         $ed = new EntitiesDescriptor();
         $ed->setValidUntil(123456);
         $this->assertTrue(true);
     }
 
-    public function test_throw_on_set_invalid_string_to_valid_until()
+    public function test_throw_on_set_invalid_string_to_valid_until(): void
     {
         $this->expectException(InvalidArgumentException::class);
         $ed = new EntitiesDescriptor();
         $ed->setValidUntil('something');
     }
 
-    public function test_throw_on_set_negative_int_to_valid_until()
+    public function test_throw_on_set_negative_int_to_valid_until(): void
     {
         $this->expectException(InvalidArgumentException::class);
         $ed = new EntitiesDescriptor();
         $ed->setValidUntil(-1);
     }
 
-    public function test_set_valid_period_string_to_cache_duration()
+    public function test_set_valid_period_string_to_cache_duration(): void
     {
         $ed = new EntitiesDescriptor();
         $ed->setCacheDuration('P3D');
         $this->assertTrue(true);
     }
 
-    public function test_throw_on_invalid_period_string_set_to_cache_duration()
+    public function test_throw_on_invalid_period_string_set_to_cache_duration(): void
     {
         $this->expectException(InvalidArgumentException::class);
         $ed = new EntitiesDescriptor();
         $ed->setCacheDuration('83D2Y');
     }
 
-    public function test_add_item_entities_descriptor()
+    public function test_add_item_entities_descriptor(): void
     {
         $ed = new EntitiesDescriptor();
         $ed->addItem(new EntitiesDescriptor());
         $this->assertTrue(true);
     }
 
-    public function test_add_item_entity_descriptor()
+    public function test_add_item_entity_descriptor(): void
     {
         $ed = new EntitiesDescriptor();
         $ed->addItem(new EntityDescriptor());
         $this->assertTrue(true);
     }
 
-    public function test_throw_on_invalid_object_type_given_to_add_item()
+    public function test_throw_on_invalid_object_type_given_to_add_item(): void
     {
         $this->expectException(InvalidArgumentException::class);
         $ed = new EntitiesDescriptor();
         $ed->addItem(new stdClass());
     }
 
-    public function test_throw_on_array_given_to_add_item()
+    public function test_throw_on_array_given_to_add_item(): void
     {
         $this->expectException(InvalidArgumentException::class);
         $ed = new EntitiesDescriptor();
         $ed->addItem([]);
     }
 
-    public function test_throw_on_string_given_to_add_item()
+    public function test_throw_on_string_given_to_add_item(): void
     {
         $this->expectException(InvalidArgumentException::class);
         $ed = new EntitiesDescriptor();
         $ed->addItem('foo');
     }
 
-    public function test_throw_on_int_given_to_add_item()
+    public function test_throw_on_int_given_to_add_item(): void
     {
         $this->expectException(InvalidArgumentException::class);
         $ed = new EntitiesDescriptor();
         $ed->addItem(123);
     }
 
-    public function test_throw_when_itself_given_to_add_item()
+    public function test_throw_when_itself_given_to_add_item(): void
     {
         $this->expectException(InvalidArgumentException::class);
         $ed = new EntitiesDescriptor();
         $ed->addItem($ed);
     }
 
-    public function test_contains_item_work()
+    public function test_contains_item_work(): void
     {
         $o1 = new EntitiesDescriptor();
         $o2 = new EntityDescriptor('ed1');
@@ -140,7 +140,7 @@ class EntitiesDescriptorTest extends BaseTestCase
         $this->assertFalse($o3->containsItem($x2));
     }
 
-    public function test_throw_when_circular_reference_detected_in_add_item()
+    public function test_throw_when_circular_reference_detected_in_add_item(): void
     {
         $this->expectException(InvalidArgumentException::class);
         $esd1 = new EntitiesDescriptor();
@@ -158,7 +158,7 @@ class EntitiesDescriptorTest extends BaseTestCase
         $esd3->addItem($esd1);
     }
 
-    public function test_return_recursively_all_entity_descriptors()
+    public function test_return_recursively_all_entity_descriptors(): void
     {
         $esd1 = new EntitiesDescriptor();
         $esd1->addItem(new EntityDescriptor('ed1'));
@@ -182,7 +182,7 @@ class EntitiesDescriptorTest extends BaseTestCase
         $this->assertEquals('ed4', $all[3]->getEntityID());
     }
 
-    public function test_serializer()
+    public function test_serializer(): void
     {
         $esd = new EntitiesDescriptor();
         $esd->addItem(new EntityDescriptor('ed1'));
@@ -206,7 +206,7 @@ class EntitiesDescriptorTest extends BaseTestCase
         $this->assertEquals(1, $xpath->query('/md:EntitiesDescriptor/md:EntitiesDescriptor/md:EntityDescriptor[@entityID="ed3"]')->length);
     }
 
-    public function test_deserialize()
+    public function test_deserialize(): void
     {
         $xml = <<<EOT
 <?xml version="1.0"?>

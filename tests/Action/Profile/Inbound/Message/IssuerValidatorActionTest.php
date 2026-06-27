@@ -16,13 +16,13 @@ use Tests\BaseTestCase;
 
 class IssuerValidatorActionTest extends BaseTestCase
 {
-    public function test_constructs_with_logger_name_id_validator_and_string()
+    public function test_constructs_with_logger_name_id_validator_and_string(): void
     {
         new IssuerValidatorAction($this->getLoggerMock(), $this->getNameIdValidatorMock(), '');
         $this->assertTrue(true);
     }
 
-    public function test_throws_if_inbound_message_has_no_issuer()
+    public function test_throws_if_inbound_message_has_no_issuer(): void
     {
         $this->expectExceptionMessage("Inbound message must have Issuer element");
         $this->expectException(LightSamlContextException::class);
@@ -34,7 +34,7 @@ class IssuerValidatorActionTest extends BaseTestCase
         $action->execute($context);
     }
 
-    public function test_throws_if_inbound_message_issuer_format_different_then_allowed()
+    public function test_throws_if_inbound_message_issuer_format_different_then_allowed(): void
     {
         $this->expectExceptionMessage("Response Issuer Format if set must have value 'urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress' but it was 'non-allowed'");
         $this->expectException(LightSamlContextException::class);
@@ -50,7 +50,7 @@ class IssuerValidatorActionTest extends BaseTestCase
         $action->execute($context);
     }
 
-    public function test_calls_name_id_validator()
+    public function test_calls_name_id_validator(): void
     {
         $nameIdValidatorMock = $this->getNameIdValidatorMock();
         $action = new IssuerValidatorAction($this->getLoggerMock(), $nameIdValidatorMock, $allowedFormat = SamlConstants::NAME_ID_FORMAT_EMAIL);
@@ -69,7 +69,7 @@ class IssuerValidatorActionTest extends BaseTestCase
         $action->execute($context);
     }
 
-    public function test_wrapps_validation_exception_in_context_exception()
+    public function test_wrapps_validation_exception_in_context_exception(): void
     {
         $this->expectExceptionMessage("Error from name id validator");
         $this->expectException(LightSamlContextException::class);
@@ -95,7 +95,7 @@ class IssuerValidatorActionTest extends BaseTestCase
     /**
      * @return MockObject|NameIdValidatorInterface
      */
-    public function getNameIdValidatorMock()
+    public function getNameIdValidatorMock(): MockObject
     {
         return $this->getMockBuilder(NameIdValidatorInterface::class)->getMock();
     }

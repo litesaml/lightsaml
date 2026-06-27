@@ -10,7 +10,7 @@ use Tests\BaseTestCase;
 
 class X509CertificateTest extends BaseTestCase
 {
-    public function test__error_on_invalid_load_pem_context()
+    public function test__error_on_invalid_load_pem_context(): void
     {
         $this->expectExceptionMessage("Invalid PEM encoded certificate");
         $this->expectException(InvalidArgumentException::class);
@@ -18,7 +18,7 @@ class X509CertificateTest extends BaseTestCase
         $certificate->loadPem('not a pem format');
     }
 
-    public function test_error_on_invalid_load_from_file()
+    public function test_error_on_invalid_load_from_file(): void
     {
         $this->expectExceptionMessage("File not found '/non/existing/file/123'");
         $this->expectException(InvalidArgumentException::class);
@@ -26,7 +26,7 @@ class X509CertificateTest extends BaseTestCase
         $certificate->loadFromFile('/non/existing/file/123');
     }
 
-    public function test_error_when_parse_called_with_out_data_set()
+    public function test_error_when_parse_called_with_out_data_set(): void
     {
         $this->expectExceptionMessage("Certificate data not set");
         $this->expectException(LightSamlException::class);
@@ -34,7 +34,7 @@ class X509CertificateTest extends BaseTestCase
         $certificate->parse();
     }
 
-    public static function throws_exception_when_data_not_set_provider()
+    public static function throws_exception_when_data_not_set_provider(): array
     {
         return [
             ['getFingerprint'],
@@ -48,7 +48,7 @@ class X509CertificateTest extends BaseTestCase
     }
 
     #[DataProvider('throws_exception_when_data_not_set_provider')]
-    public function test_throws_exception_when_data_not_set($method)
+    public function test_throws_exception_when_data_not_set(string $method): void
     {
         $this->expectExceptionMessage("Certificate data not set");
         $this->expectException(LightSamlException::class);

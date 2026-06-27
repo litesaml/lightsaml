@@ -13,7 +13,7 @@ use Tests\BaseTestCase;
 
 class EncryptedAssertionReaderTest extends BaseTestCase
 {
-    public function test_decrypt()
+    public function test_decrypt(): void
     {
         $xml = <<<EOT
 <?xml version="1.0"?>

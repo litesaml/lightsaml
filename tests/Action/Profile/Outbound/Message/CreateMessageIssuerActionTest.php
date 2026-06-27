@@ -12,13 +12,13 @@ use Tests\BaseTestCase;
 
 class CreateMessageIssuerActionTest extends BaseTestCase
 {
-    public function test_constructs_with_logger()
+    public function test_constructs_with_logger(): void
     {
         new CreateMessageIssuerAction($this->getLoggerMock());
         $this->assertTrue(true);
     }
 
-    public function test_sets_own_entity_id_to_outbounding_message_issuer_with_name_id_format_entity()
+    public function test_sets_own_entity_id_to_outbounding_message_issuer_with_name_id_format_entity(): void
     {
         $action = new CreateMessageIssuerAction($this->getLoggerMock());
 

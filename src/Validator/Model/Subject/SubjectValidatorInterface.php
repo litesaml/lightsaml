@@ -6,8 +6,5 @@ use LightSaml\Model\Assertion\Subject;
 
 interface SubjectValidatorInterface
 {
-    /**
-     * @return void
-     */
-    public function validateSubject(Subject $subject);
+    public function validateSubject(Subject $subject): void;
 }

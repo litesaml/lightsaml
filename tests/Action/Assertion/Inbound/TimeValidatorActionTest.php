@@ -8,13 +8,13 @@ use Tests\BaseTestCase;
 
 class TimeValidatorActionTest extends BaseTestCase
 {
-    public function test_constructs_with_logger_validator_time_provider_and_allowed_skew()
+    public function test_constructs_with_logger_validator_time_provider_and_allowed_skew(): void
     {
         new TimeValidatorAction($this->getLoggerMock(), $this->getAssertionTimeValidatorMock(), $this->getTimeProviderMock(), 120);
         $this->assertTrue(true);
     }
 
-    public function test_calls_validator()
+    public function test_calls_validator(): void
     {
         $action = new TimeValidatorAction(
             $loggerMock = $this->getLoggerMock(),

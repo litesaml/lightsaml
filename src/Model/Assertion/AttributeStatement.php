@@ -9,15 +9,10 @@ use LightSaml\SamlConstants;
 
 class AttributeStatement extends AbstractStatement
 {
-    /**
-     * @var Attribute[]
-     */
-    protected $attributes = [];
+    /** @var Attribute[] */
+    protected array $attributes = [];
 
-    /**
-     * @return AttributeStatement
-     */
-    public function addAttribute(Attribute $attribute)
+    public function addAttribute(Attribute $attribute): static
     {
         $this->attributes[] = $attribute;
 
@@ -27,17 +22,12 @@ class AttributeStatement extends AbstractStatement
     /**
      * @return Attribute[]
      */
-    public function getAllAttributes()
+    public function getAllAttributes(): array
     {
         return $this->attributes;
     }
 
-    /**
-     * @param string $name
-     *
-     * @return Attribute|null
-     */
-    public function getFirstAttributeByName($name)
+    public function getFirstAttributeByName(string $name): ?Attribute
     {
         if (is_array($this->getAllAttributes())) {
             foreach ($this->getAllAttributes() as $attribute) {
@@ -47,20 +37,17 @@ class AttributeStatement extends AbstractStatement
             }
         }
 
-        return;
+        return null;
     }
 
-    /**
-     * @return void
-     */
-    public function serialize(DOMNode $parent, SerializationContext $context)
+    public function serialize(DOMNode $parent, SerializationContext $context): void
     {
         $result = $this->createElement('AttributeStatement', SamlConstants::NS_ASSERTION, $parent, $context);
 
         $this->manyElementsToXml($this->getAllAttributes(), $result, $context, null);
     }
 
-    public function deserialize(DOMNode $node, DeserializationContext $context)
+    public function deserialize(DOMNode $node, DeserializationContext $context): void
     {
         $this->checkXmlNodeName($node, 'AttributeStatement', SamlConstants::NS_ASSERTION);
 

@@ -14,16 +14,11 @@ use RobRichards\XMLSecLibs\XMLSecurityKey;
 
 class SignatureWriter extends Signature
 {
-    /** @var string */
-    protected $canonicalMethod = XMLSecurityDSig::EXC_C14N;
+    protected string $canonicalMethod = XMLSecurityDSig::EXC_C14N;
 
-    /** @var SigningOptions */
-    protected $signingOptions;
+    protected ?SigningOptions $signingOptions = null;
 
-    /**
-     * @return SignatureWriter
-     */
-    public static function create(SigningOptions $options)
+    public static function create(SigningOptions $options): self
     {
         $writer = new self($options->getCertificate(), $options->getPrivateKey());
         $writer->signingOptions = $options;
@@ -31,118 +26,78 @@ class SignatureWriter extends Signature
         return $writer;
     }
 
-    /**
-     * @return SignatureWriter
-     */
-    public static function createByKeyAndCertificate(X509Certificate $certificate, XMLSecurityKey $xmlSecurityKey)
+    public static function createByKeyAndCertificate(X509Certificate $certificate, XMLSecurityKey $xmlSecurityKey): SignatureWriter
     {
         $signingOptions = new SigningOptions($xmlSecurityKey, $certificate);
 
         return self::create($signingOptions);
     }
 
-    /**
-     * @param string $digestAlgorithm
-     */
-    public function __construct(protected ?X509Certificate $certificate = null, protected ?XMLSecurityKey $xmlSecurityKey = null, protected $digestAlgorithm = XMLSecurityDSig::SHA256)
+    public function __construct(protected ?X509Certificate $certificate = null, protected ?XMLSecurityKey $xmlSecurityKey = null, protected string $digestAlgorithm = XMLSecurityDSig::SHA256)
     {
     }
 
-    /**
-     * @return string
-     */
-    public function getDigestAlgorithm()
+    public function getDigestAlgorithm(): string
     {
         return $this->digestAlgorithm;
     }
 
-    /**
-     * @param string $digestAlgorithm
-     *
-     * @return SignatureWriter
-     */
-    public function setDigestAlgorithm($digestAlgorithm)
+    public function setDigestAlgorithm(string $digestAlgorithm): static
     {
         $this->digestAlgorithm = $digestAlgorithm;
 
         return $this;
     }
 
-    /**
-     * @return SigningOptions
-     */
-    public function getSigningOptions()
+    public function getSigningOptions(): ?SigningOptions
     {
         return $this->signingOptions;
     }
 
-    /**
-     * @return SignatureWriter
-     */
-    public function setSigningOptions(SigningOptions $signingOptions)
+    public function setSigningOptions(SigningOptions $signingOptions): static
     {
         $this->signingOptions = $signingOptions;
 
         return $this;
     }
 
-    /**
-     * @return string
-     */
-    public function getCanonicalMethod()
+    public function getCanonicalMethod(): string
     {
         return $this->canonicalMethod;
     }
 
-    /**
-     * @param string $canonicalMethod
-     *
-     * @return SignatureWriter
-     */
-    public function setCanonicalMethod($canonicalMethod)
+    public function setCanonicalMethod(string $canonicalMethod): static
     {
         $this->canonicalMethod = $canonicalMethod;
 
         return $this;
     }
 
-    /**
-     * @return SignatureWriter
-     */
-    public function setXmlSecurityKey(XMLSecurityKey $key)
+    public function setXmlSecurityKey(XMLSecurityKey $key): static
     {
         $this->xmlSecurityKey = $key;
 
         return $this;
     }
 
-    /**
-     * @return XMLSecurityKey
-     */
-    public function getXmlSecurityKey()
+    public function getXmlSecurityKey(): ?XMLSecurityKey
     {
         return $this->xmlSecurityKey;
     }
 
-    /**
-     * @return SignatureWriter
-     */
-    public function setCertificate(X509Certificate $certificate)
+    public function setCertificate(X509Certificate $certificate): static
     {
         $this->certificate = $certificate;
 
         return $this;
     }
 
-    /**
-     * @return X509Certificate
-     */
-    public function getCertificate()
+    public function getCertificate(): ?X509Certificate
     {
         return $this->certificate;
     }
 
-    public function serialize(DOMNode $parent, SerializationContext $context)
+    public function serialize(DOMNode $parent, SerializationContext $context): void
     {
         if ($this->signingOptions && false === $this->signingOptions->isEnabled()) {
             return;

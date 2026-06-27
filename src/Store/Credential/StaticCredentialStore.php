@@ -6,37 +6,25 @@ use LightSaml\Credential\CredentialInterface;
 
 class StaticCredentialStore implements CredentialStoreInterface
 {
-    /**
-     * entityID => CredentialInterface[].
-     *
-     * @var array
-     */
-    protected $credentials = [];
+    /** entityID => CredentialInterface[] */
+    protected array $credentials = [];
 
     /**
-     * @param string $entityId
-     *
      * @return CredentialInterface[]
      */
-    public function getByEntityId($entityId)
+    public function getByEntityId(string $entityId): array
     {
         $this->checkEntityIdExistence($entityId);
 
         return $this->credentials[$entityId];
     }
 
-    /**
-     * @param string $entityId
-     */
-    public function has($entityId): bool
+    public function has(string $entityId): bool
     {
         return array_key_exists($entityId, $this->credentials);
     }
 
-    /**
-     * @return StaticCredentialStore
-     */
-    public function add(CredentialInterface $credential)
+    public function add(CredentialInterface $credential): static
     {
         $this->checkEntityIdExistence($credential->getEntityId());
 
@@ -45,10 +33,7 @@ class StaticCredentialStore implements CredentialStoreInterface
         return $this;
     }
 
-    /**
-     * @param string $entityId
-     */
-    private function checkEntityIdExistence($entityId)
+    private function checkEntityIdExistence(string $entityId): void
     {
         if (false == $this->has($entityId)) {
             $this->credentials[$entityId] = [];

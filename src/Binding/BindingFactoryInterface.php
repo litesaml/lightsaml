@@ -7,22 +7,14 @@ use Psr\Http\Message\ServerRequestInterface;
 
 interface BindingFactoryInterface
 {
-    /**
-     * @return AbstractBinding
-     */
-    public function getBindingByRequest(ServerRequestInterface $request);
+    public function getBindingByRequest(ServerRequestInterface $request): AbstractBinding;
 
     /**
-     * @param string $bindingType
      *
      * @throws LightSamlBindingException
      *
-     * @return AbstractBinding
      */
-    public function create($bindingType);
+    public function create(string $bindingType): AbstractBinding;
 
-    /**
-     * @return string|null
-     */
-    public function detectBindingType(ServerRequestInterface $request);
+    public function detectBindingType(ServerRequestInterface $request): ?string;
 }

@@ -9,6 +9,7 @@ use LightSaml\Context\Profile\ProfileContext;
 use LightSaml\Model\Protocol\AuthnRequest;
 use LightSaml\Model\Protocol\LogoutRequest;
 use LightSaml\Model\Protocol\Response;
+use LightSaml\Model\XmlDSig\SignatureWriter;
 use LightSaml\Resolver\Signature\SignatureResolverInterface;
 use LogicException;
 use Psr\Log\LoggerInterface;
@@ -28,7 +29,7 @@ class SignMessageAction extends AbstractProfileAction
         $shouldSign = $this->shouldSignMessage($context);
         if ($shouldSign) {
             $signature = $this->signatureResolver->getSignature($context);
-            if ($signature) {
+            if ($signature instanceof SignatureWriter) {
                 MessageContextHelper::asSamlMessage($context->getOutboundContext())
                     ->setSignature($signature)
                 ;
@@ -50,10 +51,7 @@ class SignMessageAction extends AbstractProfileAction
         }
     }
 
-    /**
-     * @return bool
-     */
-    private function shouldSignMessage(ProfileContext $context)
+    private function shouldSignMessage(ProfileContext $context): bool
     {
         $message = $context->getOutboundMessage();
 

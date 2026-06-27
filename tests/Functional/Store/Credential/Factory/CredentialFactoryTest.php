@@ -13,7 +13,7 @@ use Tests\BaseTestCase;
 
 class CredentialFactoryTest extends BaseTestCase
 {
-    public function test_creates_composite_store()
+    public function test_creates_composite_store(): void
     {
         $factory = new CredentialFactory();
 

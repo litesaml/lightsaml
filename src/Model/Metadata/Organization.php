@@ -12,101 +12,63 @@ use LightSaml\SamlConstants;
 
 class Organization extends AbstractSamlModel
 {
-    /** @var string */
-    protected $organizationName;
+    protected string $organizationName;
 
-    /** @var string */
-    protected $organizationDisplayName;
+    protected string $organizationDisplayName;
 
-    /** @var string */
-    protected $organizationURL;
+    protected string $organizationURL;
 
     protected $lang = 'en-US';
 
-    /**
-     * @return string
-     */
-    public function getLang()
+    public function getLang(): string
     {
         return $this->lang;
     }
 
-    /**
-     * @param string $lang
-     *
-     * @return Organization
-     */
-    public function setLang($lang)
+    public function setLang(string $lang): static
     {
         $this->lang = $lang;
 
         return $this;
     }
 
-    /**
-     * @param string $organizationDisplayName
-     *
-     * @return Organization
-     */
-    public function setOrganizationDisplayName($organizationDisplayName)
+    public function setOrganizationDisplayName(string $organizationDisplayName): static
     {
-        $this->organizationDisplayName = (string) $organizationDisplayName;
+        $this->organizationDisplayName = $organizationDisplayName;
 
         return $this;
     }
 
-    /**
-     * @return string
-     */
-    public function getOrganizationDisplayName()
+    public function getOrganizationDisplayName(): string
     {
         return $this->organizationDisplayName;
     }
 
-    /**
-     * @param string $organizationName
-     *
-     * @return Organization
-     */
-    public function setOrganizationName($organizationName)
+    public function setOrganizationName(string $organizationName): static
     {
-        $this->organizationName = (string) $organizationName;
+        $this->organizationName = $organizationName;
 
         return $this;
     }
 
-    /**
-     * @return string
-     */
-    public function getOrganizationName()
+    public function getOrganizationName(): string
     {
         return $this->organizationName;
     }
 
-    /**
-     * @param string $organizationURL
-     *
-     * @return Organization
-     */
-    public function setOrganizationURL($organizationURL)
+    public function setOrganizationURL(string $organizationURL): static
     {
-        $this->organizationURL = (string) $organizationURL;
+        $this->organizationURL = $organizationURL;
 
         return $this;
     }
 
-    /**
-     * @return string
-     */
-    public function getOrganizationURL()
+    public function getOrganizationURL(): string
     {
         return $this->organizationURL;
     }
 
-    /**
-     * @return void
-     */
-    public function serialize(DOMNode $parent, SerializationContext $context)
+    public function serialize(DOMNode $parent, SerializationContext $context): void
     {
         if (!$this->lang) {
             throw new LightSamlXmlException('Lang is required');
@@ -130,7 +92,7 @@ class Organization extends AbstractSamlModel
         }
     }
 
-    public function deserialize(DOMNode $node, DeserializationContext $context)
+    public function deserialize(DOMNode $node, DeserializationContext $context): void
     {
         $this->checkXmlNodeName($node, 'Organization', SamlConstants::NS_METADATA);
 

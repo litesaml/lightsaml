@@ -21,7 +21,7 @@ use Tests\BaseTestCase;
 
 class HttpPostBindingFunctionalTest extends BaseTestCase
 {
-    public function test_send_authn_request()
+    public function test_send_authn_request(): void
     {
         $expectedRelayState = 'relayState';
         $expectedDestination = 'https://destination.com/auth';
@@ -36,7 +36,7 @@ class HttpPostBindingFunctionalTest extends BaseTestCase
         $eventDispatcherMock = $this->getEventDispatcherMock();
         $eventDispatcherMock->expects($this->once())
             ->method('dispatch')
-            ->willReturnCallback(function (MessageSent $event) {
+            ->willReturnCallback(function (MessageSent $event): MessageSent {
                 $this->assertNotEmpty($event->message);
                 $doc = new DOMDocument();
                 $doc->loadXML($event->message);
@@ -68,7 +68,7 @@ class HttpPostBindingFunctionalTest extends BaseTestCase
         $this->assertEquals($expectedDestination, $response->getDestination());
     }
 
-    public function test_send_destination()
+    public function test_send_destination(): void
     {
         $expectedDestination = 'https://destination.com/auth';
 
@@ -88,7 +88,7 @@ class HttpPostBindingFunctionalTest extends BaseTestCase
         $this->assertEquals($expectedDestination, $response->getDestination());
     }
 
-    public function test_receive_authn_request_uncompressed()
+    public function test_receive_authn_request_uncompressed(): void
     {
         $expectedRelayState = 'relayState';
 
@@ -105,7 +105,7 @@ class HttpPostBindingFunctionalTest extends BaseTestCase
         $eventDispatcherMock = $this->getEventDispatcherMock();
         $eventDispatcherMock->expects($this->once())
             ->method('dispatch')
-            ->willReturnCallback(function (MessageReceived $event) {
+            ->willReturnCallback(function (MessageReceived $event): MessageReceived {
                 $this->assertNotEmpty($event->message);
                 $doc = new DOMDocument();
                 $doc->loadXML($event->message);
@@ -130,7 +130,7 @@ class HttpPostBindingFunctionalTest extends BaseTestCase
         $this->assertInstanceOf(SignatureXmlReader::class, $message->getSignature());
     }
 
-    public function test_receive_authn_request_compressed()
+    public function test_receive_authn_request_compressed(): void
     {
         $expectedRelayState = 'relayState';
 
@@ -147,7 +147,7 @@ class HttpPostBindingFunctionalTest extends BaseTestCase
         $eventDispatcherMock = $this->getEventDispatcherMock();
         $eventDispatcherMock->expects($this->once())
             ->method('dispatch')
-            ->willReturnCallback(function (MessageReceived $event) {
+            ->willReturnCallback(function (MessageReceived $event): MessageReceived {
                 $this->assertNotEmpty($event->message);
                 $doc = new DOMDocument();
                 $doc->loadXML($event->message);
@@ -163,19 +163,16 @@ class HttpPostBindingFunctionalTest extends BaseTestCase
         /** @var AuthnRequest $message */
         $message = $messageContext->getMessage();
 
-        $this->assertInstanceOf('LightSaml\Model\Protocol\AuthnRequest', $message);
+        $this->assertInstanceOf(AuthnRequest::class, $message);
 
         $this->assertEquals($expectedRelayState, $message->getRelayState());
 
         $this->assertNotNull($message->getSignature());
-        $this->assertInstanceOf('LightSaml\Model\XmlDSig\AbstractSignatureReader', $message->getSignature());
-        $this->assertInstanceOf('LightSaml\Model\XmlDSig\SignatureXmlReader', $message->getSignature());
+        $this->assertInstanceOf(AbstractSignatureReader::class, $message->getSignature());
+        $this->assertInstanceOf(SignatureXmlReader::class, $message->getSignature());
     }
 
-    /**
-     * @return AuthnRequest
-     */
-    private function getAuthnRequest()
+    private function getAuthnRequest(): AuthnRequest
     {
         $authnRequest = new AuthnRequest();
         $authnRequest->setIssueInstant('2014-01-01T12:00:00Z');
@@ -194,7 +191,7 @@ class HttpPostBindingFunctionalTest extends BaseTestCase
     /**
      * @return MockObject|EventDispatcherInterface
      */
-    private function getEventDispatcherMock()
+    private function getEventDispatcherMock(): MockObject
     {
         return $this->getMockBuilder(EventDispatcherInterface::class)->getMock();
     }

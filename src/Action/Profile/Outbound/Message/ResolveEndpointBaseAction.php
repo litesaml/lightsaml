@@ -7,6 +7,7 @@ use LightSaml\Context\Profile\Helper\LogHelper;
 use LightSaml\Context\Profile\ProfileContext;
 use LightSaml\Criteria\CriteriaSet;
 use LightSaml\Error\LightSamlContextException;
+use LightSaml\Model\Metadata\Endpoint;
 use LightSaml\Model\Metadata\EndpointReference;
 use LightSaml\Model\Metadata\IdpSsoDescriptor;
 use LightSaml\Model\Metadata\SpSsoDescriptor;
@@ -32,7 +33,7 @@ abstract class ResolveEndpointBaseAction extends AbstractProfileAction
 
     protected function doExecute(ProfileContext $context)
     {
-        if ($context->getEndpointContext()->getEndpoint()) {
+        if ($context->getEndpointContext()->getEndpoint() instanceof Endpoint) {
             $this->logger->debug(
                 sprintf(
                     'Endpoint already set with location "%s" and binding "%s"',
@@ -88,15 +89,12 @@ abstract class ResolveEndpointBaseAction extends AbstractProfileAction
         $context->getEndpointContext()->setEndpoint($endpointReference->getEndpoint());
     }
 
-    /**
-     * @return CriteriaSet
-     */
-    protected function getCriteriaSet(ProfileContext $context)
+    protected function getCriteriaSet(ProfileContext $context): CriteriaSet
     {
         $criteriaSet = new CriteriaSet();
 
         $bindings = $this->getBindings($context);
-        if ($bindings) {
+        if ($bindings !== []) {
             $criteriaSet->add(new BindingCriteria($bindings));
         }
 
@@ -105,10 +103,7 @@ abstract class ResolveEndpointBaseAction extends AbstractProfileAction
             $criteriaSet->add(new DescriptorTypeCriteria($descriptorType));
         }
 
-        $serviceType = $this->getServiceType($context);
-        if ($serviceType) {
-            $criteriaSet->add(new ServiceTypeCriteria($serviceType));
-        }
+        $criteriaSet->add(new ServiceTypeCriteria($this->getServiceType($context)));
 
         return $criteriaSet;
     }
@@ -116,7 +111,7 @@ abstract class ResolveEndpointBaseAction extends AbstractProfileAction
     /**
      * @return string[]
      */
-    protected function getBindings(ProfileContext $context)
+    protected function getBindings(ProfileContext $context): array
     {
         return [
             SamlConstants::BINDING_SAML2_HTTP_POST,
@@ -124,20 +119,12 @@ abstract class ResolveEndpointBaseAction extends AbstractProfileAction
         ];
     }
 
-    /**
-     * @return string|null
-     */
-    protected function getDescriptorType(ProfileContext $context)
+    protected function getDescriptorType(ProfileContext $context): ?string
     {
-        return ProfileContext::ROLE_IDP == $context->getOwnRole()
+        return ProfileContext::ROLE_IDP === $context->getOwnRole()
             ? SpSsoDescriptor::class
             : IdpSsoDescriptor::class;
     }
 
-    /**
-     * @return string|null
-     */
-    protected function getServiceType(ProfileContext $context)
-    {
-    }
+    abstract protected function getServiceType(ProfileContext $context): string;
 }

@@ -8,17 +8,14 @@ use LightSaml\Model\Metadata\EntityDescriptor;
 
 class FixedEntityDescriptorStore implements EntityDescriptorStoreInterface
 {
-    /** @var array|EntityDescriptor[] entityId=>descriptor */
-    protected $descriptors = [];
+    /** @var EntityDescriptor[] entityId=>descriptor */
+    protected array $descriptors = [];
 
     /**
-     * @param EntityDescriptor|EntitiesDescriptor $entityDescriptor
-     *
-     * @return FixedEntityDescriptorStore
      *
      * @throws InvalidArgumentException
      */
-    public function add($entityDescriptor)
+    public function add(EntityDescriptor|EntitiesDescriptor $entityDescriptor): static
     {
         if ($entityDescriptor instanceof EntityDescriptor) {
             if (false == $entityDescriptor->getEntityID()) {
@@ -36,29 +33,17 @@ class FixedEntityDescriptorStore implements EntityDescriptorStoreInterface
         return $this;
     }
 
-    /**
-     * @param string $entityId
-     *
-     * @return EntityDescriptor|null
-     */
-    public function get($entityId)
+    public function get(string $entityId): ?EntityDescriptor
     {
         return $this->descriptors[$entityId] ?? null;
     }
 
-    /**
-     * @param string $entityId
-     *
-     * @return bool
-     */
-    public function has($entityId)
+    public function has(string $entityId): bool
     {
         return isset($this->descriptors[$entityId]);
     }
 
-    /**
-     * @return array|EntityDescriptor[]
-     */
+    /** @return EntityDescriptor[] */
     public function all(): array
     {
         return array_values($this->descriptors);

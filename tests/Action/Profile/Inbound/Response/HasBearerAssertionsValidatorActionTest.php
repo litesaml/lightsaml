@@ -16,13 +16,13 @@ use Tests\BaseTestCase;
 
 class HasBearerAssertionsValidatorActionTest extends BaseTestCase
 {
-    public function test_constructs_with_logger()
+    public function test_constructs_with_logger(): void
     {
         new HasBearerAssertionsValidatorAction($this->getLoggerMock());
         $this->assertTrue(true);
     }
 
-    public function test_does_nothing_if_there_is_bearer_assertion()
+    public function test_does_nothing_if_there_is_bearer_assertion(): void
     {
         $action = new HasBearerAssertionsValidatorAction($this->getLoggerMock());
 
@@ -39,7 +39,7 @@ class HasBearerAssertionsValidatorActionTest extends BaseTestCase
         $this->assertTrue(true);
     }
 
-    public function test_throws_context_exception_if_no_bearer_assertion()
+    public function test_throws_context_exception_if_no_bearer_assertion(): void
     {
         $this->expectExceptionMessage("Response must contain at least one bearer assertion");
         $this->expectException(LightSamlContextException::class);

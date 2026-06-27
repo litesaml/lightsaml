@@ -4,12 +4,9 @@ namespace LightSaml\Store\Request;
 
 class RequestStateArrayStore extends AbstractRequestStateArrayStore
 {
-    private $arrayStore = [];
+    private array $arrayStore = [];
 
-    /**
-     * @return array
-     */
-    protected function getArray()
+    protected function getArray(): array
     {
         return $this->arrayStore;
     }

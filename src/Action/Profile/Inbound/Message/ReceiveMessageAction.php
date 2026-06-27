@@ -20,10 +20,7 @@ class ReceiveMessageAction extends AbstractProfileAction
         parent::__construct($logger);
     }
 
-    /**
-     * @return void
-     */
-    protected function doExecute(ProfileContext $context)
+    protected function doExecute(ProfileContext $context): void
     {
         $bindingType = $this->bindingFactory->detectBindingType($context->getHttpRequest());
         if (null == $bindingType) {

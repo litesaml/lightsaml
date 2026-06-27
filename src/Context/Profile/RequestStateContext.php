@@ -6,23 +6,14 @@ use LightSaml\State\Request\RequestState;
 
 class RequestStateContext extends AbstractProfileContext
 {
-    /** @var RequestState */
-    protected $requestState;
+    protected RequestState $requestState;
 
-    /**
-     * @return RequestState
-     */
-    public function getRequestState()
+    public function getRequestState(): RequestState
     {
         return $this->requestState;
     }
 
-    /**
-     * @param RequestState $requestState
-     *
-     * @return RequestStateContext
-     */
-    public function setRequestState($requestState)
+    public function setRequestState(RequestState $requestState): static
     {
         $this->requestState = $requestState;
 

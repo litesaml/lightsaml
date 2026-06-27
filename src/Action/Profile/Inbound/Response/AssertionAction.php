@@ -34,12 +34,7 @@ class AssertionAction extends AbstractProfileAction implements DebugPrintTreeAct
         }
     }
 
-    /**
-     * @param int $depth
-     *
-     * @return array
-     */
-    public function debugPrintTree($depth = 0)
+    public function debugPrintTree(int $depth = 0): array
     {
         $arr = [];
         if ($this->assertionAction instanceof DebugPrintTreeActionInterface) {

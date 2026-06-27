@@ -8,49 +8,33 @@ use Stringable;
 
 abstract class AbstractContext implements ContextInterface, Stringable
 {
-    /** @var ContextInterface|null */
-    private $parent;
+    private ?ContextInterface $parent = null;
 
     /** @var ContextInterface[] */
-    private $subContexts = [];
+    private array $subContexts = [];
 
-    /**
-     * @return ContextInterface|null
-     */
-    public function getParent()
+    public function getParent(): ?ContextInterface
     {
         return $this->parent;
     }
 
-    /**
-     * @return ContextInterface
-     */
-    public function getTopParent()
+    public function getTopParent(): ContextInterface
     {
-        if ($this->getParent()) {
+        if ($this->getParent() instanceof ContextInterface) {
             return $this->getParent()->getTopParent();
         }
 
         return $this;
     }
 
-    /**
-     * @return ContextInterface
-     */
-    public function setParent(?ContextInterface $parent = null)
+    public function setParent(?ContextInterface $parent = null): ContextInterface
     {
         $this->parent = $parent;
 
         return $this;
     }
 
-    /**
-     * @param string      $name
-     * @param string|null $class
-     *
-     * @return ContextInterface|null
-     */
-    public function getSubContext($name, $class = null)
+    public function getSubContext(string $name, ?string $class = null): object|null
     {
         if (isset($this->subContexts[$name])) {
             return $this->subContexts[$name];
@@ -63,27 +47,19 @@ abstract class AbstractContext implements ContextInterface, Stringable
             return $result;
         }
 
-        return;
+        return null;
     }
 
-    /**
-     * @param string $class
-     * @param bool   $autoCreate
-     *
-     * @return ContextInterface|null
-     */
-    public function getSubContextByClass($class, $autoCreate)
+    public function getSubContextByClass(string $class, bool $autoCreate): object|null
     {
         return $this->getSubContext($class, $autoCreate ? $class : null);
     }
 
     /**
-     * @param string                  $name
      * @param object|ContextInterface $subContext
      *
-     * @return AbstractContext
      */
-    public function addSubContext($name, $subContext)
+    public function addSubContext(string $name, $subContext): AbstractContext
     {
         if (false === is_object($subContext)) {
             throw new InvalidArgumentException('Expected object or ContextInterface');
@@ -106,16 +82,11 @@ abstract class AbstractContext implements ContextInterface, Stringable
         return $this;
     }
 
-    /**
-     * @param string $name
-     *
-     * @return ContextInterface
-     */
-    public function removeSubContext($name)
+    public function removeSubContext(string $name): ContextInterface
     {
         $subContext = $this->getSubContext($name, false);
 
-        if ($subContext) {
+        if ($subContext instanceof ContextInterface) {
             $subContext->setParent(null);
             unset($this->subContexts[$name]);
         }
@@ -123,20 +94,12 @@ abstract class AbstractContext implements ContextInterface, Stringable
         return $this;
     }
 
-    /**
-     * @param string $name
-     *
-     * @return bool
-     */
-    public function containsSubContext($name)
+    public function containsSubContext(string $name): bool
     {
         return isset($this->subContexts[$name]);
     }
 
-    /**
-     * @return ContextInterface
-     */
-    public function clearSubContexts()
+    public function clearSubContexts(): ContextInterface
     {
         foreach ($this->subContexts as $subContext) {
             $subContext->setParent(null);
@@ -151,12 +114,7 @@ abstract class AbstractContext implements ContextInterface, Stringable
         return new ArrayIterator($this->subContexts);
     }
 
-    /**
-     * @param string $ownName
-     *
-     * @return array
-     */
-    public function debugPrintTree($ownName = 'root')
+    public function debugPrintTree(string $ownName = 'root'): array
     {
         $result = [
             $ownName => static::class,
@@ -182,12 +140,7 @@ abstract class AbstractContext implements ContextInterface, Stringable
         return (string) json_encode($this->debugPrintTree(), JSON_PRETTY_PRINT);
     }
 
-    /**
-     * @param string $path
-     *
-     * @return ContextInterface
-     */
-    public function getPath($path)
+    public function getPath(string|array $path): ?ContextInterface
     {
         if (is_string($path)) {
             $path = explode('/', $path);
@@ -198,7 +151,7 @@ abstract class AbstractContext implements ContextInterface, Stringable
         $name = array_shift($path);
         $subContext = $this->getSubContext($name);
         if (null == $subContext) {
-            return;
+            return null;
         }
 
         if ($path === []) {
@@ -208,12 +161,7 @@ abstract class AbstractContext implements ContextInterface, Stringable
         }
     }
 
-    /**
-     * @param string $class
-     *
-     * @return ContextInterface
-     */
-    protected function createSubContext($class)
+    protected function createSubContext(string $class): object
     {
         return new $class();
     }

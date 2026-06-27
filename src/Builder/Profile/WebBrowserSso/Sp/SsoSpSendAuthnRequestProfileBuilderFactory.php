@@ -10,12 +10,7 @@ class SsoSpSendAuthnRequestProfileBuilderFactory
     {
     }
 
-    /**
-     * @param string $idpEntityId
-     *
-     * @return SsoSpSendAuthnRequestProfileBuilder
-     */
-    public function get($idpEntityId)
+    public function get(string $idpEntityId): SsoSpSendAuthnRequestProfileBuilder
     {
         return new SsoSpSendAuthnRequestProfileBuilder($this->buildContainer, $idpEntityId);
     }

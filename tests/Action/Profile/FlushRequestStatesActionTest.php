@@ -17,7 +17,7 @@ use Tests\BaseTestCase;
 
 class FlushRequestStatesActionTest extends BaseTestCase
 {
-    public function test_constructs_with_logger_and_request_state_store()
+    public function test_constructs_with_logger_and_request_state_store(): void
     {
         $loggerMock = $this->getLoggerMock();
         $requestStoreMock = $this->getRequestStateStoreMock();
@@ -28,11 +28,11 @@ class FlushRequestStatesActionTest extends BaseTestCase
     }
 
     #[DoesNotPerformAssertions]
-    public function test_flushes_store_with_inbound_request_state()
+    public function test_flushes_store_with_inbound_request_state(): void
     {
         $expectedIds = ['1111', '2222', '3333'];
 
-        $requestStoreMock = Mockery::mock(RequestStateStoreInterface::class, function ($mock) use ($expectedIds) {
+        $requestStoreMock = Mockery::mock(RequestStateStoreInterface::class, function ($mock) use ($expectedIds): void {
             $mock->shouldReceive('remove')
                 ->once()
                 ->with($this->equalTo($expectedIds[0]))
@@ -47,7 +47,7 @@ class FlushRequestStatesActionTest extends BaseTestCase
                 ->andReturn(false);
         });
 
-        $loggerMock = Mockery::mock(LoggerInterface::class, function ($mock) use ($expectedIds) {
+        $loggerMock = Mockery::mock(LoggerInterface::class, function ($mock) use ($expectedIds): void {
             $mock->shouldReceive('debug')
                 ->once()
                 ->with($this->equalTo(sprintf('Removed request state "%s"', $expectedIds[0])), $this->isType('array'));

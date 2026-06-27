@@ -17,52 +17,34 @@ class Status extends AbstractSamlModel
     {
     }
 
-    /**
-     * @return Status
-     */
-    public function setStatusCode(StatusCode $statusCode)
+    public function setStatusCode(StatusCode $statusCode): static
     {
         $this->statusCode = $statusCode;
 
         return $this;
     }
 
-    /**
-     * @return StatusCode
-     */
-    public function getStatusCode()
+    public function getStatusCode(): ?StatusCode
     {
         return $this->statusCode;
     }
 
-    /**
-     * @param string|null $message
-     */
-    public function setStatusMessage($message)
+    public function setStatusMessage(?string $message): void
     {
         $this->statusMessage = (string) $message;
     }
 
-    /**
-     * @return string|null
-     */
-    public function getStatusMessage()
+    public function getStatusMessage(): ?string
     {
         return $this->statusMessage;
     }
 
-    /**
-     * @return bool
-     */
-    public function isSuccess()
+    public function isSuccess(): bool
     {
-        return $this->getStatusCode() && SamlConstants::STATUS_SUCCESS == $this->getStatusCode()->getValue();
+        return $this->getStatusCode() && SamlConstants::STATUS_SUCCESS === $this->getStatusCode()->getValue();
     }
 
-    /**
-     * @return Status
-     */
-    public function setSuccess()
+    public function setSuccess(): static
     {
         $this->setStatusCode(new StatusCode());
         $this->getStatusCode()->setValue(SamlConstants::STATUS_SUCCESS);
@@ -70,17 +52,14 @@ class Status extends AbstractSamlModel
         return $this;
     }
 
-    /**
-     * @return void
-     */
-    public function serialize(DOMNode $parent, SerializationContext $context)
+    public function serialize(DOMNode $parent, SerializationContext $context): void
     {
         $result = $this->createElement('samlp:Status', SamlConstants::NS_PROTOCOL, $parent, $context);
 
         $this->singleElementsToXml(['StatusCode', 'StatusMessage'], $result, $context, SamlConstants::NS_PROTOCOL);
     }
 
-    public function deserialize(DOMNode $node, DeserializationContext $context)
+    public function deserialize(DOMNode $node, DeserializationContext $context): void
     {
         $this->checkXmlNodeName($node, 'Status', SamlConstants::NS_PROTOCOL);
 

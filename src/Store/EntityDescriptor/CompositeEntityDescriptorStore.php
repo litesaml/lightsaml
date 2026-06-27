@@ -7,7 +7,7 @@ use LightSaml\Model\Metadata\EntityDescriptor;
 class CompositeEntityDescriptorStore implements EntityDescriptorStoreInterface
 {
     /** @var EntityDescriptorStoreInterface[] */
-    private $children = [];
+    private array $children = [];
 
     /**
      * @param EntityDescriptorStoreInterface[] $stores
@@ -19,22 +19,14 @@ class CompositeEntityDescriptorStore implements EntityDescriptorStoreInterface
         }
     }
 
-    /**
-     * @return CompositeEntityDescriptorStore This instance
-     */
-    public function add(EntityDescriptorStoreInterface $store)
+    public function add(EntityDescriptorStoreInterface $store): static
     {
         $this->children[] = $store;
 
         return $this;
     }
 
-    /**
-     * @param string $entityId
-     *
-     * @return EntityDescriptor|null
-     */
-    public function get($entityId)
+    public function get(string $entityId): ?EntityDescriptor
     {
         foreach ($this->children as $store) {
             $result = $store->get($entityId);
@@ -43,15 +35,10 @@ class CompositeEntityDescriptorStore implements EntityDescriptorStoreInterface
             }
         }
 
-        return;
+        return null;
     }
 
-    /**
-     * @param string $entityId
-     *
-     * @return bool
-     */
-    public function has($entityId)
+    public function has(string $entityId): bool
     {
         foreach ($this->children as $store) {
             if ($store->has($entityId)) {
@@ -62,10 +49,8 @@ class CompositeEntityDescriptorStore implements EntityDescriptorStoreInterface
         return false;
     }
 
-    /**
-     * @return array|EntityDescriptor[]
-     */
-    public function all()
+    /** @return EntityDescriptor[] */
+    public function all(): array
     {
         $result = [];
         foreach ($this->children as $store) {

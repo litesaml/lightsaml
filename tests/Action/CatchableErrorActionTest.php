@@ -14,13 +14,13 @@ use Tests\BaseTestCase;
 
 class CatchableErrorActionTest extends BaseTestCase
 {
-    public function test_constructs_with_two_actions()
+    public function test_constructs_with_two_actions(): void
     {
         new CatchableErrorAction($this->getActionMock(), $this->getActionMock());
         $this->assertTrue(true);
     }
 
-    public function test_execute_calls_first_action()
+    public function test_execute_calls_first_action(): void
     {
         $mainAction =  new CatchableErrorAction(
             $firstAction = $this->getActionMock(),
@@ -36,7 +36,7 @@ class CatchableErrorActionTest extends BaseTestCase
         $mainAction->execute($context);
     }
 
-    public function test_execute_calls_second_action_if_first_throws_exception_and_add_exception_to_context()
+    public function test_execute_calls_second_action_if_first_throws_exception_and_add_exception_to_context(): void
     {
         $mainAction =  new CatchableErrorAction(
             $firstAction = $this->getActionMock(),
@@ -64,7 +64,7 @@ class CatchableErrorActionTest extends BaseTestCase
     /**
      * @return MockObject|ActionInterface
      */
-    private function getActionMock()
+    private function getActionMock(): MockObject
     {
         return $this->getMockBuilder(ActionInterface::class)->getMock();
     }
@@ -72,7 +72,7 @@ class CatchableErrorActionTest extends BaseTestCase
     /**
      * @return MockObject|ContextInterface
      */
-    private function getContextMock()
+    private function getContextMock(): MockObject
     {
         return $this->getMockForAbstractClass(AbstractContext::class);
     }

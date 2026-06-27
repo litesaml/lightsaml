@@ -8,7 +8,7 @@ use Tests\BaseTestCase;
 
 class FixedEntityDescriptorProviderTest extends BaseTestCase
 {
-    public function test_returns_given_entity_descriptor()
+    public function test_returns_given_entity_descriptor(): void
     {
         $provider = new FixedEntityDescriptorProvider($expected = new EntityDescriptor());
         $this->assertSame($expected, $provider->get());

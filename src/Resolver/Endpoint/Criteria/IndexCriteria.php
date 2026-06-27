@@ -13,10 +13,7 @@ class IndexCriteria implements CriteriaInterface
     {
     }
 
-    /**
-     * @return string
-     */
-    public function getIndex()
+    public function getIndex(): string
     {
         return $this->index;
     }

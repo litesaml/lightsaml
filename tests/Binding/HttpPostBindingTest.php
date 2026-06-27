@@ -16,7 +16,7 @@ use Tests\BaseTestCase;
 
 class HttpPostBindingTest extends BaseTestCase
 {
-    public function test_send_throws_when_factories_not_set()
+    public function test_send_throws_when_factories_not_set(): void
     {
         $this->expectException(LightSamlMissingFactoryException::class);
         $this->expectExceptionMessage('ResponseFactory and StreamFactory must be provided to use send()');
@@ -28,7 +28,7 @@ class HttpPostBindingTest extends BaseTestCase
         $binding->send($context);
     }
 
-    public function test_receive_throws_when_no_message()
+    public function test_receive_throws_when_no_message(): void
     {
         $this->expectExceptionMessage("Missing SAMLRequest or SAMLResponse parameter");
         $this->expectException(LightSamlBindingException::class);
@@ -42,7 +42,7 @@ class HttpPostBindingTest extends BaseTestCase
         $binding->receive($request, $messageContext);
     }
 
-    public function test_relay_state_is_included_in_http_post()
+    public function test_relay_state_is_included_in_http_post(): void
     {
         $expectedRelayState = 'some_relay_state';
 

@@ -6,17 +6,7 @@ use LightSaml\Meta\TrustOptions\TrustOptions;
 
 interface TrustOptionsStoreInterface
 {
-    /**
-     * @param string $entityId
-     *
-     * @return TrustOptions|null
-     */
-    public function get($entityId);
+    public function get(string $entityId): ?TrustOptions;
 
-    /**
-     * @param string $entityId
-     *
-     * @return bool
-     */
-    public function has($entityId);
+    public function has(string $entityId): bool;
 }

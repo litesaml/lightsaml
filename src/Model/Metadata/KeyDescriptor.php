@@ -16,21 +16,15 @@ class KeyDescriptor extends AbstractSamlModel
     public const USE_SIGNING = 'signing';
     public const USE_ENCRYPTION = 'encryption';
 
-    /**
-     * @param string|null $use
-     */
-    public function __construct(protected $use = null, private ?X509Certificate $certificate = null)
+    public function __construct(protected ?string $use = null, private ?X509Certificate $certificate = null)
     {
     }
 
     /**
-     * @param string $use
-     *
-     * @return KeyDescriptor
      *
      * @throws InvalidArgumentException
      */
-    public function setUse($use)
+    public function setUse(string $use): static
     {
         $use = trim($use);
         if (false != $use && self::USE_ENCRYPTION !== $use && self::USE_SIGNING !== $use) {
@@ -41,18 +35,12 @@ class KeyDescriptor extends AbstractSamlModel
         return $this;
     }
 
-    /**
-     * @return string
-     */
-    public function getUse()
+    public function getUse(): ?string
     {
         return $this->use;
     }
 
-    /**
-     * @return KeyDescriptor
-     */
-    public function setCertificate(X509Certificate $certificate)
+    public function setCertificate(X509Certificate $certificate): static
     {
         $this->certificate = $certificate;
 
@@ -60,17 +48,13 @@ class KeyDescriptor extends AbstractSamlModel
     }
 
     /**
-     * @return X509Certificate
      */
-    public function getCertificate()
+    public function getCertificate(): ?X509Certificate
     {
         return $this->certificate;
     }
 
-    /**
-     * @return void
-     */
-    public function serialize(DOMNode $parent, SerializationContext $context)
+    public function serialize(DOMNode $parent, SerializationContext $context): void
     {
         $result = $this->createElement('KeyDescriptor', SamlConstants::NS_METADATA, $parent, $context);
 
@@ -83,7 +67,7 @@ class KeyDescriptor extends AbstractSamlModel
         $xCert->nodeValue = $this->getCertificate()->getData();
     }
 
-    public function deserialize(DOMNode $node, DeserializationContext $context)
+    public function deserialize(DOMNode $node, DeserializationContext $context): void
     {
         $this->checkXmlNodeName($node, 'KeyDescriptor', SamlConstants::NS_METADATA);
 

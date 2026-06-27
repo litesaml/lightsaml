@@ -19,7 +19,7 @@ use LightSaml\SamlConstants;
 
 class EntityDescriptorXsdTest extends AbstractXsdValidation
 {
-    public function test_entity_descriptor_with_xsd()
+    public function test_entity_descriptor_with_xsd(): void
     {
         $entityDescriptor = new EntityDescriptor();
         $entityDescriptor

@@ -8,12 +8,9 @@ use LightSaml\Model\Assertion\Attribute;
 class FixedAttributeValueProvider implements AttributeValueProviderInterface
 {
     /** @var Attribute[] */
-    protected $attributes = [];
+    protected array $attributes = [];
 
-    /**
-     * @return FixedAttributeValueProvider
-     */
-    public function add(Attribute $attribute)
+    public function add(Attribute $attribute): static
     {
         $this->attributes[] = $attribute;
 
@@ -22,10 +19,8 @@ class FixedAttributeValueProvider implements AttributeValueProviderInterface
 
     /**
      * @param Attribute[] $attributes
-     *
-     * @return FixedAttributeValueProvider
      */
-    public function setAttributes(array $attributes)
+    public function setAttributes(array $attributes): static
     {
         $this->attributes = [];
         foreach ($attributes as $attribute) {
@@ -38,7 +33,7 @@ class FixedAttributeValueProvider implements AttributeValueProviderInterface
     /**
      * @return Attribute[]
      */
-    public function getValues(AssertionContext $context)
+    public function getValues(AssertionContext $context): array
     {
         return $this->attributes;
     }

@@ -9,13 +9,13 @@ use LightSaml\SamlConstants;
 
 class SingleLogoutService extends Endpoint
 {
-    public function serialize(DOMNode $parent, SerializationContext $context)
+    public function serialize(DOMNode $parent, SerializationContext $context): void
     {
         $result = $this->createElement('SingleLogoutService', SamlConstants::NS_METADATA, $parent, $context);
         parent::serialize($result, $context);
     }
 
-    public function deserialize(DOMNode $node, DeserializationContext $context)
+    public function deserialize(DOMNode $node, DeserializationContext $context): void
     {
         $this->checkXmlNodeName($node, 'SingleLogoutService', SamlConstants::NS_METADATA);
 

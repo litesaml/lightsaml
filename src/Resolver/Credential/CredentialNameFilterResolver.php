@@ -13,7 +13,7 @@ class CredentialNameFilterResolver extends AbstractQueryableResolver
      *
      * @return CredentialInterface[]
      */
-    public function resolve(CriteriaSet $criteriaSet, array $arrCredentials = [])
+    public function resolve(CriteriaSet $criteriaSet, array $arrCredentials = []): array
     {
         if (false == $criteriaSet->has(CredentialNameCriteria::class)) {
             return $arrCredentials;

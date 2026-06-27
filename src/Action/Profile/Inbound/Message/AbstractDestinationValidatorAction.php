@@ -22,10 +22,7 @@ abstract class AbstractDestinationValidatorAction extends AbstractProfileAction
         parent::__construct($logger);
     }
 
-    /**
-     * @return void
-     */
-    protected function doExecute(ProfileContext $context)
+    protected function doExecute(ProfileContext $context): void
     {
         $message = MessageContextHelper::asSamlMessage($context->getInboundContext());
         $destination = $message->getDestination();
@@ -37,7 +34,7 @@ abstract class AbstractDestinationValidatorAction extends AbstractProfileAction
         $criteriaSet = $this->getCriteriaSet($context, $destination);
         $endpoints = $this->endpointResolver->resolve($criteriaSet, $context->getOwnEntityDescriptor()->getAllEndpoints());
 
-        if ($endpoints) {
+        if ($endpoints !== []) {
             return;
         }
 
@@ -46,12 +43,7 @@ abstract class AbstractDestinationValidatorAction extends AbstractProfileAction
         throw new LightSamlContextException($context, $message);
     }
 
-    /**
-     * @param string $location
-     *
-     * @return CriteriaSet
-     */
-    protected function getCriteriaSet(ProfileContext $context, $location)
+    protected function getCriteriaSet(ProfileContext $context, string $location): CriteriaSet
     {
         return new CriteriaSet([
             new DescriptorTypeCriteria(

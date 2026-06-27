@@ -10,7 +10,7 @@ use Tests\BaseTestCase;
 
 class ConditionsTest extends BaseTestCase
 {
-    public function test_get_all_audience_restrictions()
+    public function test_get_all_audience_restrictions(): void
     {
         $conditions = new Conditions();
         $conditions->addItem($expected1 = new AudienceRestriction());
@@ -25,7 +25,7 @@ class ConditionsTest extends BaseTestCase
         $this->assertSame($expected2, $arr[1]);
     }
 
-    public function test_get_first_audience_restrictions()
+    public function test_get_first_audience_restrictions(): void
     {
         $conditions = new Conditions();
         $conditions->addItem($expected = new AudienceRestriction());
@@ -38,7 +38,7 @@ class ConditionsTest extends BaseTestCase
         $this->assertSame($expected, $actual);
     }
 
-    public function test_get_all_one_time_uses()
+    public function test_get_all_one_time_uses(): void
     {
         $conditions = new Conditions();
         $conditions->addItem(new AudienceRestriction());
@@ -54,7 +54,7 @@ class ConditionsTest extends BaseTestCase
         $this->assertSame($expected2, $arr[1]);
     }
 
-    public function test_get_first_one_time_use()
+    public function test_get_first_one_time_use(): void
     {
         $conditions = new Conditions();
         $conditions->addItem(new AudienceRestriction());
@@ -68,7 +68,7 @@ class ConditionsTest extends BaseTestCase
         $this->assertSame($expected, $actual);
     }
 
-    public function test_get_all_proxy_restrictions()
+    public function test_get_all_proxy_restrictions(): void
     {
         $conditions = new Conditions();
         $conditions->addItem(new AudienceRestriction());
@@ -84,7 +84,7 @@ class ConditionsTest extends BaseTestCase
         $this->assertSame($expected2, $arr[1]);
     }
 
-    public function test_get_first_proxy_restriction()
+    public function test_get_first_proxy_restriction(): void
     {
         $conditions = new Conditions();
         $conditions->addItem(new AudienceRestriction());

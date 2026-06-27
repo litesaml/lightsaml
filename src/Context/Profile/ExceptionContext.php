@@ -6,25 +6,18 @@ use Exception;
 
 class ExceptionContext extends AbstractProfileContext
 {
-    /** @var ExceptionContext|null */
-    protected $nextExceptionContext;
+    protected ?ExceptionContext $nextExceptionContext = null;
 
     public function __construct(protected ?Exception $exception = null)
     {
     }
 
-    /**
-     * @return Exception
-     */
-    public function getException()
+    public function getException(): ?Exception
     {
         return $this->exception;
     }
 
-    /**
-     * @return Exception|null
-     */
-    public function getLastException()
+    public function getLastException(): ?Exception
     {
         if (null == $this->nextExceptionContext) {
             return $this->exception;
@@ -33,20 +26,14 @@ class ExceptionContext extends AbstractProfileContext
         return $this->nextExceptionContext->getException();
     }
 
-    /**
-     * @return ExceptionContext|null
-     */
-    public function getNextExceptionContext()
+    public function getNextExceptionContext(): ?ExceptionContext
     {
         return $this->nextExceptionContext;
     }
 
-    /**
-     * @return ExceptionContext
-     */
-    public function addException(Exception $exception)
+    public function addException(Exception $exception): ExceptionContext
     {
-        if ($this->exception) {
+        if ($this->exception instanceof Exception) {
             if (null == $this->nextExceptionContext) {
                 $this->nextExceptionContext = new self($exception);
 

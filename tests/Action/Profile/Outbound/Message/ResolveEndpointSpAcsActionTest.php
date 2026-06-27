@@ -13,12 +13,12 @@ use Psr\Log\LoggerInterface;
 
 class ResolveEndpointSpAcsActionTest extends AbstractResolveEndpointAction
 {
-    public function test_adds_service_type_acs()
+    public function test_adds_service_type_acs(): void
     {
         $message = new AuthnRequest();
         $context = $this->createContext(ProfileContext::ROLE_IDP, $message);
 
-        $this->setEndpointResolver(true, function (CriteriaSet $criteriaSet) {
+        $this->setEndpointResolver(true, function (CriteriaSet $criteriaSet): array {
             $this->criteriaSetShouldHaveServiceTypeCriteria($criteriaSet, AssertionConsumerService::class);
 
             return [$this->getEndpointReferenceMock($endpoint = new AssertionConsumerService())];
@@ -31,7 +31,7 @@ class ResolveEndpointSpAcsActionTest extends AbstractResolveEndpointAction
      *
      * @return ResolveEndpointBaseAction
      */
-    protected function createAction(LoggerInterface $logger, EndpointResolverInterface $endpointResolver)
+    protected function createAction(LoggerInterface $logger, EndpointResolverInterface $endpointResolver): ResolveEndpointSpAcsAction
     {
         return new ResolveEndpointSpAcsAction($logger, $endpointResolver);
     }

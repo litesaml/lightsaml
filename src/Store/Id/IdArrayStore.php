@@ -6,16 +6,9 @@ use DateTime;
 
 class IdArrayStore implements IdStoreInterface
 {
-    /** @var array */
-    protected $store = [];
+    protected array $store = [];
 
-    /**
-     * @param string $entityId
-     * @param string $id
-     *
-     * @return void
-     */
-    public function set($entityId, $id, DateTime $expiryTime)
+    public function set(string $entityId, string $id, DateTime $expiryTime): void
     {
         if (false == isset($this->store[$entityId])) {
             $this->store[$entityId] = [];
@@ -23,13 +16,7 @@ class IdArrayStore implements IdStoreInterface
         $this->store[$entityId][$id] = $expiryTime;
     }
 
-    /**
-     * @param string $entityId
-     * @param string $id
-     *
-     * @return bool
-     */
-    public function has($entityId, $id)
+    public function has(string $entityId, string $id): bool
     {
         return isset($this->store[$entityId][$id]);
     }

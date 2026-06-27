@@ -14,43 +14,29 @@ use LightSaml\SamlConstants;
 
 class EntityDescriptor extends Metadata
 {
-    /** @var int|null */
-    protected $validUntil;
+    protected ?int $validUntil = null;
 
-    /** @var string|null */
-    protected $cacheDuration;
+    protected ?string $cacheDuration = null;
 
-    /** @var string|null */
-    protected $id;
+    protected ?string $id = null;
 
-    /** @var Signature|null */
-    protected $signature;
+    protected ?Signature $signature = null;
 
     /** @var IdpSsoDescriptor[]|SpSsoDescriptor[] */
-    protected $items;
+    protected array $items = [];
 
     /** @var Organization[]|null */
-    protected $organizations;
+    protected ?array $organizations = null;
 
     /** @var ContactPerson[]|null */
-    protected $contactPersons;
+    protected ?array $contactPersons = null;
 
-    /**
-     * @param string $filename
-     *
-     * @return EntityDescriptor
-     */
-    public static function load($filename)
+    public static function load(string $filename): EntityDescriptor
     {
         return self::loadXml(file_get_contents($filename));
     }
 
-    /**
-     * @param string $xml
-     *
-     * @return EntityDescriptor
-     */
-    public static function loadXml($xml)
+    public static function loadXml(string $xml): self
     {
         $context = new DeserializationContext();
         $context->getDocument()->loadXML($xml);
@@ -60,18 +46,12 @@ class EntityDescriptor extends Metadata
         return $ed;
     }
 
-    /**
-     * @param string|null $entityID
-     */
-    public function __construct(protected $entityID = null, array $items = [])
+    public function __construct(protected ?string $entityID = null, array $items = [])
     {
         $this->items = $items;
     }
 
-    /**
-     * @return EntityDescriptor
-     */
-    public function addContactPerson(ContactPerson $contactPerson)
+    public function addContactPerson(ContactPerson $contactPerson): static
     {
         if (false == is_array($this->contactPersons)) {
             $this->contactPersons = [];
@@ -84,27 +64,21 @@ class EntityDescriptor extends Metadata
     /**
      * @return ContactPerson[]|null
      */
-    public function getAllContactPersons()
+    public function getAllContactPersons(): ?array
     {
         return $this->contactPersons;
     }
 
-    /**
-     * @return ContactPerson|null
-     */
-    public function getFirstContactPerson()
+    public function getFirstContactPerson(): ?ContactPerson
     {
         if (is_array($this->contactPersons) && isset($this->contactPersons[0])) {
             return $this->contactPersons[0];
         }
 
-        return;
+        return null;
     }
 
-    /**
-     * @return EntityDescriptor
-     */
-    public function addOrganization(Organization $organization)
+    public function addOrganization(Organization $organization): static
     {
         if (false == is_array($this->organizations)) {
             $this->organizations = [];
@@ -117,31 +91,24 @@ class EntityDescriptor extends Metadata
     /**
      * @return Organization[]|null
      */
-    public function getAllOrganizations()
+    public function getAllOrganizations(): ?array
     {
         return $this->organizations;
     }
 
-    /**
-     * @return Organization|null
-     */
-    public function getFirstOrganization()
+    public function getFirstOrganization(): ?Organization
     {
         if (is_array($this->organizations) && isset($this->organizations[0])) {
             return $this->organizations[0];
         }
 
-        return;
+        return null;
     }
 
     /**
-     * @param string|null $cacheDuration
-     *
      * @throws InvalidArgumentException
-     *
-     * @return EntityDescriptor
      */
-    public function setCacheDuration($cacheDuration)
+    public function setCacheDuration(string $cacheDuration): static
     {
         Helper::validateDurationString($cacheDuration);
 
@@ -150,62 +117,39 @@ class EntityDescriptor extends Metadata
         return $this;
     }
 
-    /**
-     * @return string|null
-     */
-    public function getCacheDuration()
+    public function getCacheDuration(): ?string
     {
         return $this->cacheDuration;
     }
 
-    /**
-     * @param string $entityID
-     *
-     * @return EntityDescriptor
-     */
-    public function setEntityID($entityID)
+    public function setEntityID(string $entityID): static
     {
-        $this->entityID = (string) $entityID;
+        $this->entityID = $entityID;
 
         return $this;
     }
 
-    /**
-     * @return string
-     */
-    public function getEntityID()
+    public function getEntityID(): string
     {
         return $this->entityID;
     }
 
-    /**
-     * @param string|null $id
-     *
-     * @return EntityDescriptor
-     */
-    public function setID($id)
+    public function setID(?string $id): static
     {
-        $this->id = null !== $id ? (string) $id : null;
+        $this->id = $id ?? null;
 
         return $this;
     }
 
-    /**
-     * @return string|null
-     */
-    public function getID()
+    public function getID(): ?string
     {
         return $this->id;
     }
 
     /**
-     * @param IdpSsoDescriptor|SpSsoDescriptor $item
-     *
      * @throws InvalidArgumentException
-     *
-     * @return EntityDescriptor
      */
-    public function addItem($item)
+    public function addItem(IdpSsoDescriptor|SpSsoDescriptor $item): static
     {
         if (
             false == $item instanceof IdpSsoDescriptor
@@ -226,7 +170,7 @@ class EntityDescriptor extends Metadata
     /**
      * @return IdpSsoDescriptor[]|SpSsoDescriptor[]|SSODescriptor[]
      */
-    public function getAllItems()
+    public function getAllItems(): array
     {
         return $this->items;
     }
@@ -234,7 +178,7 @@ class EntityDescriptor extends Metadata
     /**
      * @return IdpSsoDescriptor[]
      */
-    public function getAllIdpSsoDescriptors()
+    public function getAllIdpSsoDescriptors(): array
     {
         $result = [];
         foreach ($this->getAllItems() as $item) {
@@ -249,7 +193,7 @@ class EntityDescriptor extends Metadata
     /**
      * @return SpSsoDescriptor[]
      */
-    public function getAllSpSsoDescriptors()
+    public function getAllSpSsoDescriptors(): array
     {
         $result = [];
         foreach ($this->getAllItems() as $item) {
@@ -261,10 +205,7 @@ class EntityDescriptor extends Metadata
         return $result;
     }
 
-    /**
-     * @return IdpSsoDescriptor|null
-     */
-    public function getFirstIdpSsoDescriptor()
+    public function getFirstIdpSsoDescriptor(): ?IdpSsoDescriptor
     {
         foreach ($this->getAllItems() as $item) {
             if ($item instanceof IdpSsoDescriptor) {
@@ -272,13 +213,10 @@ class EntityDescriptor extends Metadata
             }
         }
 
-        return;
+        return null;
     }
 
-    /**
-     * @return SpSsoDescriptor|null
-     */
-    public function getFirstSpSsoDescriptor()
+    public function getFirstSpSsoDescriptor(): ?SpSsoDescriptor
     {
         foreach ($this->getAllItems() as $item) {
             if ($item instanceof SpSsoDescriptor) {
@@ -286,77 +224,55 @@ class EntityDescriptor extends Metadata
             }
         }
 
-        return;
+        return null;
     }
 
-    /**
-     * @param Signature|null $signature
-     *
-     * @return EntityDescriptor
-     */
-    public function setSignature(Signature $signature)
+    public function setSignature(Signature $signature): static
     {
         $this->signature = $signature;
 
         return $this;
     }
 
-    /**
-     * @return Signature|null
-     */
-    public function getSignature()
+    public function getSignature(): ?Signature
     {
         return $this->signature;
     }
 
-    /**
-     * @param int $validUntil
-     *
-     * @return EntityDescriptor
-     */
-    public function setValidUntil($validUntil)
+    public function setValidUntil(int|string|DateTime $validUntil): static
     {
         $this->validUntil = Helper::getTimestampFromValue($validUntil);
 
         return $this;
     }
 
-    /**
-     * @return int|null
-     */
-    public function getValidUntilTimestamp()
+    public function getValidUntilTimestamp(): ?int
     {
         return $this->validUntil;
     }
 
-    /**
-     * @return string|null
-     */
-    public function getValidUntilString()
+    public function getValidUntilString(): ?string
     {
         if ($this->validUntil) {
             return Helper::time2string($this->validUntil);
         }
 
-        return;
+        return null;
     }
 
-    /**
-     * @return DateTime|null
-     */
-    public function getValidUntilDateTime()
+    public function getValidUntilDateTime(): ?DateTime
     {
         if ($this->validUntil) {
             return new DateTime('@' . $this->validUntil);
         }
 
-        return;
+        return null;
     }
 
     /**
-     * @return array|KeyDescriptor[]
+     * @return KeyDescriptor[]
      */
-    public function getAllIdpKeyDescriptors()
+    public function getAllIdpKeyDescriptors(): array
     {
         $result = [];
         foreach ($this->getAllIdpSsoDescriptors() as $idp) {
@@ -369,9 +285,9 @@ class EntityDescriptor extends Metadata
     }
 
     /**
-     * @return array|KeyDescriptor[]
+     * @return KeyDescriptor[]
      */
-    public function getAllSpKeyDescriptors()
+    public function getAllSpKeyDescriptors(): array
     {
         $result = [];
         foreach ($this->getAllSpSsoDescriptors() as $sp) {
@@ -386,7 +302,7 @@ class EntityDescriptor extends Metadata
     /**
      * @return EndpointReference[]
      */
-    public function getAllEndpoints()
+    public function getAllEndpoints(): array
     {
         $result = [];
         foreach ($this->getAllIdpSsoDescriptors() as $idpSsoDescriptor) {
@@ -409,10 +325,7 @@ class EntityDescriptor extends Metadata
         return $result;
     }
 
-    /**
-     * @return void
-     */
-    public function serialize(DOMNode $parent, SerializationContext $context)
+    public function serialize(DOMNode $parent, SerializationContext $context): void
     {
         $result = $this->createElement('EntityDescriptor', SamlConstants::NS_METADATA, $parent, $context);
 
@@ -429,7 +342,7 @@ class EntityDescriptor extends Metadata
         $this->singleElementsToXml(['Signature'], $result, $context);
     }
 
-    public function deserialize(DOMNode $node, DeserializationContext $context)
+    public function deserialize(DOMNode $node, DeserializationContext $context): void
     {
         $this->checkXmlNodeName($node, 'EntityDescriptor', SamlConstants::NS_METADATA);
 

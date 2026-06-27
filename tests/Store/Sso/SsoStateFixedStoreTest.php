@@ -8,27 +8,27 @@ use Tests\BaseTestCase;
 
 class SsoStateFixedStoreTest extends BaseTestCase
 {
-    public function test_can_be_constructed_without_arguments()
+    public function test_can_be_constructed_without_arguments(): void
     {
         new SsoStateFixedStore();
         $this->assertTrue(true);
     }
 
-    public function test_get_returns_object_created_by_default()
+    public function test_get_returns_object_created_by_default(): void
     {
         $store = new SsoStateFixedStore();
         $result = $store->get();
         $this->assertInstanceOf(SsoState::class, $result);
     }
 
-    public function test_can_set_sso_state()
+    public function test_can_set_sso_state(): void
     {
         $store = new SsoStateFixedStore();
         $store->set(new SsoState());
         $this->assertTrue(true);
     }
 
-    public function test_get_returns_set_object()
+    public function test_get_returns_set_object(): void
     {
         $store = new SsoStateFixedStore();
         $store->set($state = new SsoState());

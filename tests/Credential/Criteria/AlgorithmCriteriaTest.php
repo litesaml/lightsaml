@@ -9,12 +9,12 @@ use Tests\BaseTestCase;
 
 class AlgorithmCriteriaTest extends BaseTestCase
 {
-    public function test_implements_trust_criteria_interface()
+    public function test_implements_trust_criteria_interface(): void
     {
         $this->assertInstanceOf(TrustCriteriaInterface::class, new AlgorithmCriteria(''));
     }
 
-    public function test_returns_value_given_to_constructor()
+    public function test_returns_value_given_to_constructor(): void
     {
         $criteria = new AlgorithmCriteria($expectedValue = XMLSecurityKey::AES256_CBC);
         $this->assertEquals($expectedValue, $criteria->getAlgorithm());
