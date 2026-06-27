@@ -3,7 +3,6 @@
 namespace LightSaml\Build\Container;
 
 use LightSaml\Binding\BindingFactoryInterface;
-use LightSaml\Logout\Resolver\Logout\LogoutSessionResolverInterface;
 use LightSaml\Resolver\Credential\CredentialResolverInterface;
 use LightSaml\Resolver\Endpoint\EndpointResolverInterface;
 use LightSaml\Resolver\Session\SessionProcessorInterface;
@@ -30,8 +29,6 @@ interface ServiceContainerInterface
     public function getSignatureValidator(): SignatureValidatorInterface;
 
     public function getCredentialResolver(): CredentialResolverInterface;
-
-    public function getLogoutSessionResolver(): LogoutSessionResolverInterface;
 
     public function getSessionProcessor(): SessionProcessorInterface;
 }
