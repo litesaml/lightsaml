@@ -35,13 +35,13 @@ class AssertionValidator implements AssertionValidatorInterface
      */
     protected function validateAssertionAttributes(Assertion $assertion)
     {
-        if (false == Helper::validateRequiredString($assertion->getVersion())) {
+        if (null === $assertion->getVersion() || trim($assertion->getVersion()) === '') {
             throw new LightSamlValidationException('Assertion element must have the Version attribute set.');
         }
         if (SamlConstants::VERSION_20 !== $assertion->getVersion()) {
             throw new LightSamlValidationException('Assertion element must have the Version attribute value equal to 2.0.');
         }
-        if (false == Helper::validateRequiredString($assertion->getId())) {
+        if (null === $assertion->getId() || trim($assertion->getId()) === '') {
             throw new LightSamlValidationException('Assertion element must have the ID attribute set.');
         }
         if (false == Helper::validateIdString($assertion->getId())) {

@@ -28,8 +28,6 @@ final class Helper
     }
 
     /**
-     *
-     * @return int
      * @throws InvalidArgumentException
      */
     public static function getTimestampFromValue(mixed $value): int|false
@@ -46,8 +44,6 @@ final class Helper
     }
 
     /**
-     *
-     * @return int
      * @throws InvalidArgumentException
      */
     public static function parseSAMLTime(string $time): int|false
@@ -69,9 +65,8 @@ final class Helper
     /**
      * @throws InvalidArgumentException
      */
-    public static function generateRandomBytes(mixed $length): string
+    public static function generateRandomBytes(int $length): string
     {
-        $length = intval($length);
         if ($length <= 0) {
             throw new InvalidArgumentException();
         }
@@ -92,24 +87,14 @@ final class Helper
     /**
      * Is ID element at least 128 bits in length (SAML2.0 standard section 1.3.4).
      */
-    public static function validateIdString(mixed $id): bool
+    public static function validateIdString(?string $id): bool
     {
-        return is_string($id) && strlen(trim($id)) >= 16;
+        return null !== $id && strlen(trim($id)) >= 16;
     }
 
-    public static function validateRequiredString(mixed $value): bool
+    public static function validateWellFormedUriString(?string $value): bool
     {
-        return is_string($value) && strlen(trim($value)) > 0;
-    }
-
-    public static function validateOptionalString(mixed $value): bool
-    {
-        return null === $value || self::validateRequiredString($value);
-    }
-
-    public static function validateWellFormedUriString(mixed $value): bool
-    {
-        if (is_null($value)) {
+        if (null === $value) {
             return false;
         }
 
@@ -143,8 +128,8 @@ final class Helper
         return null == $notBefore || (($notBefore - $allowedSecondsSkew) <= $now);
     }
 
-    public static function validateNotOnOrAfter(int $notOnOrAfter, int $now, int $allowedSecondsSkew): bool
+    public static function validateNotOnOrAfter(?int $notOnOrAfter, int $now, int $allowedSecondsSkew): bool
     {
-        return null == $notOnOrAfter || ($now < ($notOnOrAfter + $allowedSecondsSkew));
+        return null === $notOnOrAfter || ($now < ($notOnOrAfter + $allowedSecondsSkew));
     }
 }

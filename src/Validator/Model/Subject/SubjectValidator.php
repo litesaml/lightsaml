@@ -41,7 +41,7 @@ class SubjectValidator implements SubjectValidatorInterface
      */
     protected function validateSubjectConfirmation(SubjectConfirmation $subjectConfirmation)
     {
-        if (false == Helper::validateRequiredString($subjectConfirmation->getMethod())) {
+        if (null === $subjectConfirmation->getMethod() || trim($subjectConfirmation->getMethod()) === '') {
             throw new LightSamlValidationException('Method attribute of SubjectConfirmation MUST contain at least one non-whitespace character');
         }
         if (false == Helper::validateWellFormedUriString($subjectConfirmation->getMethod())) {

@@ -93,7 +93,7 @@ class HelperTest extends BaseTestCase
     public function test__generate_random_bytes_error_on_invalid_length(): void
     {
         $this->expectException(InvalidArgumentException::class);
-        Helper::generateRandomBytes('');
+        Helper::generateRandomBytes(0);
     }
 
     public function test__generate_id(): void
@@ -116,62 +116,11 @@ class HelperTest extends BaseTestCase
         $this->assertTrue(Helper::validateIdString('12345678901234567890'));
     }
 
-    public function test__validate_id_string_returns_false_for_non_string(): void
-    {
-        $this->assertFalse(Helper::validateIdString(1234567890123456));
-        $this->assertFalse(Helper::validateIdString([]));
-    }
-
     public function test__validate_id_string_returns_false_for_short_string(): void
     {
         $this->assertFalse(Helper::validateIdString(''));
         $this->assertFalse(Helper::validateIdString('abc'));
         $this->assertFalse(Helper::validateIdString('123456789012345'));
-    }
-
-    public function test__validate_required_string_returns_true_for_non_empty_string(): void
-    {
-        $this->assertTrue(Helper::validateRequiredString('1'));
-        $this->assertTrue(Helper::validateRequiredString('123'));
-        $this->assertTrue(Helper::validateRequiredString('123456789'));
-    }
-
-    public function test__validate_required_string_returns_false_for_empty_string(): void
-    {
-        $this->assertFalse(Helper::validateRequiredString(''));
-    }
-
-    public function test__validate_required_string_returns_false_for_null(): void
-    {
-        $this->assertFalse(Helper::validateRequiredString(null));
-    }
-
-    public function test__validate_required_string_returns_false_for_non_string(): void
-    {
-        $this->assertFalse(Helper::validateRequiredString(123));
-        $this->assertFalse(Helper::validateRequiredString([]));
-    }
-
-    public function test__validate_optional_string_returns_true_for_null(): void
-    {
-        $this->assertTrue(Helper::validateOptionalString(null));
-    }
-
-    public function test__validate_optional_string_returns_true_for_non_empty_string(): void
-    {
-        $this->assertTrue(Helper::validateOptionalString('1'));
-        $this->assertTrue(Helper::validateOptionalString('1234'));
-    }
-
-    public function test__validate_optional_string_returns_false_for_empty_string(): void
-    {
-        $this->assertFalse(Helper::validateOptionalString(''));
-    }
-
-    public function test__validate_optional_string_returns_false_for_non_string(): void
-    {
-        $this->assertFalse(Helper::validateOptionalString(123));
-        $this->assertFalse(Helper::validateOptionalString([]));
     }
 
     public function test__validate_well_formed_uri_string_returns_false_for_empty_string(): void

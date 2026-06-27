@@ -46,7 +46,7 @@ class NameIdValidator implements NameIdValidatorInterface
 
     protected function validateEmailFormat(AbstractNameID $nameId)
     {
-        if (false == Helper::validateRequiredString($nameId->getValue())) {
+        if (null === $nameId->getValue() || trim($nameId->getValue()) === '') {
             throw new LightSamlValidationException('NameID with Email Format attribute MUST contain a Value that contains more than whitespace characters');
         }
 
@@ -57,7 +57,7 @@ class NameIdValidator implements NameIdValidatorInterface
 
     protected function validateX509SubjectNameFormat(AbstractNameID $nameId)
     {
-        if (false == Helper::validateRequiredString($nameId->getValue())) {
+        if (null === $nameId->getValue() || trim($nameId->getValue()) === '') {
             throw new LightSamlValidationException('NameID with X509SubjectName Format attribute MUST contain a Value that contains more than whitespace characters');
         }
 
@@ -68,7 +68,7 @@ class NameIdValidator implements NameIdValidatorInterface
     protected function validateWindowsFormat(AbstractNameID $nameId)
     {
         // Required format is 'DomainName\UserName' but the domain name and the '\' are optional
-        if (false == Helper::validateRequiredString($nameId->getValue())) {
+        if (null === $nameId->getValue() || trim($nameId->getValue()) === '') {
             throw new LightSamlValidationException('NameID with Windows Format attribute MUST contain a Value that contains more than whitespace characters');
         }
     }
@@ -76,7 +76,7 @@ class NameIdValidator implements NameIdValidatorInterface
     protected function validateKerberosFormat(AbstractNameID $nameId)
     {
         // Required format is 'name[/instance]@REALM'
-        if (false == Helper::validateRequiredString($nameId->getValue())) {
+        if (null === $nameId->getValue() || trim($nameId->getValue()) === '') {
             throw new LightSamlValidationException('NameID with Kerberos Format attribute MUST contain a Value that contains more than whitespace characters');
         }
         if (strlen($nameId->getValue()) < 3) {
@@ -90,7 +90,7 @@ class NameIdValidator implements NameIdValidatorInterface
 
     protected function validateEntityFormat(AbstractNameID $nameId)
     {
-        if (false == Helper::validateRequiredString($nameId->getValue())) {
+        if (null === $nameId->getValue() || trim($nameId->getValue()) === '') {
             throw new LightSamlValidationException('NameID with Entity Format attribute MUST contain a Value that contains more than whitespace characters');
         }
         if (strlen($nameId->getValue()) > 1024) {
@@ -109,7 +109,7 @@ class NameIdValidator implements NameIdValidatorInterface
 
     protected function validatePersistentFormat(AbstractNameID $nameId)
     {
-        if (false == Helper::validateRequiredString($nameId->getValue())) {
+        if (null === $nameId->getValue() || trim($nameId->getValue()) === '') {
             throw new LightSamlValidationException('NameID with Persistent Format attribute MUST contain a Value that contains more than whitespace characters');
         }
         if (strlen($nameId->getValue()) > 256) {
@@ -119,7 +119,7 @@ class NameIdValidator implements NameIdValidatorInterface
 
     protected function validateTransientFormat(AbstractNameID $nameId)
     {
-        if (false == Helper::validateRequiredString($nameId->getValue())) {
+        if (null === $nameId->getValue() || trim($nameId->getValue()) === '') {
             throw new LightSamlValidationException('NameID with Transient Format attribute MUST contain a Value that contains more than whitespace characters');
         }
         if (strlen($nameId->getValue()) > 256) {
