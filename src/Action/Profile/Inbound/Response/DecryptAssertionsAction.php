@@ -70,7 +70,13 @@ class DecryptAssertionsAction extends AbstractProfileAction
             if ($encryptedAssertion instanceof EncryptedAssertionReader) {
                 $name = sprintf('assertion_encrypted_%s', $index);
                 $deserializationContext = $context->getInboundContext()->getSubContext($name, DeserializationContext::class);
-                $assertion = $encryptedAssertion->decryptMultiAssertion($privateKeys, $deserializationContext);
+                $assertion = $encryptedAssertion->decryptMultiAssertion(
+                    array_map(
+                        fn(CredentialInterface $credential): XMLSecurityKey => $credential->getPrivateKey(),
+                        $privateKeys
+                    ),
+                    $deserializationContext
+                );
                 $response->addAssertion($assertion);
 
                 $this->logger->info(
