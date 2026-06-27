@@ -5,9 +5,8 @@ namespace LightSaml\State\Sso;
 use DateTime;
 use LightSaml\Error\LightSamlException;
 use LightSaml\Meta\ParameterBag;
-use Serializable;
 
-class SsoSessionState implements Serializable
+class SsoSessionState
 {
     protected ?string $idpEntityId = null;
 
@@ -186,15 +185,6 @@ class SsoSessionState implements Serializable
         throw new LightSamlException(sprintf('Party "%s" is not included in sso session between "%s" and "%s"', $partyId, $this->idpEntityId, $this->spEntityId));
     }
 
-    public function serialize(): string
-    {
-        return serialize($this->__serialize());
-    }
-
-    /**
-     * (PHP >= 8.1)
-     * String representation of object.
-     */
     public function __serialize(): array
     {
         return [
@@ -211,14 +201,6 @@ class SsoSessionState implements Serializable
         ];
     }
 
-    public function unserialize(string $serialized): void
-    {
-        $this->__unserialize(unserialize($serialized));
-    }
-
-    /**
-     * (PHP >= 8.1)
-     */
     public function __unserialize(array $data): void
     {
         // add a few extra elements in the array to ensure that we have enough keys when unserializing

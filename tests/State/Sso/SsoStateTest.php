@@ -156,10 +156,9 @@ class SsoStateTest extends BaseTestCase
         $state->addOption('b', 2);
         $sessions = $state->getSsoSessions();
 
-        $data = $state->serialize();
+        $data = serialize($state);
 
-        $otherState = new SsoState();
-        $otherState->unserialize($data);
+        $otherState = unserialize($data);
         $otherSessions = $otherState->getSsoSessions();
 
         $this->assertEquals($state->getOptions(), $otherState->getOptions());

@@ -54,10 +54,9 @@ class SsoSessionStateTest extends BaseTestCase
             ->setLastAuthOn($lastAuthOn = new DateTime('2015-10-27 10:00:00'))
             ->setSessionInstant($sessionInstant = new DateTime('2015-10-27 06:00:00'))
         ;
-        $data = $state->serialize();
+        $data = serialize($state);
 
-        $otherState = new SsoSessionState();
-        $otherState->unserialize($data);
+        $otherState = unserialize($data);
 
         $this->assertEquals($state->getIdpEntityId(), $otherState->getIdpEntityId());
         $this->assertEquals($state->getSpEntityId(), $otherState->getSpEntityId());
