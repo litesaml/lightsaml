@@ -17,15 +17,23 @@ jobs:
         php: [8.4, 8.5]
 
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v4
 
       - name: Set PHP version
         uses: shivammathur/setup-php@v2
         with:
           php-version: ${{ matrix.php }}
+          coverage: none
+
+      - name: Cache Composer dependencies
+        uses: actions/cache@v4
+        with:
+          path: vendor
+          key: ${{ runner.os }}-composer-${{ hashFiles('composer.lock') }}
+          restore-keys: ${{ runner.os }}-composer-
 
       - name: Install composer dependencies
-        run: composer install --quiet --no-ansi --no-interaction --no-scripts --no-suggest --no-progress --prefer-dist
+        run: composer install --quiet --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
 
       - name: Run tests
         run: composer test
