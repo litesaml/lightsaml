@@ -4,6 +4,12 @@
 All notable changes to this project will be documented in this file.
 <!--- END HEADER -->
 
+## 5.0.1 (2026-06-29)
+
+### Security
+
+* Reject XML Signature Wrapping (XSW) attacks in SignatureXmlReader (#113)
+
 ## 5.0.0 (2026-06-27)
 
 ### Breaking Changes
