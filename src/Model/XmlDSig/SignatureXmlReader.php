@@ -55,6 +55,9 @@ class SignatureXmlReader extends AbstractSignatureReader
             return false;
         }
 
+        // Must run before validateReference() because that call detaches sigNode from the document.
+        $this->assertNoXmlSignatureWrapping();
+
         try {
             $this->signature->validateReference();
         } catch (Exception $e) {
@@ -68,6 +71,81 @@ class SignatureXmlReader extends AbstractSignatureReader
         }
 
         return true;
+    }
+
+    /**
+     * Rejects XML Signature Wrapping (XSW) attacks by verifying that each fragment Reference URI
+     * points to the element that directly contains this ds:Signature, and that this ID is unique
+     * in the document. Duplicate IDs are illegal in XML and are the prerequisite for XSW attacks
+     * where an attacker buries a genuine signed element elsewhere in the document and presents a
+     * forged element with a copied signature as a direct-child assertion.
+     *
+     * @throws LightSamlSecurityException
+     */
+    private function assertNoXmlSignatureWrapping(): void
+    {
+        $sigNode = $this->signature->sigNode;
+        if (!$sigNode instanceof DOMElement) {
+            return;
+        }
+
+        $doc = $sigNode->ownerDocument;
+        $xpath = new DOMXPath($doc);
+        $xpath->registerNamespace('ds', XMLSecurityDSig::XMLDSIGNS);
+
+        $refs = $xpath->query('./ds:SignedInfo/ds:Reference', $sigNode);
+        if (!$refs || $refs->length === 0) {
+            return;
+        }
+
+        foreach ($refs as $ref) {
+            /** @var DOMElement $ref */
+            $uri = $ref->getAttribute('URI');
+            if (!str_starts_with($uri, '#') || $uri === '#') {
+                continue;
+            }
+            $id = substr($uri, 1);
+
+            $parent = $sigNode->parentNode;
+            if (!$parent instanceof DOMElement) {
+                throw new LightSamlSecurityException('Enveloped signature has no parent element');
+            }
+
+            // Verify the parent element carries the referenced ID, using the same attribute names
+            // that xmlseclibs uses (hardcoded 'Id' plus whatever idKeys are registered).
+            $idAttrNames = array_merge(['Id'], $this->signature->idKeys);
+            $parentId = null;
+            foreach ($idAttrNames as $attrName) {
+                $val = $parent->getAttribute($attrName);
+                if ($val !== '') {
+                    $parentId = $val;
+                    break;
+                }
+            }
+
+            if ($parentId !== $id) {
+                throw new LightSamlSecurityException(sprintf(
+                    'Signature Reference URI "#%s" does not match the enclosing element\'s ID "%s"',
+                    $id,
+                    (string) $parentId
+                ));
+            }
+
+            // Build the same XPath predicate that xmlseclibs uses to resolve the reference, then
+            // count matches. More than one element with the same ID means the document is malformed
+            // and a wrapping attack is almost certainly in progress.
+            $iDlist = '@Id="' . $id . '"';
+            foreach ($this->signature->idKeys as $idKey) {
+                $iDlist .= ' or @' . $idKey . '="' . $id . '"';
+            }
+            $matches = $xpath->query('//*[' . $iDlist . ']');
+            if ($matches !== false && $matches->length > 1) {
+                throw new LightSamlSecurityException(sprintf(
+                    'Duplicate ID "%s" found in document: XML Signature Wrapping attack detected',
+                    $id
+                ));
+            }
+        }
     }
 
     /**
