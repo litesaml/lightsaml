@@ -16,6 +16,7 @@ use LightSaml\Action\Profile\Inbound\Response\HasAssertionsValidatorAction;
 use LightSaml\Action\Profile\Inbound\Response\HasAuthnStatementValidatorAction;
 use LightSaml\Action\Profile\Inbound\Response\HasBearerAssertionsValidatorAction;
 use LightSaml\Action\Profile\Inbound\Response\SpSsoStateAction;
+use LightSaml\Action\Profile\Inbound\Response\UniqueAssertionIdValidatorAction;
 use LightSaml\Action\Profile\Inbound\StatusResponse\InResponseToValidatorAction;
 use LightSaml\Action\Profile\Inbound\StatusResponse\StatusAction;
 use LightSaml\Build\Container\BuildContainerInterface;
@@ -79,6 +80,9 @@ class SsoSpReceiveResponseActionBuilder extends AbstractProfileActionBuilder
         ));
 
         $this->add(new HasAssertionsValidatorAction(
+            $this->buildContainer->getSystemContainer()->getLogger()
+        ));
+        $this->add(new UniqueAssertionIdValidatorAction(
             $this->buildContainer->getSystemContainer()->getLogger()
         ));
         $this->add(new HasAuthnStatementValidatorAction(
