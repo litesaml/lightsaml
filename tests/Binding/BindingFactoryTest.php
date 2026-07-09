@@ -132,6 +132,24 @@ class BindingFactoryTest extends BaseTestCase
         $this->assertInstanceOf(HttpPostBinding::class, $factory->getBindingByRequest($request));
     }
 
+    public function test__get_binding_by_request_throws_for_undetectable_get(): void
+    {
+        $this->expectException(LightSamlBindingException::class);
+        $factory = new Psr17Factory();
+        $request = $factory->createServerRequest('GET', '/');
+        $bindingFactory = new BindingFactory();
+        $bindingFactory->getBindingByRequest($request);
+    }
+
+    public function test__get_binding_by_request_throws_for_invalid_method(): void
+    {
+        $this->expectException(LightSamlBindingException::class);
+        $factory = new Psr17Factory();
+        $request = $factory->createServerRequest('DELETE', '/');
+        $bindingFactory = new BindingFactory();
+        $bindingFactory->getBindingByRequest($request);
+    }
+
     public function test__create_with_event_dispatcher(): void
     {
         $eventDispatcher = $this->createMock(EventDispatcherInterface::class);

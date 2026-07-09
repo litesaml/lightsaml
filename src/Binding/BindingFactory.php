@@ -30,6 +30,13 @@ class BindingFactory implements BindingFactoryInterface
     {
         $bindingType = $this->detectBindingType($request);
 
+        if (null === $bindingType) {
+            throw new LightSamlBindingException(sprintf(
+                "Unable to detect binding type for '%s' request: invalid method or missing SAML parameters",
+                $request->getMethod()
+            ));
+        }
+
         return $this->create($bindingType);
     }
 
