@@ -4,6 +4,17 @@
 All notable changes to this project will be documented in this file.
 <!--- END HEADER -->
 
+## 5.1.0 (2026-07-09)
+
+### Security
+
+* Reject Responses with duplicate assertion IDs (#114)
+* Reject assertions with missing or empty ID (#117) (#118)
+
+### Bug Fixes
+
+* Throw LightSamlBindingException instead of TypeError in getBindingByRequest() (#116)
+
 ## 5.0.1 (2026-06-29)
 
 ### Security
