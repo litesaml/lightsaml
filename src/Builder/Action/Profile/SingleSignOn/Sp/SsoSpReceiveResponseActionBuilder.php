@@ -11,6 +11,7 @@ use LightSaml\Action\Profile\Inbound\Message\MessageSignatureValidatorAction;
 use LightSaml\Action\Profile\Inbound\Message\ReceiveMessageAction;
 use LightSaml\Action\Profile\Inbound\Message\ResolvePartyEntityIdAction;
 use LightSaml\Action\Profile\Inbound\Response\AssertionAction;
+use LightSaml\Action\Profile\Inbound\Response\AssertionIdRequiredValidatorAction;
 use LightSaml\Action\Profile\Inbound\Response\DecryptAssertionsAction;
 use LightSaml\Action\Profile\Inbound\Response\HasAssertionsValidatorAction;
 use LightSaml\Action\Profile\Inbound\Response\HasAuthnStatementValidatorAction;
@@ -80,6 +81,9 @@ class SsoSpReceiveResponseActionBuilder extends AbstractProfileActionBuilder
         ));
 
         $this->add(new HasAssertionsValidatorAction(
+            $this->buildContainer->getSystemContainer()->getLogger()
+        ));
+        $this->add(new AssertionIdRequiredValidatorAction(
             $this->buildContainer->getSystemContainer()->getLogger()
         ));
         $this->add(new UniqueAssertionIdValidatorAction(
