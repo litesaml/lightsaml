@@ -1,7 +1,5 @@
 <?php
 
-// tests/Action/Profile/Inbound/Response/UniqueAssertionIdValidatorActionTest.php
-
 namespace Tests\Action\Profile\Inbound\Response;
 
 use LightSaml\Action\Profile\Inbound\Response\UniqueAssertionIdValidatorAction;
