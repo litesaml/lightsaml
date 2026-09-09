@@ -4,6 +4,17 @@
 All notable changes to this project will be documented in this file.
 <!--- END HEADER -->
 
+## 6.0.0 (2026-09-09)
+
+### Breaking Changes
+
+* Require robrichards/xmlseclibs 4.0 and add phpseclib/phpseclib as a direct dependency (#121)
+* Default EncryptedElementWriter key transport to RSA-OAEP instead of RSA-1.5, which xmlseclibs 4 rejects on decryption by default (#121)
+
+### Security
+
+* Adopt xmlseclibs 4.0 safe-by-default hardening: CVE-2025-23369 entity-reference signature bypass, SignatureMethod/key algorithm binding, RSA-1.5 (Bleichenbacher) and pre-auth XPath-transform DoS defenses (#121)
+
 ## 5.1.0 (2026-07-09)
 
 ### Security
