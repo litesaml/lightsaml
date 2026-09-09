@@ -16,7 +16,7 @@ abstract class EncryptedElementWriter extends EncryptedElement
 {
     protected ?DOMElement $encryptedElement;
 
-    public function __construct(protected string $blockEncryptionAlgorithm = XMLSecurityKey::AES128_CBC, protected string $keyTransportEncryption = XMLSecurityKey::RSA_1_5)
+    public function __construct(protected string $blockEncryptionAlgorithm = XMLSecurityKey::AES128_CBC, protected string $keyTransportEncryption = XMLSecurityKey::RSA_OAEP_MGF1P)
     {
     }
 
