@@ -4,6 +4,16 @@
 All notable changes to this project will be documented in this file.
 <!--- END HEADER -->
 
+## 5.1.1 (2026-10-16)
+
+### Security
+
+* Reject signature verification errors in signature readers (#131)
+
+### Bug Fixes
+
+* Allow SignatureXmlReader::validate() to be called multiple times (#125) (#132)
+
 ## 5.1.0 (2026-07-09)
 
 ### Security
