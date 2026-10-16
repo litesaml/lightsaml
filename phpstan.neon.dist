@@ -3,3 +3,11 @@ parameters:
     paths:
         - src
         - tests
+    ignoreErrors:
+        # RsaPssKey supports phpseclib 3 and 4; only one of the two namespaces is installed.
+        -
+            message: '#phpseclib[34]\\Crypt\\#'
+            paths:
+                - src/Credential/RsaPssKey.php
+                - tests/Credential/RsaPssKeyTest.php
+            reportUnmatched: false
