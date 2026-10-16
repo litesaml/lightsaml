@@ -66,7 +66,8 @@ class SignatureXmlReader extends AbstractSignatureReader
 
         $key = $this->castKeyIfNecessary($key);
 
-        if (false == $this->signature->verify($key)) {
+        // verify() returns 1 (valid), 0 (invalid) or -1 (error): anything but 1 must be rejected.
+        if (1 !== $this->signature->verify($key)) {
             throw new LightSamlSecurityException('Unable to verify Signature');
         }
 
