@@ -4,6 +4,12 @@
 All notable changes to this project will be documented in this file.
 <!--- END HEADER -->
 
+## 6.0.1 (2026-10-16)
+
+### Security
+
+* Reject signature verification errors in signature readers (GHSA-rm7m-7jq4-gw46) (#129)
+
 ## 6.0.0 (2026-09-09)
 
 ### Breaking Changes
