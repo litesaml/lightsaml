@@ -83,7 +83,8 @@ class SignatureStringReader extends AbstractSignatureReader
 
         $signature = base64_decode($this->getSignature(), true);
 
-        if (false == $key->verifySignature($this->getData(), $signature)) {
+        // verifySignature() returns 1 (valid), 0 (invalid) or -1 (error): anything but 1 must be rejected.
+        if (1 !== $key->verifySignature($this->getData(), $signature)) {
             throw new LightSamlSecurityException('Unable to validate signature on query string');
         }
 
