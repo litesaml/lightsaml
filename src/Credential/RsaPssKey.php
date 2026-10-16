@@ -4,8 +4,10 @@ namespace LightSaml\Credential;
 
 use Exception;
 use LightSaml\SamlConstants;
-use phpseclib3\Crypt\PublicKeyLoader;
-use phpseclib3\Crypt\RSA;
+use phpseclib3\Crypt\PublicKeyLoader as PublicKeyLoader3;
+use phpseclib3\Crypt\RSA as RSA3;
+use phpseclib4\Crypt\PublicKeyLoader as PublicKeyLoader4;
+use phpseclib4\Crypt\RSA as RSA4;
 use RobRichards\XMLSecLibs\XMLSecurityKey;
 
 /**
@@ -50,13 +52,18 @@ class RsaPssKey extends XMLSecurityKey
             throw new Exception('No key loaded for RSA-PSS verification');
         }
 
-        $key = PublicKeyLoader::load($this->key);
-        if (!$key instanceof RSA) {
+        // phpseclib 3 and 4 share this API but differ in root namespace.
+        $isPhpseclib4 = class_exists(RSA4::class);
+        $loaderClass = $isPhpseclib4 ? PublicKeyLoader4::class : PublicKeyLoader3::class;
+        $rsaClass = $isPhpseclib4 ? RSA4::class : RSA3::class;
+
+        $key = $loaderClass::load($this->key);
+        if (!$key instanceof $rsaClass) {
             throw new Exception('Expected an RSA key for RSA-PSS verification');
         }
 
         $key = $key
-            ->withPadding(RSA::SIGNATURE_PSS)
+            ->withPadding($rsaClass::SIGNATURE_PSS)
             ->withHash($this->pssDigest)
             ->withMGFHash($this->pssDigest)
             ->withSaltLength(strlen(hash($this->pssDigest, '', true)));

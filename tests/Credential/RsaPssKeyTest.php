@@ -3,12 +3,19 @@
 namespace Tests\Credential;
 
 use LightSaml\Credential\RsaPssKey;
-use phpseclib3\Crypt\RSA;
+use phpseclib3\Crypt\RSA as RSA3;
+use phpseclib4\Crypt\RSA as RSA4;
 use PHPUnit\Framework\Attributes\DataProvider;
 use Tests\BaseTestCase;
 
 class RsaPssKeyTest extends BaseTestCase
 {
+    /** @return class-string<RSA3>|class-string<RSA4> */
+    private static function rsaClass(): string
+    {
+        return class_exists(RSA4::class) ? RSA4::class : RSA3::class;
+    }
+
     /** @return array<string, array{string}> */
     public static function hash_provider(): array
     {
@@ -23,11 +30,12 @@ class RsaPssKeyTest extends BaseTestCase
     public function test_verifies_rsa_pss_signature(string $hash): void
     {
         $digest = strtolower($hash);
-        $private = RSA::createKey(2048);
+        $rsaClass = self::rsaClass();
+        $private = $rsaClass::createKey(2048);
         $data = 'the-canonicalized-signed-info';
 
         $signature = $private
-            ->withPadding(RSA::SIGNATURE_PSS)
+            ->withPadding($rsaClass::SIGNATURE_PSS)
             ->withHash($digest)
             ->withMGFHash($digest)
             ->withSaltLength(strlen(hash($digest, '', true)))
@@ -43,11 +51,12 @@ class RsaPssKeyTest extends BaseTestCase
 
     public function test_wrong_digest_does_not_verify(): void
     {
-        $private = RSA::createKey(2048);
+        $rsaClass = self::rsaClass();
+        $private = $rsaClass::createKey(2048);
         $data = 'payload';
 
         $signature = $private
-            ->withPadding(RSA::SIGNATURE_PSS)
+            ->withPadding($rsaClass::SIGNATURE_PSS)
             ->withHash('sha512')
             ->withMGFHash('sha512')
             ->withSaltLength(64)
