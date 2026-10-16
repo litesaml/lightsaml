@@ -15,6 +15,11 @@ jobs:
       fail-fast: false
       matrix:
         php: [8.4, 8.5]
+        phpseclib: ['^3.0', '^4.0']
+
+    name: build (PHP ${{ matrix.php }}, phpseclib ${{ matrix.phpseclib }})
+    # phpseclib 4 can't be installed until robrichards/xmlseclibs widens its ~3.0 constraint (robrichards/xmlseclibs#289).
+    continue-on-error: ${{ matrix.phpseclib == '^4.0' }}
 
     steps:
       - uses: actions/checkout@v4
@@ -29,11 +34,14 @@ jobs:
         uses: actions/cache@v4
         with:
           path: vendor
-          key: ${{ runner.os }}-composer-${{ hashFiles('composer.lock') }}
-          restore-keys: ${{ runner.os }}-composer-
+          key: ${{ runner.os }}-php${{ matrix.php }}-phpseclib${{ matrix.phpseclib }}-composer-${{ hashFiles('composer.json') }}
+          restore-keys: ${{ runner.os }}-php${{ matrix.php }}-phpseclib${{ matrix.phpseclib }}-composer-
 
       - name: Install composer dependencies
-        run: composer install --quiet --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
+        run: composer require --quiet --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist --update-with-all-dependencies "phpseclib/phpseclib:${{ matrix.phpseclib }}"
+
+      - name: Show installed phpseclib and xmlseclibs
+        run: composer show | grep -E '^(phpseclib/phpseclib|robrichards/xmlseclibs) '
 
       - name: Run tests
         run: composer test
