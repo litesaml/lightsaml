@@ -5,6 +5,7 @@ namespace Tests\Functional\Credential;
 use LightSaml\Credential\KeyHelper;
 use LightSaml\Credential\RsaPssKey;
 use LightSaml\Credential\X509Certificate;
+use LightSaml\Error\LightSamlSecurityException;
 use LightSaml\SamlConstants;
 use RobRichards\XMLSecLibs\XMLSecurityKey;
 use Tests\BaseTestCase;
@@ -61,6 +62,66 @@ class X509CertificateTest extends BaseTestCase
         $key = KeyHelper::createPublicKey($certificate);
         $this->assertInstanceOf(RsaPssKey::class, $key);
         $this->assertEquals(SamlConstants::RSA_PSS, $key->type);
+    }
+
+    public function test_create_public_key_from_certificate_issued_with_md5(): void
+    {
+        $certificate = X509Certificate::fromFile(__DIR__ . '/../../resources/saml-md5.crt');
+        $key = KeyHelper::createPublicKey($certificate);
+        $this->assertSame(XMLSecurityKey::RSA_SHA256, $key->type);
+    }
+
+    public function test_public_key_type_rsa(): void
+    {
+        $certificate = X509Certificate::fromFile(__DIR__ . '/../../resources/saml-sha256.crt');
+        $this->assertSame(X509Certificate::PUBLIC_KEY_TYPE_RSA, $certificate->getPublicKeyType());
+    }
+
+    public function test_public_key_type_rsa_pss(): void
+    {
+        $certificate = X509Certificate::fromFile(__DIR__ . '/../../resources/saml-pss.crt');
+        $this->assertSame(X509Certificate::PUBLIC_KEY_TYPE_RSA_PSS, $certificate->getPublicKeyType());
+    }
+
+    /**
+     * @see https://github.com/litesaml/lightsaml/issues/123
+     */
+    public function test_rsa_certificate_issued_by_ecdsa_ca_falls_back_to_its_public_key_type(): void
+    {
+        $certificate = X509Certificate::fromFile(__DIR__ . '/../../resources/saml-rsa-ecdsa-ca.crt');
+        $this->assertSame(X509Certificate::PUBLIC_KEY_TYPE_RSA, $certificate->getPublicKeyType());
+        $this->assertSame(XMLSecurityKey::RSA_SHA256, $certificate->getSignatureAlgorithm());
+    }
+
+    public function test_create_public_key_from_rsa_certificate_issued_by_ecdsa_ca(): void
+    {
+        $certificate = X509Certificate::fromFile(__DIR__ . '/../../resources/saml-rsa-ecdsa-ca.crt');
+        $key = KeyHelper::createPublicKey($certificate);
+        $this->assertSame(XMLSecurityKey::RSA_SHA256, $key->type);
+    }
+
+    public function test_ec_certificate_issued_by_ecdsa_ca_is_rejected_with_its_key_type(): void
+    {
+        $this->expectException(LightSamlSecurityException::class);
+        $this->expectExceptionMessage('Unsupported certificate public key type "EC": only RSA keys are supported');
+
+        X509Certificate::fromFile(__DIR__ . '/../../resources/saml-ec-ecdsa-ca.crt');
+    }
+
+    public function test_ec_certificate_issued_by_rsa_ca_can_be_loaded(): void
+    {
+        $certificate = X509Certificate::fromFile(__DIR__ . '/../../resources/saml-ec-rsa-ca.crt');
+        $this->assertSame(X509Certificate::PUBLIC_KEY_TYPE_EC, $certificate->getPublicKeyType());
+    }
+
+    public function test_create_public_key_from_ec_certificate_issued_by_rsa_ca_is_rejected(): void
+    {
+        $certificate = X509Certificate::fromFile(__DIR__ . '/../../resources/saml-ec-rsa-ca.crt');
+
+        $this->expectException(LightSamlSecurityException::class);
+        $this->expectExceptionMessage('Unsupported certificate public key type "EC": only RSA keys are supported');
+
+        KeyHelper::createPublicKey($certificate);
     }
 
     public function test_get_subject(): void

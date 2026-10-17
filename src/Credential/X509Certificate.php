@@ -6,10 +6,16 @@ use InvalidArgumentException;
 use LightSaml\Error\LightSamlException;
 use LightSaml\Error\LightSamlSecurityException;
 use LightSaml\SamlConstants;
+use OpenSSLCertificate;
 use RobRichards\XMLSecLibs\XMLSecurityKey;
 
 class X509Certificate
 {
+    public const PUBLIC_KEY_TYPE_RSA = 'RSA';
+    public const PUBLIC_KEY_TYPE_RSA_PSS = 'RSA-PSS';
+    public const PUBLIC_KEY_TYPE_EC = 'EC';
+    public const PUBLIC_KEY_TYPE_DSA = 'DSA';
+
     /** @var array<string, string> */
     private static array $typeMap = [
         'RSA-SHA1' => XMLSecurityKey::RSA_SHA1,
@@ -26,6 +32,8 @@ class X509Certificate
     private ?string $signatureAlgorithm = null;
 
     private ?string $pssHashAlgorithm = null;
+
+    private ?string $publicKeyType = null;
 
     public static function fromFile(string $filename): self
     {
@@ -94,11 +102,12 @@ class X509Certificate
         $this->info = openssl_x509_parse($res);
         $this->signatureAlgorithm = null;
         $this->pssHashAlgorithm = null;
+        openssl_x509_export($res, $out, false);
+        $this->publicKeyType = $this->detectPublicKeyType($res, $out);
         $signatureType = $this->info['signatureTypeSN'] ?? '';
         if ($signatureType && isset(self::$typeMap[$signatureType])) {
             $this->signatureAlgorithm = self::$typeMap[$signatureType];
         } else {
-            openssl_x509_export($res, $out, false);
             if (preg_match('/^\s+Signature Algorithm:\s*(.*)\s*$/m', $out, $match)) {
                 switch (rtrim($match[1])) {
                     case 'sha1WithRSAEncryption':
@@ -122,16 +131,7 @@ class X509Certificate
                         $this->signatureAlgorithm = SamlConstants::XMLDSIG_DIGEST_MD5;
                         break;
                     case 'rsassaPss':
-                        $hashAlgo = 'SHA256';
-                        if (preg_match('/^\s+Hash Algorithm:\s*(\S+)/m', $out, $hashMatch)) {
-                            $normalized = strtoupper(preg_replace('/[^a-zA-Z0-9]/', '', $hashMatch[1]));
-                            $hashAlgo = match ($normalized) {
-                                'SHA384', 'SHA2384' => 'SHA384',
-                                'SHA512', 'SHA2512' => 'SHA512',
-                                default => 'SHA256',
-                            };
-                        }
-                        $this->pssHashAlgorithm = $hashAlgo;
+                        $this->pssHashAlgorithm = $this->detectPssHashAlgorithm($out);
                         $this->signatureAlgorithm = SamlConstants::RSA_PSS;
                         break;
                     default:
@@ -139,9 +139,61 @@ class X509Certificate
             }
         }
 
+        // The algorithm above is the one the issuer used to sign this certificate, which says nothing
+        // about the certificate's own key (e.g. an ECDSA CA can issue RSA certificates). When it is not
+        // recognized, fall back to the type of the certificate's public key.
         if (!$this->signatureAlgorithm) {
-            throw new LightSamlSecurityException('Unrecognized signature algorithm');
+            if (self::PUBLIC_KEY_TYPE_RSA === $this->publicKeyType) {
+                $this->signatureAlgorithm = XMLSecurityKey::RSA_SHA256;
+            } elseif (self::PUBLIC_KEY_TYPE_RSA_PSS === $this->publicKeyType) {
+                $this->pssHashAlgorithm = $this->detectPssHashAlgorithm($out);
+                $this->signatureAlgorithm = SamlConstants::RSA_PSS;
+            }
         }
+
+        if (!$this->signatureAlgorithm) {
+            throw new LightSamlSecurityException(sprintf(
+                'Unsupported certificate public key type "%s": only RSA keys are supported',
+                $this->publicKeyType ?? 'unknown'
+            ));
+        }
+    }
+
+    private function detectPublicKeyType(OpenSSLCertificate $certificate, string $text): ?string
+    {
+        $publicKey = openssl_pkey_get_public($certificate);
+        $details = $publicKey ? openssl_pkey_get_details($publicKey) : false;
+
+        switch ($details ? $details['type'] : null) {
+            case OPENSSL_KEYTYPE_RSA:
+                return self::PUBLIC_KEY_TYPE_RSA;
+            case OPENSSL_KEYTYPE_EC:
+                return self::PUBLIC_KEY_TYPE_EC;
+            case OPENSSL_KEYTYPE_DSA:
+                return self::PUBLIC_KEY_TYPE_DSA;
+        }
+
+        // PHP does not map RSASSA-PSS (or e.g. Ed25519) keys to an OPENSSL_KEYTYPE_* constant.
+        if (preg_match('/^\s+Public Key Algorithm:\s*(\S+)/m', $text, $match)) {
+            return 'rsassaPss' === $match[1] ? self::PUBLIC_KEY_TYPE_RSA_PSS : $match[1];
+        }
+
+        return null;
+    }
+
+    private function detectPssHashAlgorithm(string $text): string
+    {
+        if (preg_match('/^\s+Hash Algorithm:\s*(\S+)/m', $text, $hashMatch)) {
+            $normalized = strtoupper(preg_replace('/[^a-zA-Z0-9]/', '', $hashMatch[1]));
+
+            return match ($normalized) {
+                'SHA384', 'SHA2384' => 'SHA384',
+                'SHA512', 'SHA2512' => 'SHA512',
+                default => 'SHA256',
+            };
+        }
+
+        return 'SHA256';
     }
 
     /**
@@ -243,5 +295,18 @@ class X509Certificate
     public function getPssHashAlgorithm(): ?string
     {
         return $this->pssHashAlgorithm;
+    }
+
+    /**
+     * Type of the certificate's own public key: one of the PUBLIC_KEY_TYPE_* constants, or the
+     * OpenSSL name of the key algorithm (e.g. "ED25519") for other types.
+     */
+    public function getPublicKeyType(): ?string
+    {
+        if (false == $this->data) {
+            throw new LightSamlException('Certificate data not set');
+        }
+
+        return $this->publicKeyType;
     }
 }

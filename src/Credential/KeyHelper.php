@@ -31,12 +31,27 @@ class KeyHelper
             throw new LightSamlSecurityException('Unrecognized certificate signature algorithm');
         }
 
+        // The signature algorithm comes from the certificate's issuer: an RSA CA can issue e.g. EC certificates.
+        $keyType = $certificate->getPublicKeyType();
+        if (null !== $keyType && !in_array($keyType, [X509Certificate::PUBLIC_KEY_TYPE_RSA, X509Certificate::PUBLIC_KEY_TYPE_RSA_PSS], true)) {
+            throw new LightSamlSecurityException(sprintf(
+                'Unsupported certificate public key type "%s": only RSA keys are supported',
+                $keyType
+            ));
+        }
+
         if ($algo === SamlConstants::RSA_PSS) {
             $hashAlgo = $certificate->getPssHashAlgorithm() ?? 'SHA256';
             $key = new RsaPssKey($hashAlgo);
             $key->loadKey($certificate->toPem(), false, true);
 
             return $key;
+        }
+
+        // The issuer may have used an algorithm that is not an RSA key type (e.g. MD5): the key itself
+        // is RSA, and it is re-typed to the document's SignatureMethod when verifying anyway.
+        if (!in_array($algo, [XMLSecurityKey::RSA_SHA1, XMLSecurityKey::RSA_SHA256, XMLSecurityKey::RSA_SHA384, XMLSecurityKey::RSA_SHA512], true)) {
+            $algo = XMLSecurityKey::RSA_SHA256;
         }
 
         $key = new XMLSecurityKey($algo, ['type' => 'public']);
