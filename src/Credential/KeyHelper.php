@@ -9,6 +9,18 @@ use RobRichards\XMLSecLibs\XMLSecurityKey;
 
 class KeyHelper
 {
+    private const SUPPORTED_PUBLIC_KEY_TYPES = [
+        X509Certificate::PUBLIC_KEY_TYPE_RSA,
+        X509Certificate::PUBLIC_KEY_TYPE_RSA_PSS,
+    ];
+
+    private const RSA_KEY_TYPES = [
+        XMLSecurityKey::RSA_SHA1,
+        XMLSecurityKey::RSA_SHA256,
+        XMLSecurityKey::RSA_SHA384,
+        XMLSecurityKey::RSA_SHA512,
+    ];
+
     /**
      * @param string $key        Key content or key filename
      * @param string $passphrase Passphrase for the private key
@@ -33,7 +45,7 @@ class KeyHelper
 
         // The signature algorithm comes from the certificate's issuer: an RSA CA can issue e.g. EC certificates.
         $keyType = $certificate->getPublicKeyType();
-        if (null !== $keyType && !in_array($keyType, [X509Certificate::PUBLIC_KEY_TYPE_RSA, X509Certificate::PUBLIC_KEY_TYPE_RSA_PSS], true)) {
+        if (null !== $keyType && !in_array($keyType, self::SUPPORTED_PUBLIC_KEY_TYPES, true)) {
             throw new LightSamlSecurityException(sprintf(
                 'Unsupported certificate public key type "%s": only RSA keys are supported',
                 $keyType
@@ -50,8 +62,8 @@ class KeyHelper
 
         // The issuer may have used an algorithm that is not an RSA key type (e.g. MD5): the key itself
         // is RSA, and it is re-typed to the document's SignatureMethod when verifying anyway.
-        if (!in_array($algo, [XMLSecurityKey::RSA_SHA1, XMLSecurityKey::RSA_SHA256, XMLSecurityKey::RSA_SHA384, XMLSecurityKey::RSA_SHA512], true)) {
-            $algo = XMLSecurityKey::RSA_SHA256;
+        if (!in_array($algo, self::RSA_KEY_TYPES, true)) {
+            $algo = X509Certificate::DEFAULT_RSA_ALGORITHM;
         }
 
         $key = new XMLSecurityKey($algo, ['type' => 'public']);

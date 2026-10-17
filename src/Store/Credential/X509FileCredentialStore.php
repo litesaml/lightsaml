@@ -10,6 +10,14 @@ use RobRichards\XMLSecLibs\XMLSecurityKey;
 
 class X509FileCredentialStore implements CredentialStoreInterface
 {
+    private const DEFAULT_SIGNING_ALGORITHM = XMLSecurityKey::RSA_SHA256;
+
+    private const ISSUER_ALGORITHMS_KEPT_FOR_SIGNING = [
+        XMLSecurityKey::RSA_SHA256,
+        XMLSecurityKey::RSA_SHA384,
+        XMLSecurityKey::RSA_SHA512,
+    ];
+
     private ?X509Credential $credential = null;
 
     public function __construct(private readonly string $entityId, private readonly string $certificatePath, private readonly string $keyPath, private readonly string $password)
@@ -39,14 +47,14 @@ class X509FileCredentialStore implements CredentialStoreInterface
 
     /**
      * The certificate's signature algorithm was chosen by its issuer, not for this key: only keep it
-     * when it is a strong RSA one, and sign with RSA-SHA256 otherwise (SHA-1, MD5, ECDSA CA, ...).
+     * when it is a strong RSA one, and sign with DEFAULT_SIGNING_ALGORITHM otherwise (SHA-1, MD5, ...).
      */
     private static function getSigningAlgorithm(X509Certificate $certificate): string
     {
         $algorithm = $certificate->getSignatureAlgorithm();
 
-        return in_array($algorithm, [XMLSecurityKey::RSA_SHA256, XMLSecurityKey::RSA_SHA384, XMLSecurityKey::RSA_SHA512], true)
+        return in_array($algorithm, self::ISSUER_ALGORITHMS_KEPT_FOR_SIGNING, true)
             ? $algorithm
-            : XMLSecurityKey::RSA_SHA256;
+            : self::DEFAULT_SIGNING_ALGORITHM;
     }
 }
