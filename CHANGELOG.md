@@ -4,6 +4,16 @@
 All notable changes to this project will be documented in this file.
 <!--- END HEADER -->
 
+## 6.1.0 (2026-10-17)
+
+### Features
+
+* Add X509Certificate::getPublicKeyType() (#133)
+
+### Bug Fixes
+
+* Stop deriving the key algorithm from the certificate issuer: support RSA certificates issued by an ECDSA CA, reject non-RSA keys with an explicit error, and sign with RSA-SHA256 instead of a weak issuer algorithm in X509FileCredentialStore (#123) (#133)
+
 ## 6.0.1 (2026-10-16)
 
 ### Security
