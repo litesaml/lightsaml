@@ -5,6 +5,8 @@ namespace LightSaml\Credential;
 use InvalidArgumentException;
 use LightSaml\Error\LightSamlSecurityException;
 use LightSaml\SamlConstants;
+use phpseclib3\Crypt\Common\PrivateKey;
+use phpseclib3\Crypt\PublicKeyLoader;
 use RobRichards\XMLSecLibs\XMLSecurityKey;
 
 class KeyHelper
@@ -87,8 +89,8 @@ class KeyHelper
     }
 
     /**
-     * Returns the PEM certificate/public-key material backing a public XMLSecurityKey plus a
-     * flag telling whether it is a certificate.
+     * Returns the PEM certificate/public-key material backing an XMLSecurityKey plus a
+     * flag telling whether it is a certificate. A private key yields its public component.
      *
      * Since xmlseclibs 4 the loaded material is kept as a PEM string in `$key->key`
      * (xmlseclibs 3 stored an OpenSSL resource there).
@@ -103,6 +105,18 @@ class KeyHelper
 
         if (!is_string($material) || '' === $material) {
             throw new LightSamlSecurityException('Unable to get key details from XMLSecurityKey.');
+        }
+
+        if (str_contains($material, 'PRIVATE KEY')) {
+            $private = '' === $key->passphrase
+                ? PublicKeyLoader::load($material)
+                : PublicKeyLoader::load($material, $key->passphrase);
+
+            if (!$private instanceof PrivateKey) {
+                throw new LightSamlSecurityException('Unable to get public key from XMLSecurityKey.');
+            }
+
+            return [$private->getPublicKey()->toString('PKCS8'), false];
         }
 
         return [$material, str_contains($material, 'BEGIN CERTIFICATE')];
