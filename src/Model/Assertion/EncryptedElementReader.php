@@ -186,6 +186,7 @@ class EncryptedElementReader extends EncryptedElement
         /** @var XMLSecEnc $encKey */
         $encKey = $this->symmetricKeyInfo->encryptedCtx;
         $this->symmetricKeyInfo->key = $inputKey->key;
+        $this->symmetricKeyInfo->passphrase = $inputKey->passphrase;
 
         $keySize = $this->symmetricKey->getSymmetricKeySize();
         if (null === $keySize) {

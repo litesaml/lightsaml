@@ -18,7 +18,12 @@ class X509CredentialTest extends BaseTestCase
 
         $this->assertSame($certificate, $credential->getCertificate());
         $this->assertNotNull($credential->getPublicKey());
-        $this->assertEquals($certificate->toPem(), $credential->getPublicKey()->getX509Certificate());
+        // xmlseclibs 4 re-serialises the certificate PEM (line wrapping / endings), so compare
+        // the decoded certificate bytes rather than the exact PEM string.
+        $this->assertEquals(
+            $certificate->getData(),
+            (new X509Certificate())->loadPem($credential->getPublicKey()->getX509Certificate())->getData()
+        );
 
         $this->assertNull($credential->getPrivateKey());
 
@@ -36,7 +41,12 @@ class X509CredentialTest extends BaseTestCase
 
         $this->assertSame($certificate, $credential->getCertificate());
         $this->assertNotNull($credential->getPublicKey());
-        $this->assertEquals($certificate->toPem(), $credential->getPublicKey()->getX509Certificate());
+        // xmlseclibs 4 re-serialises the certificate PEM (line wrapping / endings), so compare
+        // the decoded certificate bytes rather than the exact PEM string.
+        $this->assertEquals(
+            $certificate->getData(),
+            (new X509Certificate())->loadPem($credential->getPublicKey()->getX509Certificate())->getData()
+        );
 
         $this->assertNotNull($credential->getPrivateKey());
     }
