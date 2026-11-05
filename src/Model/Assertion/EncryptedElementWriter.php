@@ -21,7 +21,7 @@ abstract class EncryptedElementWriter extends EncryptedElement
      * @param string $blockEncryptionAlgorithm
      * @param string $keyTransportEncryption
      */
-    public function __construct(protected $blockEncryptionAlgorithm = XMLSecurityKey::AES128_CBC, protected $keyTransportEncryption = XMLSecurityKey::RSA_1_5)
+    public function __construct(protected $blockEncryptionAlgorithm = XMLSecurityKey::AES128_CBC, protected $keyTransportEncryption = XMLSecurityKey::RSA_OAEP_MGF1P)
     {
     }
 
